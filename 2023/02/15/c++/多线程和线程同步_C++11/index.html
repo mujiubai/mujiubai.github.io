@@ -10,8 +10,8 @@
 
 1. C++11线程类C++11提供了一个线程类：std::thread，使得并发编程更加方便
 1.1 常用操作函数构造函数：
-&amp;#x2F;&amp;#x2F;构造函数原型：
-&amp;">
+//构造函数原型：
+// ①默认构造函，构">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -405,14 +405,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-02-15
+                    2023-02-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.3k
                 </div>
                 
 
@@ -452,38 +452,38 @@
 <hr>
 <h1 id="1-C-11线程类"><a href="#1-C-11线程类" class="headerlink" title="1. C++11线程类"></a>1. C++11线程类</h1><p>C++11提供了一个线程类：std::thread，使得并发编程更加方便</p>
 <h2 id="1-1-常用操作函数"><a href="#1-1-常用操作函数" class="headerlink" title="1.1 常用操作函数"></a>1.1 常用操作函数</h2><p><strong>构造函数</strong>：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;构造函数原型：
-&#x2F;&#x2F; ①默认构造函，构造一个线程对象，在这个线程中不执行任何处理动作
-thread() noexcept;
-&#x2F;&#x2F; ②移动构造函数，将 other 的线程所有权转移给新的 thread 对象。之后 other 不再表示执行线程。
-thread( thread&amp;&amp; other ) noexcept;
-&#x2F;&#x2F; ③创建线程对象，并在该线程中执行函数 f 中的业务逻辑，args 是要传递给函数 f 的参数
-template&lt; class Function, class... Args &gt;
-explicit thread( Function&amp;&amp; f, Args&amp;&amp;... args );
-&#x2F;&#x2F; ④使用 &#x3D;delete 显示删除拷贝构造，不允许线程对象之间的拷贝
-thread( const thread&amp; ) &#x3D; delete;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//构造函数原型：</span>
+<span class="token comment">// ①默认构造函，构造一个线程对象，在这个线程中不执行任何处理动作</span>
+<span class="token function">thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token comment">// ②移动构造函数，将 other 的线程所有权转移给新的 thread 对象。之后 other 不再表示执行线程。</span>
+<span class="token function">thread</span><span class="token punctuation">(</span> thread<span class="token operator">&amp;&amp;</span> other <span class="token punctuation">)</span> <span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token comment">// ③创建线程对象，并在该线程中执行函数 f 中的业务逻辑，args 是要传递给函数 f 的参数</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span> <span class="token keyword">class</span> <span class="token class-name">Function</span><span class="token punctuation">,</span> <span class="token keyword">class</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> Args <span class="token operator">></span>
+<span class="token keyword">explicit</span> <span class="token function">thread</span><span class="token punctuation">(</span> Function<span class="token operator">&amp;&amp;</span> f<span class="token punctuation">,</span> Args<span class="token operator">&amp;&amp;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// ④使用 =delete 显示删除拷贝构造，不允许线程对象之间的拷贝</span>
+<span class="token function">thread</span><span class="token punctuation">(</span> <span class="token keyword">const</span> thread<span class="token operator">&amp;</span> <span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;使用方法
-thread t(func, 520, &quot;i love you&quot;);
-thread t1(func1);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//使用方法</span>
+thread <span class="token function">t</span><span class="token punctuation">(</span>func<span class="token punctuation">,</span> <span class="token number">520</span><span class="token punctuation">,</span> <span class="token string">"i love you"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+thread <span class="token function">t1</span><span class="token punctuation">(</span>func1<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>获取线程号</strong>：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::thread::id get_id() const noexcept;
-&#x2F;&#x2F;此函数是由类对象调用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">std<span class="token double-colon punctuation">::</span>thread<span class="token double-colon punctuation">::</span>id <span class="token function">get_id</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token comment">//此函数是由类对象调用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>线程回收</strong>：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void join();<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>调用此函数的线程会被阻塞，直到子线程执行完才会被唤醒</p>
 <p><strong>线程分离</strong>：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void detach();<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">detach</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>此函数的作用是将主线程和子线程关系分离，子线程不再属于主线程，其由系统接管，且其返回值也不能再被主线程使用。</p>
 <p>此函数不会阻塞线程。</p>
 <p>**joinable()**：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool joinable() const noexcept;
-&#x2F;&#x2F;返回值为 true：主线程和子线程之间有关联（连接）关系
-&#x2F;&#x2F;返回值为 false：主线程和子线程之间没有关联（连接）关系<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token function">joinable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token comment">//返回值为 true：主线程和子线程之间有关联（连接）关系</span>
+<span class="token comment">//返回值为 false：主线程和子线程之间没有关联（连接）关系</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>**operator&#x3D;**：</p>
 <pre class="line-numbers language-c+" data-language="c+"><code class="language-c+">&#x2F;&#x2F; move (1)	
@@ -494,40 +494,40 @@ thread&amp; operator&#x3D; (const other&amp;) &#x3D; delete;<span aria-hidden="t
 <p>如果 other 是一个右值，会进行资源所有权的转移</p>
 <p>如果 other 不是右值，禁止拷贝，该函数被显示删除（&#x3D;delete），不可用</p>
 <p><strong>获取核心数</strong>：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">static unsigned hardware_concurrency() noexcept;
-int num &#x3D; thread::hardware_concurrency();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">static</span> <span class="token keyword">unsigned</span> <span class="token function">hardware_concurrency</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> num <span class="token operator">=</span> thread<span class="token double-colon punctuation">::</span><span class="token function">hardware_concurrency</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>call_once()</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 定义于头文件 &lt;mutex&gt;
-template&lt; class Callable, class... Args &gt;
-void call_once( std::once_flag&amp; flag, Callable&amp;&amp; f, Args&amp;&amp;... args );
-&#x2F;&#x2F;flag：once_flag 类型的对象，用于保证只访问一次，要保证这个对象能够被多个线程同时访问到，可设为全局变量
-&#x2F;&#x2F;f：回调函数，可以传递一个有名函数地址，也可以指定一个匿名函数
-&#x2F;&#x2F;args：作为实参传递给回调函数
-call_once(g_flag, do_once, 19, &quot;luffy&quot;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 定义于头文件 &lt;mutex></span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span> <span class="token keyword">class</span> <span class="token class-name">Callable</span><span class="token punctuation">,</span> <span class="token keyword">class</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> Args <span class="token operator">></span>
+<span class="token keyword">void</span> <span class="token function">call_once</span><span class="token punctuation">(</span> std<span class="token double-colon punctuation">::</span>once_flag<span class="token operator">&amp;</span> flag<span class="token punctuation">,</span> Callable<span class="token operator">&amp;&amp;</span> f<span class="token punctuation">,</span> Args<span class="token operator">&amp;&amp;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//flag：once_flag 类型的对象，用于保证只访问一次，要保证这个对象能够被多个线程同时访问到，可设为全局变量</span>
+<span class="token comment">//f：回调函数，可以传递一个有名函数地址，也可以指定一个匿名函数</span>
+<span class="token comment">//args：作为实参传递给回调函数</span>
+<span class="token function">call_once</span><span class="token punctuation">(</span>g_flag<span class="token punctuation">,</span> do_once<span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">,</span> <span class="token string">"luffy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>此函数用于保证某个函数在多线程中只被调用一次。在多个调用相同函数的线程中，在此线程中某个位置可能还会调用一个函数，call_once用于保证此函数只会被调用一次，不会被其他线程再调用。</p>
 <h2 id="1-2-this-thread命名空间"><a href="#1-2-this-thread命名空间" class="headerlink" title="1.2 this_thread命名空间"></a>1.2 this_thread命名空间</h2><p>C++11还提供了一个关于线程的命名空间 std::this_thread，其含四个操作函数。</p>
 <p><strong>get_id()</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;得到当前线程的线程 ID
-thread::id get_id() noexcept;
-&#x2F;&#x2F;此函数无需在类上操作，直接使用
-cout &lt;&lt; &quot;主线程: &quot; &lt;&lt; this_thread::get_id() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//得到当前线程的线程 ID</span>
+thread<span class="token double-colon punctuation">::</span>id <span class="token function">get_id</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token comment">//此函数无需在类上操作，直接使用</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"主线程: "</span> <span class="token operator">&lt;&lt;</span> this_thread<span class="token double-colon punctuation">::</span><span class="token function">get_id</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>sleep_for()</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template &lt;class Rep, class Period&gt;
-  void sleep_for (const chrono::duration&lt;Rep,Period&gt;&amp; rel_time);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token class-name">Rep</span><span class="token punctuation">,</span> <span class="token keyword">class</span> <span class="token class-name">Period</span><span class="token operator">></span>
+  <span class="token keyword">void</span> <span class="token function">sleep_for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> chrono<span class="token double-colon punctuation">::</span>duration<span class="token operator">&lt;</span>Rep<span class="token punctuation">,</span>Period<span class="token operator">></span><span class="token operator">&amp;</span> rel_time<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>调用此函数，线程会进入阻塞状态，阻塞特定时间，其必须指定一个阻塞时间</p>
 <p><strong>sleep_until()</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;将进程阻塞到某个时间
-template &lt;class Clock, class Duration&gt;
-  void sleep_until (const chrono::time_point&lt;Clock,Duration&gt;&amp; abs_time);
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//将进程阻塞到某个时间</span>
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token class-name">Clock</span><span class="token punctuation">,</span> <span class="token keyword">class</span> <span class="token class-name">Duration</span><span class="token operator">></span>
+  <span class="token keyword">void</span> <span class="token function">sleep_until</span> <span class="token punctuation">(</span><span class="token keyword">const</span> chrono<span class="token double-colon punctuation">::</span>time_point<span class="token operator">&lt;</span>Clock<span class="token punctuation">,</span>Duration<span class="token operator">></span><span class="token operator">&amp;</span> abs_time<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>相比sleep_for，此函数是将线程阻塞到某个时间</p>
 <p><strong>yield()</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void yield() noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">yield</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">noexcept</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>此函数是放弃当前线程的cpu使用权，将当前线程转为<strong>就绪态</strong>，当前线程仍然有可能在下一个时间片获得cpu使用权</p>
 <hr>
@@ -541,31 +541,31 @@ template &lt;class Clock, class Duration&gt;
 <li>（4）std::recursive_timed_mutex：带超时的递归互斥锁</li>
 </ul>
 <h3 id="2-1-1-std-mutex"><a href="#2-1-1-std-mutex" class="headerlink" title="2.1.1 std::mutex"></a>2.1.1 std::mutex</h3><p><strong>互斥量定义</strong></p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;mutex&gt;
-mutex g_num_mutex;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;mutex></span></span>
+mutex g_num_mutex<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>lock()</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void lock();&#x2F;&#x2F;用于mutex对象加锁，并且只能有一个线程获得锁的所有权<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//用于mutex对象加锁，并且只能有一个线程获得锁的所有权</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>try_lock()</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool try_lock();&#x2F;&#x2F;尝试给mutex对象加锁，加锁失败则返回false<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token function">try_lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//尝试给mutex对象加锁，加锁失败则返回false</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>unlock()</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void unlock();&#x2F;&#x2F;用于给mutex对象解锁，只有加锁的线程才能解锁成功<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//用于给mutex对象解锁，只有加锁的线程才能解锁成功</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="2-1-2-std-lock-guard"><a href="#2-1-2-std-lock-guard" class="headerlink" title="2.1.2 std::lock_guard"></a>2.1.2 std::lock_guard</h3><p>lock_guard 是 C++11 新增的一个模板类，使用这个类，可以简化互斥锁 lock() 和 unlock() 的写法，同时也更安全（离开作用域时自动释放锁）</p>
 <p><strong>原型</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 类的定义，定义于头文件 &lt;mutex&gt;
-template&lt; class Mutex &gt;
-class lock_guard;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 类的定义，定义于头文件 &lt;mutex></span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span> <span class="token keyword">class</span> <span class="token class-name">Mutex</span> <span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">lock_guard</span><span class="token punctuation">;</span>
 
-&#x2F;&#x2F; 常用构造函数
-explicit lock_guard( mutex_type&amp; m );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">// 常用构造函数</span>
+<span class="token keyword">explicit</span> <span class="token function">lock_guard</span><span class="token punctuation">(</span> mutex_type<span class="token operator">&amp;</span> m <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>lock_guard 在使用上面提供的这个构造函数构造对象时，会自动锁定互斥量，而在退出作用域后进行析构时就会自动解锁，从而保证了互斥量的正确操作，避免忘记 unlock() 操作而导致线程死锁。lock_guard 使用了 RAII 技术，就是在类构造函数中分配资源，在析构函数中释放资源，保证资源出了作用域就释放。</p>
 <h3 id="2-1-3-std-recursive-mutex"><a href="#2-1-3-std-recursive-mutex" class="headerlink" title="2.1.3 std::recursive_mutex"></a>2.1.3 std::recursive_mutex</h3><p>递归互斥锁 std::recursive_mutex 允许同一线程多次获得互斥锁，可以用来解决同一线程需要多次获取互斥量时死锁的问题</p>
 <p><strong>定义</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">recursive_mutex m_mutex;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">recursive_mutex m_mutex<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
                 
@@ -719,13 +719,13 @@ explicit lock_guard( mutex_type&amp; m );<span aria-hidden="true" class="line-nu
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/c++/%E4%BE%AF%E6%8D%B7STL/">
+                <a href="/2023/02/15/c++/cmake%E7%AC%94%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="侯捷STL视频笔记">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CMake笔记">
                         
-                        <span class="card-title">侯捷STL视频笔记</span>
+                        <span class="card-title">CMake笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -757,8 +757,8 @@ explicit lock_guard( mutex_type&amp; m );<span aria-hidden="true" class="line-nu
                         <span class="chip bg-color">C++</span>
                     </a>
                     
-                    <a href="/tags/STL/">
-                        <span class="chip bg-color">STL</span>
+                    <a href="/tags/CMake/">
+                        <span class="chip bg-color">CMake</span>
                     </a>
                     
                 </div>
@@ -772,13 +772,13 @@ explicit lock_guard( mutex_type&amp; m );<span aria-hidden="true" class="line-nu
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/c++/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5_C_Linux/">
+                <a href="/2023/02/15/c++/Effective_Modern_C++/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="多线程和线程同步-C-Linux">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Effective Modern C++">
                         
-                        <span class="card-title">多线程和线程同步-C-Linux</span>
+                        <span class="card-title">Effective Modern C++</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -808,10 +808,6 @@ explicit lock_guard( mutex_type&amp; m );<span aria-hidden="true" class="line-nu
                     
                     <a href="/tags/C/">
                         <span class="chip bg-color">C++</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-                        <span class="chip bg-color">多线程</span>
                     </a>
                     
                 </div>
@@ -1009,7 +1005,7 @@ explicit lock_guard( mutex_type&amp; m );<span aria-hidden="true" class="line-nu
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">165.5k</span>
+                        class="white-color">162.4k</span>
             
             
             

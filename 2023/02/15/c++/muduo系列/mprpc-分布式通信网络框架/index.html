@@ -407,14 +407,14 @@ ZooKeeper分布式一致性协调服务应用以及编程
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-02-15
+                    2023-02-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.8k
+                    2.7k
                 </div>
                 
 
@@ -549,48 +549,48 @@ ZooKeeper分布式一致性协调服务应用以及编程
 <p>许多标准的简单数据类型都可以用作<code>message</code>字段类型，包括<code>bool</code>,<code>int32</code>,<code>float</code>,<code>double</code>和<code>string</code>。还可以使用其他<code>message</code>类型作为字段类型在消息体中添加更多结构，如上面的ResultCode。</p>
 <p><strong>函数方法</strong></p>
 <p>用<code>message</code>关键字声明的的消息体，允许你检查、操作、读、或写整个消息，包括解析二进制字符串，以及序列化二进制字符串。除此之外，也定义了下列方法：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">LoginResponse:缺省的构造函数。
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">LoginResponse<span class="token operator">:</span>缺省的构造函数。
 
-~LoginResponse():缺省的析构函数。
+<span class="token operator">~</span><span class="token function">LoginResponse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span>缺省的析构函数。
 
-LoginResponse(const LoginResponse&amp; other):拷贝构造函数。
+<span class="token function">LoginResponse</span><span class="token punctuation">(</span><span class="token keyword">const</span> LoginResponse<span class="token operator">&amp;</span> other<span class="token punctuation">)</span><span class="token operator">:</span>拷贝构造函数。
 
-LoginResponse&amp; operator&#x3D;(const LoginResponse&amp; other):
-赋值 (Assignment ）操作符。
+LoginResponse<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> LoginResponse<span class="token operator">&amp;</span> other<span class="token punctuation">)</span><span class="token operator">:</span>
+赋值 <span class="token punctuation">(</span>Assignment ）操作符。
 
-const UnknownFieldSet&amp; unknown_fields() const:
+<span class="token keyword">const</span> UnknownFieldSet<span class="token operator">&amp;</span> <span class="token function">unknown_fields</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token operator">:</span>
 返回当解析信息时遇到的未知字段的集合。
 
-UnknownFieldSet* mutable_unknown_fields():
+UnknownFieldSet<span class="token operator">*</span> <span class="token function">mutable_unknown_fields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span>
 返回当前解析信息时遇到的未知字段的集合的一个mutale指针。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>message实例</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++"> LoginRequest req;
- req.set_name(&quot;wang&quot;);
- req.set_pwd(&quot;123434&quot;);
- &#x2F;&#x2F;对象序列化
- std::string send_str;
- if (req.SerializeToString(&amp;send_str)) &#123;
-   std::cout &lt;&lt; send_str &lt;&lt; std::endl;
- &#125;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"> LoginRequest req<span class="token punctuation">;</span>
+ req<span class="token punctuation">.</span><span class="token function">set_name</span><span class="token punctuation">(</span><span class="token string">"wang"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ req<span class="token punctuation">.</span><span class="token function">set_pwd</span><span class="token punctuation">(</span><span class="token string">"123434"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">//对象序列化</span>
+ std<span class="token double-colon punctuation">::</span>string send_str<span class="token punctuation">;</span>
+ <span class="token keyword">if</span> <span class="token punctuation">(</span>req<span class="token punctuation">.</span><span class="token function">SerializeToString</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>send_str<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> send_str <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F; send_str反序列化
- LoginRequest reqB;
- if (reqB.ParseFromString(send_str)) &#123;
-   std::cout &lt;&lt; reqB.name() &lt;&lt; std::endl;
-   std::cout &lt;&lt; reqB.pwd() &lt;&lt; std::endl;
- &#125;
-&#x2F;&#x2F;GetFriendListsResponse 定义列表成员示例
- GetFriendListsResponse rsp;
- ResultCode *rc &#x3D; rsp.mutable_result();
- rc-&gt;set_errcode(0);
+ <span class="token comment">// send_str反序列化</span>
+ LoginRequest reqB<span class="token punctuation">;</span>
+ <span class="token keyword">if</span> <span class="token punctuation">(</span>reqB<span class="token punctuation">.</span><span class="token function">ParseFromString</span><span class="token punctuation">(</span>send_str<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> reqB<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+   std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> reqB<span class="token punctuation">.</span><span class="token function">pwd</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+<span class="token comment">//GetFriendListsResponse 定义列表成员示例</span>
+ GetFriendListsResponse rsp<span class="token punctuation">;</span>
+ ResultCode <span class="token operator">*</span>rc <span class="token operator">=</span> rsp<span class="token punctuation">.</span><span class="token function">mutable_result</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ rc<span class="token operator">-></span><span class="token function">set_errcode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- User *user1 &#x3D; rsp.add_friend_list();
- user1-&gt;set_name(&quot;zhang san&quot;);
- user1-&gt;set_age(10);
- user1-&gt;set_sex(User::MAN);&#x2F;&#x2F;设置枚举
+ User <span class="token operator">*</span>user1 <span class="token operator">=</span> rsp<span class="token punctuation">.</span><span class="token function">add_friend_list</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ user1<span class="token operator">-></span><span class="token function">set_name</span><span class="token punctuation">(</span><span class="token string">"zhang san"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ user1<span class="token operator">-></span><span class="token function">set_age</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ user1<span class="token operator">-></span><span class="token function">set_sex</span><span class="token punctuation">(</span>User<span class="token double-colon punctuation">::</span>MAN<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//设置枚举</span>
 
- std::cout &lt;&lt; rsp.friend_list_size() &lt;&lt; std::endl;
+ std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> rsp<span class="token punctuation">.</span><span class="token function">friend_list_size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>protobuf编译</strong></p>
@@ -609,68 +609,68 @@ UnknownFieldSet* mutable_unknown_fields():
 <p>定义的UserServiceRpc默认会生成两个类：UserServiceRpc和UserServiceRpc_Stub</p>
 <p><strong>UserServiceRpc</strong></p>
 <p>是被调用类，其继承自protobuf的service基类</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class UserServiceRpc : public ::PROTOBUF_NAMESPACE_ID::Service &#123;
- protected:
-  &#x2F;&#x2F; This class should be treated as an abstract interface.
-  inline UserServiceRpc() &#123;&#125;;
- public:
-  virtual ~UserServiceRpc();
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">UserServiceRpc</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span><span class="token class-name">Service</span></span> <span class="token punctuation">&#123;</span>
+ <span class="token keyword">protected</span><span class="token operator">:</span>
+  <span class="token comment">// This class should be treated as an abstract interface.</span>
+  <span class="token keyword">inline</span> <span class="token function">UserServiceRpc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">UserServiceRpc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  typedef UserServiceRpc_Stub Stub;
+  <span class="token keyword">typedef</span> UserServiceRpc_Stub Stub<span class="token punctuation">;</span>
 
-  static const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* descriptor();
+  <span class="token keyword">static</span> <span class="token keyword">const</span> <span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>ServiceDescriptor<span class="token operator">*</span> <span class="token function">descriptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  virtual void Login(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::fixbug::LoginRequest* request,
-                       ::fixbug::LoginResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void GetFriendLists(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::fixbug::GetFriendListsQuest* request,
-                       ::fixbug::GetFriendListsResponse* response,
-                       ::google::protobuf::Closure* done);
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">Login</span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>RpcController<span class="token operator">*</span> controller<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>LoginRequest<span class="token operator">*</span> request<span class="token punctuation">,</span>
+                       <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>LoginResponse<span class="token operator">*</span> response<span class="token punctuation">,</span>
+                       <span class="token double-colon punctuation">::</span>google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Closure<span class="token operator">*</span> done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">GetFriendLists</span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>RpcController<span class="token operator">*</span> controller<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>GetFriendListsQuest<span class="token operator">*</span> request<span class="token punctuation">,</span>
+                       <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>GetFriendListsResponse<span class="token operator">*</span> response<span class="token punctuation">,</span>
+                       <span class="token double-colon punctuation">::</span>google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Closure<span class="token operator">*</span> done<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  &#x2F;&#x2F; implements Service ----------------------------------------------
+  <span class="token comment">// implements Service ----------------------------------------------</span>
 
-  const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* GetDescriptor();
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token keyword">const</span> <span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>ServiceDescriptor<span class="token operator">*</span> <span class="token function">GetDescriptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>UserServiceRpc_Stub</strong></p>
 <p>UserServiceRpc_Stub是调用类，其继承自UserServiceRpc类，通过使用此类来调用方法，</p>
 <p>注意，其没有默认的初始化构造函数，需通过RpcChannel指针来初始化</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class UserServiceRpc_Stub : public UserServiceRpc &#123;
- public:
-  UserServiceRpc_Stub(::PROTOBUF_NAMESPACE_ID::RpcChannel* channel);
-  UserServiceRpc_Stub(::PROTOBUF_NAMESPACE_ID::RpcChannel* channel,
-                   ::PROTOBUF_NAMESPACE_ID::Service::ChannelOwnership ownership);
-  ~UserServiceRpc_Stub();
-  void Login(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::fixbug::LoginRequest* request,
-                       ::fixbug::LoginResponse* response,
-                       ::google::protobuf::Closure* done);
-  void GetFriendLists(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::fixbug::GetFriendListsQuest* request,
-                       ::fixbug::GetFriendListsResponse* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::PROTOBUF_NAMESPACE_ID::RpcChannel* channel_;
-  bool owns_channel_;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">UserServiceRpc_Stub</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token class-name">UserServiceRpc</span></span> <span class="token punctuation">&#123;</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token function">UserServiceRpc_Stub</span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>RpcChannel<span class="token operator">*</span> channel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">UserServiceRpc_Stub</span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>RpcChannel<span class="token operator">*</span> channel<span class="token punctuation">,</span>
+                   <span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>Service<span class="token double-colon punctuation">::</span>ChannelOwnership ownership<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token operator">~</span><span class="token function">UserServiceRpc_Stub</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">Login</span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>RpcController<span class="token operator">*</span> controller<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>LoginRequest<span class="token operator">*</span> request<span class="token punctuation">,</span>
+                       <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>LoginResponse<span class="token operator">*</span> response<span class="token punctuation">,</span>
+                       <span class="token double-colon punctuation">::</span>google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Closure<span class="token operator">*</span> done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">GetFriendLists</span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>RpcController<span class="token operator">*</span> controller<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>GetFriendListsQuest<span class="token operator">*</span> request<span class="token punctuation">,</span>
+                       <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>GetFriendListsResponse<span class="token operator">*</span> response<span class="token punctuation">,</span>
+                       <span class="token double-colon punctuation">::</span>google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Closure<span class="token operator">*</span> done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>RpcChannel<span class="token operator">*</span> channel_<span class="token punctuation">;</span>
+  <span class="token keyword">bool</span> owns_channel_<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>注意看Login和GetFriendLists方法实现如下</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void UserServiceRpc_Stub::Login(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                              const ::fixbug::LoginRequest* request,
-                              ::fixbug::LoginResponse* response,
-                              ::google::protobuf::Closure* done) &#123;
-  channel_-&gt;CallMethod(descriptor()-&gt;method(0),
-                       controller, request, response, done);
-&#125;
-void UserServiceRpc_Stub::GetFriendLists(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                              const ::fixbug::GetFriendListsQuest* request,
-                              ::fixbug::GetFriendListsResponse* response,
-                              ::google::protobuf::Closure* done) &#123;
-  channel_-&gt;CallMethod(descriptor()-&gt;method(1),
-                       controller, request, response, done);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token class-name">UserServiceRpc_Stub</span><span class="token double-colon punctuation">::</span><span class="token function">Login</span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>RpcController<span class="token operator">*</span> controller<span class="token punctuation">,</span>
+                              <span class="token keyword">const</span> <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>LoginRequest<span class="token operator">*</span> request<span class="token punctuation">,</span>
+                              <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>LoginResponse<span class="token operator">*</span> response<span class="token punctuation">,</span>
+                              <span class="token double-colon punctuation">::</span>google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Closure<span class="token operator">*</span> done<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  channel_<span class="token operator">-></span><span class="token function">CallMethod</span><span class="token punctuation">(</span><span class="token function">descriptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">method</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                       controller<span class="token punctuation">,</span> request<span class="token punctuation">,</span> response<span class="token punctuation">,</span> done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token class-name">UserServiceRpc_Stub</span><span class="token double-colon punctuation">::</span><span class="token function">GetFriendLists</span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span>PROTOBUF_NAMESPACE_ID<span class="token double-colon punctuation">::</span>RpcController<span class="token operator">*</span> controller<span class="token punctuation">,</span>
+                              <span class="token keyword">const</span> <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>GetFriendListsQuest<span class="token operator">*</span> request<span class="token punctuation">,</span>
+                              <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>GetFriendListsResponse<span class="token operator">*</span> response<span class="token punctuation">,</span>
+                              <span class="token double-colon punctuation">::</span>google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Closure<span class="token operator">*</span> done<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  channel_<span class="token operator">-></span><span class="token function">CallMethod</span><span class="token punctuation">(</span><span class="token function">descriptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">method</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                       controller<span class="token punctuation">,</span> request<span class="token punctuation">,</span> response<span class="token punctuation">,</span> done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>两个方法都是通过调用channel的CallMethod来调用，因此需要使用一个MyRpcChannel类继承RpcChannel类，实现其CallMethod方法来完成序列号、调用等操作。</p>
 <h1 id="2-mprpc实现"><a href="#2-mprpc实现" class="headerlink" title="2. mprpc实现"></a>2. mprpc实现</h1><p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221113162552596.png" alt="image-20221113162552596"></p>
@@ -680,105 +680,105 @@ void UserServiceRpc_Stub::GetFriendLists(::PROTOBUF_NAMESPACE_ID::RpcController*
 <p><strong>私有成员</strong></p>
 <p>将OnMessage绑定到muduo库，当有消息到来时，所有反序列化、调用函数等操作都在OnMessage函数中进行</p>
 <p>最后将调用结果发送到调用方是在SendRpcResponse方法中进行</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;组合eventloop
-muduo::EventLoop m_eventLoop;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//组合eventloop</span>
+muduo<span class="token double-colon punctuation">::</span>EventLoop m_eventLoop<span class="token punctuation">;</span>
 
-&#x2F;&#x2F; service服务类型信息
-struct ServiceInfo &#123;
-  google::protobuf::Service *m_service;
-  std::unordered_map&lt;std::string, const google::protobuf::MethodDescriptor *&gt;
-      m_methodMap;  &#x2F;&#x2F;保存服务方法
-&#125;;
+<span class="token comment">// service服务类型信息</span>
+<span class="token keyword">struct</span> <span class="token class-name">ServiceInfo</span> <span class="token punctuation">&#123;</span>
+  google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Service <span class="token operator">*</span>m_service<span class="token punctuation">;</span>
+  std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>string<span class="token punctuation">,</span> <span class="token keyword">const</span> google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>MethodDescriptor <span class="token operator">*</span><span class="token operator">></span>
+      m_methodMap<span class="token punctuation">;</span>  <span class="token comment">//保存服务方法</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-&#x2F;&#x2F;存储服务对象和其服务方法的所有信息
-std::unordered_map&lt;std::string, ServiceInfo&gt; m_serviceMap;
+<span class="token comment">//存储服务对象和其服务方法的所有信息</span>
+std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>string<span class="token punctuation">,</span> ServiceInfo<span class="token operator">></span> m_serviceMap<span class="token punctuation">;</span>
 
-void OnConnection(const muduo::TcpConnectionPtr &amp;);
-void OnMessage(const muduo::TcpConnectionPtr &amp;, muduo::Buffer *,
-               muduo::Timestamp);
-&#x2F;&#x2F; closure回调操作，用于序列号rpc的响应和网络发送
-void SendRpcResponse(const muduo::TcpConnectionPtr &amp;,
-                     google::protobuf::Message *);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">void</span> <span class="token function">OnConnection</span><span class="token punctuation">(</span><span class="token keyword">const</span> muduo<span class="token double-colon punctuation">::</span>TcpConnectionPtr <span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">OnMessage</span><span class="token punctuation">(</span><span class="token keyword">const</span> muduo<span class="token double-colon punctuation">::</span>TcpConnectionPtr <span class="token operator">&amp;</span><span class="token punctuation">,</span> muduo<span class="token double-colon punctuation">::</span>Buffer <span class="token operator">*</span><span class="token punctuation">,</span>
+               muduo<span class="token double-colon punctuation">::</span>Timestamp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// closure回调操作，用于序列号rpc的响应和网络发送</span>
+<span class="token keyword">void</span> <span class="token function">SendRpcResponse</span><span class="token punctuation">(</span><span class="token keyword">const</span> muduo<span class="token double-colon punctuation">::</span>TcpConnectionPtr <span class="token operator">&amp;</span><span class="token punctuation">,</span>
+                     google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Message <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>公有成员</strong></p>
 <p>用户通过NotiFyService发布方法，然后调用Run函数即可</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;发布Rpc方法的函数 主要是通过遍历将service中的函数指针和函数名都保存起来，方便调用
-void NotiFyService(google::protobuf::Service *service);
-&#x2F;&#x2F;启动rpc服务节点，开始提供rpc远程网络调用服务：绑定消息函数，启动server监听
-void Run();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//发布Rpc方法的函数 主要是通过遍历将service中的函数指针和函数名都保存起来，方便调用</span>
+<span class="token keyword">void</span> <span class="token function">NotiFyService</span><span class="token punctuation">(</span>google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Service <span class="token operator">*</span>service<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//启动rpc服务节点，开始提供rpc远程网络调用服务：绑定消息函数，启动server监听</span>
+<span class="token keyword">void</span> <span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-2-MprpcChannel类"><a href="#2-2-MprpcChannel类" class="headerlink" title="2.2 MprpcChannel类"></a>2.2 MprpcChannel类</h2><p>在使用中，用户都是通过调用protobuf提供的<em>ServiceRpc_Stub</em>类来调用函数的，而<em>ServiceRpc_Stub</em>初始化需要一个<em>RpcChannel</em>，当调用<em>ServiceRpc_Stub</em>的函数时最后都会转到调用<em>RpcChannel</em>的CallMethod方法，因此需要将<em>MprpcChannel</em>类继承rpcchannel类，实现其虚有方法CallMethod即可。</p>
 <p>MprpcChannel类只有一个成员：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;所有通过stub代理对象调用的rpc方法，都到这里做rpc方法调用数据的序列化和网络发送
-void CallMethod(const google::protobuf::MethodDescriptor* method,
-                google::protobuf::RpcController* controller,
-                const google::protobuf::Message* request,
-                google::protobuf::Message* response,
-                google::protobuf::Closure* done) override;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//所有通过stub代理对象调用的rpc方法，都到这里做rpc方法调用数据的序列化和网络发送</span>
+<span class="token keyword">void</span> <span class="token function">CallMethod</span><span class="token punctuation">(</span><span class="token keyword">const</span> google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>MethodDescriptor<span class="token operator">*</span> method<span class="token punctuation">,</span>
+                google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>RpcController<span class="token operator">*</span> controller<span class="token punctuation">,</span>
+                <span class="token keyword">const</span> google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Message<span class="token operator">*</span> request<span class="token punctuation">,</span>
+                google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Message<span class="token operator">*</span> response<span class="token punctuation">,</span>
+                google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Closure<span class="token operator">*</span> done<span class="token punctuation">)</span> <span class="token keyword">override</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>在CallMethod方法中，主要是将要调用的方法名和参数进行序列化然后发送到远程，然后等待其返回结果，最后将返回结果反序列化即可。</p>
 <h2 id="2-3-Mprpc框架使用"><a href="#2-3-Mprpc框架使用" class="headerlink" title="2.3 Mprpc框架使用"></a>2.3 Mprpc框架使用</h2><p>先使用protobuf定义好远程调用service、方法和参数，比如定义提供<em>FriendServiceRpc</em>，其中包括GetFriendList方法</p>
 <p><strong>callee</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class FriendService : public fixbug::FriendServiceRpc &#123;
- public:
-  std::vector&lt;std::string&gt; GetFriendList(uint32_t userid);
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">FriendService</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> fixbug<span class="token double-colon punctuation">::</span><span class="token class-name">FriendServiceRpc</span></span> <span class="token punctuation">&#123;</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>string<span class="token operator">></span> <span class="token function">GetFriendList</span><span class="token punctuation">(</span><span class="token keyword">uint32_t</span> userid<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  void getFriendList(google::protobuf::RpcController* controller,
-                     const ::fixbug::getFriendListRequest* request,
-                     ::fixbug::getFriendListResponse* response,
-                     ::google::protobuf::Closure* done) ;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token keyword">void</span> <span class="token function">getFriendList</span><span class="token punctuation">(</span>google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>RpcController<span class="token operator">*</span> controller<span class="token punctuation">,</span>
+                     <span class="token keyword">const</span> <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>getFriendListRequest<span class="token operator">*</span> request<span class="token punctuation">,</span>
+                     <span class="token double-colon punctuation">::</span>fixbug<span class="token double-colon punctuation">::</span>getFriendListResponse<span class="token operator">*</span> response<span class="token punctuation">,</span>
+                     <span class="token double-colon punctuation">::</span>google<span class="token double-colon punctuation">::</span>protobuf<span class="token double-colon punctuation">::</span>Closure<span class="token operator">*</span> done<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>对于提供服务者，定义<em>FriendService</em>类继承<em>FriendServiceRpc</em>类，实现其虚有方法getFriendList，为使逻辑清晰，注意在此getFriendList方法中只是将设计的远程调用参数转为本地调用需要的参数，然后调用业务逻辑，最后将返回的参数打包成远程接口参数，并没有在此函数中执行真正的业务逻辑。</p>
 <p>最后，用户只需要将此业务注册发布即可</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main(int argc, char** argv) &#123;
-  LOG_INFO(&quot;first log message test&quot;);
-  LOG_ERROR(&quot;%s:%s:%d&quot;,__FILE__,__FUNCTION__,__LINE__);
-  &#x2F;&#x2F;框架初始化
-  MprpcApplication::Init(argc, argv);
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">LOG_INFO</span><span class="token punctuation">(</span><span class="token string">"first log message test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">LOG_ERROR</span><span class="token punctuation">(</span><span class="token string">"%s:%s:%d"</span><span class="token punctuation">,</span><span class="token constant">__FILE__</span><span class="token punctuation">,</span>__FUNCTION__<span class="token punctuation">,</span><span class="token constant">__LINE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//框架初始化</span>
+  <span class="token class-name">MprpcApplication</span><span class="token double-colon punctuation">::</span><span class="token function">Init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  RpcProvider provider;
-  provider.NotiFyService(new FriendService());
+  RpcProvider provider<span class="token punctuation">;</span>
+  provider<span class="token punctuation">.</span><span class="token function">NotiFyService</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">FriendService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  provider.Run();
+  provider<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>caller</strong></p>
 <p>调用方都是通过protobu生成的service_stub去调用，只需要在定义service_stub变量时使用mprpcchannel初始化，然后定义请求参数和接受参数变量，再调用stub的方法即可。</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main(int argc, char **argv) &#123;
-  &#x2F;&#x2F;需要先调用框架的初始化函数
-  MprpcApplication::Init(argc, argv);
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">//需要先调用框架的初始化函数</span>
+  <span class="token class-name">MprpcApplication</span><span class="token double-colon punctuation">::</span><span class="token function">Init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  &#x2F;&#x2F;调用远程发布的rpc方法Login
-  fixbug::FriendServiceRpc_Stub stub(new MprpcChannel());
-  &#x2F;&#x2F;相当于调用RpcChannel-&gt;RpcChannel::callMethod
-  &#x2F;&#x2F; stub.Login();
-  fixbug::getFriendListRequest request;
-  request.set_id(1);
+  <span class="token comment">//调用远程发布的rpc方法Login</span>
+  fixbug<span class="token double-colon punctuation">::</span>FriendServiceRpc_Stub <span class="token function">stub</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">MprpcChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//相当于调用RpcChannel->RpcChannel::callMethod</span>
+  <span class="token comment">// stub.Login();</span>
+  fixbug<span class="token double-colon punctuation">::</span>getFriendListRequest request<span class="token punctuation">;</span>
+  request<span class="token punctuation">.</span><span class="token function">set_id</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  fixbug::getFriendListResponse response;
-  MprpcController controller;
+  fixbug<span class="token double-colon punctuation">::</span>getFriendListResponse response<span class="token punctuation">;</span>
+  MprpcController controller<span class="token punctuation">;</span>
 
-  stub.getFriendList(&amp;controller, &amp;request, &amp;response, nullptr);
+  stub<span class="token punctuation">.</span><span class="token function">getFriendList</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>controller<span class="token punctuation">,</span> <span class="token operator">&amp;</span>request<span class="token punctuation">,</span> <span class="token operator">&amp;</span>response<span class="token punctuation">,</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  if (controller.Failed()) &#123;
-    LOG_INFO(&quot;%s&quot;, controller.ErrorText().c_str());
-  &#125; else &#123;
-    if (response.result().errcode() &#x3D;&#x3D; 0) &#123;
-      LOG_INFO(&quot;rpc login response: &quot;);
-      for (auto name : response.friends()) &#123;
-        LOG_INFO(&quot;%s&quot;, name.c_str());
-      &#125;
-    &#125; else &#123;
-      LOG_INFO(&quot;rpc login response error:%s&quot;,
-               response.result().errmsg().c_str());
-    &#125;
-  &#125;
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>controller<span class="token punctuation">.</span><span class="token function">Failed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">LOG_INFO</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> controller<span class="token punctuation">.</span><span class="token function">ErrorText</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>response<span class="token punctuation">.</span><span class="token function">result</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">errcode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">LOG_INFO</span><span class="token punctuation">(</span><span class="token string">"rpc login response: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">auto</span> name <span class="token operator">:</span> response<span class="token punctuation">.</span><span class="token function">friends</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">LOG_INFO</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> name<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">LOG_INFO</span><span class="token punctuation">(</span><span class="token string">"rpc login response error:%s"</span><span class="token punctuation">,</span>
+               response<span class="token punctuation">.</span><span class="token function">result</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">errmsg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
 
-  return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -932,13 +932,13 @@ void CallMethod(const google::protobuf::MethodDescriptor* method,
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-968-%E7%9B%91%E6%8E%A7%E4%BA%8C%E5%8F%89%E6%A0%91-difficult/">
+                <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-707-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="968. 监控二叉树">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="707. 设计链表">
                         
-                        <span class="card-title">968. 监控二叉树</span>
+                        <span class="card-title">707. 设计链表</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -966,12 +966,8 @@ void CallMethod(const google::protobuf::MethodDescriptor* method,
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                        <span class="chip bg-color">Alg-贪心</span>
-                    </a>
-                    
-                    <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                        <span class="chip bg-color">Alg-动态规划</span>
+                    <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
+                        <span class="chip bg-color">Alg-链表</span>
                     </a>
                     
                 </div>
@@ -1023,12 +1019,12 @@ void CallMethod(const google::protobuf::MethodDescriptor* method,
                         <span class="chip bg-color">Alg-双指针</span>
                     </a>
                     
-                    <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                        <span class="chip bg-color">Alg-栈与队列</span>
-                    </a>
-                    
                     <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
                         <span class="chip bg-color">Alg-单调栈</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">Alg-栈与队列</span>
                     </a>
                     
                 </div>
@@ -1226,7 +1222,7 @@ void CallMethod(const google::protobuf::MethodDescriptor* method,
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">165.5k</span>
+                        class="white-color">162.4k</span>
             
             
             

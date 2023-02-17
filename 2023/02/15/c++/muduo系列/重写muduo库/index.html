@@ -407,21 +407,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-02-15
+                    2023-02-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9k
+                    8.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    39 分
+                    35 分
                 </div>
                 
 
@@ -497,15 +497,15 @@
 <p><strong>异步不阻塞（asynchronous）</strong></p>
 <p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221024105758521.png" alt="image-20221024105758521"></p>
 <p>aio_read所使用的结构体</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">struct aiocb &#123;
-	int aio_fildes
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">aiocb</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">int</span> aio_fildes
 	off_t aio_offset
-	volatile void *aio_buf
+	<span class="token keyword">volatile</span> <span class="token keyword">void</span> <span class="token operator">*</span>aio_buf
 	size_t aio_nbytes
-	int aio_reqprio
-	struct sigevent aio_sigevent &#x2F;&#x2F;信号量
-	int aio_lio_opcode
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	<span class="token keyword">int</span> aio_reqprio
+	<span class="token keyword">struct</span> <span class="token class-name">sigevent</span> aio_sigevent <span class="token comment">//信号量</span>
+	<span class="token keyword">int</span> aio_lio_opcode
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="1-3-好的网络服务器设计"><a href="#1-3-好的网络服务器设计" class="headerlink" title="1.3 好的网络服务器设计"></a>1.3 <strong>好的网络服务器设计</strong></h2><blockquote>
 <p>在这个多核时代，服务端网络编程如何选择线程模型呢？ 赞同libev作者的观点：one loop per thread is usually a good model，这样多线程服务端编程的问题就转换为如何设计一个高效且易于使用的event loop，然后每个线程run一个event loop就行了（当然线程间的同步、互斥少不了，还有其它的耗时事件需要起另外的线程来做）。</p>
@@ -557,14 +557,14 @@
 <p>如此一来，要实现上面说是的场景，只需要在进程启动时建立一个epoll对象，然后在需要的时候向这个epoll对象中添加或者删除事件。</p>
 <p>epoll_wait的效率也非常高，因为调用epoll_wait时，并没有向操作系统复制这100万个连接的句柄数据，内核也不需要去遍历全部的连接（猜测当内核得知某sockfd有消息时，会去epoll中找到对应的sockfd进行标记，而epoll的实现使得查找非常块）。</p>
 <p>epoll_create在内核上创建的eventpoll结构如下：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">struct eventpoll&#123;
-....
-&#x2F;*红黑树的根节点，这颗树中存储着所有添加到epoll中的需要监控的事件*&#x2F;
-struct rb_root rbr;
-&#x2F;*双链表中则存放着将要通过epoll_wait返回给用户的满足条件的事件*&#x2F;
-struct list_head rdlist;
-....
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">eventpoll</span><span class="token punctuation">&#123;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token comment">/*红黑树的根节点，这颗树中存储着所有添加到epoll中的需要监控的事件*/</span>
+<span class="token keyword">struct</span> <span class="token class-name">rb_root</span> rbr<span class="token punctuation">;</span>
+<span class="token comment">/*双链表中则存放着将要通过epoll_wait返回给用户的满足条件的事件*/</span>
+<span class="token keyword">struct</span> <span class="token class-name">list_head</span> rdlist<span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>LT模式</strong></p>
 <p>内核数据没被读完，就会一直上报数据。</p>
@@ -632,513 +632,513 @@ struct list_head rdlist;
 <h2 id="2-1-Channel"><a href="#2-1-Channel" class="headerlink" title="2.1 Channel"></a>2.1 Channel</h2><p>封装了每个sockfd设置感兴趣事件函数和对发生事件的处理，注意！Channel不直接与Poller打交道，其通过EventLoop来与Poller进行通信，比如向Poller中设置感兴趣事件，Poller返回事件等。</p>
 <p>通过设置sockfd的各种回调，当有事件发生时，Poller调用每个事件对应channel的<em>HandleEvent</em>函数进行判断处理发生了哪些事件以及调用相应回调</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;这三个是作为事件标识
-static const int kNoneEvent;   &#x2F;&#x2F; 0
-static const int kReadEvent;   &#x2F;&#x2F; EPOLLIN | EPOLLPRI
-static const int kWriteEvent;  &#x2F;&#x2F; EPOLLOUT;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//这三个是作为事件标识</span>
+<span class="token keyword">static</span> <span class="token keyword">const</span> <span class="token keyword">int</span> kNoneEvent<span class="token punctuation">;</span>   <span class="token comment">// 0</span>
+<span class="token keyword">static</span> <span class="token keyword">const</span> <span class="token keyword">int</span> kReadEvent<span class="token punctuation">;</span>   <span class="token comment">// EPOLLIN | EPOLLPRI</span>
+<span class="token keyword">static</span> <span class="token keyword">const</span> <span class="token keyword">int</span> kWriteEvent<span class="token punctuation">;</span>  <span class="token comment">// EPOLLOUT;</span>
 
-EventLoop *loop_;  &#x2F;&#x2F;事件循环
-const int fd_;     &#x2F;&#x2F;监听的sockfd
-int revents_;      &#x2F;&#x2F;返回的事件
-int events_;       &#x2F;&#x2F; sockfd上监听的事件
-int index_;  &#x2F;&#x2F; 此Poller的状态，如新添加、已删除等，主要是用于Poller中判断状态
+EventLoop <span class="token operator">*</span>loop_<span class="token punctuation">;</span>  <span class="token comment">//事件循环</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> fd_<span class="token punctuation">;</span>     <span class="token comment">//监听的sockfd</span>
+<span class="token keyword">int</span> revents_<span class="token punctuation">;</span>      <span class="token comment">//返回的事件</span>
+<span class="token keyword">int</span> events_<span class="token punctuation">;</span>       <span class="token comment">// sockfd上监听的事件</span>
+<span class="token keyword">int</span> index_<span class="token punctuation">;</span>  <span class="token comment">// 此Poller的状态，如新添加、已删除等，主要是用于Poller中判断状态</span>
 
-&#x2F;&#x2F;绑定TcpConnection对象的弱引用，可用于判断对象是否存活和得到shared指针
-&#x2F;&#x2F;用于观察注册回调的TcpConnection对象是否存活，避免调用回调函数时出错
-std::weak_ptr&lt;void&gt; tie_;
-bool tied_;  &#x2F;&#x2F;是否绑定标志
+<span class="token comment">//绑定TcpConnection对象的弱引用，可用于判断对象是否存活和得到shared指针</span>
+<span class="token comment">//用于观察注册回调的TcpConnection对象是否存活，避免调用回调函数时出错</span>
+std<span class="token double-colon punctuation">::</span>weak_ptr<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">></span> tie_<span class="token punctuation">;</span>
+<span class="token keyword">bool</span> tied_<span class="token punctuation">;</span>  <span class="token comment">//是否绑定标志</span>
 
-&#x2F;&#x2F;用于处理revents的四种回调函数
-ReadEventCallback readCallback_;
-EventCallback writeCallback_;
-EventCallback closeCallback_;
-EventCallback errorCallback_;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">//用于处理revents的四种回调函数</span>
+ReadEventCallback readCallback_<span class="token punctuation">;</span>
+EventCallback writeCallback_<span class="token punctuation">;</span>
+EventCallback closeCallback_<span class="token punctuation">;</span>
+EventCallback errorCallback_<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- using EventCallback &#x3D; std::function&lt;void()&gt;;
- using ReadEventCallback &#x3D; std::function&lt;void(Timestamp)&gt;;
- Channel(EventLoop *loop, int fd);
- ~Channel();
- &#x2F;&#x2F; fd得到poller通知以后，处理事件的函数
- void HandleEvent(Timestamp receiveTime);
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">using</span> EventCallback <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>function<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">;</span>
+ <span class="token keyword">using</span> ReadEventCallback <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>function<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token punctuation">(</span>Timestamp<span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">;</span>
+ <span class="token function">Channel</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span>loop<span class="token punctuation">,</span> <span class="token keyword">int</span> fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token operator">~</span><span class="token function">Channel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">// fd得到poller通知以后，处理事件的函数</span>
+ <span class="token keyword">void</span> <span class="token function">HandleEvent</span><span class="token punctuation">(</span>Timestamp receiveTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;设置回调函数
- void setReadCallback(ReadEventCallback cb) &#123;
-   readCallback_ &#x3D; std::move(cb);
- &#125;  &#x2F;&#x2F;这里使用move感觉没啥用，除非function中有申请的资源
- void setWriteCallback(EventCallback cb) &#123; writeCallback_ &#x3D; std::move(cb); &#125;
- void setCloseCallback(EventCallback cb) &#123; closeCallback_ &#x3D; std::move(cb); &#125;
- void setErrorCallback(EventCallback cb) &#123; errorCallback_ &#x3D; std::move(cb); &#125;
+ <span class="token comment">//设置回调函数</span>
+ <span class="token keyword">void</span> <span class="token function">setReadCallback</span><span class="token punctuation">(</span>ReadEventCallback cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   readCallback_ <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>  <span class="token comment">//这里使用move感觉没啥用，除非function中有申请的资源</span>
+ <span class="token keyword">void</span> <span class="token function">setWriteCallback</span><span class="token punctuation">(</span>EventCallback cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> writeCallback_ <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">setCloseCallback</span><span class="token punctuation">(</span>EventCallback cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> closeCallback_ <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">setErrorCallback</span><span class="token punctuation">(</span>EventCallback cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> errorCallback_ <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;绑定TcpConnection对象，防止当TcpConnection对象被手动remove后，channel还在执行回调操作
- void tie(const std::shared_ptr&lt;void&gt; &amp;);
+ <span class="token comment">//绑定TcpConnection对象，防止当TcpConnection对象被手动remove后，channel还在执行回调操作</span>
+ <span class="token keyword">void</span> <span class="token function">tie</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">></span> <span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- int fd() const &#123; return fd_; &#125;;
- &#x2F;&#x2F;获取当前设置的Event
- int events() const &#123; return events_; &#125;
- &#x2F;&#x2F;供poller设置发生事件
- int setRevents(int revt) &#123; revents_ &#x3D; revt; &#125;  
+ <span class="token keyword">int</span> <span class="token function">fd</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> fd_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+ <span class="token comment">//获取当前设置的Event</span>
+ <span class="token keyword">int</span> <span class="token function">events</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> events_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token comment">//供poller设置发生事件</span>
+ <span class="token keyword">int</span> <span class="token function">setRevents</span><span class="token punctuation">(</span><span class="token keyword">int</span> revt<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> revents_ <span class="token operator">=</span> revt<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>  
 
- &#x2F;&#x2F;设置或取消读 写事件:
- void enableReading() &#123;
-   events_ |&#x3D; kReadEvent;
-   update();
- &#125;
- void disableReading() &#123;
-   events_ &amp;&#x3D; ~kReadEvent;
-   update();
- &#125;
- void enableWriting() &#123;
-   events_ |&#x3D; kWriteEvent;
-   update();
- &#125;
- void disableWriting() &#123;
-   events_ &amp;&#x3D; ~kWriteEvent;
-   update();
- &#125;
- void disableAll() &#123;
-   events_ &#x3D; kNoneEvent;
-   update();
- &#125;
+ <span class="token comment">//设置或取消读 写事件:</span>
+ <span class="token keyword">void</span> <span class="token function">enableReading</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   events_ <span class="token operator">|=</span> kReadEvent<span class="token punctuation">;</span>
+   <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">disableReading</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   events_ <span class="token operator">&amp;=</span> <span class="token operator">~</span>kReadEvent<span class="token punctuation">;</span>
+   <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">enableWriting</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   events_ <span class="token operator">|=</span> kWriteEvent<span class="token punctuation">;</span>
+   <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">disableWriting</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   events_ <span class="token operator">&amp;=</span> <span class="token operator">~</span>kWriteEvent<span class="token punctuation">;</span>
+   <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">disableAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   events_ <span class="token operator">=</span> kNoneEvent<span class="token punctuation">;</span>
+   <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;判断当前事件状态，是否设置读或写事件或无事件
- bool isWriting() const &#123; return events_ &amp; kWriteEvent; &#125;
- bool isReading() const &#123; return events_ &amp; kReadEvent; &#125;
- bool isNoneEvent() const &#123; return events_ &#x3D;&#x3D; kNoneEvent; &#125;
+ <span class="token comment">//判断当前事件状态，是否设置读或写事件或无事件</span>
+ <span class="token keyword">bool</span> <span class="token function">isWriting</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> events_ <span class="token operator">&amp;</span> kWriteEvent<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">bool</span> <span class="token function">isReading</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> events_ <span class="token operator">&amp;</span> kReadEvent<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">bool</span> <span class="token function">isNoneEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> events_ <span class="token operator">==</span> kNoneEvent<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;得到Channel状态
- int index() const &#123; return index_; &#125;
- &#x2F;&#x2F;设置Channel状态
- void setIndex(int index) &#123; index_ &#x3D; index; &#125;
+ <span class="token comment">//得到Channel状态</span>
+ <span class="token keyword">int</span> <span class="token function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> index_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token comment">//设置Channel状态</span>
+ <span class="token keyword">void</span> <span class="token function">setIndex</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> index_ <span class="token operator">=</span> index<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;返回此channel所属的eventloop
- EventLoop *ownerLoop() &#123; return loop_; &#125;
- &#x2F;&#x2F;在所属的eventloop移除此channel
- void remove();
+ <span class="token comment">//返回此channel所属的eventloop</span>
+ EventLoop <span class="token operator">*</span><span class="token function">ownerLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> loop_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token comment">//在所属的eventloop移除此channel</span>
+ <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-private:
- void update();  &#x2F;&#x2F;更新poller中对应的channel的事件
- &#x2F;&#x2F;安全的处理事件，作为handleEvent函数的底层函数
- void handleEventWithGuard(Timestamp receiveTime);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">private</span><span class="token operator">:</span>
+ <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//更新poller中对应的channel的事件</span>
+ <span class="token comment">//安全的处理事件，作为handleEvent函数的底层函数</span>
+ <span class="token keyword">void</span> <span class="token function">handleEventWithGuard</span><span class="token punctuation">(</span>Timestamp receiveTime<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-2-Poller"><a href="#2-2-Poller" class="headerlink" title="2.2 Poller"></a>2.2 Poller</h2><h3 id="2-2-1-Poller基类"><a href="#2-2-1-Poller基类" class="headerlink" title="2.2.1 Poller基类"></a>2.2.1 Poller基类</h3><p>主要封装统一IO复用的接口，以便实现Poll、Epoll等。其成员比较简单，就一个channels记录管理的channel和ownerLoop记录所属的EventLoop</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">protected:
- &#x2F;&#x2F; key:sockfd value:sockfd所属的channel通道类型
- using ChannelMap &#x3D; std::unordered_map&lt;int, Channel *&gt;;
- ChannelMap channels_;&#x2F;&#x2F;记录管理的Channel
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">protected</span><span class="token operator">:</span>
+ <span class="token comment">// key:sockfd value:sockfd所属的channel通道类型</span>
+ <span class="token keyword">using</span> ChannelMap <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> Channel <span class="token operator">*</span><span class="token operator">></span><span class="token punctuation">;</span>
+ ChannelMap channels_<span class="token punctuation">;</span><span class="token comment">//记录管理的Channel</span>
 
-private:
- EventLoop *ownerLoop_;&#x2F;&#x2F;记录poller绑定的EventLoop<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">private</span><span class="token operator">:</span>
+ EventLoop <span class="token operator">*</span>ownerLoop_<span class="token punctuation">;</span><span class="token comment">//记录poller绑定的EventLoop</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- using ChannelList &#x3D; std::vector&lt;Channel *&gt;;
- Poller(EventLoop *loop);
- virtual ~Poller()&#x3D;default;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">using</span> ChannelList <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>Channel <span class="token operator">*</span><span class="token operator">></span><span class="token punctuation">;</span>
+ <span class="token function">Poller</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span>loop<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">Poller</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token keyword">default</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;统一IO复用接口，扩展类如select、poll和Epoll都必须实现这几个接口
- virtual Timestamp poll(int timeousMs, ChannelList *activeChannels) &#x3D; 0;
- virtual void updateChannel(Channel *channel) &#x3D; 0;
- virtual void removeChannel(Channel *channel) &#x3D; 0;
+ <span class="token comment">//统一IO复用接口，扩展类如select、poll和Epoll都必须实现这几个接口</span>
+ <span class="token keyword">virtual</span> Timestamp <span class="token function">poll</span><span class="token punctuation">(</span><span class="token keyword">int</span> timeousMs<span class="token punctuation">,</span> ChannelList <span class="token operator">*</span>activeChannels<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">updateChannel</span><span class="token punctuation">(</span>Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">removeChannel</span><span class="token punctuation">(</span>Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;判断channel是否存在此poller中
- bool hasChannel(Channel *channel) const;
+ <span class="token comment">//判断channel是否存在此poller中</span>
+ <span class="token keyword">bool</span> <span class="token function">hasChannel</span><span class="token punctuation">(</span>Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F; eventloop通过该接口获取默认的IO复用的具体实现
- &#x2F;&#x2F;为避免基类引用派生类头文件，此函数是在一个单独的cc文件中进行实现
- static Poller *newDefaultPoller(EventLoop *loop);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ <span class="token comment">// eventloop通过该接口获取默认的IO复用的具体实现</span>
+ <span class="token comment">//为避免基类引用派生类头文件，此函数是在一个单独的cc文件中进行实现</span>
+ <span class="token keyword">static</span> Poller <span class="token operator">*</span><span class="token function">newDefaultPoller</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span>loop<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>关键</strong></p>
 <p>hasChannel函数中通过判断channel指针避免了由于sockfd复用而导致的错乱情况</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool Poller::hasChannel(Channel *channel) const &#123;
-    auto it&#x3D;channels_.find(channel-&gt;fd());
-    &#x2F;&#x2F;it-&gt;second&#x3D;&#x3D;channel应该是为了避免sockfd被复用时而channel不对的情况
-    return it!&#x3D;channels_.end()&amp;&amp;it-&gt;second&#x3D;&#x3D;channel;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token class-name">Poller</span><span class="token double-colon punctuation">::</span><span class="token function">hasChannel</span><span class="token punctuation">(</span>Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">auto</span> it<span class="token operator">=</span>channels_<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>channel<span class="token operator">-></span><span class="token function">fd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//it->second==channel应该是为了避免sockfd被复用时而channel不对的情况</span>
+    <span class="token keyword">return</span> it<span class="token operator">!=</span>channels_<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;&amp;</span>it<span class="token operator">-></span>second<span class="token operator">==</span>channel<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="2-2-2-EPollPoller"><a href="#2-2-2-EPollPoller" class="headerlink" title="2.2.2 EPollPoller"></a>2.2.2 EPollPoller</h3><p>基于Poller接口实现了Epoll，相比Poller，主要增加了epollfd和events成员以及epoll常用函数的封装</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">using EventList &#x3D; std::vector&lt;epoll_event&gt;;
-int epollfd_;&#x2F;&#x2F;epoll的fd
-EventList events_;&#x2F;&#x2F;记录epoll返回的发生事件
-static const int kInitEventListSize &#x3D; 16;  &#x2F;&#x2F;给events的初始长度<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">using</span> EventList <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>epoll_event<span class="token operator">></span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> epollfd_<span class="token punctuation">;</span><span class="token comment">//epoll的fd</span>
+EventList events_<span class="token punctuation">;</span><span class="token comment">//记录epoll返回的发生事件</span>
+<span class="token keyword">static</span> <span class="token keyword">const</span> <span class="token keyword">int</span> kInitEventListSize <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">;</span>  <span class="token comment">//给events的初始长度</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- EPollPoller(EventLoop *loop);
- ~EPollPoller() override;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token function">EPollPoller</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span>loop<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token operator">~</span><span class="token function">EPollPoller</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">override</span><span class="token punctuation">;</span>
  
- &#x2F;&#x2F;重写Poller的抽象方法
- Timestamp poll(int timeoutMs, ChannelList *activeChannels) override;
- void updateChannel(Channel *channel) override;
- void removeChannel(Channel *channel) override;
+ <span class="token comment">//重写Poller的抽象方法</span>
+ Timestamp <span class="token function">poll</span><span class="token punctuation">(</span><span class="token keyword">int</span> timeoutMs<span class="token punctuation">,</span> ChannelList <span class="token operator">*</span>activeChannels<span class="token punctuation">)</span> <span class="token keyword">override</span><span class="token punctuation">;</span>
+ <span class="token keyword">void</span> <span class="token function">updateChannel</span><span class="token punctuation">(</span>Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span> <span class="token keyword">override</span><span class="token punctuation">;</span>
+ <span class="token keyword">void</span> <span class="token function">removeChannel</span><span class="token punctuation">(</span>Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span> <span class="token keyword">override</span><span class="token punctuation">;</span>
 
-private:
- &#x2F;&#x2F;将poll返回的发生事件的channel写入到activeChannels中
- void fillActiveChannels(int numEvents, ChannelList *activeChannels) const;
- &#x2F;&#x2F;更新channel通道设置的事件
- void update(int operation, Channel *channel);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">private</span><span class="token operator">:</span>
+ <span class="token comment">//将poll返回的发生事件的channel写入到activeChannels中</span>
+ <span class="token keyword">void</span> <span class="token function">fillActiveChannels</span><span class="token punctuation">(</span><span class="token keyword">int</span> numEvents<span class="token punctuation">,</span> ChannelList <span class="token operator">*</span>activeChannels<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+ <span class="token comment">//更新channel通道设置的事件</span>
+ <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token keyword">int</span> operation<span class="token punctuation">,</span> Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-3-EventLoop"><a href="#2-3-EventLoop" class="headerlink" title="2.3 EventLoop"></a>2.3 EventLoop</h2><p>EventLoop相当于提供了一个Reactor，通过Poller来获取发生的事件，再调用相应的channel的回调函数</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">using ChannelList &#x3D; std::vector&lt;Channel *&gt;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">using</span> ChannelList <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>Channel <span class="token operator">*</span><span class="token operator">></span><span class="token punctuation">;</span>
 
-std::atomic_bool looping_;  &#x2F;&#x2F;原子操作，通过CAS实现
-std::atomic_bool quit_;     &#x2F;&#x2F;标志是否退出loop循环
-const pid_t threadId_;      &#x2F;&#x2F;当前loop所在线程id
-Timestamp pollReturnTime_;  &#x2F;&#x2F; poller返回发生事件的时间点
-std::unique_ptr&lt;Poller&gt; poller_;
+std<span class="token double-colon punctuation">::</span>atomic_bool looping_<span class="token punctuation">;</span>  <span class="token comment">//原子操作，通过CAS实现</span>
+std<span class="token double-colon punctuation">::</span>atomic_bool quit_<span class="token punctuation">;</span>     <span class="token comment">//标志是否退出loop循环</span>
+<span class="token keyword">const</span> pid_t threadId_<span class="token punctuation">;</span>      <span class="token comment">//当前loop所在线程id</span>
+Timestamp pollReturnTime_<span class="token punctuation">;</span>  <span class="token comment">// poller返回发生事件的时间点</span>
+std<span class="token double-colon punctuation">::</span>unique_ptr<span class="token operator">&lt;</span>Poller<span class="token operator">></span> poller_<span class="token punctuation">;</span>
 
-&#x2F;&#x2F;唤醒当前loop所在线程的fd
-int wakeupFd_;  &#x2F;&#x2F;当mainLoop获取新用户channel时，通过轮询算法选择一个subloop，通过该成员唤醒subLoop处理channel
-std::unique_ptr&lt;Channel&gt; wakeupChanel_;  &#x2F;&#x2F; wakeupfd_的channel的指针
+<span class="token comment">//唤醒当前loop所在线程的fd</span>
+<span class="token keyword">int</span> wakeupFd_<span class="token punctuation">;</span>  <span class="token comment">//当mainLoop获取新用户channel时，通过轮询算法选择一个subloop，通过该成员唤醒subLoop处理channel</span>
+std<span class="token double-colon punctuation">::</span>unique_ptr<span class="token operator">&lt;</span>Channel<span class="token operator">></span> wakeupChanel_<span class="token punctuation">;</span>  <span class="token comment">// wakeupfd_的channel的指针</span>
 
-ChannelList activeChannels_;  &#x2F;&#x2F;记录发生事件的所有channel
-Channel *currentActiveChannel_;
+ChannelList activeChannels_<span class="token punctuation">;</span>  <span class="token comment">//记录发生事件的所有channel</span>
+Channel <span class="token operator">*</span>currentActiveChannel_<span class="token punctuation">;</span>
 
-std::atomic_bool callingPendingFuctors_;  &#x2F;&#x2F;当前loop是否有需要执行的回调操作
-std::vector&lt;Functor&gt; pendingFuctors_;  &#x2F;&#x2F;存储loop需要执行的所有回调操作
-std::mutex mutex_;  &#x2F;&#x2F;保护pendingFuctors_的线程安全操作<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+std<span class="token double-colon punctuation">::</span>atomic_bool callingPendingFuctors_<span class="token punctuation">;</span>  <span class="token comment">//当前loop是否有需要执行的回调操作</span>
+std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>Functor<span class="token operator">></span> pendingFuctors_<span class="token punctuation">;</span>  <span class="token comment">//存储loop需要执行的所有回调操作</span>
+std<span class="token double-colon punctuation">::</span>mutex mutex_<span class="token punctuation">;</span>  <span class="token comment">//保护pendingFuctors_的线程安全操作</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- using Functor &#x3D; std::function&lt;void()&gt;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">using</span> Functor <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>function<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">;</span>
 
- EventLoop();
- ~EventLoop();
+ <span class="token function">EventLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token operator">~</span><span class="token function">EventLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;开启事件循环
- void loop();
- &#x2F;&#x2F;退出事件循环
- void quit();
+ <span class="token comment">//开启事件循环</span>
+ <span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">//退出事件循环</span>
+ <span class="token keyword">void</span> <span class="token function">quit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- Timestamp pollReturnTime() const &#123; return pollReturnTime_; &#125;
+ Timestamp <span class="token function">pollReturnTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> pollReturnTime_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;在当前loop中执行
- void runInLoop(Functor cb);
- &#x2F;&#x2F;把cb放入队列中，唤醒loop所在的线程，再执行cb
- void queueInLoop(Functor cb);
+ <span class="token comment">//在当前loop中执行</span>
+ <span class="token keyword">void</span> <span class="token function">runInLoop</span><span class="token punctuation">(</span>Functor cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">//把cb放入队列中，唤醒loop所在的线程，再执行cb</span>
+ <span class="token keyword">void</span> <span class="token function">queueInLoop</span><span class="token punctuation">(</span>Functor cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;唤醒loop所在线程
- void wakeup();
+ <span class="token comment">//唤醒loop所在线程</span>
+ <span class="token keyword">void</span> <span class="token function">wakeup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F; eventloop使用poller对channel操作的方法
- void updateChannel(Channel *channel);
- void removeChannel(Channel *channel);
- bool hasChannel(Channel *channel);
+ <span class="token comment">// eventloop使用poller对channel操作的方法</span>
+ <span class="token keyword">void</span> <span class="token function">updateChannel</span><span class="token punctuation">(</span>Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">void</span> <span class="token function">removeChannel</span><span class="token punctuation">(</span>Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">bool</span> <span class="token function">hasChannel</span><span class="token punctuation">(</span>Channel <span class="token operator">*</span>channel<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;判断eventloop对象是否在自己线程中
- bool isInLoopThread() const &#123; return threadId_ &#x3D;&#x3D; CurrentThread::tid(); &#125;
+ <span class="token comment">//判断eventloop对象是否在自己线程中</span>
+ <span class="token keyword">bool</span> <span class="token function">isInLoopThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> threadId_ <span class="token operator">==</span> <span class="token class-name">CurrentThread</span><span class="token double-colon punctuation">::</span><span class="token function">tid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
-private:
- void handleRead();         &#x2F;&#x2F; wakeupfd_的读回调函数
- void doPendingFunctors();  &#x2F;&#x2F;执行需要执行的回调操作<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">private</span><span class="token operator">:</span>
+ <span class="token keyword">void</span> <span class="token function">handleRead</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// wakeupfd_的读回调函数</span>
+ <span class="token keyword">void</span> <span class="token function">doPendingFunctors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//执行需要执行的回调操作</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-4-Thread"><a href="#2-4-Thread" class="headerlink" title="2.4 Thread"></a>2.4 Thread</h2><p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool started_;&#x2F;&#x2F;是否已经启动
-bool joined_;&#x2F;&#x2F;是否join
-&#x2F;&#x2F;使用智能指针，避免使用thread初始化是就开始启动线程
-std::shared_ptr&lt;std::thread&gt; thread_;
-pid_t tid_;&#x2F;&#x2F;记录线程id
-ThreadFunc func_;&#x2F;&#x2F;线程执行的回调函数
-std::string name_;&#x2F;&#x2F;线程名
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">bool</span> started_<span class="token punctuation">;</span><span class="token comment">//是否已经启动</span>
+<span class="token keyword">bool</span> joined_<span class="token punctuation">;</span><span class="token comment">//是否join</span>
+<span class="token comment">//使用智能指针，避免使用thread初始化是就开始启动线程</span>
+std<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>thread<span class="token operator">></span> thread_<span class="token punctuation">;</span>
+pid_t tid_<span class="token punctuation">;</span><span class="token comment">//记录线程id</span>
+ThreadFunc func_<span class="token punctuation">;</span><span class="token comment">//线程执行的回调函数</span>
+std<span class="token double-colon punctuation">::</span>string name_<span class="token punctuation">;</span><span class="token comment">//线程名</span>
 
-static std::atomic_int numCreated_;&#x2F;&#x2F;现有线程创建个数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">static</span> std<span class="token double-colon punctuation">::</span>atomic_int numCreated_<span class="token punctuation">;</span><span class="token comment">//现有线程创建个数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- using ThreadFunc &#x3D; std::function&lt;void()&gt;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">using</span> ThreadFunc <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>function<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">;</span>
 
- explicit Thread(ThreadFunc, const std::string&amp; name &#x3D; std::string());
- ~Thread();
+ <span class="token keyword">explicit</span> <span class="token function">Thread</span><span class="token punctuation">(</span>ThreadFunc<span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;</span> name <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token operator">~</span><span class="token function">Thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;启动线程
- void start();
- void join();
+ <span class="token comment">//启动线程</span>
+ <span class="token keyword">void</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">void</span> <span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;获取线程是否启动
- bool started() const &#123; return started_; &#125;
- &#x2F;&#x2F;获取线程id
- pid_t tid() const &#123; return tid_; &#125;
- &#x2F;&#x2F;获取设置的线程名
- const std::string&amp; name() const &#123; return name_; &#125;
+ <span class="token comment">//获取线程是否启动</span>
+ <span class="token keyword">bool</span> <span class="token function">started</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> started_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token comment">//获取线程id</span>
+ pid_t <span class="token function">tid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> tid_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token comment">//获取设置的线程名</span>
+ <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;</span> <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> name_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;获取当前通过Thread创建的线程数量
- static int numCreated() &#123; return numCreated_; &#125;
+ <span class="token comment">//获取当前通过Thread创建的线程数量</span>
+ <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">numCreated</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> numCreated_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
-private:
- void setDefaultName();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">private</span><span class="token operator">:</span>
+ <span class="token keyword">void</span> <span class="token function">setDefaultName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>关键</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;一个thread对象记录的就是一个新线程的详细信息
-void Thread::start() &#123;
-  started_ &#x3D; true;
-  sem_t sem;  &#x2F;&#x2F;信号量 muduo书中说多线程别用信号量？？
-  sem_init(&amp;sem, false, 0);
-  &#x2F;&#x2F;开启线程，
-  thread_ &#x3D; std::shared_ptr&lt;std::thread&gt;(new std::thread([&amp;]() &#123;
-    &#x2F;&#x2F;获取线程的tid值
-    tid_ &#x3D; CurrentThread::tid();
-    sem_post(&amp;sem);
-    &#x2F;&#x2F;开启一个新线程，专门执行该线程函数
-    func_();
-  &#125;));
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//一个thread对象记录的就是一个新线程的详细信息</span>
+<span class="token keyword">void</span> <span class="token class-name">Thread</span><span class="token double-colon punctuation">::</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  started_ <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  sem_t sem<span class="token punctuation">;</span>  <span class="token comment">//信号量 muduo书中说多线程别用信号量？？</span>
+  <span class="token function">sem_init</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>sem<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//开启线程，</span>
+  thread_ <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">shared_ptr</span><span class="token generic class-name"><span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>thread<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token keyword">new</span> std<span class="token double-colon punctuation">::</span><span class="token function">thread</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//获取线程的tid值</span>
+    tid_ <span class="token operator">=</span> <span class="token class-name">CurrentThread</span><span class="token double-colon punctuation">::</span><span class="token function">tid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sem_post</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>sem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//开启一个新线程，专门执行该线程函数</span>
+    <span class="token function">func_</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  &#x2F;&#x2F;必须等待上面新创建的线程的tid值
-  sem_wait(&amp;sem);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token comment">//必须等待上面新创建的线程的tid值</span>
+  <span class="token function">sem_wait</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>sem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-5-EventLoopThread"><a href="#2-5-EventLoopThread" class="headerlink" title="2.5 EventLoopThread"></a>2.5 EventLoopThread</h2><p>将EventLoop和Thread绑定，封装成一个Thread执行一个loop</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">EventLoop *loop_;
-bool exiting_;      &#x2F;&#x2F;线程是否正在退出
-Thread thread_;     &#x2F;&#x2F;线程
-std::mutex mutex_;  &#x2F;&#x2F;互斥访问loop_
-std::condition_variable cond_;  &#x2F;&#x2F;条件变量，用于是否已经成功创建通信
-ThreadInitCallback callback_;  &#x2F;&#x2F;上层设置的回调函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">EventLoop <span class="token operator">*</span>loop_<span class="token punctuation">;</span>
+<span class="token keyword">bool</span> exiting_<span class="token punctuation">;</span>      <span class="token comment">//线程是否正在退出</span>
+Thread thread_<span class="token punctuation">;</span>     <span class="token comment">//线程</span>
+std<span class="token double-colon punctuation">::</span>mutex mutex_<span class="token punctuation">;</span>  <span class="token comment">//互斥访问loop_</span>
+std<span class="token double-colon punctuation">::</span>condition_variable cond_<span class="token punctuation">;</span>  <span class="token comment">//条件变量，用于是否已经成功创建通信</span>
+ThreadInitCallback callback_<span class="token punctuation">;</span>  <span class="token comment">//上层设置的回调函数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- using ThreadInitCallback &#x3D; std::function&lt;void(EventLoop *)&gt;;
- EventLoopThread(const ThreadInitCallback &amp;cb &#x3D; ThreadInitCallback(),
-                 const std::string &amp;name &#x3D; std::string());
- ~EventLoopThread();
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">using</span> ThreadInitCallback <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>function<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">;</span>
+ <span class="token function">EventLoopThread</span><span class="token punctuation">(</span><span class="token keyword">const</span> ThreadInitCallback <span class="token operator">&amp;</span>cb <span class="token operator">=</span> <span class="token function">ThreadInitCallback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                 <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string <span class="token operator">&amp;</span>name <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token operator">~</span><span class="token function">EventLoopThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;创建线程，启动loop
- EventLoop *startLoop();
+ <span class="token comment">//创建线程，启动loop</span>
+ EventLoop <span class="token operator">*</span><span class="token function">startLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-private:
- &#x2F;&#x2F;线程创建时传入的回调函数，里面进行创建loop等操作
- void threadFunc();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">private</span><span class="token operator">:</span>
+ <span class="token comment">//线程创建时传入的回调函数，里面进行创建loop等操作</span>
+ <span class="token keyword">void</span> <span class="token function">threadFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="2-5-1-EventLoopThreadPool"><a href="#2-5-1-EventLoopThreadPool" class="headerlink" title="2.5.1 EventLoopThreadPool"></a>2.5.1 EventLoopThreadPool</h3><p>封装成一个线程池，使得TcpServer能更方便管理多个subLoop。</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; mainReactor，设置这个成员是考虑轮询算法寻找subLoop时，当不存在subLoop时能将mainLoop作为作为返回结果
-EventLoop *baseLoop_;
-std::string name_;
-bool started_;
-int numThreads_;
-&#x2F;&#x2F;轮询时下一个位置指向
-int next_;
-std::vector&lt;std::unique_ptr&lt;EventLoopThread&gt;&gt; threads_;
-std::vector&lt;EventLoop *&gt; loops_;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// mainReactor，设置这个成员是考虑轮询算法寻找subLoop时，当不存在subLoop时能将mainLoop作为作为返回结果</span>
+EventLoop <span class="token operator">*</span>baseLoop_<span class="token punctuation">;</span>
+std<span class="token double-colon punctuation">::</span>string name_<span class="token punctuation">;</span>
+<span class="token keyword">bool</span> started_<span class="token punctuation">;</span>
+<span class="token keyword">int</span> numThreads_<span class="token punctuation">;</span>
+<span class="token comment">//轮询时下一个位置指向</span>
+<span class="token keyword">int</span> next_<span class="token punctuation">;</span>
+std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>unique_ptr<span class="token operator">&lt;</span>EventLoopThread<span class="token operator">>></span> threads_<span class="token punctuation">;</span>
+std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>EventLoop <span class="token operator">*</span><span class="token operator">></span> loops_<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- using ThreadInitCallback &#x3D; std::function&lt;void(EventLoop *)&gt;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">using</span> ThreadInitCallback <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>function<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">;</span>
 
- EventLoopThreadPool(EventLoop *baseLoop, const std::string &amp;nameArg);
- ~EventLoopThreadPool();
+ <span class="token function">EventLoopThreadPool</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span>baseLoop<span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string <span class="token operator">&amp;</span>nameArg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token operator">~</span><span class="token function">EventLoopThreadPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- void setThreadNum(int numThreads) &#123; numThreads_ &#x3D; numThreads; &#125;
- void start(const ThreadInitCallback &amp;cb &#x3D; ThreadInitCallback());
+ <span class="token keyword">void</span> <span class="token function">setThreadNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> numThreads<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> numThreads_ <span class="token operator">=</span> numThreads<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token keyword">const</span> ThreadInitCallback <span class="token operator">&amp;</span>cb <span class="token operator">=</span> <span class="token function">ThreadInitCallback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;如果工作在多线程中，baseLoop以轮询方式分配channel给subloop
- EventLoop *getNextLoop();
+ <span class="token comment">//如果工作在多线程中，baseLoop以轮询方式分配channel给subloop</span>
+ EventLoop <span class="token operator">*</span><span class="token function">getNextLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- std::vector&lt;EventLoop *&gt; getAllLoops();
+ std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>EventLoop <span class="token operator">*</span><span class="token operator">></span> <span class="token function">getAllLoops</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- bool started() const &#123; return started_; &#125;
- const std::string name() const &#123; return name_; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ <span class="token keyword">bool</span> <span class="token function">started</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> started_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> name_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>关键</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void EventLoopThreadPool::start(const ThreadInitCallback &amp;cb) &#123;
-  started_ &#x3D; true;
-  for (int i &#x3D; 0; i &lt; numThreads_; ++i) &#123;
-    char buf[name_.size() + 32];
-    snprintf(buf, sizeof buf, &quot;%s%d&quot;, name_.c_str(), i);
-    EventLoopThread *t &#x3D; new EventLoopThread(cb, buf);
-    threads_.push_back(std::unique_ptr&lt;EventLoopThread&gt;(t));
-    &#x2F;&#x2F;底层创建线程，绑定一个新的Eventloop，并记录该loop地址
-    loops_.push_back(t-&gt;startLoop());
-  &#125;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token class-name">EventLoopThreadPool</span><span class="token double-colon punctuation">::</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token keyword">const</span> ThreadInitCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  started_ <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numThreads_<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">char</span> buf<span class="token punctuation">[</span>name_<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">snprintf</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> <span class="token keyword">sizeof</span> buf<span class="token punctuation">,</span> <span class="token string">"%s%d"</span><span class="token punctuation">,</span> name_<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    EventLoopThread <span class="token operator">*</span>t <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">EventLoopThread</span><span class="token punctuation">(</span>cb<span class="token punctuation">,</span> buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    threads_<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">unique_ptr</span><span class="token generic class-name"><span class="token operator">&lt;</span>EventLoopThread<span class="token operator">></span></span></span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//底层创建线程，绑定一个新的Eventloop，并记录该loop地址</span>
+    loops_<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>t<span class="token operator">-></span><span class="token function">startLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
 
-  &#x2F;&#x2F;没有创建其他线程，只有一个mainLoop
-  if (numThreads_ &#x3D;&#x3D; 0 &amp;&amp; cb) &#123;
-    cb(baseLoop_);  &#x2F;&#x2F;如果用户传了cb则需执行下回调******************
-  &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token comment">//没有创建其他线程，只有一个mainLoop</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>numThreads_ <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">cb</span><span class="token punctuation">(</span>baseLoop_<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//如果用户传了cb则需执行下回调******************</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-6-Socket"><a href="#2-6-Socket" class="headerlink" title="2.6 Socket"></a>2.6 Socket</h2><p>Socket封装socket的常用操作，如设置非阻塞、监听、noDelay等，但并不包含创建sockfd。</p>
 <p>注意与Channel的区别，Channel是管理事件和事件发生回调，而Socket则设置socket的属性、绑定监听等</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">const int sockfd_;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">const</span> <span class="token keyword">int</span> sockfd_<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- explicit Socket(int sockfd) : sockfd_(sockfd) &#123;&#125;
- ~Socket();
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">explicit</span> <span class="token function">Socket</span><span class="token punctuation">(</span><span class="token keyword">int</span> sockfd<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">sockfd_</span><span class="token punctuation">(</span>sockfd<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+ <span class="token operator">~</span><span class="token function">Socket</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- int fd() const &#123; return sockfd_; &#125;
- void bindAddress(const InetAddress &amp;localAddr);
- void listen();
- int accept(InetAddress *peeraddr);
+ <span class="token keyword">int</span> <span class="token function">fd</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> sockfd_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">bindAddress</span><span class="token punctuation">(</span><span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span>localAddr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">void</span> <span class="token function">listen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">int</span> <span class="token function">accept</span><span class="token punctuation">(</span>InetAddress <span class="token operator">*</span>peeraddr<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- void shutdownWrite();
+ <span class="token keyword">void</span> <span class="token function">shutdownWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;设置不等待而直接发送
- void setTcpNoDelay(bool on);
- &#x2F;&#x2F;设置端口释放后立即就可以被再次使用
- void setReuseAddr(bool on);
- &#x2F;&#x2F;允许许多个线程或进程，绑定在同一个端口上
- void setReusePort(bool on);
- &#x2F;&#x2F;设置是否开启心跳
- void setKeepAlive(bool on);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ <span class="token comment">//设置不等待而直接发送</span>
+ <span class="token keyword">void</span> <span class="token function">setTcpNoDelay</span><span class="token punctuation">(</span><span class="token keyword">bool</span> on<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">//设置端口释放后立即就可以被再次使用</span>
+ <span class="token keyword">void</span> <span class="token function">setReuseAddr</span><span class="token punctuation">(</span><span class="token keyword">bool</span> on<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">//允许许多个线程或进程，绑定在同一个端口上</span>
+ <span class="token keyword">void</span> <span class="token function">setReusePort</span><span class="token punctuation">(</span><span class="token keyword">bool</span> on<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">//设置是否开启心跳</span>
+ <span class="token keyword">void</span> <span class="token function">setKeepAlive</span><span class="token punctuation">(</span><span class="token keyword">bool</span> on<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-7-Acceptor"><a href="#2-7-Acceptor" class="headerlink" title="2.7 Acceptor"></a>2.7 Acceptor</h2><p>封装了listenfd相关的操作，其监听新连接用户，并分发给subLoop</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">EventLoop *loop_;  &#x2F;&#x2F; acceptor使用的用户定义的loop，也叫mainloop
-Socket acceptSocket_;&#x2F;&#x2F;listenfd对应的socket
-Channel acceptChannel_;&#x2F;&#x2F;listenfd对应的channel
-NewConnectionCallback newConnectionCallback_;  &#x2F;&#x2F;当有新连接到来，需要做的回调
-bool listenning_;&#x2F;&#x2F;是否监听标志<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">EventLoop <span class="token operator">*</span>loop_<span class="token punctuation">;</span>  <span class="token comment">// acceptor使用的用户定义的loop，也叫mainloop</span>
+Socket acceptSocket_<span class="token punctuation">;</span><span class="token comment">//listenfd对应的socket</span>
+Channel acceptChannel_<span class="token punctuation">;</span><span class="token comment">//listenfd对应的channel</span>
+NewConnectionCallback newConnectionCallback_<span class="token punctuation">;</span>  <span class="token comment">//当有新连接到来，需要做的回调</span>
+<span class="token keyword">bool</span> listenning_<span class="token punctuation">;</span><span class="token comment">//是否监听标志</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- using NewConnectionCallback &#x3D;
-     std::function&lt;void(int sockfd, const InetAddress &amp;)&gt;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">using</span> NewConnectionCallback <span class="token operator">=</span>
+     std<span class="token double-colon punctuation">::</span>function<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token punctuation">(</span><span class="token keyword">int</span> sockfd<span class="token punctuation">,</span> <span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">;</span>
 
- Acceptor(EventLoop *loop, const InetAddress &amp;listenAddr, bool reuseport);
- ~Acceptor();
+ <span class="token function">Acceptor</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span>loop<span class="token punctuation">,</span> <span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span>listenAddr<span class="token punctuation">,</span> <span class="token keyword">bool</span> reuseport<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token operator">~</span><span class="token function">Acceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- void setNewConnectionCallback(const NewConnectionCallback &amp;cb) &#123;
-   newConnectionCallback_ &#x3D; cb;
- &#125;
+ <span class="token keyword">void</span> <span class="token function">setNewConnectionCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> NewConnectionCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   newConnectionCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
 
- bool listenning() const &#123; return listenning_; &#125;
- &#x2F;&#x2F;开始监听
- void listen();
+ <span class="token keyword">bool</span> <span class="token function">listenning</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> listenning_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token comment">//开始监听</span>
+ <span class="token keyword">void</span> <span class="token function">listen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-private:
- &#x2F;&#x2F; listenfd有事件发生即有新用户连接，调用此函数
- void handleRead();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">private</span><span class="token operator">:</span>
+ <span class="token comment">// listenfd有事件发生即有新用户连接，调用此函数</span>
+ <span class="token keyword">void</span> <span class="token function">handleRead</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>关键</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; listenfd有事件发生即有新用户连接，调用此函数
-void Acceptor::handleRead() &#123;
-  InetAddress peerAddr;
-  int connfd &#x3D; acceptSocket_.accept(&amp;peerAddr);
-  if (connfd &gt;&#x3D; 0) &#123;
-    if (newConnectionCallback_) &#123;
-      &#x2F;&#x2F;轮询找到subloop，将其唤醒，分发当前客户端的channel
-      newConnectionCallback_(connfd, peerAddr);
-    &#125; else &#123;
-      ::close(connfd);
-    &#125;
-  &#125; else &#123;
-    LOG_ERROR(&quot;%s:%s:%d accept err:%d \n&quot;, __FILE__, __FUNCTION__, __LINE__,
-              errno);
-    &#x2F;&#x2F; EMFILE表示服务器sockfd资源用完
-    if (errno &#x3D;&#x3D; EMFILE) &#123;
-      LOG_ERROR(&quot;%s:%s:%d sockfd reached limit \n&quot;, __FILE__, __FUNCTION__,
-                __LINE__);
-    &#125;
-  &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// listenfd有事件发生即有新用户连接，调用此函数</span>
+<span class="token keyword">void</span> <span class="token class-name">Acceptor</span><span class="token double-colon punctuation">::</span><span class="token function">handleRead</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  InetAddress peerAddr<span class="token punctuation">;</span>
+  <span class="token keyword">int</span> connfd <span class="token operator">=</span> acceptSocket_<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>peerAddr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>connfd <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>newConnectionCallback_<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">//轮询找到subloop，将其唤醒，分发当前客户端的channel</span>
+      <span class="token function">newConnectionCallback_</span><span class="token punctuation">(</span>connfd<span class="token punctuation">,</span> peerAddr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      <span class="token double-colon punctuation">::</span><span class="token function">close</span><span class="token punctuation">(</span>connfd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">LOG_ERROR</span><span class="token punctuation">(</span><span class="token string">"%s:%s:%d accept err:%d \n"</span><span class="token punctuation">,</span> <span class="token constant">__FILE__</span><span class="token punctuation">,</span> __FUNCTION__<span class="token punctuation">,</span> <span class="token constant">__LINE__</span><span class="token punctuation">,</span>
+              errno<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// EMFILE表示服务器sockfd资源用完</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>errno <span class="token operator">==</span> EMFILE<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">LOG_ERROR</span><span class="token punctuation">(</span><span class="token string">"%s:%s:%d sockfd reached limit \n"</span><span class="token punctuation">,</span> <span class="token constant">__FILE__</span><span class="token punctuation">,</span> __FUNCTION__<span class="token punctuation">,</span>
+                <span class="token constant">__LINE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-8-Buffer"><a href="#2-8-Buffer" class="headerlink" title="2.8 Buffer"></a>2.8 <strong>Buffer</strong></h2><p>封装缓冲区常见操作，其内部是一个char类型的vector</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;&#x2F; A buffer class modeled after org.jboss.netty.buffer.ChannelBuffer
-&#x2F;&#x2F;&#x2F;
-&#x2F;&#x2F;&#x2F; @code
-&#x2F;&#x2F;&#x2F; +-------------------+------------------+------------------+
-&#x2F;&#x2F;&#x2F; | prependable bytes |  readable bytes  |  writable bytes  |
-&#x2F;&#x2F;&#x2F; |                   |     (CONTENT)    |                  |
-&#x2F;&#x2F;&#x2F; +-------------------+------------------+------------------+
-&#x2F;&#x2F;&#x2F; |                   |                  |                  |
-&#x2F;&#x2F;&#x2F; 0      &lt;&#x3D;      readerIndex   &lt;&#x3D;   writerIndex    &lt;&#x3D;     size<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">/// A buffer class modeled after org.jboss.netty.buffer.ChannelBuffer</span>
+<span class="token comment">///</span>
+<span class="token comment">/// @code</span>
+<span class="token comment">/// +-------------------+------------------+------------------+</span>
+<span class="token comment">/// | prependable bytes |  readable bytes  |  writable bytes  |</span>
+<span class="token comment">/// |                   |     (CONTENT)    |                  |</span>
+<span class="token comment">/// +-------------------+------------------+------------------+</span>
+<span class="token comment">/// |                   |                  |                  |</span>
+<span class="token comment">/// 0      &lt;=      readerIndex   &lt;=   writerIndex    &lt;=     size</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::vector&lt;char&gt; buffer_;  &#x2F;&#x2F;缓冲区
-size_t readerIndex_;        &#x2F;&#x2F;可读位置
-size_t writerIndex_;        &#x2F;&#x2F;可写位置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">></span> buffer_<span class="token punctuation">;</span>  <span class="token comment">//缓冲区</span>
+size_t readerIndex_<span class="token punctuation">;</span>        <span class="token comment">//可读位置</span>
+size_t writerIndex_<span class="token punctuation">;</span>        <span class="token comment">//可写位置</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- static const size_t kCheapPrepend &#x3D; 8;
- static const size_t kInitialSize &#x3D; 1024;
- explicit Buffer(size_t initialSize &#x3D; kInitialSize)
-     : buffer_(kCheapPrepend + initialSize),
-       readerIndex_(kCheapPrepend),
-       writerIndex_(kCheapPrepend) &#123;&#125;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">static</span> <span class="token keyword">const</span> size_t kCheapPrepend <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+ <span class="token keyword">static</span> <span class="token keyword">const</span> size_t kInitialSize <span class="token operator">=</span> <span class="token number">1024</span><span class="token punctuation">;</span>
+ <span class="token keyword">explicit</span> <span class="token function">Buffer</span><span class="token punctuation">(</span>size_t initialSize <span class="token operator">=</span> kInitialSize<span class="token punctuation">)</span>
+     <span class="token operator">:</span> <span class="token function">buffer_</span><span class="token punctuation">(</span>kCheapPrepend <span class="token operator">+</span> initialSize<span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token function">readerIndex_</span><span class="token punctuation">(</span>kCheapPrepend<span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token function">writerIndex_</span><span class="token punctuation">(</span>kCheapPrepend<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;可读数据长度
- size_t readableBytes() const &#123; return writerIndex_ - readerIndex_; &#125;
- &#x2F;&#x2F;可写数据长度
- size_t writeableBytes() const &#123; return buffer_.size() - writerIndex_; &#125;
- &#x2F;&#x2F;预留空间长度，初始的预留空间是为消息长度而准备
- size_t prependableBytes() const &#123; return readerIndex_; &#125;
+ <span class="token comment">//可读数据长度</span>
+ size_t <span class="token function">readableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> writerIndex_ <span class="token operator">-</span> readerIndex_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token comment">//可写数据长度</span>
+ size_t <span class="token function">writeableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> buffer_<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> writerIndex_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token comment">//预留空间长度，初始的预留空间是为消息长度而准备</span>
+ size_t <span class="token function">prependableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> readerIndex_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;返回缓冲区中可读地址的起始地址
- const char* peek() const &#123; return begin() + readerIndex_; &#125;
+ <span class="token comment">//返回缓冲区中可读地址的起始地址</span>
+ <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> readerIndex_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;读取len长度后调用此函数
- void retrieve(size_t len) &#123;
-   &#x2F;&#x2F;如果数据没读完
-   if (len &lt; readableBytes()) &#123;
-     readerIndex_ +&#x3D; len;  &#x2F;&#x2F;应用只读取了可读缓冲区的一部分，
-   &#125; else &#123;
-     retrieveAll();  &#x2F;&#x2F;已经读完，需将缓冲区复位为初始状态
-   &#125;
- &#125;
- void retrieveAll() &#123; readerIndex_ &#x3D; writerIndex_ &#x3D; kCheapPrepend; &#125;
+ <span class="token comment">//读取len长度后调用此函数</span>
+ <span class="token keyword">void</span> <span class="token function">retrieve</span><span class="token punctuation">(</span>size_t len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token comment">//如果数据没读完</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">&lt;</span> <span class="token function">readableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     readerIndex_ <span class="token operator">+=</span> len<span class="token punctuation">;</span>  <span class="token comment">//应用只读取了可读缓冲区的一部分，</span>
+   <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+     <span class="token function">retrieveAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//已经读完，需将缓冲区复位为初始状态</span>
+   <span class="token punctuation">&#125;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">retrieveAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> readerIndex_ <span class="token operator">=</span> writerIndex_ <span class="token operator">=</span> kCheapPrepend<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;把onMessage函数上报的buffer数据，转成string类型返回
- std::string retrieveAllAsString() &#123;
-   return retrieveAsString(readableBytes());
- &#125;
+ <span class="token comment">//把onMessage函数上报的buffer数据，转成string类型返回</span>
+ std<span class="token double-colon punctuation">::</span>string <span class="token function">retrieveAllAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token keyword">return</span> <span class="token function">retrieveAsString</span><span class="token punctuation">(</span><span class="token function">readableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
 
- std::string retrieveAsString(size_t len) &#123;
-   std::string result(peek(), len);
-   &#x2F;&#x2F;上面已经把缓冲区的数据读出，需要对缓冲区进行复位操作
-   retrieve(len);
-   return result;
- &#125;
+ std<span class="token double-colon punctuation">::</span>string <span class="token function">retrieveAsString</span><span class="token punctuation">(</span>size_t len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   std<span class="token double-colon punctuation">::</span>string <span class="token function">result</span><span class="token punctuation">(</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">//上面已经把缓冲区的数据读出，需要对缓冲区进行复位操作</span>
+   <span class="token function">retrieve</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;确保len长度的数据能被写入
- void ensureWriteableBytes(size_t len) &#123;
-   if (writeableBytes() &lt; len) &#123;
-     makeSpace(len);
-   &#125;
- &#125;
+ <span class="token comment">//确保len长度的数据能被写入</span>
+ <span class="token keyword">void</span> <span class="token function">ensureWriteableBytes</span><span class="token punctuation">(</span>size_t len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">writeableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     <span class="token function">makeSpace</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+ <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;把data中的len长的数据添加到缓冲区中
- void append(const char* data, size_t len) &#123;
-   ensureWriteableBytes(len);
-   std::copy(data, data + len, beginWrite());
-   writerIndex_ +&#x3D; len;
- &#125;
+ <span class="token comment">//把data中的len长的数据添加到缓冲区中</span>
+ <span class="token keyword">void</span> <span class="token function">append</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> data<span class="token punctuation">,</span> size_t len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token function">ensureWriteableBytes</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   std<span class="token double-colon punctuation">::</span><span class="token function">copy</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> data <span class="token operator">+</span> len<span class="token punctuation">,</span> <span class="token function">beginWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   writerIndex_ <span class="token operator">+=</span> len<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;从fd上读取数据
- size_t readFd(int fd, int* saveErrno);
- &#x2F;&#x2F;通过fd发送数据
- size_t writeFd(int fd, int* saveErrno);
+ <span class="token comment">//从fd上读取数据</span>
+ size_t <span class="token function">readFd</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token operator">*</span> saveErrno<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">//通过fd发送数据</span>
+ size_t <span class="token function">writeFd</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token operator">*</span> saveErrno<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-private:
- &#x2F;&#x2F;返回buffer首元素地址，即数组的起始地址，&amp;*不能抵消，因为*被重写过
- char* begin() &#123; return &amp;*buffer_.begin(); &#125;
- const char* begin() const &#123; return &amp;*buffer_.begin(); &#125;
+<span class="token keyword">private</span><span class="token operator">:</span>
+ <span class="token comment">//返回buffer首元素地址，即数组的起始地址，&amp;*不能抵消，因为*被重写过</span>
+ <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token operator">&amp;</span><span class="token operator">*</span>buffer_<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token operator">&amp;</span><span class="token operator">*</span>buffer_<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;通过整理buffer空间或增加buffer空间使得容量够写
- void makeSpace(size_t len) &#123;
-   &#x2F;&#x2F;如果可写空间加上前面预留空间（预留空间可能由于依次被读完而变长）还是小于要求的长度
-   if (writeableBytes() + prependableBytes() &lt; len + kCheapPrepend) &#123;
-     buffer_.resize(writerIndex_ + len);
-   &#125; else &#123;
-     &#x2F;&#x2F;如果数据空间够用，则将现有数据前移
-     size_t readable &#x3D; readableBytes();
-     std::copy(begin() + readerIndex_, begin() + writeableBytes(),
-               begin() + kCheapPrepend);
-   &#125;
- &#125;
+ <span class="token comment">//通过整理buffer空间或增加buffer空间使得容量够写</span>
+ <span class="token keyword">void</span> <span class="token function">makeSpace</span><span class="token punctuation">(</span>size_t len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token comment">//如果可写空间加上前面预留空间（预留空间可能由于依次被读完而变长）还是小于要求的长度</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">writeableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">prependableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> len <span class="token operator">+</span> kCheapPrepend<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     buffer_<span class="token punctuation">.</span><span class="token function">resize</span><span class="token punctuation">(</span>writerIndex_ <span class="token operator">+</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+     <span class="token comment">//如果数据空间够用，则将现有数据前移</span>
+     size_t readable <span class="token operator">=</span> <span class="token function">readableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     std<span class="token double-colon punctuation">::</span><span class="token function">copy</span><span class="token punctuation">(</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> readerIndex_<span class="token punctuation">,</span> <span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">writeableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+               <span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> kCheapPrepend<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+ <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;返回可写处的指针
- char* beginWrite() &#123; return begin() + writerIndex_; &#125;
- const char* beginWrite() const &#123; return begin() + writerIndex_; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ <span class="token comment">//返回可写处的指针</span>
+ <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">beginWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> writerIndex_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">beginWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> writerIndex_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>关键</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;**
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">/**
  * @brief 从fd上读取数据  低层的Poller工作在LT模式
  * buffer缓冲区有大小，但是从fd上读数据时，却不知道tcp数据最终的大小，
  * 如果不断将buffer进行扩容，效率很低;而如果预先就设为很大空间，当用户数量很多时，内存容量消耗极大
@@ -1146,290 +1146,290 @@ private:
  * @param fd sockfd
  * @param saveErrno 错误
  * @return size_t 成功读取大小
- *&#x2F;
-size_t Buffer::readFd(int fd, int* saveErrno) &#123;
-  char extrabuf[65536] &#x3D; &#123;0&#125;;  &#x2F;&#x2F;栈上空间 64k
-  struct iovec vec[2];
-  &#x2F;&#x2F; buffer缓冲区剩余的可写空间大小
-  const size_t writeable &#x3D; writeableBytes();
-  vec[0].iov_base &#x3D; beginWrite();
-  vec[0].iov_len &#x3D; writeable;
+ */</span>
+size_t <span class="token class-name">Buffer</span><span class="token double-colon punctuation">::</span><span class="token function">readFd</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token operator">*</span> saveErrno<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">char</span> extrabuf<span class="token punctuation">[</span><span class="token number">65536</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>  <span class="token comment">//栈上空间 64k</span>
+  <span class="token keyword">struct</span> <span class="token class-name">iovec</span> vec<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token comment">// buffer缓冲区剩余的可写空间大小</span>
+  <span class="token keyword">const</span> size_t writeable <span class="token operator">=</span> <span class="token function">writeableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  vec<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>iov_base <span class="token operator">=</span> <span class="token function">beginWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  vec<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>iov_len <span class="token operator">=</span> writeable<span class="token punctuation">;</span>
 
-  vec[1].iov_base &#x3D; extrabuf;
-  vec[1].iov_len &#x3D; sizeof extrabuf;
+  vec<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>iov_base <span class="token operator">=</span> extrabuf<span class="token punctuation">;</span>
+  vec<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>iov_len <span class="token operator">=</span> <span class="token keyword">sizeof</span> extrabuf<span class="token punctuation">;</span>
 
-  &#x2F;**************************************************************************&#x2F;
-  &#x2F;&#x2F;当缓冲区可写空间小于extrabuf时，使用buffer和extrabuf一起作为readv写入的空间
-  &#x2F;&#x2F;反之，如果可写空间大于extrabuf空间时，就没有必要再使用一个extrabuf来作为暂存了
-  &#x2F;&#x2F;因为buffer在写入数据时，如果空间不够会自动扩容为原来2倍，而即使加上一个extrabuf能存储的数据也没有扩容后的大
-  &#x2F;&#x2F;这样效率效率还没有直接使用一个buffer让其自动扩容效率高，毕竟buffer
-  &#x2F;&#x2F;resize时也会进行拷贝复制
-  &#x2F;&#x2F;使用extra就会在readv中写入一次数据，还需再将其拷贝到buffer中，而不使用的话就是只有readv将数据写入到buf中
-  &#x2F;&#x2F; extrabuf的使用原因是为了避免buffer不断扩容而导致效率低
-  &#x2F;&#x2F;这里不用担心如果空间不够存，使用的是LT模式，没读完的数据后面会不断唤醒读
-  const int iovcnt &#x3D; (writeable &lt; sizeof extrabuf) ? 2 : 1;
-  &#x2F;&#x2F; readv能自动将数据写入到多个缓冲区中，缓冲区都在vec数组中
-  const size_t n &#x3D; ::readv(fd, vec, iovcnt);
-  if (n &lt; 0) &#123;
-    *saveErrno &#x3D; errno;
-  &#125; else if (n &lt;&#x3D; writeable) &#123;  &#x2F;&#x2F; buffer的缓冲区够存储数据
-    writerIndex_ +&#x3D; n;
-  &#125; else &#123;  &#x2F;&#x2F; extrabuf里也写入了数据
-    writerIndex_ &#x3D; buffer_.size();
-    &#x2F;&#x2F;将extrabuf追加到buffer中
-    append(extrabuf, n - writeable);
-  &#125;
-  return n;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token comment">/**************************************************************************/</span>
+  <span class="token comment">//当缓冲区可写空间小于extrabuf时，使用buffer和extrabuf一起作为readv写入的空间</span>
+  <span class="token comment">//反之，如果可写空间大于extrabuf空间时，就没有必要再使用一个extrabuf来作为暂存了</span>
+  <span class="token comment">//因为buffer在写入数据时，如果空间不够会自动扩容为原来2倍，而即使加上一个extrabuf能存储的数据也没有扩容后的大</span>
+  <span class="token comment">//这样效率效率还没有直接使用一个buffer让其自动扩容效率高，毕竟buffer</span>
+  <span class="token comment">//resize时也会进行拷贝复制</span>
+  <span class="token comment">//使用extra就会在readv中写入一次数据，还需再将其拷贝到buffer中，而不使用的话就是只有readv将数据写入到buf中</span>
+  <span class="token comment">// extrabuf的使用原因是为了避免buffer不断扩容而导致效率低</span>
+  <span class="token comment">//这里不用担心如果空间不够存，使用的是LT模式，没读完的数据后面会不断唤醒读</span>
+  <span class="token keyword">const</span> <span class="token keyword">int</span> iovcnt <span class="token operator">=</span> <span class="token punctuation">(</span>writeable <span class="token operator">&lt;</span> <span class="token keyword">sizeof</span> extrabuf<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">2</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token comment">// readv能自动将数据写入到多个缓冲区中，缓冲区都在vec数组中</span>
+  <span class="token keyword">const</span> size_t n <span class="token operator">=</span> <span class="token double-colon punctuation">::</span><span class="token function">readv</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> vec<span class="token punctuation">,</span> iovcnt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token operator">*</span>saveErrno <span class="token operator">=</span> errno<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> writeable<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  <span class="token comment">// buffer的缓冲区够存储数据</span>
+    writerIndex_ <span class="token operator">+=</span> n<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>  <span class="token comment">// extrabuf里也写入了数据</span>
+    writerIndex_ <span class="token operator">=</span> buffer_<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//将extrabuf追加到buffer中</span>
+    <span class="token function">append</span><span class="token punctuation">(</span>extrabuf<span class="token punctuation">,</span> n <span class="token operator">-</span> writeable<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> n<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-9-TcpConnection"><a href="#2-9-TcpConnection" class="headerlink" title="2.9 TcpConnection"></a>2.9 <strong>TcpConnection</strong></h2><p>封装一个连接信息，其内包含本地地址、对端地址、socket、channel、以及读写buffer</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">EventLoop *loop_;  &#x2F;&#x2F; subLoop地址
-  const std::string name_;
-  std::atomic_int state_;&#x2F;&#x2F;TcpConnection状态
-  bool reading_;  &#x2F;&#x2F;可读标志
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">EventLoop <span class="token operator">*</span>loop_<span class="token punctuation">;</span>  <span class="token comment">// subLoop地址</span>
+  <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string name_<span class="token punctuation">;</span>
+  std<span class="token double-colon punctuation">::</span>atomic_int state_<span class="token punctuation">;</span><span class="token comment">//TcpConnection状态</span>
+  <span class="token keyword">bool</span> reading_<span class="token punctuation">;</span>  <span class="token comment">//可读标志</span>
 
-  std::unique_ptr&lt;Socket&gt; socket_;&#x2F;&#x2F;one Tcpconnection one socket
-  std::unique_ptr&lt;Channel&gt; channel_;&#x2F;&#x2F;one Tcpconnection one channel
+  std<span class="token double-colon punctuation">::</span>unique_ptr<span class="token operator">&lt;</span>Socket<span class="token operator">></span> socket_<span class="token punctuation">;</span><span class="token comment">//one Tcpconnection one socket</span>
+  std<span class="token double-colon punctuation">::</span>unique_ptr<span class="token operator">&lt;</span>Channel<span class="token operator">></span> channel_<span class="token punctuation">;</span><span class="token comment">//one Tcpconnection one channel</span>
 
-  const InetAddress localAddr_;  &#x2F;&#x2F;本地地址
-  const InetAddress peerAddr_;   &#x2F;&#x2F;对端地址
+  <span class="token keyword">const</span> InetAddress localAddr_<span class="token punctuation">;</span>  <span class="token comment">//本地地址</span>
+  <span class="token keyword">const</span> InetAddress peerAddr_<span class="token punctuation">;</span>   <span class="token comment">//对端地址</span>
 
-  ConnectionCallback connectionCallback_;        &#x2F;&#x2F;有新连接时的回调
-  MessageCallback messageCallback_;              &#x2F;&#x2F;有读写消息的回调
-  WriteCompleteCallback writeCompleteCallback_;  &#x2F;&#x2F;消息发送完成的回调
-  &#x2F;&#x2F; HighWaterMarkCallback:读写数据达到警戒线的回调。比如当发送数据过快，接收方来不及接受时，此时发送方需要进行处理比如需要停止发送，
-  HighWaterMarkCallback highWaterMarkCallback_;
-  CloseCallback closeCallback_;
+  ConnectionCallback connectionCallback_<span class="token punctuation">;</span>        <span class="token comment">//有新连接时的回调</span>
+  MessageCallback messageCallback_<span class="token punctuation">;</span>              <span class="token comment">//有读写消息的回调</span>
+  WriteCompleteCallback writeCompleteCallback_<span class="token punctuation">;</span>  <span class="token comment">//消息发送完成的回调</span>
+  <span class="token comment">// HighWaterMarkCallback:读写数据达到警戒线的回调。比如当发送数据过快，接收方来不及接受时，此时发送方需要进行处理比如需要停止发送，</span>
+  HighWaterMarkCallback highWaterMarkCallback_<span class="token punctuation">;</span>
+  CloseCallback closeCallback_<span class="token punctuation">;</span>
 
-  size_t highWaterMark_;  &#x2F;&#x2F;水位线标志，超过此数则表示达到警戒线
+  size_t highWaterMark_<span class="token punctuation">;</span>  <span class="token comment">//水位线标志，超过此数则表示达到警戒线</span>
 
-  Buffer inputBuffer_;   &#x2F;&#x2F;接受数据缓冲
-  Buffer outputBuffer_;  &#x2F;&#x2F;发送数据缓冲<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  Buffer inputBuffer_<span class="token punctuation">;</span>   <span class="token comment">//接受数据缓冲</span>
+  Buffer outputBuffer_<span class="token punctuation">;</span>  <span class="token comment">//发送数据缓冲</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
-  TcpConnection(EventLoop *loop, const std::string &amp;name, int sockfd,
-                const InetAddress &amp;localAddr, const InetAddress &amp;peerAddr);
-  ~TcpConnection();
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token function">TcpConnection</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span>loop<span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string <span class="token operator">&amp;</span>name<span class="token punctuation">,</span> <span class="token keyword">int</span> sockfd<span class="token punctuation">,</span>
+                <span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span>localAddr<span class="token punctuation">,</span> <span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span>peerAddr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token operator">~</span><span class="token function">TcpConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  EventLoop *getLoop() const &#123; return loop_; &#125;
-  const std::string &amp;name() const &#123; return name_; &#125;
-  const InetAddress &amp;localAddress() const &#123; return localAddr_; &#125;
-  const InetAddress &amp;peerAddress() const &#123; return peerAddr_; &#125;
+  EventLoop <span class="token operator">*</span><span class="token function">getLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> loop_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+  <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string <span class="token operator">&amp;</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> name_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+  <span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span><span class="token function">localAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> localAddr_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+  <span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span><span class="token function">peerAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> peerAddr_<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
-  bool connected() const &#123; return state_ &#x3D;&#x3D; kConnected; &#125;
+  <span class="token keyword">bool</span> <span class="token function">connected</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> state_ <span class="token operator">==</span> kConnected<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
-  &#x2F;&#x2F;发送数据
-  void send(const std::string &amp;buf);
-  &#x2F;&#x2F; void send(const void *message, int len);
-  &#x2F;&#x2F;关闭连接
-  void shutdown();
+  <span class="token comment">//发送数据</span>
+  <span class="token keyword">void</span> <span class="token function">send</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string <span class="token operator">&amp;</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// void send(const void *message, int len);</span>
+  <span class="token comment">//关闭连接</span>
+  <span class="token keyword">void</span> <span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  &#x2F;&#x2F;设置回调函数
-  void setConnectionCallback(const ConnectionCallback &amp;cb) &#123;
-    connectionCallback_ &#x3D; cb;
-  &#125;
-  void setMessageCallback(const MessageCallback &amp;cb) &#123; messageCallback_ &#x3D; cb; &#125;
-  void setWriteCompleteCallback(const WriteCompleteCallback &amp;cb) &#123;
-    writeCompleteCallback_ &#x3D; cb;
-  &#125;
-  void setHighWaterMarkCallback(const HighWaterMarkCallback &amp;cb) &#123;
-    highWaterMarkCallback_ &#x3D; cb;
-  &#125;
-  void setCloseCallback(const CloseCallback &amp;cb) &#123; closeCallback_ &#x3D; cb; &#125;
+  <span class="token comment">//设置回调函数</span>
+  <span class="token keyword">void</span> <span class="token function">setConnectionCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> ConnectionCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    connectionCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">void</span> <span class="token function">setMessageCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> MessageCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> messageCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+  <span class="token keyword">void</span> <span class="token function">setWriteCompleteCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> WriteCompleteCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    writeCompleteCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">void</span> <span class="token function">setHighWaterMarkCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> HighWaterMarkCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    highWaterMarkCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">void</span> <span class="token function">setCloseCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> CloseCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> closeCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
-  &#x2F;&#x2F;连接建立时的回调函数
-  void connectEstablished();
-  &#x2F;&#x2F;连接销毁的回调函数
-  void connectDestroyed();
+  <span class="token comment">//连接建立时的回调函数</span>
+  <span class="token keyword">void</span> <span class="token function">connectEstablished</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//连接销毁的回调函数</span>
+  <span class="token keyword">void</span> <span class="token function">connectDestroyed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- private:
-  enum StateE &#123; kDisconnected, kConnecting, kConnected, kDisconnecting &#125;;
-  void setState(StateE state) &#123; state_ &#x3D; state; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token keyword">enum</span> <span class="token class-name">StateE</span> <span class="token punctuation">&#123;</span> kDisconnected<span class="token punctuation">,</span> kConnecting<span class="token punctuation">,</span> kConnected<span class="token punctuation">,</span> kDisconnecting <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">setState</span><span class="token punctuation">(</span>StateE state<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> state_ <span class="token operator">=</span> state<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>关键</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;发送数据
-&#x2F;&#x2F;应用写得快，而内核发送数据慢，需要把待发送数据写入缓冲区，而且设置水位回调
-void TcpConnection::sendInLoop(const void *message, size_t len) &#123;
-  size_t nwrote &#x3D; 0;
-  size_t remaining &#x3D; len;
-  bool faultError &#x3D; false;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//发送数据</span>
+<span class="token comment">//应用写得快，而内核发送数据慢，需要把待发送数据写入缓冲区，而且设置水位回调</span>
+<span class="token keyword">void</span> <span class="token class-name">TcpConnection</span><span class="token double-colon punctuation">::</span><span class="token function">sendInLoop</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>message<span class="token punctuation">,</span> size_t len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  size_t nwrote <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  size_t remaining <span class="token operator">=</span> len<span class="token punctuation">;</span>
+  <span class="token keyword">bool</span> faultError <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 
-  &#x2F;&#x2F;之前已经调用过shutdown，不能再进行发送了
-  if (state_ &#x3D;&#x3D; kDisconnected) &#123;
-    LOG_ERROR(&quot;disconnected, give up writing&quot;);
-    return;
-  &#125;
+  <span class="token comment">//之前已经调用过shutdown，不能再进行发送了</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>state_ <span class="token operator">==</span> kDisconnected<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">LOG_ERROR</span><span class="token punctuation">(</span><span class="token string">"disconnected, give up writing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
 
-  &#x2F;&#x2F; channel未设置写感兴趣事件（说明无数据待从缓冲区中写入）且缓冲区没有待发送数据
-  if (!channel_-&gt;isWriting() &amp;&amp; outputBuffer_.readableBytes() &#x3D;&#x3D; 0) &#123;
-    nwrote &#x3D; ::write(channel_-&gt;fd(), message, len);
-    if (nwrote &gt;&#x3D; 0) &#123;
-      remaining &#x3D; len - nwrote;
-      if (remaining &#x3D;&#x3D; 0 &amp;&amp; writeCompleteCallback_) &#123;
-        &#x2F;&#x2F;当一次将数据发送完成，就不用再给channel设置epollout事件了
-        loop_-&gt;queueInLoop(
-            std::bind(writeCompleteCallback_, shared_from_this()));
-      &#125;
-    &#125; else &#123;
-      nwrote &#x3D; 0;
-      if (errno !&#x3D; EWOULDBLOCK) &#123;
-        LOG_ERROR(&quot;TcpConnection::sendInLoop\n&quot;);
-        if (errno &#x3D;&#x3D; EPIPE || errno &#x3D;&#x3D; ECONNREFUSED) &#123;
-          faultError &#x3D; true;
-        &#125;
-      &#125;
-    &#125;
-  &#125;
+  <span class="token comment">// channel未设置写感兴趣事件（说明无数据待从缓冲区中写入）且缓冲区没有待发送数据</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>channel_<span class="token operator">-></span><span class="token function">isWriting</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> outputBuffer_<span class="token punctuation">.</span><span class="token function">readableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    nwrote <span class="token operator">=</span> <span class="token double-colon punctuation">::</span><span class="token function">write</span><span class="token punctuation">(</span>channel_<span class="token operator">-></span><span class="token function">fd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> message<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>nwrote <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      remaining <span class="token operator">=</span> len <span class="token operator">-</span> nwrote<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>remaining <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> writeCompleteCallback_<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//当一次将数据发送完成，就不用再给channel设置epollout事件了</span>
+        loop_<span class="token operator">-></span><span class="token function">queueInLoop</span><span class="token punctuation">(</span>
+            std<span class="token double-colon punctuation">::</span><span class="token function">bind</span><span class="token punctuation">(</span>writeCompleteCallback_<span class="token punctuation">,</span> <span class="token function">shared_from_this</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      nwrote <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>errno <span class="token operator">!=</span> EWOULDBLOCK<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">LOG_ERROR</span><span class="token punctuation">(</span><span class="token string">"TcpConnection::sendInLoop\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>errno <span class="token operator">==</span> EPIPE <span class="token operator">||</span> errno <span class="token operator">==</span> ECONNREFUSED<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          faultError <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
 
-  &#x2F;****************************************************&#x2F;
-  &#x2F;&#x2F;说明这次write没有全部发送出去，剩余数据需要保存到缓冲区中，
-  &#x2F;&#x2F;然后给channel注册epollout事件，poller发现tcp的发送缓冲区有空间，会通知相应的sock-channel，调用WriteCallback方法
-  &#x2F;&#x2F;最终也就是调用handleWrite方法，把发送缓冲区中的数据全部发送完成
-  if (!faultError &amp;&amp; remaining &gt; 0) &#123;
-    &#x2F;&#x2F;目前发送缓冲区剩余的待发送数据长度
-    size_t oldLen &#x3D; outputBuffer_.readableBytes();
-    if (oldLen + remaining &gt;&#x3D; highWaterMark_ &amp;&amp; oldLen &lt; highWaterMark_ &amp;&amp;
-        highWaterMarkCallback_) &#123;
-      loop_-&gt;queueInLoop(std::bind(highWaterMarkCallback_, shared_from_this(),
-                                   oldLen + remaining));
-    &#125;
-    outputBuffer_.append((char *)message + nwrote, remaining);
-    if (!channel_-&gt;isWriting()) &#123;
-      &#x2F;&#x2F;这里一定要注册channel的写事件，否则poller不会给channel通知epollout
-      channel_-&gt;enableWriting();
-    &#125;
-  &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token comment">/****************************************************/</span>
+  <span class="token comment">//说明这次write没有全部发送出去，剩余数据需要保存到缓冲区中，</span>
+  <span class="token comment">//然后给channel注册epollout事件，poller发现tcp的发送缓冲区有空间，会通知相应的sock-channel，调用WriteCallback方法</span>
+  <span class="token comment">//最终也就是调用handleWrite方法，把发送缓冲区中的数据全部发送完成</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>faultError <span class="token operator">&amp;&amp;</span> remaining <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//目前发送缓冲区剩余的待发送数据长度</span>
+    size_t oldLen <span class="token operator">=</span> outputBuffer_<span class="token punctuation">.</span><span class="token function">readableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>oldLen <span class="token operator">+</span> remaining <span class="token operator">>=</span> highWaterMark_ <span class="token operator">&amp;&amp;</span> oldLen <span class="token operator">&lt;</span> highWaterMark_ <span class="token operator">&amp;&amp;</span>
+        highWaterMarkCallback_<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      loop_<span class="token operator">-></span><span class="token function">queueInLoop</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">bind</span><span class="token punctuation">(</span>highWaterMarkCallback_<span class="token punctuation">,</span> <span class="token function">shared_from_this</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                                   oldLen <span class="token operator">+</span> remaining<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    outputBuffer_<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span>message <span class="token operator">+</span> nwrote<span class="token punctuation">,</span> remaining<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>channel_<span class="token operator">-></span><span class="token function">isWriting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">//这里一定要注册channel的写事件，否则poller不会给channel通知epollout</span>
+      channel_<span class="token operator">-></span><span class="token function">enableWriting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;啥时候执行写回调？poller怎么通知写回调，数据不是都先到buffer中的吗
-&#x2F;&#x2F;这是因为只要注册了EPOLLOUT事件，当内核写缓冲可写时，会不断发送EPOLLOUT信号，然后调用此函数将buffer中的数据进行发送
-void TcpConnection::handleWrite() &#123;
-  if (channel_-&gt;isWriting()) &#123;
-    int savedError &#x3D; 0;
-    ssize_t n &#x3D; outputBuffer_.writeFd(channel_-&gt;fd(), &amp;savedError);
-    if (n &gt; 0) &#123;
-      outputBuffer_.retrieve(n);
-      if (outputBuffer_.readableBytes() &#x3D;&#x3D; 0) &#123;
-        channel_-&gt;disableWriting();
-        if (writeCompleteCallback_) &#123;
-          &#x2F;&#x2F;唤醒loop_对应的thread线程，执行回调
-          &#x2F;&#x2F;其实此时就是在loop_对应的thread线程中
-          loop_-&gt;queueInLoop(
-              std::bind(writeCompleteCallback_, shared_from_this()));
-        &#125;
-        &#x2F;&#x2F;当用户shutdown时数据如果没发送完成，不会真的shutdown，只是将标志置为kDisconnecting，而是会等待用户把数据发送完成
-        &#x2F;&#x2F;当数据发送完成后，则再执行一次shutdownInLoop
-        if (state_ &#x3D;&#x3D; kDisconnecting) &#123;
-          shutdownInLoop();
-        &#125;
-      &#125;
-    &#125; else &#123;
-      LOG_ERROR(&quot;TcpConnection::handleWrite() error\n&quot;);
-    &#125;
-  &#125; else &#123;
-    LOG_ERROR(&quot;TcpConnection fd&#x3D;%d is down, no more writing \n&quot;,
-              channel_-&gt;fd());
-  &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//啥时候执行写回调？poller怎么通知写回调，数据不是都先到buffer中的吗</span>
+<span class="token comment">//这是因为只要注册了EPOLLOUT事件，当内核写缓冲可写时，会不断发送EPOLLOUT信号，然后调用此函数将buffer中的数据进行发送</span>
+<span class="token keyword">void</span> <span class="token class-name">TcpConnection</span><span class="token double-colon punctuation">::</span><span class="token function">handleWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>channel_<span class="token operator">-></span><span class="token function">isWriting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> savedError <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    ssize_t n <span class="token operator">=</span> outputBuffer_<span class="token punctuation">.</span><span class="token function">writeFd</span><span class="token punctuation">(</span>channel_<span class="token operator">-></span><span class="token function">fd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>savedError<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      outputBuffer_<span class="token punctuation">.</span><span class="token function">retrieve</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>outputBuffer_<span class="token punctuation">.</span><span class="token function">readableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        channel_<span class="token operator">-></span><span class="token function">disableWriting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>writeCompleteCallback_<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token comment">//唤醒loop_对应的thread线程，执行回调</span>
+          <span class="token comment">//其实此时就是在loop_对应的thread线程中</span>
+          loop_<span class="token operator">-></span><span class="token function">queueInLoop</span><span class="token punctuation">(</span>
+              std<span class="token double-colon punctuation">::</span><span class="token function">bind</span><span class="token punctuation">(</span>writeCompleteCallback_<span class="token punctuation">,</span> <span class="token function">shared_from_this</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">//当用户shutdown时数据如果没发送完成，不会真的shutdown，只是将标志置为kDisconnecting，而是会等待用户把数据发送完成</span>
+        <span class="token comment">//当数据发送完成后，则再执行一次shutdownInLoop</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>state_ <span class="token operator">==</span> kDisconnecting<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token function">shutdownInLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">LOG_ERROR</span><span class="token punctuation">(</span><span class="token string">"TcpConnection::handleWrite() error\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">LOG_ERROR</span><span class="token punctuation">(</span><span class="token string">"TcpConnection fd=%d is down, no more writing \n"</span><span class="token punctuation">,</span>
+              channel_<span class="token operator">-></span><span class="token function">fd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-10-TcpServer"><a href="#2-10-TcpServer" class="headerlink" title="2.10 TcpServer"></a>2.10 <strong>TcpServer</strong></h2><p>上述所有类的综合使用者，用户通过使用此类来设置各种回调，通过此类来管理subLoop个数等</p>
 <p><strong>成员变量</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">using ConnectionMap &#x3D; std::unordered_map&lt;std::string, TcpConnectionPtr&gt;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">using</span> ConnectionMap <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>string<span class="token punctuation">,</span> TcpConnectionPtr<span class="token operator">></span><span class="token punctuation">;</span>
 
-EventLoop *loop_;  &#x2F;&#x2F;用户定义的loop
-const std::string ipPort_;
-const std::string name_;
-std::unique_ptr&lt;Acceptor&gt; acceptor_;  &#x2F;&#x2F; mainLoop的监听新连接事件
-std::shared_ptr&lt;EventLoopThreadPool&gt; threadPool_;  &#x2F;&#x2F; one loop per thread
+EventLoop <span class="token operator">*</span>loop_<span class="token punctuation">;</span>  <span class="token comment">//用户定义的loop</span>
+<span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string ipPort_<span class="token punctuation">;</span>
+<span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string name_<span class="token punctuation">;</span>
+std<span class="token double-colon punctuation">::</span>unique_ptr<span class="token operator">&lt;</span>Acceptor<span class="token operator">></span> acceptor_<span class="token punctuation">;</span>  <span class="token comment">// mainLoop的监听新连接事件</span>
+std<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span>EventLoopThreadPool<span class="token operator">></span> threadPool_<span class="token punctuation">;</span>  <span class="token comment">// one loop per thread</span>
 
-ConnectionCallback connectionCallback_;        &#x2F;&#x2F;有新连接时的回调
-MessageCallback messageCallback_;              &#x2F;&#x2F;有读写消息的回调
-WriteCompleteCallback writeCompleteCallback_;  &#x2F;&#x2F;消息发送完成的回调
+ConnectionCallback connectionCallback_<span class="token punctuation">;</span>        <span class="token comment">//有新连接时的回调</span>
+MessageCallback messageCallback_<span class="token punctuation">;</span>              <span class="token comment">//有读写消息的回调</span>
+WriteCompleteCallback writeCompleteCallback_<span class="token punctuation">;</span>  <span class="token comment">//消息发送完成的回调</span>
 
-ThreadInitCallback threadInitCallback_;  &#x2F;&#x2F;线程初始化的回调
-std::atomic_int started_;
+ThreadInitCallback threadInitCallback_<span class="token punctuation">;</span>  <span class="token comment">//线程初始化的回调</span>
+std<span class="token double-colon punctuation">::</span>atomic_int started_<span class="token punctuation">;</span>
 
-int nextConnId_;&#x2F;&#x2F;TcpConnection的id，是用来加到TcpConnection名字中
-ConnectionMap connections_;  &#x2F;&#x2F;保存所有的连接<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">int</span> nextConnId_<span class="token punctuation">;</span><span class="token comment">//TcpConnection的id，是用来加到TcpConnection名字中</span>
+ConnectionMap connections_<span class="token punctuation">;</span>  <span class="token comment">//保存所有的连接</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>成员函数</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
- using ThreadInitCallback &#x3D; std::function&lt;void(EventLoop *)&gt;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+ <span class="token keyword">using</span> ThreadInitCallback <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>function<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">;</span>
 
- enum Option &#123;
-   kNoReusePort,
-   kReusePort,
- &#125;;
+ <span class="token keyword">enum</span> <span class="token class-name">Option</span> <span class="token punctuation">&#123;</span>
+   kNoReusePort<span class="token punctuation">,</span>
+   kReusePort<span class="token punctuation">,</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
- TcpServer(EventLoop *loop, const InetAddress &amp;listenAddr,
-           const std::string nameArg, Option option &#x3D; kNoReusePort);
- ~TcpServer();
+ <span class="token function">TcpServer</span><span class="token punctuation">(</span>EventLoop <span class="token operator">*</span>loop<span class="token punctuation">,</span> <span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span>listenAddr<span class="token punctuation">,</span>
+           <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string nameArg<span class="token punctuation">,</span> Option option <span class="token operator">=</span> kNoReusePort<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token operator">~</span><span class="token function">TcpServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- void setThreadInitCallback(const ThreadInitCallback &amp;cb) &#123;
-   threadInitCallback_ &#x3D; cb;
- &#125;
- void setConnectionCallback(const ConnectionCallback &amp;cb) &#123;
-   connectionCallback_ &#x3D; cb;
- &#125;
- void setMessageCallback(const MessageCallback &amp;cb) &#123; messageCallback_ &#x3D; cb; &#125;
- void setWriteCompleteCallback(const WriteCompleteCallback &amp;cb) &#123;
-   writeCompleteCallback_ &#x3D; cb;
- &#125;
+ <span class="token keyword">void</span> <span class="token function">setThreadInitCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> ThreadInitCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   threadInitCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">setConnectionCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> ConnectionCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   connectionCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">setMessageCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> MessageCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> messageCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+ <span class="token keyword">void</span> <span class="token function">setWriteCompleteCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> WriteCompleteCallback <span class="token operator">&amp;</span>cb<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   writeCompleteCallback_ <span class="token operator">=</span> cb<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
 
- &#x2F;&#x2F;设置低层subloop的个数
- void setThreadNum(int numThreads);
+ <span class="token comment">//设置低层subloop的个数</span>
+ <span class="token keyword">void</span> <span class="token function">setThreadNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> numThreads<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- &#x2F;&#x2F;开启服务器监听
- void start();
+ <span class="token comment">//开启服务器监听</span>
+ <span class="token keyword">void</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-private:
- &#x2F;&#x2F;当Acceptor有新连接时会调用的回调函数
- void newConnection(int sockfd, const InetAddress &amp;peerAddr);
+<span class="token keyword">private</span><span class="token operator">:</span>
+ <span class="token comment">//当Acceptor有新连接时会调用的回调函数</span>
+ <span class="token keyword">void</span> <span class="token function">newConnection</span><span class="token punctuation">(</span><span class="token keyword">int</span> sockfd<span class="token punctuation">,</span> <span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span>peerAddr<span class="token punctuation">)</span><span class="token punctuation">;</span>
  
- void removeConnection(const TcpConnectionPtr &amp;conn);
- void removeConnectionInLoop(const TcpConnectionPtr &amp;conn);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ <span class="token keyword">void</span> <span class="token function">removeConnection</span><span class="token punctuation">(</span><span class="token keyword">const</span> TcpConnectionPtr <span class="token operator">&amp;</span>conn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">void</span> <span class="token function">removeConnectionInLoop</span><span class="token punctuation">(</span><span class="token keyword">const</span> TcpConnectionPtr <span class="token operator">&amp;</span>conn<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>关键</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;当有新的客户端连接，acceptor会执行这个回调
-&#x2F;&#x2F;根据轮询算法选择一个subLoop，唤醒subLoop，把当前connfd封装成channel分发给subloop
-void TcpServer::newConnection(int sockfd, const InetAddress &amp;peerAddr) &#123;
-  &#x2F;&#x2F;根据轮询选择一个subloop来管理channel
-  EventLoop *ioLoop &#x3D; threadPool_-&gt;getNextLoop();
-  char buf[64] &#x3D; &#123;0&#125;;
-  snprintf(buf, sizeof buf, &quot;-%s#%d&quot;, ipPort_.c_str(), nextConnId_);
-  ++nextConnId_;
-  std::string connName &#x3D; name_ + buf;
-  LOG_INFO(&quot;TcpServer::newConnection [%s] - new connection [%s] from %s\n&quot;,
-           name_.c_str(), connName.c_str(), peerAddr.toIpPort().c_str());
-  &#x2F;&#x2F;通过sockfd获取其绑定的ip地址和端口信息
-  sockaddr_in local;
-  bzero(&amp;local, sizeof local);
-  socklen_t addrlen &#x3D; sizeof local;
-  if (::getsockname(sockfd, (sockaddr *)&amp;local, &amp;addrlen) &lt; 0) &#123;
-    LOG_ERROR(&quot;sockets::getLocalAddr\n&quot;);
-  &#125;
-  InetAddress localAddr(local);
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//当有新的客户端连接，acceptor会执行这个回调</span>
+<span class="token comment">//根据轮询算法选择一个subLoop，唤醒subLoop，把当前connfd封装成channel分发给subloop</span>
+<span class="token keyword">void</span> <span class="token class-name">TcpServer</span><span class="token double-colon punctuation">::</span><span class="token function">newConnection</span><span class="token punctuation">(</span><span class="token keyword">int</span> sockfd<span class="token punctuation">,</span> <span class="token keyword">const</span> InetAddress <span class="token operator">&amp;</span>peerAddr<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">//根据轮询选择一个subloop来管理channel</span>
+  EventLoop <span class="token operator">*</span>ioLoop <span class="token operator">=</span> threadPool_<span class="token operator">-></span><span class="token function">getNextLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token function">snprintf</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> <span class="token keyword">sizeof</span> buf<span class="token punctuation">,</span> <span class="token string">"-%s#%d"</span><span class="token punctuation">,</span> ipPort_<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> nextConnId_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token operator">++</span>nextConnId_<span class="token punctuation">;</span>
+  std<span class="token double-colon punctuation">::</span>string connName <span class="token operator">=</span> name_ <span class="token operator">+</span> buf<span class="token punctuation">;</span>
+  <span class="token function">LOG_INFO</span><span class="token punctuation">(</span><span class="token string">"TcpServer::newConnection [%s] - new connection [%s] from %s\n"</span><span class="token punctuation">,</span>
+           name_<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> connName<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> peerAddr<span class="token punctuation">.</span><span class="token function">toIpPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//通过sockfd获取其绑定的ip地址和端口信息</span>
+  sockaddr_in local<span class="token punctuation">;</span>
+  <span class="token function">bzero</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>local<span class="token punctuation">,</span> <span class="token keyword">sizeof</span> local<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  socklen_t addrlen <span class="token operator">=</span> <span class="token keyword">sizeof</span> local<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token double-colon punctuation">::</span><span class="token function">getsockname</span><span class="token punctuation">(</span>sockfd<span class="token punctuation">,</span> <span class="token punctuation">(</span>sockaddr <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>local<span class="token punctuation">,</span> <span class="token operator">&amp;</span>addrlen<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">LOG_ERROR</span><span class="token punctuation">(</span><span class="token string">"sockets::getLocalAddr\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  InetAddress <span class="token function">localAddr</span><span class="token punctuation">(</span>local<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  &#x2F;&#x2F;根据连接成功的sockfd，创建TcpConnection连接对象
-  TcpConnectionPtr conn(
-      new TcpConnection(ioLoop, connName, sockfd, localAddr, peerAddr));
-  connections_[connName] &#x3D; conn;
-  &#x2F;&#x2F;下面的回调都来源于用户设置给TcpServer &#x3D;&gt; TcpConnection &#x3D;&gt; channel &#x3D;&gt;Poller
-  &#x2F;&#x2F;&#x3D;&gt;notify channel调用回调
-  conn-&gt;setConnectionCallback(connectionCallback_);
-  conn-&gt;setMessageCallback(messageCallback_);
-  conn-&gt;setWriteCompleteCallback(writeCompleteCallback_);
-  &#x2F;&#x2F;设置如何关闭连接的回调 用户调用shutdwon &#x3D;&gt; socket关闭写端 &#x3D;&gt;
-  &#x2F;&#x2F; poller通知channel EPOLLHUP事件 &#x3D;&gt; channel调用closeCallback &#x3D;&gt;
-  &#x2F;&#x2F; TcpConnection::handleClose() &#x3D;&gt; TcpServer::removeConnection
-  conn-&gt;setCloseCallback(
-      std::bind(&amp;TcpServer::removeConnection, this, std::placeholders::_1));
+  <span class="token comment">//根据连接成功的sockfd，创建TcpConnection连接对象</span>
+  TcpConnectionPtr <span class="token function">conn</span><span class="token punctuation">(</span>
+      <span class="token keyword">new</span> <span class="token function">TcpConnection</span><span class="token punctuation">(</span>ioLoop<span class="token punctuation">,</span> connName<span class="token punctuation">,</span> sockfd<span class="token punctuation">,</span> localAddr<span class="token punctuation">,</span> peerAddr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  connections_<span class="token punctuation">[</span>connName<span class="token punctuation">]</span> <span class="token operator">=</span> conn<span class="token punctuation">;</span>
+  <span class="token comment">//下面的回调都来源于用户设置给TcpServer => TcpConnection => channel =>Poller</span>
+  <span class="token comment">//=>notify channel调用回调</span>
+  conn<span class="token operator">-></span><span class="token function">setConnectionCallback</span><span class="token punctuation">(</span>connectionCallback_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  conn<span class="token operator">-></span><span class="token function">setMessageCallback</span><span class="token punctuation">(</span>messageCallback_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  conn<span class="token operator">-></span><span class="token function">setWriteCompleteCallback</span><span class="token punctuation">(</span>writeCompleteCallback_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//设置如何关闭连接的回调 用户调用shutdwon => socket关闭写端 =></span>
+  <span class="token comment">// poller通知channel EPOLLHUP事件 => channel调用closeCallback =></span>
+  <span class="token comment">// TcpConnection::handleClose() => TcpServer::removeConnection</span>
+  conn<span class="token operator">-></span><span class="token function">setCloseCallback</span><span class="token punctuation">(</span>
+      std<span class="token double-colon punctuation">::</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>TcpServer<span class="token double-colon punctuation">::</span>removeConnection<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>placeholders<span class="token double-colon punctuation">::</span>_1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  &#x2F;&#x2F;直接调用connectEstablished方法
-  ioLoop-&gt;runInLoop(std::bind(&amp;TcpConnection::connectEstablished, conn));
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token comment">//直接调用connectEstablished方法</span>
+  ioLoop<span class="token operator">-></span><span class="token function">runInLoop</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>TcpConnection<span class="token double-colon punctuation">::</span>connectEstablished<span class="token punctuation">,</span> conn<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -1617,12 +1617,12 @@ void TcpServer::newConnection(int sockfd, const InetAddress &amp;peerAddr) &#123
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                        <span class="chip bg-color">Alg-栈与队列</span>
-                    </a>
-                    
                     <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
                         <span class="chip bg-color">Alg-单调栈</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">Alg-栈与队列</span>
                     </a>
                     
                 </div>
@@ -1636,13 +1636,13 @@ void TcpServer::newConnection(int sockfd, const InetAddress &amp;peerAddr) &#123
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-496-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0I-simple/">
+                <a href="/2023/02/15/c++/muduo%E7%B3%BB%E5%88%97/muduo%E7%BD%91%E7%BB%9C%E5%BA%93-Linux%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="496. 下一个更大元素 I">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Linux多线程服务器编程：使用muduo C++网络库 笔记">
                         
-                        <span class="card-title">496. 下一个更大元素 I</span>
+                        <span class="card-title">Linux多线程服务器编程：使用muduo C++网络库 笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1659,8 +1659,8 @@ void TcpServer::newConnection(int sockfd, const InetAddress &amp;peerAddr) &#123
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
+                            <a href="/categories/C/" class="post-category">
+                                    C++
                                 </a>
                             
                             
@@ -1670,16 +1670,12 @@ void TcpServer::newConnection(int sockfd, const InetAddress &amp;peerAddr) &#123
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                        <span class="chip bg-color">Alg-哈希表</span>
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
                     </a>
                     
-                    <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                        <span class="chip bg-color">Alg-栈与队列</span>
-                    </a>
-                    
-                    <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
-                        <span class="chip bg-color">Alg-单调栈</span>
+                    <a href="/tags/muduo/">
+                        <span class="chip bg-color">muduo</span>
                     </a>
                     
                 </div>
@@ -1877,7 +1873,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress &amp;peerAddr) &#123
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">165.5k</span>
+                        class="white-color">162.4k</span>
             
             
             

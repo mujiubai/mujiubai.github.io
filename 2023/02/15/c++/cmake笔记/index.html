@@ -403,7 +403,7 @@ cmake的定义是什么 ？—–高级编译配置工具
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-02-15
+                    2023-02-17
                 </div>
                 
 
@@ -461,28 +461,28 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>2、步骤二，写CMakeLists.txt</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token expression">CMakeLists<span class="token punctuation">.</span>txt</span></span>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token comment">#CMakeLists.txt</span>
 
 <span class="token function">PROJECT</span> <span class="token punctuation">(</span>HELLO<span class="token punctuation">)</span>
 
-<span class="token function">SET</span><span class="token punctuation">(</span>SRC_LIST main<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
+<span class="token function">SET</span><span class="token punctuation">(</span>SRC_LIST main.cpp<span class="token punctuation">)</span>
 
-<span class="token function">MESSAGE</span><span class="token punctuation">(</span>STATUS <span class="token string">"This is BINARY dir "</span> $<span class="token punctuation">&#123;</span>HELLO_BINARY_DIR<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token function">MESSAGE</span><span class="token punctuation">(</span>STATUS <span class="token string">"This is BINARY dir "</span> <span class="token punctuation">$&#123;</span><span class="token variable">HELLO_BINARY_DIR</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
-<span class="token function">MESSAGE</span><span class="token punctuation">(</span>STATUS <span class="token string">"This is SOURCE dir "</span>$<span class="token punctuation">&#123;</span>HELLO_SOURCE_DIR<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token function">MESSAGE</span><span class="token punctuation">(</span>STATUS <span class="token string">"This is SOURCE dir "</span><span class="token punctuation">$&#123;</span><span class="token variable">HELLO_SOURCE_DIR</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
-<span class="token function">ADD_EXECUTABLE</span><span class="token punctuation">(</span>hello $<span class="token punctuation">&#123;</span>SRC_LIST<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">ADD_EXECUTABLE</span><span class="token punctuation">(</span>hello <span class="token punctuation">$&#123;</span>SRC_LIST<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>3、步骤三、使用cmake，生成makefile文件</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">cmake <span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cmake <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>目录下就生成了这些文件-CMakeFiles, CMakeCache.txt, cmake_install.cmake 等文件，并且生成了Makefile。</p>
 <p>4、使用make命令编译</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">root@localhost cmake<span class="token punctuation">]</span># make
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@localhost cmake<span class="token punctuation">]</span><span class="token comment"># make</span>
 Scanning dependencies of target hello
-<span class="token punctuation">[</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">]</span> Building CXX object CMakeFiles<span class="token operator">/</span>hello<span class="token punctuation">.</span>dir<span class="token operator">/</span>main<span class="token punctuation">.</span>cpp<span class="token punctuation">.</span>o
+<span class="token punctuation">[</span><span class="token number">100</span>%<span class="token punctuation">]</span> Building CXX object CMakeFiles/hello.dir/main.cpp.o
 Linking CXX executable hello
-<span class="token punctuation">[</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">]</span> Built target hello<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span><span class="token number">100</span>%<span class="token punctuation">]</span> Built target hello<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>5、最终生成了Hello的可执行程序</p>
 <h1 id="2-CMake一个HelloWord-的语法介绍"><a href="#2-CMake一个HelloWord-的语法介绍" class="headerlink" title="2. CMake一个HelloWord-的语法介绍"></a>2. CMake一个HelloWord-的语法介绍</h1><h2 id="2-1-关键字"><a href="#2-1-关键字" class="headerlink" title="2.1 关键字"></a>2.1 关键字</h2><p><strong>PROJECT关键字</strong></p>
@@ -535,13 +535,13 @@ Linking CXX executable hello
 <li>外部构建，就会把生成的临时文件放在build目录下，不会对源文件有任何影响强烈使用外部构建方式</li>
 </ul>
 <p><strong>外部构建方式举例</strong></p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//例子目录，CMakeLists.txt和上面例子一致</span>
-<span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span># pwd
-<span class="token operator">/</span>root<span class="token operator">/</span>cmake
-<span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span># ll
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">//例子目录，CMakeLists.txt和上面例子一致
+<span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span><span class="token comment"># pwd</span>
+/root/cmake
+<span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span><span class="token comment"># ll</span>
 total <span class="token number">8</span>
-<span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span><span class="token punctuation">.</span> <span class="token number">1</span> root root <span class="token number">198</span> Dec <span class="token number">28</span> <span class="token number">20</span><span class="token operator">:</span><span class="token number">59</span> CMakeLists<span class="token punctuation">.</span>txt
-<span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span><span class="token punctuation">.</span> <span class="token number">1</span> root root  <span class="token number">76</span> Dec <span class="token number">28</span> <span class="token number">00</span><span class="token operator">:</span><span class="token number">18</span> main<span class="token punctuation">.</span>cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+-rw-r--r--. <span class="token number">1</span> root root <span class="token number">198</span> Dec <span class="token number">28</span> <span class="token number">20</span>:59 CMakeLists.txt
+-rw-r--r--. <span class="token number">1</span> root root  <span class="token number">76</span> Dec <span class="token number">28</span> 00:18 main.cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>1、建立一个build目录，可以在任何地方，建议在当前目录下</p>
 <p>2、进入build，运行cmake ..    当然..表示上一级目录，你可以写CMakeLists.txt所在的绝对路径，生产的文件都在build目录下了</p>
@@ -558,20 +558,20 @@ total <span class="token number">8</span>
 <li>将 doc 目录 的内容以及 COPYRIGHT&#x2F;README 安装到&#x2F;usr&#x2F;share&#x2F;doc&#x2F;cmake&#x2F;</li>
 </ul>
 <h2 id="4-1-将目标文件放入构建目录的-bin-子目录"><a href="#4-1-将目标文件放入构建目录的-bin-子目录" class="headerlink" title="4.1 将目标文件放入构建目录的 bin 子目录"></a>4.1 将目标文件放入构建目录的 bin 子目录</h2><p>每个目录下都要有一个CMakeLists.txt说明</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span># tree
-<span class="token punctuation">.</span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span><span class="token comment"># tree</span>
+<span class="token builtin class-name">.</span>
 ├── build
-├── CMakeLists<span class="token punctuation">.</span>txt
+├── CMakeLists.txt
 └── src
-    ├── CMakeLists<span class="token punctuation">.</span>txt
-    └── main<span class="token punctuation">.</span>cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    ├── CMakeLists.txt
+    └── main.cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>外层CMakeLists.txt</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">PROJECT</span><span class="token punctuation">(</span>HELLO<span class="token punctuation">)</span>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">PROJECT</span><span class="token punctuation">(</span>HELLO<span class="token punctuation">)</span>
 <span class="token function">ADD_SUBDIRECTORY</span><span class="token punctuation">(</span>src bin<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>src下的CMakeLists.txt</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">ADD_EXECUTABLE</span><span class="token punctuation">(</span>hello main<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">ADD_EXECUTABLE</span><span class="token punctuation">(</span>hello main.cpp<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>ADD_SUBDIRECTORY 指令</strong></p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">ADD_SUBDIRECTORY</span><span class="token punctuation">(</span>source_dir [binary_dir] [<span class="token property">EXCLUDE_FROM_ALL</span>]<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -605,21 +605,21 @@ total <span class="token number">8</span>
 <p>使用CMAKE一个新的指令：INSTALL</p>
 <p>INSTALL的安装可以包括：二进制、动态库、静态库以及文件、目录、脚本等</p>
 <p>使用CMAKE一个新的变量：CMAKE_INSTALL_PREFIX</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 目录树结构</span>
-<span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span># tree
-<span class="token punctuation">.</span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">// 目录树结构
+<span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span><span class="token comment"># tree</span>
+<span class="token builtin class-name">.</span>
 ├── build
-├── CMakeLists<span class="token punctuation">.</span>txt
+├── CMakeLists.txt
 ├── COPYRIGHT
 ├── doc
-│   └── hello<span class="token punctuation">.</span>txt
+│   └── hello.txt
 ├── README
-├── runhello<span class="token punctuation">.</span>sh
+├── runhello.sh
 └── src
-    ├── CMakeLists<span class="token punctuation">.</span>txt
-    └── main<span class="token punctuation">.</span>cpp
+    ├── CMakeLists.txt
+    └── main.cpp
 
-<span class="token number">3</span> directories<span class="token punctuation">,</span> <span class="token number">7</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token number">3</span> directories, <span class="token number">7</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>安装文件COPYRIGHT和README</strong></p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">INSTALL</span><span class="token punctuation">(</span>FILES COPYRIGHT README DESTINATION share/doc/cmake/<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -672,14 +672,14 @@ total <span class="token number">8</span>
 <li>静态库在编译时会直接整合到目标程序中，编译成功的可执行文件可独立运行</li>
 <li>动态库在编译时不会放到连接的目标程序中，即可执行文件无法单独运行。</li>
 </ul>
-<h2 id="5-1构建实例"><a href="#5-1构建实例" class="headerlink" title="5.1构建实例"></a>5.1构建实例</h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>root@localhost cmake2<span class="token punctuation">]</span># tree
-<span class="token punctuation">.</span>
+<h2 id="5-1构建实例"><a href="#5-1构建实例" class="headerlink" title="5.1构建实例"></a>5.1构建实例</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost cmake2<span class="token punctuation">]</span><span class="token comment"># tree</span>
+<span class="token builtin class-name">.</span>
 ├── build
-├── CMakeLists<span class="token punctuation">.</span>txt
+├── CMakeLists.txt
 └── lib
-    ├── CMakeLists<span class="token punctuation">.</span>txt
-    ├── hello<span class="token punctuation">.</span>cpp
-    └── hello<span class="token punctuation">.</span>h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    ├── CMakeLists.txt
+    ├── hello.cpp
+    └── hello.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>hello.h中的内容</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">HELLO_H</span></span>
@@ -697,12 +697,12 @@ total <span class="token number">8</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>项目中的cmake内容</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">PROJECT</span><span class="token punctuation">(</span>HELLO<span class="token punctuation">)</span>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">PROJECT</span><span class="token punctuation">(</span>HELLO<span class="token punctuation">)</span>
 <span class="token function">ADD_SUBDIRECTORY</span><span class="token punctuation">(</span>lib bin<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>lib中CMakeLists.txt中的内容</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">SET</span><span class="token punctuation">(</span>LIBHELLO_SRC hello<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
-<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello SHARED $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">SET</span><span class="token punctuation">(</span>LIBHELLO_SRC hello.cpp<span class="token punctuation">)</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello <span class="token namespace">SHARED</span> <span class="token punctuation">$&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>ADD_LIBRARY</strong></p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello <span class="token namespace">SHARED</span> <span class="token punctuation">$&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -712,30 +712,30 @@ total <span class="token number">8</span>
 <li>SHARED，动态库    STATIC，静态库</li>
 <li>${LIBHELLO_SRC} ：源文件</li>
 </ul>
-<h2 id="5-2-同时构建静态和动态库"><a href="#5-2-同时构建静态和动态库" class="headerlink" title="5.2 同时构建静态和动态库"></a>5.2 同时构建静态和动态库</h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 如果用这种方式，只会构建一个动态库，不会构建出静态库，虽然静态库的后缀是.a</span>
-<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello SHARED $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello STATIC $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<h2 id="5-2-同时构建静态和动态库"><a href="#5-2-同时构建静态和动态库" class="headerlink" title="5.2 同时构建静态和动态库"></a>5.2 同时构建静态和动态库</h2><pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">// 如果用这种方式，只会构建一个动态库，不会构建出静态库，虽然静态库的后缀是.a
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello <span class="token namespace">SHARED</span> <span class="token punctuation">$&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello <span class="token namespace">STATIC</span> <span class="token punctuation">$&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
-<span class="token comment">// 修改静态库的名字，这样是可以的，但是我们往往希望他们的名字是相同的，只是后缀不同而已</span>
-<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello SHARED $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello_static STATIC $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+// 修改静态库的名字，这样是可以的，但是我们往往希望他们的名字是相同的，只是后缀不同而已
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello <span class="token namespace">SHARED</span> <span class="token punctuation">$&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello_static <span class="token namespace">STATIC</span> <span class="token punctuation">$&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>SET_TARGET_PROPERTIES</strong></p>
 <p>这条指令可以用来设置输出的名称，对于动态库，还可以用来指定动态库版本和 API 版本</p>
 <p>同时构建静态和动态库</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">SET</span><span class="token punctuation">(</span>LIBHELLO_SRC hello<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">SET</span><span class="token punctuation">(</span>LIBHELLO_SRC hello.cpp<span class="token punctuation">)</span>
 
-<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello_static STATIC $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello_static <span class="token namespace">STATIC</span> <span class="token punctuation">$&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
-<span class="token comment">//对hello_static的重名为hello</span>
-<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello_static PROPERTIES  OUTPUT_NAME <span class="token string">"hello"</span><span class="token punctuation">)</span>
-<span class="token comment">//cmake 在构建一个新的target 时，会尝试清理掉其他使用这个名字的库，因为，在构建 libhello.so 时， 就会清理掉 libhello.a</span>
-<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello_static PROPERTIES CLEAN_DIRECT_OUTPUT <span class="token number">1</span><span class="token punctuation">)</span>
+//对hello_static的重名为hello
+<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello_static <span class="token namespace">PROPERTIES</span>  <span class="token property">OUTPUT_NAME</span> <span class="token string">"hello"</span><span class="token punctuation">)</span>
+//cmake 在构建一个新的target 时，会尝试清理掉其他使用这个名字的库，因为，在构建 libhello.so 时， 就会清理掉 libhello.a
+<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello_static <span class="token namespace">PROPERTIES</span> CLEAN_DIRECT_OUTPUT <span class="token number">1</span><span class="token punctuation">)</span>
 
-<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello SHARED $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello <span class="token namespace">SHARED</span> <span class="token punctuation">$&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
-<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello PROPERTIES  OUTPUT_NAME <span class="token string">"hello"</span><span class="token punctuation">)</span>
-<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello PROPERTIES CLEAN_DIRECT_OUTPUT <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello <span class="token namespace">PROPERTIES</span>  <span class="token property">OUTPUT_NAME</span> <span class="token string">"hello"</span><span class="token punctuation">)</span>
+<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello <span class="token namespace">PROPERTIES</span> CLEAN_DIRECT_OUTPUT <span class="token number">1</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>动态库的版本号</strong></p>
@@ -749,24 +749,24 @@ libhello<span class="token punctuation">.</span>so<span class="token punctuation
 <p>VERSION 指代动态库版本，SOVERSION 指代 API 版本。</p>
 <h2 id="5-3-安装共享库和头文件"><a href="#5-3-安装共享库和头文件" class="headerlink" title="5.3 安装共享库和头文件"></a>5.3 安装共享库和头文件</h2><p>本例中我们将 hello 的共享库安装到<prefix>&#x2F;lib目录，</p>
 <p>将 hello.h 安装到<prefix>&#x2F;include&#x2F;hello 目录</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//文件放到该目录下</span>
-<span class="token function">INSTALL</span><span class="token punctuation">(</span>FILES hello<span class="token punctuation">.</span>h DESTINATION include<span class="token operator">/</span>hello<span class="token punctuation">)</span>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">//文件放到该目录下
+<span class="token function">INSTALL</span><span class="token punctuation">(</span>FILES hello.h DESTINATION include/hello<span class="token punctuation">)</span>
 
-<span class="token comment">//二进制，静态库，动态库安装都用TARGETS</span>
-<span class="token comment">//ARCHIVE 特指静态库，LIBRARY 特指动态库，RUNTIME 特指可执行目标二进制。</span>
+//二进制，静态库，动态库安装都用TARGETS
+//ARCHIVE 特指静态库，LIBRARY 特指动态库，RUNTIME 特指可执行目标二进制。
 <span class="token function">INSTALL</span><span class="token punctuation">(</span>TARGETS hello hello_static LIBRARY DESTINATION lib ARCHIVE DESTINATION lib<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>注意：</p>
 <p>安装的时候，指定一下路径，放到系统下</p>
 <p><code>cmake -DCMAKE_INSTALL_PREFIX=/usr ..</code></p>
 <h2 id="5-4-使用外部共享库和头文件"><a href="#5-4-使用外部共享库和头文件" class="headerlink" title="5.4 使用外部共享库和头文件"></a>5.4 使用外部共享库和头文件</h2><p>准备工作，新建一个目录来使用外部共享库和头文件</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>root@MiWiFi<span class="token operator">-</span>R4CM<span class="token operator">-</span>srv cmake3<span class="token punctuation">]</span># tree
-<span class="token punctuation">.</span>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">[root@MiWiFi-R4CM-srv cmake3]<span class="token comment"># tree</span>
+.
 ├── build
-├── CMakeLists<span class="token punctuation">.</span>txt
+├── CMakeLists.txt
 └── src
-    ├── CMakeLists<span class="token punctuation">.</span>txt
-    └── main<span class="token punctuation">.</span>cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    ├── CMakeLists.txt
+    └── main.cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>main.cpp</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;hello.h></span></span>
@@ -793,14 +793,14 @@ libhello<span class="token punctuation">.</span>so<span class="token punctuation
 
 <p>在CMakeLists.txt中插入链接共享库，主要要插在executable的后面</p>
 <p>查看main的链接情况</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>root@MiWiFi<span class="token operator">-</span>R4CM<span class="token operator">-</span>srv bin<span class="token punctuation">]</span># ldd main 
-	linux<span class="token operator">-</span>vdso<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">></span>  <span class="token punctuation">(</span><span class="token number">0x00007ffedfda4000</span><span class="token punctuation">)</span>
-	libhello<span class="token punctuation">.</span>so <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libhello<span class="token punctuation">.</span><span class="token function">so</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c0d8f000</span><span class="token punctuation">)</span>
-	libstdc<span class="token operator">++</span><span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libstdc<span class="token operator">++</span><span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c0874000</span><span class="token punctuation">)</span>
-	libm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c0572000</span><span class="token punctuation">)</span>
-	libgcc_s<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libgcc_s<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c035c000</span><span class="token punctuation">)</span>
-	libc<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libc<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x00007f41bff8e000</span><span class="token punctuation">)</span>
-	<span class="token operator">/</span>lib64<span class="token operator">/</span>ld<span class="token operator">-</span>linux<span class="token operator">-</span>x86<span class="token operator">-</span><span class="token number">64.</span>so<span class="token punctuation">.</span><span class="token number">2</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c0b7c000</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@MiWiFi-R4CM-srv bin<span class="token punctuation">]</span><span class="token comment"># ldd main </span>
+	linux-vdso.so.1 <span class="token operator">=</span><span class="token operator">></span>  <span class="token punctuation">(</span>0x00007ffedfda4000<span class="token punctuation">)</span>
+	libhello.so <span class="token operator">=</span><span class="token operator">></span> /lib64/libhello.so <span class="token punctuation">(</span>0x00007f41c0d8f000<span class="token punctuation">)</span>
+	libstdc++.so.6 <span class="token operator">=</span><span class="token operator">></span> /lib64/libstdc++.so.6 <span class="token punctuation">(</span>0x00007f41c0874000<span class="token punctuation">)</span>
+	libm.so.6 <span class="token operator">=</span><span class="token operator">></span> /lib64/libm.so.6 <span class="token punctuation">(</span>0x00007f41c0572000<span class="token punctuation">)</span>
+	libgcc_s.so.1 <span class="token operator">=</span><span class="token operator">></span> /lib64/libgcc_s.so.1 <span class="token punctuation">(</span>0x00007f41c035c000<span class="token punctuation">)</span>
+	libc.so.6 <span class="token operator">=</span><span class="token operator">></span> /lib64/libc.so.6 <span class="token punctuation">(</span>0x00007f41bff8e000<span class="token punctuation">)</span>
+	/lib64/ld-linux-x86-64.so.2 <span class="token punctuation">(</span>0x00007f41c0b7c000<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>链接静态库</p>
 <p><code>TARGET_LINK_LIBRARIES(main libhello.a)</code></p>
@@ -1076,13 +1076,13 @@ libhello<span class="token punctuation">.</span>so<span class="token punctuation
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/c++/Effective_Modern_C++/">
+                <a href="/2023/02/15/c++/C++11%E6%96%B0%E7%89%B9%E6%80%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Effective Modern C++">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="C++11新特性">
                         
-                        <span class="card-title">Effective Modern C++</span>
+                        <span class="card-title">C++11新特性</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1114,6 +1114,10 @@ libhello<span class="token punctuation">.</span>so<span class="token punctuation
                         <span class="chip bg-color">C++</span>
                     </a>
                     
+                    <a href="/tags/C-11/">
+                        <span class="chip bg-color">C++11</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1125,13 +1129,13 @@ libhello<span class="token punctuation">.</span>so<span class="token punctuation
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/c++/%E4%BE%AF%E6%8D%B7STL/">
+                <a href="/2023/02/15/c++/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5_C++11/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="侯捷STL视频笔记">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="多线程和线程同步-C++11">
                         
-                        <span class="card-title">侯捷STL视频笔记</span>
+                        <span class="card-title">多线程和线程同步-C++11</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1163,8 +1167,8 @@ libhello<span class="token punctuation">.</span>so<span class="token punctuation
                         <span class="chip bg-color">C++</span>
                     </a>
                     
-                    <a href="/tags/STL/">
-                        <span class="chip bg-color">STL</span>
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="chip bg-color">多线程</span>
                     </a>
                     
                 </div>
@@ -1362,7 +1366,7 @@ libhello<span class="token punctuation">.</span>so<span class="token punctuation
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">165.5k</span>
+                        class="white-color">162.4k</span>
             
             
             

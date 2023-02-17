@@ -4,20 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="侯捷STL视频笔记, Hexo">
-    <meta name="description" content="学习侯捷STL笔记，视频地址
-
-
-1. 基础介绍STL六大部件：
-
-容器 Containers
-分配器 Allocator
-算法 Algorithm
-迭代器 Iterators
-适配器 Adapters
-仿函数 Functors
-
-容器存储">
+    <meta name="keywords" content="标签: Alg-数组, Hexo">
+    <meta name="description" content="Hexo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -29,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>侯捷STL视频笔记 | Hexo</title>
+    <title>标签: Alg-数组 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -342,556 +330,369 @@
 
 </header>
 
-    
-
-
-
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
-    <div class="container" style="right: 0px;left: 0px;">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">侯捷STL视频笔记</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<main class="post-container content">
-
-    
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
     <div class="row">
-    <div id="main-content" class="col s12 m12 l9">
-        <!-- 文章内容详情 -->
-<div id="artDetail">
-    <div class="card">
-        <div class="card-content article-info">
-            <div class="row tag-cate">
-                <div class="col s7">
-                    
-                    <div class="article-tag">
-                        
-                            <a href="/tags/C/">
-                                <span class="chip bg-color">C++</span>
-                            </a>
-                        
-                            <a href="/tags/STL/">
-                                <span class="chip bg-color">STL</span>
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-                <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/C/" class="post-category">
-                                C++
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div class="post-info">
+    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+        <div class="brand">
+            <div class="title center-align">
                 
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-02-15
-                </div>
-                
-
-                
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-02-16
-                </div>
-                
-
-                
-                <div class="info-break-policy">
-                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    544
-                </div>
-                
-
-                
-                <div class="info-break-policy">
-                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
-                </div>
-                
-
-                
-                    <div id="busuanzi_container_page_pv" class="info-break-policy">
-                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
-                        <span id="busuanzi_value_page_pv"></span>
-                    </div>
-				
-            </div>
-        </div>
-        <hr class="clearfix">
-
-        
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
-
-        
-        <!-- 代码块折行 -->
-        <style type="text/css">
-            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
-        </style>
-        
-
-        <div class="card-content article-card-content">
-            <div id="articleContent">
-                <p>学习侯捷STL笔记，<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Edcwv38c7d4&list=PLTcwR9j5y6W2Bf4S-qi0HBQlHXQVFoJrP">视频地址</a></p>
-<hr>
-<hr>
-<h1 id="1-基础介绍"><a href="#1-基础介绍" class="headerlink" title="1. 基础介绍"></a>1. 基础介绍</h1><p>STL六大部件：</p>
-<ul>
-<li>容器 Containers</li>
-<li>分配器 Allocator</li>
-<li>算法 Algorithm</li>
-<li>迭代器 Iterators</li>
-<li>适配器 Adapters</li>
-<li>仿函数 Functors</li>
-</ul>
-<p>容器存储数据，容器通过分配器来获得内存分配，算法通过迭代器来操作容器中的数据，仿函数可以为算法提供类函数似实体，适配器可对仿函数、容器等进行包装。</p>
-<p><img src="C:\Users\MyPC\AppData\Roaming\Typora\typora-user-images\image-20221220190021504.png" alt="image-20221220190021504"></p>
-<p>六大部件使用</p>
-<p><img src="C:\Users\MyPC\AppData\Roaming\Typora\typora-user-images\image-20221220190856969.png" alt="image-20221220190856969"></p>
-<h1 id="2-容器"><a href="#2-容器" class="headerlink" title="2. 容器"></a>2. 容器</h1><p>容器类型可以大致分为：</p>
-<ul>
-<li><p>序列式容器：</p>
-<ul>
-<li><p>array. 固定大小容器，容量不可增长</p>
-</li>
-<li><p>vector. 可自动增长容器</p>
-</li>
-<li><p>deque. 双向队列</p>
-</li>
-<li><p>List. 双向链表</p>
-</li>
-<li><p>Forward-List. 单向链表</p>
-</li>
-</ul>
-</li>
-<li><p>关联式容器：</p>
-<ul>
-<li><p>set&#x2F;multiset. 底层为红黑树，multiset值可以重复</p>
-</li>
-<li><p>map&#x2F;multimap. 底层为红黑树，multimap的key可以重复</p>
-</li>
-<li><p>unordered set&#x2F;multiset. 底层哈希表（常用拉链法）</p>
-</li>
-<li><p>unordered map&#x2F;multimap. 底层哈希表（常用拉链法）</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="2-1-array"><a href="#2-1-array" class="headerlink" title="2.1 array"></a>2.1 array</h2><p><code>std::array</code> 是封装固定大小数组的容器。</p>
-<p>此容器是一个聚合类型，其语义等同于保有一个 <a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/language/array">C 风格数组</a> T[N] 作为其唯一非静态数据成员的结构体。不同于 C 风格数组，它不会自动退化成 T* 。</p>
-<p>array定义：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;
-    class T,
-    std::size_t N
-&gt; struct array;
-
-&#x2F;&#x2F; 用聚合初始化构造
-    std::array&lt;int, 3&gt; a1&#123; &#123;1, 2, 3&#125; &#125;; &#x2F;&#x2F; CWG 1270 重申前的 C++11 中要求双花括号
-                                        &#x2F;&#x2F; （ C++11 之后的版本和 C++14 起不要求）
-    std::array&lt;int, 3&gt; a2 &#x3D; &#123;1, 2, 3&#125;;  &#x2F;&#x2F; &#x3D; 后决不要求双花括号
-    std::array&lt;std::string, 2&gt; a3 &#x3D; &#123; std::string(&quot;a&quot;), &quot;b&quot; &#125;;
- 
-    &#x2F;&#x2F; 支持容器操作
-    std::sort(a1.begin(), a1.end());
-    std::reverse_copy(a2.begin(), a2.end(), 
-                      std::ostream_iterator&lt;int&gt;(std::cout, &quot; &quot;));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li><p>当其长度为零时 <code>array</code> （ <code>N == 0</code> ）有特殊情况。此时， array.begin() &#x3D;&#x3D; array.end() ，并拥有某个唯一值。在零长 <code>array</code> 上调用 front() 或 back() 是未定义的。</p>
-</li>
-<li><p>亦可将 <code>array</code> 当做拥有 <code>N</code> 个同类型元素的元组。</p>
-</li>
-<li><p>注意，在 <a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/container/array/swap">swap</a> 时，迭代器将继续指向同一 <code>array</code> 的元素，并将改变元素的值。</p>
-</li>
-</ul>
-
+                    subtitle
                 
             </div>
-            <hr/>
 
-            
-
-    <div class="reprint" id="reprint-statement">
-        
-            <div class="reprint__author">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-user">
-                        文章作者:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">mujiubai</a>
-                </span>
-            </div>
-            <div class="reprint__type">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-link">
-                        文章链接:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="https://mujiubai.github.io/2023/02/15/c++/%E4%BE%AF%E6%8D%B7STL/">https://mujiubai.github.io/2023/02/15/c++/%E4%BE%AF%E6%8D%B7STL/</a>
-                </span>
-            </div>
-            <div class="reprint__notice">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-copyright">
-                        版权声明:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
-                    许可协议。转载请注明来源
-                    <a href="/about" target="_blank">mujiubai</a>
-                    !
-                </span>
-            </div>
-        
-    </div>
-
-    <script async defer>
-      document.addEventListener("copy", function (e) {
-        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
-        M.toast({html: toastHTML})
-      });
-
-      function navToReprintStatement() {
-        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
-      }
-    </script>
-
-
-
-            <div class="tag_share" style="display: block;">
-                <div class="post-meta__tag-list" style="display: inline-block;">
-                    
-                        <div class="article-tag">
+            <div class="description center-align">
+                
+                <span id="subtitle"></span>
+                <script src="/libs/typed/typed.js"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: [ 
                             
-                                <a href="/tags/C/">
-                                    <span class="chip bg-color">C++</span>
-                                </a>
+                                "从来没有真正的绝境, 只有心灵的迷途",
                             
-                                <a href="/tags/STL/">
-                                    <span class="chip bg-color">STL</span>
-                                </a>
+                                "Never really desperate, only the lost of the soul",
                             
-                        </div>
-                    
-                </div>
-                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
-<div id="article-share">
-
-    
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="/libs/share/js/social-share.min.js"></script>
-    
-
-    
-
-</div>
-
-                </div>
-            </div>
-            
-                <div id="reward">
-    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close modal-close"><i class="fas fa-times"></i></a>
-            <h4 class="reward-title">你的赏识是我前进的动力</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs row">
-                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
-                    </ul>
-                    <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                    <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                </div>
+                        ],
+                        startDelay: 300,
+                        typeSpeed: 100,
+                        loop: true,
+                        backSpeed: 50,
+                        showCursor: true
+                    });
+                </script>
+                
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
-    $(function () {
-        $('.tabs').tabs();
-    });
+    // 每天切换 banner 图.  Switch banner image every day.
+    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
+    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
 </script>
 
-            
+
+    </div>
+</div>
+
+<main class="content">
+
+    
+
+<div id="tags" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+            </div>
+            <div class="tag-chips">
+                
+                
+                <a href="/tags/Linux/" title="Linux: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Linux" style="background-color: #F9EBEA;">Linux
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/C/" title="C++: 10">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="C++" style="background-color: #F5EEF8;">C++
+                        <span class="tag-length">10</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/C-11/" title="C++11: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="C++11" style="background-color: #D5F5E3;">C++11
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/CMake/" title="CMake: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="CMake" style="background-color: #E8F8F5;">CMake
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="多线程: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="多线程" style="background-color: #FEF9E7;">多线程
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E6%B7%B1%E5%BA%A6%E6%90%9C%E7%B4%A2/" title="Alg-深度搜索: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-深度搜索" style="background-color: #F8F9F9;">Alg-深度搜索
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E6%8E%92%E5%BA%8F/" title="Alg-排序: 4">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-排序" style="background-color: #82E0AA;">Alg-排序
+                        <span class="tag-length">4</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/STL/" title="STL: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="STL" style="background-color: #D7BDE2;">STL
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="二分查找: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="二分查找" style="background-color: #A3E4D7;">二分查找
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/" title="Alg-贪心: 22">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-贪心" style="background-color: #85C1E9;">Alg-贪心
+                        <span class="tag-length">22</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="Alg-动态规划: 39">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-动态规划" style="background-color: #F8C471;">Alg-动态规划
+                        <span class="tag-length">39</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/" title="Alg-双指针: 17">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-双指针" style="background-color: #F9E79F;">Alg-双指针
+                        <span class="tag-length">17</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/" title="Alg-回溯: 18">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-回溯" style="background-color: #FFF;">Alg-回溯
+                        <span class="tag-length">18</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="Alg-二叉树: 10">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-二叉树" style="background-color: #A3E4D7;">Alg-二叉树
+                        <span class="tag-length">10</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/" title="Alg-单调栈: 7">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-单调栈" style="background-color: #F9E79F;">Alg-单调栈
+                        <span class="tag-length">7</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/" title="Alg-哈希表: 13">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-哈希表" style="background-color: #F5EEF8;">Alg-哈希表
+                        <span class="tag-length">13</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" title="双指针: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="双指针" style="background-color: #D5F5E3;">双指针
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E6%95%B0%E7%BB%84/" title="Alg-数组: 11">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            data-tagname="Alg-数组" style="background-color: #E8F8F5;">Alg-数组
+                        <span class="tag-length">11</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" title="Alg-滑动窗口: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-滑动窗口" style="background-color: #F8F9F9;">Alg-滑动窗口
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E6%A8%A1%E6%8B%9F/" title="Alg-模拟: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-模拟" style="background-color: #F9E79F;">Alg-模拟
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="Alg-字符串: 8">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-字符串" style="background-color: #F9EBEA;">Alg-字符串
+                        <span class="tag-length">8</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-KMP/" title="Alg-KMP: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-KMP" style="background-color: #82E0AA;">Alg-KMP
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/" title="Alg-栈与队列: 10">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-栈与队列" style="background-color: #FEF9E7;">Alg-栈与队列
+                        <span class="tag-length">10</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/" title="Alg-链表: 7">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alg-链表" style="background-color: #F8F9F9;">Alg-链表
+                        <span class="tag-length">7</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/RPC/" title="RPC: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="RPC" style="background-color: #A3E4D7;">RPC
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/muduo/" title="muduo: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="muduo" style="background-color: #E8F8F5;">muduo
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+            </div>
         </div>
     </div>
+</div>
 
     
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-<article id="prenext-posts" class="prev-next articles">
-    <div class="row article-row">
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
-            <div class="card">
-                <a href="/2023/02/15/c++/cmake%E7%AC%94%E8%AE%B0/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CMake笔记">
-                        
-                        <span class="card-title">CMake笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/C/" class="post-category">
-                                    C++
-                                </a>
+    <article id="articles" class="container articles">
+        <div class="row tags-posts">
+            
+            
+            <div class="article tag-post col s12 m6 l4" data-tags="Alg-双指针, Alg-数组" data-aos="fade-up">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-977-simple/">
+                        <div class="card-image tag-image">
                             
                             
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="977. 有序数组的平方">
+                            
+                            <span class="card-title">977. 有序数组的平方</span>
+                        </div>
                     </a>
-                    
-                    <a href="/tags/CMake/">
-                        <span class="chip bg-color">CMake</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/02/15/c++/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5_C++11/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="多线程和线程同步-C++11">
-                        
-                        <span class="card-title">多线程和线程同步-C++11</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
+                    <div class="card-content article-content">
+                        <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
                             </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/C/" class="post-category">
-                                    C++
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                LeetCode
                                 </a>
-                            
-                            
-                        </span>
+                                
+                                
+                            </span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-                        <span class="chip bg-color">多线程</span>
-                    </a>
-                    
-                </div>
-                
             </div>
+            
         </div>
-        
-    </div>
-</article>
-
-</div>
-
-
-
-<!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
-
-
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
-
-<!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
-
-<!-- 代码块复制 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
-
-
-<!-- 代码块收缩 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
-
-
-
-    </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget card" style="background-color: white;">
-            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
-            <div id="toc-content"></div>
-        </div>
-    </div>
-</div>
-
-<!-- TOC 悬浮按钮. -->
-
-<div id="floating-toc-btn" class="hide-on-med-and-down">
-    <a class="btn-floating btn-large bg-color">
-        <i class="fas fa-list-ul"></i>
-    </a>
-</div>
-
-
-<script src="/libs/tocbot/tocbot.min.js"></script>
-<script>
-    $(function () {
-        tocbot.init({
-            tocSelector: '#toc-content',
-            contentSelector: '#articleContent',
-            headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
-        });
-
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
-
-        
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
-
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
-        const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
-            if ($tocAside.hasClass(expandedClass)) {
-                $tocAside.removeClass(expandedClass).hide();
-                $mainContent.removeClass('l9');
-            } else {
-                $tocAside.addClass(expandedClass).show();
-                $mainContent.addClass('l9');
-            }
-            fixPostCardWidth('artDetail', 'prenext-posts');
-        });
-        
-    });
-</script>
-
-    
-
+    </article>
 </main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a href="/tags/Alg-%E6%95%B0%E7%BB%84/"
+               class="left btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">2 / 2</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a class="right btn-floating btn-large disabled">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
 
 
 
@@ -967,7 +768,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">165.5k</span>
+                        class="white-color">162.4k</span>
             
             
             
