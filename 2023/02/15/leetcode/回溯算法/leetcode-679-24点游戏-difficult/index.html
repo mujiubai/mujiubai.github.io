@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    453
+                    475
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -441,7 +449,48 @@
 <li>时间复杂度：O(1) ，总可能性是9216种，固定的</li>
 <li>空间复杂度：O(1)，递归最多只调用4层，因此是常数级</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> Target=<span class="number">24</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">judgePoint24</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; cards)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">double</span>&gt; ll;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;a:cards)</span><br><span class="line">            ll.<span class="built_in">push_back</span>(<span class="built_in">static_cast</span>&lt;<span class="type">double</span>&gt;(a));</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">solve</span>(ll);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">solve</span><span class="params">(vector&lt;<span class="type">double</span>&gt; &amp;ll)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ll.<span class="built_in">size</span>()==<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(ll.<span class="built_in">size</span>()==<span class="number">1</span>) <span class="keyword">return</span> <span class="built_in">fabs</span>(ll[<span class="number">0</span>]-Target)&lt;<span class="number">1e-6</span>;</span><br><span class="line">        <span class="type">int</span> n=ll.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i!=j)&#123;</span><br><span class="line">                    vector&lt;<span class="type">double</span>&gt; list2;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;n;++k)&#123;</span><br><span class="line">                        <span class="keyword">if</span>(k!=i&amp;&amp;k!=j) list2.<span class="built_in">push_back</span>(ll[k]);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;<span class="number">4</span>;++k)&#123;</span><br><span class="line">                        <span class="keyword">if</span>(k&lt;<span class="number">2</span>&amp;&amp;i&gt;j) <span class="keyword">continue</span>;</span><br><span class="line">                        <span class="keyword">if</span>(k==<span class="number">0</span>)&#123;</span><br><span class="line">                            list2.<span class="built_in">push_back</span>(ll[i]+ll[j]);</span><br><span class="line">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(k==<span class="number">1</span>)&#123;</span><br><span class="line">                            list2.<span class="built_in">push_back</span>(ll[i]*ll[j]);</span><br><span class="line">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(k==<span class="number">2</span>)&#123;</span><br><span class="line">                            list2.<span class="built_in">push_back</span>(ll[i]-ll[j]);</span><br><span class="line">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(k==<span class="number">3</span>)&#123;</span><br><span class="line">                            <span class="keyword">if</span>(<span class="built_in">fabs</span>(ll[j])&lt;<span class="number">1e-6</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                            list2.<span class="built_in">push_back</span>(ll[i]/ll[j]);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span>(<span class="built_in">solve</span>(list2)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                        list2.<span class="built_in">pop_back</span>();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    static constexpr double Target&#x3D;24;
+public:
+    bool judgePoint24(vector&lt;int&gt;&amp; cards) &#123;
+        vector&lt;double&gt; ll;
+        for(auto &amp;a:cards)
+            ll.push_back(static_cast&lt;double&gt;(a));
+        return solve(ll);
+    &#125;
+
+    bool solve(vector&lt;double&gt; &amp;ll)&#123;
+        if(ll.size()&#x3D;&#x3D;0) return false;
+        if(ll.size()&#x3D;&#x3D;1) return fabs(ll[0]-Target)&lt;1e-6;
+        int n&#x3D;ll.size();
+        for(int i&#x3D;0;i&lt;n;++i)&#123;
+            for(int j&#x3D;0;j&lt;n;++j)&#123;
+                if(i!&#x3D;j)&#123;
+                    vector&lt;double&gt; list2;
+                    for(int k&#x3D;0;k&lt;n;++k)&#123;
+                        if(k!&#x3D;i&amp;&amp;k!&#x3D;j) list2.push_back(ll[k]);
+                    &#125;
+                    for(int k&#x3D;0;k&lt;4;++k)&#123;
+                        if(k&lt;2&amp;&amp;i&gt;j) continue;
+                        if(k&#x3D;&#x3D;0)&#123;
+                            list2.push_back(ll[i]+ll[j]);
+                        &#125;else if(k&#x3D;&#x3D;1)&#123;
+                            list2.push_back(ll[i]*ll[j]);
+                        &#125;else if(k&#x3D;&#x3D;2)&#123;
+                            list2.push_back(ll[i]-ll[j]);
+                        &#125;else if(k&#x3D;&#x3D;3)&#123;
+                            if(fabs(ll[j])&lt;1e-6) return false;
+                            list2.push_back(ll[i]&#x2F;ll[j]);
+                        &#125;
+                        if(solve(list2)) return true;
+                        list2.pop_back();
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        return false;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -642,13 +691,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-77-%E7%BB%84%E5%90%88-middle/">
+                <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-78-%E5%AD%90%E9%9B%86-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="77. 组合">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="78. 子集">
                         
-                        <span class="card-title">77. 组合</span>
+                        <span class="card-title">78. 子集</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -695,6 +744,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -872,7 +924,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

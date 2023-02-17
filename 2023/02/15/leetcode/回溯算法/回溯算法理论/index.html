@@ -407,14 +407,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    6 分
                 </div>
                 
 
@@ -429,7 +429,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -452,24 +460,42 @@
 <blockquote>
 <p>回溯算法中函数返回值一般为void。</p>
 <p>再来看一下参数，因为回溯算法需要的参数可不像二叉树递归的时候那么容易一次性确定下来，所以一般是先写逻辑，然后需要什么参数，就填什么参数。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">backtracking</span><span class="params">(参数)</span></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void backtracking(参数)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </blockquote>
 <ul>
 <li>回溯函数终止条件</li>
 </ul>
 <blockquote>
 <p>什么时候达到了终止条件，树中就可以看出，一般来说搜到叶子节点了，也就找到了满足条件的一条答案，把这个答案存放起来，并结束本层递归。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (终止条件) &#123;</span><br><span class="line">    存放结果;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">if (终止条件) &#123;
+    存放结果;
+    return;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <ul>
 <li>回溯搜索的遍历过程</li>
 </ul>
 <blockquote>
 <p>回溯法一般是在集合中递归搜索，集合的大小构成了树的宽度，递归的深度构成的树的深度。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) &#123;</span><br><span class="line">    处理节点;</span><br><span class="line">    <span class="built_in">backtracking</span>(路径，选择列表); <span class="comment">// 递归</span></span><br><span class="line">    回溯，撤销处理结果</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) &#123;
+    处理节点;
+    backtracking(路径，选择列表); &#x2F;&#x2F; 递归
+    回溯，撤销处理结果
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p>回溯算法模板框架如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">backtracking</span><span class="params">(参数)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (终止条件) &#123;</span><br><span class="line">        存放结果;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) &#123;</span><br><span class="line">        处理节点;</span><br><span class="line">        <span class="built_in">backtracking</span>(路径，选择列表); <span class="comment">// 递归</span></span><br><span class="line">        回溯，撤销处理结果</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void backtracking(参数) &#123;
+    if (终止条件) &#123;
+        存放结果;
+        return;
+    &#125;
+
+    for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) &#123;
+        处理节点;
+        backtracking(路径，选择列表); &#x2F;&#x2F; 递归
+        回溯，撤销处理结果
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -481,17 +507,90 @@
 <p><strong>相同值位于一处</strong></p>
 <p>去除重复值主要是去除树同层之间的重复，而树不同层之间的相同值无需去除。而要做到这一点，则每次回溯遍历时，如果当前值与前值相同，且此值又是此次遍历中第一次遇见（说明前一个值是在树中上一层），那么此值应该选，否则不选。代码如下：</p>
 <p><em><strong>初始点去重</strong></em></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//40. 组合总和 II</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; temp;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrace</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; candidates,<span class="type">int</span> index,<span class="type">int</span> target)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target==<span class="number">0</span>)&#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=index;i&lt;candidates.<span class="built_in">size</span>()&amp;&amp;candidates[i]&lt;=target;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;index&amp;&amp;candidates[i]==candidates[i<span class="number">-1</span>]) <span class="keyword">continue</span>;<span class="comment">//去重代码</span></span><br><span class="line">            temp.<span class="built_in">push_back</span>(candidates[i]);</span><br><span class="line">            <span class="built_in">backtrace</span>(candidates,i+<span class="number">1</span>,target-candidates[i]);</span><br><span class="line">            temp.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combinationSum2</span>(vector&lt;<span class="type">int</span>&gt;&amp; candidates, <span class="type">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(candidates.<span class="built_in">begin</span>(),candidates.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">backtrace</span>(candidates,<span class="number">0</span>,target);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;40. 组合总和 II
+class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; ans;
+    vector&lt;int&gt; temp;
+public:
+    void backtrace(const vector&lt;int&gt;&amp; candidates,int index,int target)&#123;
+        if(target&#x3D;&#x3D;0)&#123;
+            ans.push_back(temp);
+            return;
+        &#125;
+        for(int i&#x3D;index;i&lt;candidates.size()&amp;&amp;candidates[i]&lt;&#x3D;target;++i)&#123;
+            if(i&gt;index&amp;&amp;candidates[i]&#x3D;&#x3D;candidates[i-1]) continue;&#x2F;&#x2F;去重代码
+            temp.push_back(candidates[i]);
+            backtrace(candidates,i+1,target-candidates[i]);
+            temp.pop_back();
+        &#125;
+
+    &#125;
+    vector&lt;vector&lt;int&gt;&gt; combinationSum2(vector&lt;int&gt;&amp; candidates, int target) &#123;
+        sort(candidates.begin(),candidates.end());
+        backtrace(candidates,0,target);
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>上面方法是一种特殊情况：遍历起始点是从上一层后面一个节点开始，使得可以用是否是第一个节点来去重。如果，遍历起始点是从其他地方开始，上述方法就无效了。</p>
 <p>比如每次遍历都是从0开始，此时需要使用一个数组来记录每个值是否使用。当遇见两个相同值，如果前一个值被使用（添加进路径容器），说明当前值是在前一个值得下层，当前值可以使用。否则，说明前一个值没在路径中，此时如果使用当前值会造成重复。</p>
 <p><em><strong>全局used数组去重（单个used数组去重）</strong></em></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//47. 全排列 II</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; temp;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; used;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrace</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(temp.<span class="built_in">size</span>()==nums.<span class="built_in">size</span>())&#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(used[i]==<span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i<span class="number">-1</span>]&amp;&amp;used[i<span class="number">-1</span>]==<span class="number">0</span>) <span class="keyword">continue</span>;<span class="comment">//去重</span></span><br><span class="line">            used[i]=<span class="number">1</span>;</span><br><span class="line">            temp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">            <span class="built_in">backtrace</span>(nums);</span><br><span class="line">            temp.<span class="built_in">pop_back</span>();</span><br><span class="line">            used[i]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        used=<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(nums.<span class="built_in">size</span>(),<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">backtrace</span>(nums);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;47. 全排列 II
+class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; ans;
+    vector&lt;int&gt; temp;
+    vector&lt;int&gt; used;
+public:
+    void backtrace(vector&lt;int&gt; &amp;nums)&#123;
+        if(temp.size()&#x3D;&#x3D;nums.size())&#123;
+            ans.push_back(temp);
+            return;
+        &#125;
+        for(int i&#x3D;0;i&lt;nums.size();++i)&#123;
+            if(used[i]&#x3D;&#x3D;1) continue;
+            if(i&gt;0&amp;&amp;nums[i]&#x3D;&#x3D;nums[i-1]&amp;&amp;used[i-1]&#x3D;&#x3D;0) continue;&#x2F;&#x2F;去重
+            used[i]&#x3D;1;
+            temp.push_back(nums[i]);
+            backtrace(nums);
+            temp.pop_back();
+            used[i]&#x3D;0;
+        &#125;
+    &#125;
+    vector&lt;vector&lt;int&gt;&gt; permuteUnique(vector&lt;int&gt;&amp; nums) &#123;
+        sort(nums.begin(),nums.end());
+        used&#x3D;vector&lt;int&gt;(nums.size(),0);
+        backtrace(nums);
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>相同值分散在不同地方</strong></p>
 <p>当相同值分散在各处时，此时就需要每次遍历的时候去重了。使用数组记录每个数是否使用过，在同一个循环中如果当前值被使用过，那么应该跳过，否则需要选中。</p>
 <p><em><strong>局部used数组去重（多个used数组去重）</strong></em></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//491. 递增子序列</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; temp;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; appear;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrace</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; nums,<span class="type">int</span> index)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index&gt;=nums.<span class="built_in">size</span>()) <span class="keyword">return</span>;</span><br><span class="line">        <span class="type">int</span> used[<span class="number">201</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=index;i&lt;nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(used[nums[i]+<span class="number">100</span>]==<span class="number">1</span>) <span class="keyword">continue</span>;<span class="comment">//去重</span></span><br><span class="line">            used[nums[i]+<span class="number">100</span>]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(temp.<span class="built_in">size</span>()&gt;<span class="number">0</span>&amp;&amp;nums[i]&lt;temp.<span class="built_in">back</span>()) <span class="keyword">continue</span>;</span><br><span class="line">            temp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">            <span class="keyword">if</span>(temp.<span class="built_in">size</span>()&gt;=<span class="number">2</span>) ans.<span class="built_in">push_back</span>(temp);</span><br><span class="line">            <span class="built_in">backtrace</span>(nums,i+<span class="number">1</span>);</span><br><span class="line">            temp.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">findSubsequences</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">backtrace</span>(nums,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;491. 递增子序列
+class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; ans;
+    vector&lt;int&gt; temp;
+    unordered_map&lt;int,int&gt; appear;
+public:
+    void backtrace(const vector&lt;int&gt;&amp; nums,int index)&#123;
+        if(index&gt;&#x3D;nums.size()) return;
+        int used[201]&#x3D;&#123;0&#125;;
+        for(int i&#x3D;index;i&lt;nums.size();++i)&#123;
+            if(used[nums[i]+100]&#x3D;&#x3D;1) continue;&#x2F;&#x2F;去重
+            used[nums[i]+100]&#x3D;1;
+            if(temp.size()&gt;0&amp;&amp;nums[i]&lt;temp.back()) continue;
+            temp.push_back(nums[i]);
+            if(temp.size()&gt;&#x3D;2) ans.push_back(temp);
+            backtrace(nums,i+1);
+            temp.pop_back();
+        &#125;
+    &#125;
+    vector&lt;vector&lt;int&gt;&gt; findSubsequences(vector&lt;int&gt;&amp; nums) &#123;
+        backtrace(nums,0);
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>总体来看，都可以使用这种方法进行去重，但这种去重方法是最耗费空间的，每次遍历都需要申请一个数组来记录状态。</p>
 
@@ -691,13 +790,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-1035-%E4%B8%8D%E7%9B%B8%E4%BA%A4%E7%9A%84%E7%BA%BF-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="1035. 不相交的线">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="236. 二叉树的最近公共祖先">
                         
-                        <span class="card-title">1035. 不相交的线</span>
+                        <span class="card-title">236. 二叉树的最近公共祖先</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -725,8 +824,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                        <span class="chip bg-color">Alg-动态规划</span>
+                    <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                        <span class="chip bg-color">Alg-二叉树</span>
                     </a>
                     
                 </div>
@@ -744,6 +843,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -921,7 +1023,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

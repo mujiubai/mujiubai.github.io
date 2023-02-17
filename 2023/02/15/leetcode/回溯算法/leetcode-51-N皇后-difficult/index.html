@@ -406,7 +406,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    462
+                    485
                 </div>
                 
 
@@ -428,7 +428,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -444,7 +452,49 @@
 <li>时间复杂度：O()</li>
 <li>空间复杂度：O()</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; ans;</span><br><span class="line">    vector&lt;string&gt; temp;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">changeMatrix</span><span class="params">(<span class="type">const</span> vector&lt;string&gt; &amp;matrix,<span class="type">int</span> i,<span class="type">int</span> j)</span></span>&#123;<span class="comment">//因放置新皇后，返回现在不能放的所有位置</span></span><br><span class="line">        vector&lt;string&gt; res=matrix;</span><br><span class="line">        <span class="type">int</span> sum=i+j;</span><br><span class="line">        <span class="type">int</span> dif=i-j;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> a=<span class="number">0</span>;a&lt;matrix.<span class="built_in">size</span>();++a)&#123;</span><br><span class="line">            res[i][a]=<span class="string">&#x27;Q&#x27;</span>;</span><br><span class="line">            res[a][j]=<span class="string">&#x27;Q&#x27;</span>;     </span><br><span class="line">            <span class="keyword">if</span>(<span class="number">0</span>&lt;=sum-a&amp;&amp;sum-a&lt;matrix.<span class="built_in">size</span>())&#123;</span><br><span class="line">                res[a][sum-a]=<span class="string">&#x27;Q&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a+dif&lt;matrix.<span class="built_in">size</span>())&#123;</span><br><span class="line">                res[a+dif][a]=<span class="string">&#x27;Q&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrace</span><span class="params">(vector&lt;string&gt; &amp;matrix,<span class="type">int</span> n,<span class="type">int</span> num)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(num==n)&#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[num][i]==<span class="string">&#x27;.&#x27;</span>)&#123;<span class="comment">//尝试放置</span></span><br><span class="line">                vector&lt;string&gt; newMatrex=<span class="built_in">changeMatrix</span>(matrix,num,i);</span><br><span class="line">                temp[num][i]=<span class="string">&#x27;Q&#x27;</span>;</span><br><span class="line">                <span class="built_in">backtrace</span>(newMatrex,n,num+<span class="number">1</span>);</span><br><span class="line">                temp[num][i]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; <span class="built_in">solveNQueens</span>(<span class="type">int</span> n) &#123;</span><br><span class="line">        vector&lt;string&gt; matrix=<span class="built_in">vector</span>&lt;string&gt;(n,<span class="built_in">string</span>(n,<span class="string">&#x27;.&#x27;</span>));</span><br><span class="line">        temp=<span class="built_in">vector</span>&lt;string&gt;(n,<span class="built_in">string</span>(n,<span class="string">&#x27;.&#x27;</span>));</span><br><span class="line">        <span class="built_in">backtrace</span>(matrix,n,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    vector&lt;vector&lt;string&gt;&gt; ans;
+    vector&lt;string&gt; temp;
+public:
+    vector&lt;string&gt; changeMatrix(const vector&lt;string&gt; &amp;matrix,int i,int j)&#123;&#x2F;&#x2F;因放置新皇后，返回现在不能放的所有位置
+        vector&lt;string&gt; res&#x3D;matrix;
+        int sum&#x3D;i+j;
+        int dif&#x3D;i-j;
+        for(int a&#x3D;0;a&lt;matrix.size();++a)&#123;
+            res[i][a]&#x3D;&#39;Q&#39;;
+            res[a][j]&#x3D;&#39;Q&#39;;     
+            if(0&lt;&#x3D;sum-a&amp;&amp;sum-a&lt;matrix.size())&#123;
+                res[a][sum-a]&#x3D;&#39;Q&#39;;
+            &#125;
+            if(a+dif&lt;matrix.size())&#123;
+                res[a+dif][a]&#x3D;&#39;Q&#39;;
+            &#125;
+        &#125;
+        return res;
+    &#125;
+
+    void backtrace(vector&lt;string&gt; &amp;matrix,int n,int num)&#123;
+        if(num&#x3D;&#x3D;n)&#123;
+            ans.push_back(temp);
+            return;
+        &#125;
+        for(int i&#x3D;0;i&lt;n;++i)&#123;
+            if(matrix[num][i]&#x3D;&#x3D;&#39;.&#39;)&#123;&#x2F;&#x2F;尝试放置
+                vector&lt;string&gt; newMatrex&#x3D;changeMatrix(matrix,num,i);
+                temp[num][i]&#x3D;&#39;Q&#39;;
+                backtrace(newMatrex,n,num+1);
+                temp[num][i]&#x3D;&#39;.&#39;;
+            &#125;
+        &#125;
+
+    &#125;
+    vector&lt;vector&lt;string&gt;&gt; solveNQueens(int n) &#123;
+        vector&lt;string&gt; matrix&#x3D;vector&lt;string&gt;(n,string(n,&#39;.&#39;));
+        temp&#x3D;vector&lt;string&gt;(n,string(n,&#39;.&#39;));
+        backtrace(matrix,n,0);
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -699,6 +749,9 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -875,7 +928,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

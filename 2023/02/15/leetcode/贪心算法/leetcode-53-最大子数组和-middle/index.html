@@ -412,7 +412,7 @@ Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    566
+                    578
                 </div>
                 
 
@@ -434,7 +434,15 @@ Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪�
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -461,7 +469,20 @@ Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪�
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(n) 可优化为1</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="type">int</span> ans=INT_MIN;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">            dp[i]=<span class="built_in">max</span>(nums[i<span class="number">-1</span>]+dp[i<span class="number">-1</span>],nums[i<span class="number">-1</span>]);</span><br><span class="line">            ans=<span class="built_in">max</span>(ans,dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) &#123;
+        int n&#x3D;nums.size();
+        vector&lt;int&gt; dp(n+1,0);
+        int ans&#x3D;INT_MIN;
+        for(int i&#x3D;1;i&lt;&#x3D;n;++i)&#123;
+            dp[i]&#x3D;max(nums[i-1]+dp[i-1],nums[i-1]);
+            ans&#x3D;max(ans,dp[i]);
+        &#125;
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -474,7 +495,20 @@ Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪�
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(logn)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans=INT_MIN;</span><br><span class="line">        <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            count+=nums[i];</span><br><span class="line">            ans=<span class="built_in">max</span>(ans,count);</span><br><span class="line">            <span class="keyword">if</span>(count&lt;<span class="number">0</span>) count=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) &#123;
+        int ans&#x3D;INT_MIN;
+        int count&#x3D;0;
+        for(int i&#x3D;0;i&lt;nums.size();++i)&#123;
+            count+&#x3D;nums[i];
+            ans&#x3D;max(ans,count);
+            if(count&lt;0) count&#x3D;0;
+        &#125;
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -636,13 +670,13 @@ Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪�
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-452-%E7%94%A8%E6%9C%80%E5%B0%91%E6%95%B0%E9%87%8F%E7%9A%84%E7%AE%AD%E5%BC%95%E7%88%86%E6%B0%94%E7%90%83-middle/">
+                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-455-%E5%88%86%E5%8F%91%E9%A5%BC%E5%B9%B2-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="452. 用最少数量的箭引爆气球">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="455. 分发饼干">
                         
-                        <span class="card-title">452. 用最少数量的箭引爆气球</span>
+                        <span class="card-title">455. 分发饼干</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -685,13 +719,13 @@ Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-55-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-middle/">
+                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="55. 跳跃游戏">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="56. 合并区间">
                         
-                        <span class="card-title">55. 跳跃游戏</span>
+                        <span class="card-title">56. 合并区间</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -723,10 +757,6 @@ Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪�
                         <span class="chip bg-color">Alg-贪心</span>
                     </a>
                     
-                    <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                        <span class="chip bg-color">Alg-动态规划</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -742,6 +772,9 @@ Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪�
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -919,7 +952,7 @@ Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

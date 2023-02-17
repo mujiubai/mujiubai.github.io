@@ -13,7 +13,8 @@
 时间复杂度：O(n) 
 空间复杂度：O(n)
 
-1234567891011121314151">
+class Solution &amp;#123;
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -410,7 +411,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    459
+                    478
                 </div>
                 
 
@@ -432,7 +433,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -445,7 +454,38 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; preorder, vector&lt;<span class="type">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(preorder.<span class="built_in">size</span>()==<span class="number">0</span>&amp;&amp;inorder.<span class="built_in">size</span>()==<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        TreeNode *root=<span class="keyword">new</span> <span class="built_in">TreeNode</span>(preorder[<span class="number">0</span>]);</span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; mset;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; curInFir,curInSec;</span><br><span class="line">        <span class="type">int</span> idx=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(inorder[idx]!=preorder[<span class="number">0</span>]) &#123;</span><br><span class="line">            mset.<span class="built_in">insert</span>(inorder[idx]);</span><br><span class="line">            curInFir.<span class="built_in">push_back</span>(inorder[idx++]);</span><br><span class="line">        &#125;</span><br><span class="line">        ++idx;</span><br><span class="line">        <span class="keyword">while</span>(idx&lt;inorder.<span class="built_in">size</span>())&#123;</span><br><span class="line">            curInSec.<span class="built_in">push_back</span>(inorder[idx++]);</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; curPreFir,curPreSec;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;preorder.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">count</span>(preorder[i]))&#123;</span><br><span class="line">                curPreFir.<span class="built_in">push_back</span>(preorder[i]);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                curPreSec.<span class="built_in">push_back</span>(preorder[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        root-&gt;left=<span class="built_in">buildTree</span>(curPreFir,curInFir);</span><br><span class="line">        root-&gt;right=<span class="built_in">buildTree</span>(curPreSec,curInSec);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    TreeNode* buildTree(vector&lt;int&gt;&amp; preorder, vector&lt;int&gt;&amp; inorder) &#123;
+        if(preorder.size()&#x3D;&#x3D;0&amp;&amp;inorder.size()&#x3D;&#x3D;0) return nullptr;
+        TreeNode *root&#x3D;new TreeNode(preorder[0]);
+        unordered_set&lt;int&gt; mset;
+        vector&lt;int&gt; curInFir,curInSec;
+        int idx&#x3D;0;
+        while(inorder[idx]!&#x3D;preorder[0]) &#123;
+            mset.insert(inorder[idx]);
+            curInFir.push_back(inorder[idx++]);
+        &#125;
+        ++idx;
+        while(idx&lt;inorder.size())&#123;
+            curInSec.push_back(inorder[idx++]);
+        &#125;
+        vector&lt;int&gt; curPreFir,curPreSec;
+        for(int i&#x3D;1;i&lt;preorder.size();++i)&#123;
+            if(mset.count(preorder[i]))&#123;
+                curPreFir.push_back(preorder[i]);
+            &#125;else&#123;
+                curPreSec.push_back(preorder[i]);
+            &#125;
+        &#125;
+
+        root-&gt;left&#x3D;buildTree(curPreFir,curInFir);
+        root-&gt;right&#x3D;buildTree(curPreSec,curInSec);
+
+        return root;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -459,7 +499,28 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; mpreorder;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; map;</span><br><span class="line">    <span class="comment">//前序遍历的根节点，在中序遍历的左边界和右边界</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">build</span><span class="params">(<span class="type">int</span> cur,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(left&gt;right) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        TreeNode *root=<span class="keyword">new</span> <span class="built_in">TreeNode</span>(mpreorder[cur]);</span><br><span class="line">        <span class="type">int</span> idx=map[mpreorder[cur]];</span><br><span class="line">        root-&gt;left=<span class="built_in">build</span>(cur+<span class="number">1</span>,left,idx<span class="number">-1</span>);</span><br><span class="line">        root-&gt;right=<span class="built_in">build</span>(cur+idx-left+<span class="number">1</span>,idx+<span class="number">1</span>,right);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; preorder, vector&lt;<span class="type">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">        mpreorder=preorder;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;inorder.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            map[inorder[i]]=i;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">build</span>(<span class="number">0</span>,<span class="number">0</span>,preorder.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    vector&lt;int&gt; mpreorder;
+    unordered_map&lt;int,int&gt; map;
+    &#x2F;&#x2F;前序遍历的根节点，在中序遍历的左边界和右边界
+    TreeNode* build(int cur,int left,int right)&#123;
+        if(left&gt;right) return nullptr;
+        TreeNode *root&#x3D;new TreeNode(mpreorder[cur]);
+        int idx&#x3D;map[mpreorder[cur]];
+        root-&gt;left&#x3D;build(cur+1,left,idx-1);
+        root-&gt;right&#x3D;build(cur+idx-left+1,idx+1,right);
+        return root;
+    &#125;
+public:
+    TreeNode* buildTree(vector&lt;int&gt;&amp; preorder, vector&lt;int&gt;&amp; inorder) &#123;
+        mpreorder&#x3D;preorder;
+        for(int i&#x3D;0;i&lt;inorder.size();++i)&#123;
+            map[inorder[i]]&#x3D;i;
+        &#125;
+
+        return build(0,0,preorder.size()-1);
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -609,13 +670,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/%E5%9F%BA%E7%A1%80%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="98. 验证二叉搜索树">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="二叉树的递归遍历理论笔记">
                         
-                        <span class="card-title">98. 验证二叉搜索树</span>
+                        <span class="card-title">二叉树的递归遍历理论笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -658,13 +719,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/%E5%9F%BA%E7%A1%80%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">
+                <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-1-simple/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="二叉树的递归遍历理论笔记">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="1. 两数之和">
                         
-                        <span class="card-title">二叉树的递归遍历理论笔记</span>
+                        <span class="card-title">1. 两数之和</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -692,8 +753,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                        <span class="chip bg-color">Alg-二叉树</span>
+                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                        <span class="chip bg-color">Alg-哈希表</span>
                     </a>
                     
                 </div>
@@ -711,6 +772,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -888,7 +952,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

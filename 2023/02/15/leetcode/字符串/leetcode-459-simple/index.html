@@ -409,7 +409,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    370
+                    388
                 </div>
                 
 
@@ -431,7 +431,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -445,7 +453,30 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">kmp</span><span class="params">(string &amp;s1,string &amp;s2)</span></span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">next</span><span class="params">(s2.size(),<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,j=<span class="number">0</span>;i&lt;s2.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;s2[i]!=s2[j]) j=next[j<span class="number">-1</span>];</span><br><span class="line">            <span class="keyword">if</span>(s2[i]==s2[j]) ++j;</span><br><span class="line">            next[i]=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,j=<span class="number">0</span>;i&lt;s1.<span class="built_in">size</span>()<span class="number">-1</span>;++i)&#123;<span class="comment">//不比对首字符和尾字符</span></span><br><span class="line">            <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;s1[i]!=s2[j]) j=next[j<span class="number">-1</span>];</span><br><span class="line">            <span class="keyword">if</span>(s1[i]==s2[j]) ++j;</span><br><span class="line">            <span class="keyword">if</span>(j==s2.<span class="built_in">size</span>()) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">repeatedSubstringPattern</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        string s1=s+s;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">kmp</span>(s1,s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+
+    bool kmp(string &amp;s1,string &amp;s2)&#123;
+        vector&lt;int&gt; next(s2.size(),0);
+        for(int i&#x3D;1,j&#x3D;0;i&lt;s2.size();++i)&#123;
+            while(j&gt;0&amp;&amp;s2[i]!&#x3D;s2[j]) j&#x3D;next[j-1];
+            if(s2[i]&#x3D;&#x3D;s2[j]) ++j;
+            next[i]&#x3D;j;
+        &#125;
+        for(int i&#x3D;1,j&#x3D;0;i&lt;s1.size()-1;++i)&#123;&#x2F;&#x2F;不比对首字符和尾字符
+            while(j&gt;0&amp;&amp;s1[i]!&#x3D;s2[j]) j&#x3D;next[j-1];
+            if(s1[i]&#x3D;&#x3D;s2[j]) ++j;
+            if(j&#x3D;&#x3D;s2.size()) return true;
+
+        &#125;
+        return false;
+    &#125;
+
+    bool repeatedSubstringPattern(string s) &#123;
+        string s1&#x3D;s+s;
+        return kmp(s1,s);
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -608,13 +639,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-792-%E5%8C%B9%E9%85%8D%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E5%8D%95%E8%AF%8D%E6%95%B0-middle/">
+                <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-344-simple/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="792. 匹配子序列的单词数">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="344. 反转字符串">
                         
-                        <span class="card-title">792. 匹配子序列的单词数</span>
+                        <span class="card-title">344. 反转字符串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -642,10 +673,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                        <span class="chip bg-color">Alg-哈希表</span>
-                    </a>
-                    
                     <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
                         <span class="chip bg-color">Alg-双指针</span>
                     </a>
@@ -665,13 +692,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/%E5%89%91%E6%8C%87-05-simple/">
+                <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-792-%E5%8C%B9%E9%85%8D%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E5%8D%95%E8%AF%8D%E6%95%B0-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="剑指 Offer 05. 替换空格">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="792. 匹配子序列的单词数">
                         
-                        <span class="card-title">剑指 Offer 05. 替换空格</span>
+                        <span class="card-title">792. 匹配子序列的单词数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -699,6 +726,14 @@
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                        <span class="chip bg-color">Alg-双指针</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                        <span class="chip bg-color">Alg-哈希表</span>
+                    </a>
+                    
                     <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                         <span class="chip bg-color">Alg-字符串</span>
                     </a>
@@ -718,6 +753,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -895,7 +933,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

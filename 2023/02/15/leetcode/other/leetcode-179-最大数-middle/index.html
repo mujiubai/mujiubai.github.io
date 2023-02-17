@@ -13,7 +13,7 @@
 时间复杂度：O(nlogn)
 空间复杂度：O(n)
 
-12345">
+class">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -410,7 +410,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    151
+                    158
                 </div>
                 
 
@@ -432,7 +432,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -445,7 +453,25 @@
 <li>时间复杂度：O(nlogn)</li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">bool</span> <span class="title">compare</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">        string sa=<span class="built_in">to_string</span>(a);</span><br><span class="line">        string sb=<span class="built_in">to_string</span>(b);</span><br><span class="line">        string ka=sa+sb;</span><br><span class="line">        string kb=sb+sa;</span><br><span class="line">        <span class="keyword">return</span> ka&gt;kb;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">string <span class="title">largestNumber</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>(),compare);</span><br><span class="line">        <span class="keyword">if</span>(nums[<span class="number">0</span>]==<span class="number">0</span>) <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">        string ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> a:nums)&#123;</span><br><span class="line">            ans+=<span class="built_in">to_string</span>(a);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    static bool compare(int a,int b)&#123;
+        string sa&#x3D;to_string(a);
+        string sb&#x3D;to_string(b);
+        string ka&#x3D;sa+sb;
+        string kb&#x3D;sb+sa;
+        return ka&gt;kb;
+    &#125;
+    string largestNumber(vector&lt;int&gt;&amp; nums) &#123;
+        sort(nums.begin(),nums.end(),compare);
+        if(nums[0]&#x3D;&#x3D;0) return &quot;0&quot;;
+        string ans;
+        for(auto a:nums)&#123;
+            ans+&#x3D;to_string(a);
+        &#125;
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -595,13 +621,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/c++/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5_C_Linux/">
+                <a href="/2023/02/15/c++/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="多线程和线程同步-C-Linux">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="STL源码剖析笔记">
                         
-                        <span class="card-title">多线程和线程同步-C-Linux</span>
+                        <span class="card-title">STL源码剖析笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -633,8 +659,8 @@
                         <span class="chip bg-color">C++</span>
                     </a>
                     
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-                        <span class="chip bg-color">多线程</span>
+                    <a href="/tags/STL/">
+                        <span class="chip bg-color">STL</span>
                     </a>
                     
                 </div>
@@ -648,13 +674,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/c++/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/">
+                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-1049-%E6%9C%80%E5%90%8E%E4%B8%80%E5%9D%97%E7%9F%B3%E5%A4%B4%E7%9A%84%E9%87%8D%E9%87%8FII-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="STL源码剖析笔记">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="1049. 最后一块石头的重量 II">
                         
-                        <span class="card-title">STL源码剖析笔记</span>
+                        <span class="card-title">1049. 最后一块石头的重量 II</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -671,8 +697,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C/" class="post-category">
-                                    C++
+                            <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
                                 </a>
                             
                             
@@ -682,12 +708,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
-                    </a>
-                    
-                    <a href="/tags/STL/">
-                        <span class="chip bg-color">STL</span>
+                    <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                        <span class="chip bg-color">Alg-动态规划</span>
                     </a>
                     
                 </div>
@@ -705,6 +727,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -882,7 +907,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    357
+                    364
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -443,7 +451,30 @@
 <li>时间复杂度：O()</li>
 <li>空间复杂度：O()</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; temp;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; appear;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; used;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrace</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; nums,<span class="type">int</span> index)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index&gt;=nums.<span class="built_in">size</span>()) <span class="keyword">return</span>;</span><br><span class="line">        <span class="type">int</span> used[<span class="number">201</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=index;i&lt;nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(used[nums[i]+<span class="number">100</span>]==<span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            used[nums[i]+<span class="number">100</span>]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(temp.<span class="built_in">size</span>()&gt;<span class="number">0</span>&amp;&amp;nums[i]&lt;temp.<span class="built_in">back</span>()) <span class="keyword">continue</span>;</span><br><span class="line">            temp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">            <span class="keyword">if</span>(temp.<span class="built_in">size</span>()&gt;=<span class="number">2</span>) ans.<span class="built_in">push_back</span>(temp);</span><br><span class="line">            <span class="built_in">backtrace</span>(nums,i+<span class="number">1</span>);</span><br><span class="line">            temp.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">findSubsequences</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">backtrace</span>(nums,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; ans;
+    vector&lt;int&gt; temp;
+    unordered_map&lt;int,int&gt; appear;
+    vector&lt;int&gt; used;
+public:
+    void backtrace(const vector&lt;int&gt;&amp; nums,int index)&#123;
+        if(index&gt;&#x3D;nums.size()) return;
+        int used[201]&#x3D;&#123;0&#125;;
+        for(int i&#x3D;index;i&lt;nums.size();++i)&#123;
+            if(used[nums[i]+100]&#x3D;&#x3D;1) continue;
+            used[nums[i]+100]&#x3D;1;
+            if(temp.size()&gt;0&amp;&amp;nums[i]&lt;temp.back()) continue;
+            temp.push_back(nums[i]);
+            if(temp.size()&gt;&#x3D;2) ans.push_back(temp);
+            backtrace(nums,i+1);
+            temp.pop_back();
+        &#125;
+    &#125;
+    vector&lt;vector&lt;int&gt;&gt; findSubsequences(vector&lt;int&gt;&amp; nums) &#123;
+        backtrace(nums,0);
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -698,6 +729,9 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -874,7 +908,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

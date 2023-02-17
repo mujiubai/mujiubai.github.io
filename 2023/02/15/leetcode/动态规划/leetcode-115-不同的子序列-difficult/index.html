@@ -415,7 +415,7 @@ dp数组如何初始化
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    435
+                    446
                 </div>
                 
 
@@ -437,7 +437,15 @@ dp数组如何初始化
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -464,7 +472,25 @@ dp数组如何初始化
 <li>时间复杂度：O(n^2^) </li>
 <li>空间复杂度：O(n^2^)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numDistinct</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">unsigned</span> <span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(s.<span class="built_in">length</span>()+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="type">unsigned</span> <span class="type">int</span>&gt;(t.<span class="built_in">length</span>()+<span class="number">1</span>,<span class="number">0</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=s.<span class="built_in">length</span>();++i)&#123;</span><br><span class="line">            dp[i][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=s.<span class="built_in">length</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=t.<span class="built_in">length</span>();++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i<span class="number">-1</span>]==t[j<span class="number">-1</span>])&#123;</span><br><span class="line">                    dp[i][j]=dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+dp[i<span class="number">-1</span>][j];</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=dp[i<span class="number">-1</span>][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[s.<span class="built_in">length</span>()][t.<span class="built_in">length</span>()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int numDistinct(string s, string t) &#123;
+        vector&lt;vector&lt;unsigned int&gt;&gt; dp(s.length()+1,vector&lt;unsigned int&gt;(t.length()+1,0));
+        for(int i&#x3D;0;i&lt;&#x3D;s.length();++i)&#123;
+            dp[i][0]&#x3D;1;
+        &#125;
+        for(int i&#x3D;1;i&lt;&#x3D;s.length();++i)&#123;
+            for(int j&#x3D;1;j&lt;&#x3D;t.length();++j)&#123;
+                if(s[i-1]&#x3D;&#x3D;t[j-1])&#123;
+                    dp[i][j]&#x3D;dp[i-1][j-1]+dp[i-1][j];
+                &#125;else&#123;
+                    dp[i][j]&#x3D;dp[i-1][j];
+                &#125;
+            &#125;
+        &#125;
+        return dp[s.length()][t.length()];
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -614,13 +640,13 @@ dp数组如何初始化
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-1143-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97-middle/">
+                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="1143. 最长公共子序列">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="121. 买卖股票的最佳时机">
                         
-                        <span class="card-title">1143. 最长公共子序列</span>
+                        <span class="card-title">121. 买卖股票的最佳时机</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -663,13 +689,13 @@ dp数组如何初始化
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-middle/">
+                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="121. 买卖股票的最佳时机">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="322. 零钱兑换">
                         
-                        <span class="card-title">121. 买卖股票的最佳时机</span>
+                        <span class="card-title">322. 零钱兑换</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -716,6 +742,9 @@ dp数组如何初始化
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -893,7 +922,7 @@ dp数组如何初始化
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

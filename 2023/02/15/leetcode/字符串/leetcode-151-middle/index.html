@@ -409,7 +409,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    423
+                    452
                 </div>
                 
 
@@ -431,7 +431,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -444,7 +452,31 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseWords</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        vector&lt;string&gt; words;</span><br><span class="line">        <span class="type">int</span> left=<span class="number">0</span>,right=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;s.<span class="built_in">length</span>()&amp;&amp;right&lt;s.<span class="built_in">length</span>())&#123;</span><br><span class="line">            <span class="keyword">while</span>(left&lt;s.<span class="built_in">length</span>()&amp;&amp;s[left]==<span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">                ++left;</span><br><span class="line">            &#125;</span><br><span class="line">            right=left;</span><br><span class="line">            <span class="keyword">while</span>(right&lt;s.<span class="built_in">length</span>()&amp;&amp;s[right]!=<span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">                ++right;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(left&gt;=s.<span class="built_in">length</span>()||right&gt;=s.<span class="built_in">length</span>()+<span class="number">1</span>||left&gt;=right) <span class="keyword">break</span>;</span><br><span class="line">            words.<span class="built_in">push_back</span>(s.<span class="built_in">substr</span>(left,right-left));</span><br><span class="line">            left=right;</span><br><span class="line">        &#125;</span><br><span class="line">        string ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=words.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;--i)&#123;</span><br><span class="line">            ans+=words[i];</span><br><span class="line">            <span class="keyword">if</span>(i!=<span class="number">0</span>) ans+=<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    string reverseWords(string s) &#123;
+        vector&lt;string&gt; words;
+        int left&#x3D;0,right&#x3D;0;
+        while(left&lt;s.length()&amp;&amp;right&lt;s.length())&#123;
+            while(left&lt;s.length()&amp;&amp;s[left]&#x3D;&#x3D;&#39; &#39;)&#123;
+                ++left;
+            &#125;
+            right&#x3D;left;
+            while(right&lt;s.length()&amp;&amp;s[right]!&#x3D;&#39; &#39;)&#123;
+                ++right;
+            &#125;
+            if(left&gt;&#x3D;s.length()||right&gt;&#x3D;s.length()+1||left&gt;&#x3D;right) break;
+            words.push_back(s.substr(left,right-left));
+            left&#x3D;right;
+        &#125;
+        string ans;
+        for(int i&#x3D;words.size()-1;i&gt;&#x3D;0;--i)&#123;
+            ans+&#x3D;words[i];
+            if(i!&#x3D;0) ans+&#x3D;&#39; &#39;;
+        &#125;
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -455,7 +487,28 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseWords</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> left=s.<span class="built_in">length</span>()<span class="number">-1</span>,right=s.<span class="built_in">length</span>()<span class="number">-1</span>;</span><br><span class="line">        string ans;</span><br><span class="line">        <span class="keyword">while</span>(left&gt;=<span class="number">0</span>&amp;&amp;right&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(right&gt;=<span class="number">0</span>&amp;&amp;s[right]==<span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">                --right;</span><br><span class="line">            &#125;</span><br><span class="line">            left=right;</span><br><span class="line">            <span class="keyword">while</span>(left&gt;=<span class="number">0</span>&amp;&amp;s[left]!=<span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">                --left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(left&gt;=right) <span class="keyword">break</span>;</span><br><span class="line">            ans+=s.<span class="built_in">substr</span>(left+<span class="number">1</span>,right-left);</span><br><span class="line">            ans+=<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            right=left;</span><br><span class="line">        &#125;</span><br><span class="line">        ans.<span class="built_in">pop_back</span>();</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    string reverseWords(string s) &#123;
+        int left&#x3D;s.length()-1,right&#x3D;s.length()-1;
+        string ans;
+        while(left&gt;&#x3D;0&amp;&amp;right&gt;&#x3D;0)&#123;
+            while(right&gt;&#x3D;0&amp;&amp;s[right]&#x3D;&#x3D;&#39; &#39;)&#123;
+                --right;
+            &#125;
+            left&#x3D;right;
+            while(left&gt;&#x3D;0&amp;&amp;s[left]!&#x3D;&#39; &#39;)&#123;
+                --left;
+            &#125;
+            if(left&gt;&#x3D;right) break;
+            ans+&#x3D;s.substr(left+1,right-left);
+            ans+&#x3D;&#39; &#39;;
+            right&#x3D;left;
+        &#125;
+        ans.pop_back();
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -618,13 +671,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-977-simple/">
+                <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-532-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%20k-diff%20%E6%95%B0%E5%AF%B9-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="977. 有序数组的平方">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="532. 数组中的 k-diff 数对">
                         
-                        <span class="card-title">977. 有序数组的平方</span>
+                        <span class="card-title">532. 数组中的 k-diff 数对</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -652,12 +705,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                        <span class="chip bg-color">Alg-双指针</span>
-                    </a>
-                    
-                    <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
-                        <span class="chip bg-color">Alg-数组</span>
+                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                        <span class="chip bg-color">Alg-哈希表</span>
                     </a>
                     
                 </div>
@@ -728,6 +777,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -905,7 +957,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

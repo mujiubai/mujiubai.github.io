@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    350
+                    397
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -440,7 +448,41 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">deleteNode</span><span class="params">(TreeNode* root, <span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val==key)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;right==<span class="literal">nullptr</span>) <span class="keyword">return</span> root-&gt;left;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;left==<span class="literal">nullptr</span>) <span class="keyword">return</span> root-&gt;right;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//法1 将右子树的左子树移到root的左子树的最右边</span></span><br><span class="line">                <span class="comment">// TreeNode *sonLeft=root-&gt;right-&gt;left;</span></span><br><span class="line">                <span class="comment">// root-&gt;val=root-&gt;right-&gt;val;</span></span><br><span class="line">                <span class="comment">// root-&gt;right=root-&gt;right-&gt;right;</span></span><br><span class="line">                <span class="comment">// TreeNode *p=root-&gt;left;</span></span><br><span class="line">                <span class="comment">// if(sonLeft!=nullptr)&#123;</span></span><br><span class="line">                <span class="comment">//     while(p-&gt;right!=nullptr)&#123;</span></span><br><span class="line">                <span class="comment">//     p=p-&gt;right;</span></span><br><span class="line">                <span class="comment">//     &#125;</span></span><br><span class="line">                <span class="comment">//     p-&gt;right=sonLeft;</span></span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                <span class="comment">//法2 直接将root的右子树移动到root的左子树的最右边</span></span><br><span class="line">                TreeNode *p=root-&gt;left;</span><br><span class="line">                <span class="keyword">while</span>(p-&gt;right!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">                    p=p-&gt;right;</span><br><span class="line">                &#125;</span><br><span class="line">                p-&gt;right=root-&gt;right;</span><br><span class="line">                root=root-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;val&lt;key)&#123;</span><br><span class="line">            root-&gt;right=<span class="built_in">deleteNode</span>(root-&gt;right,key);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            root-&gt;left=<span class="built_in">deleteNode</span>(root-&gt;left,key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) &#123;
+        if(root&#x3D;&#x3D;nullptr) return root;
+        if(root-&gt;val&#x3D;&#x3D;key)&#123;
+            if(root-&gt;right&#x3D;&#x3D;nullptr) return root-&gt;left;
+            else if(root-&gt;left&#x3D;&#x3D;nullptr) return root-&gt;right;
+            else&#123;
+                &#x2F;&#x2F;法1 将右子树的左子树移到root的左子树的最右边
+                &#x2F;&#x2F; TreeNode *sonLeft&#x3D;root-&gt;right-&gt;left;
+                &#x2F;&#x2F; root-&gt;val&#x3D;root-&gt;right-&gt;val;
+                &#x2F;&#x2F; root-&gt;right&#x3D;root-&gt;right-&gt;right;
+                &#x2F;&#x2F; TreeNode *p&#x3D;root-&gt;left;
+                &#x2F;&#x2F; if(sonLeft!&#x3D;nullptr)&#123;
+                &#x2F;&#x2F;     while(p-&gt;right!&#x3D;nullptr)&#123;
+                &#x2F;&#x2F;     p&#x3D;p-&gt;right;
+                &#x2F;&#x2F;     &#125;
+                &#x2F;&#x2F;     p-&gt;right&#x3D;sonLeft;
+                &#x2F;&#x2F; &#125;
+                &#x2F;&#x2F;法2 直接将root的右子树移动到root的左子树的最右边
+                TreeNode *p&#x3D;root-&gt;left;
+                while(p-&gt;right!&#x3D;nullptr)&#123;
+                    p&#x3D;p-&gt;right;
+                &#125;
+                p-&gt;right&#x3D;root-&gt;right;
+                root&#x3D;root-&gt;left;
+            &#125;
+        &#125;else if(root-&gt;val&lt;key)&#123;
+            root-&gt;right&#x3D;deleteNode(root-&gt;right,key);
+        &#125;else&#123;
+            root-&gt;left&#x3D;deleteNode(root-&gt;left,key);
+        &#125;
+        return root;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -594,13 +636,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="236. 二叉树的最近公共祖先">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="116. 填充每个节点的下一个右侧节点指针">
                         
-                        <span class="card-title">236. 二叉树的最近公共祖先</span>
+                        <span class="card-title">116. 填充每个节点的下一个右侧节点指针</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -643,13 +685,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91-simple/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="98. 验证二叉搜索树">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="617. 合并二叉树">
                         
-                        <span class="card-title">98. 验证二叉搜索树</span>
+                        <span class="card-title">617. 合并二叉树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -696,6 +738,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -873,7 +918,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

@@ -407,7 +407,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    218
+                    222
                 </div>
                 
 
@@ -429,7 +429,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -445,7 +453,28 @@
 <li>时间复杂度：O((<em>k**n</em>)×<em>k</em>)</li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; tem;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrace</span><span class="params">(<span class="type">int</span> st,<span class="type">int</span> end,<span class="type">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(k&lt;=<span class="number">0</span>) &#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(tem);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=st;i&lt;=end&amp;&amp;(end-i+<span class="number">1</span>&gt;=k);++i)&#123;</span><br><span class="line">            tem.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="built_in">backtrace</span>(i+<span class="number">1</span>,end,k<span class="number">-1</span>);</span><br><span class="line">            tem.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combine</span>(<span class="type">int</span> n, <span class="type">int</span> k) &#123;</span><br><span class="line">        <span class="built_in">backtrace</span>(<span class="number">1</span>,n,k);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    vector&lt;int&gt; tem;
+    vector&lt;vector&lt;int&gt;&gt; ans;
+
+public:
+    void backtrace(int st,int end,int k)&#123;
+        if(k&lt;&#x3D;0) &#123;
+            ans.push_back(tem);
+            return;
+        &#125;
+        for(int i&#x3D;st;i&lt;&#x3D;end&amp;&amp;(end-i+1&gt;&#x3D;k);++i)&#123;
+            tem.push_back(i);
+            backtrace(i+1,end,k-1);
+            tem.pop_back();
+        &#125;
+    &#125;
+
+    vector&lt;vector&lt;int&gt;&gt; combine(int n, int k) &#123;
+        backtrace(1,n,k);
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -597,13 +626,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-679-24%E7%82%B9%E6%B8%B8%E6%88%8F-difficult/">
+                <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-78-%E5%AD%90%E9%9B%86-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="679. 24 点游戏">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="78. 子集">
                         
-                        <span class="card-title">679. 24 点游戏</span>
+                        <span class="card-title">78. 子集</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -646,13 +675,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-78-%E5%AD%90%E9%9B%86-middle/">
+                <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-90-%E5%AD%90%E9%9B%86%20II-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="78. 子集">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="90. 子集 II">
                         
-                        <span class="card-title">78. 子集</span>
+                        <span class="card-title">90. 子集 II</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -699,6 +728,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -876,7 +908,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

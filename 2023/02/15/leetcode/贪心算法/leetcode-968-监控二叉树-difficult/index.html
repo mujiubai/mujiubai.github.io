@@ -410,7 +410,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    1.1k
                 </div>
                 
 
@@ -432,7 +432,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -459,7 +467,29 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">int</span> ans;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//0:无覆盖  1：有覆盖  2：有摄像头</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">postOrder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> left=<span class="built_in">postOrder</span>(root-&gt;left);</span><br><span class="line">        <span class="type">int</span> right=<span class="built_in">postOrder</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">if</span>(left==<span class="number">1</span>&amp;&amp;right==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(left==<span class="number">0</span>||right==<span class="number">0</span>) &#123;</span><br><span class="line">            ++ans;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(left==<span class="number">2</span>||right==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minCameraCover</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> t=<span class="built_in">postOrder</span>(root);</span><br><span class="line">        <span class="keyword">if</span>(t==<span class="number">0</span>) ++ans;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    int ans;
+public:
+    &#x2F;&#x2F;0:无覆盖  1：有覆盖  2：有摄像头
+    int postOrder(TreeNode* root)&#123;
+        if(root&#x3D;&#x3D;nullptr) return 1;
+        int left&#x3D;postOrder(root-&gt;left);
+        int right&#x3D;postOrder(root-&gt;right);
+        if(left&#x3D;&#x3D;1&amp;&amp;right&#x3D;&#x3D;1) return 0;
+        else if(left&#x3D;&#x3D;0||right&#x3D;&#x3D;0) &#123;
+            ++ans;
+            return 2;
+        &#125;else if(left&#x3D;&#x3D;2||right&#x3D;&#x3D;2)&#123;
+            return 1;
+        &#125;
+        return 0;
+    &#125;
+    int minCameraCover(TreeNode* root) &#123;
+        int t&#x3D;postOrder(root);
+        if(t&#x3D;&#x3D;0) ++ans;
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -486,7 +516,32 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">int</span> ans;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//动态规划</span></span><br><span class="line">    <span class="comment">//每个节点分为三种状态：</span></span><br><span class="line">    <span class="comment">//（1）当前节点安装相机时，已当前节点为根的树都被覆盖所需相机数</span></span><br><span class="line">    <span class="comment">//（2）当前节点不安装相机但被覆盖时，已当前节点为根的树都被覆盖所需相机数</span></span><br><span class="line">    <span class="comment">//（3）当前节点不安装相机不被覆盖时，已当前节点为根的树都被覆盖所需相机数</span></span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postOrder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span>&#123;<span class="number">0</span>,<span class="number">0</span>,INT_MAX/<span class="number">2</span>&#125;;<span class="comment">//初始化还存在问题，现在还没ac</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; left = <span class="built_in">postOrder</span>(root-&gt;left);</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; right =<span class="built_in">postOrder</span>(root-&gt;right);</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(<span class="number">3</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="built_in">min</span>(left[<span class="number">0</span>],<span class="built_in">min</span>(left[<span class="number">1</span>],left[<span class="number">2</span>]))+<span class="built_in">min</span>(right[<span class="number">0</span>],<span class="built_in">min</span>(right[<span class="number">1</span>],right[<span class="number">2</span>]))+<span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">1</span>]=<span class="built_in">min</span>(left[<span class="number">0</span>]+<span class="built_in">min</span>(right[<span class="number">0</span>],right[<span class="number">1</span>]),right[<span class="number">0</span>]+<span class="built_in">min</span>(left[<span class="number">0</span>],left[<span class="number">1</span>]));</span><br><span class="line">        dp[<span class="number">2</span>]=left[<span class="number">1</span>]+right[<span class="number">1</span>];</span><br><span class="line">        cout&lt;&lt;dp[<span class="number">0</span>]&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;dp[<span class="number">1</span>]&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;dp[<span class="number">2</span>]&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">return</span> dp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minCameraCover</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans=<span class="built_in">postOrder</span>(root);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(ans[<span class="number">0</span>],ans[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    int ans;
+public:
+    &#x2F;&#x2F;动态规划
+    &#x2F;&#x2F;每个节点分为三种状态：
+    &#x2F;&#x2F;（1）当前节点安装相机时，已当前节点为根的树都被覆盖所需相机数
+    &#x2F;&#x2F;（2）当前节点不安装相机但被覆盖时，已当前节点为根的树都被覆盖所需相机数
+    &#x2F;&#x2F;（3）当前节点不安装相机不被覆盖时，已当前节点为根的树都被覆盖所需相机数
+
+    vector&lt;int&gt; postOrder(TreeNode* root)&#123;
+        if(root&#x3D;&#x3D;nullptr) return&#123;0,0,INT_MAX&#x2F;2&#125;;&#x2F;&#x2F;初始化还存在问题，现在还没ac
+        vector&lt;int&gt; left &#x3D; postOrder(root-&gt;left);
+        vector&lt;int&gt; right &#x3D;postOrder(root-&gt;right);
+        vector&lt;int&gt; dp(3,0);
+        dp[0]&#x3D;min(left[0],min(left[1],left[2]))+min(right[0],min(right[1],right[2]))+1;
+        dp[1]&#x3D;min(left[0]+min(right[0],right[1]),right[0]+min(left[0],left[1]));
+        dp[2]&#x3D;left[1]+right[1];
+        cout&lt;&lt;dp[0]&lt;&lt;&quot; &quot;&lt;&lt;dp[1]&lt;&lt;&quot; &quot;&lt;&lt;dp[2]&lt;&lt;endl;
+        return dp;
+    &#125;
+
+    int minCameraCover(TreeNode* root) &#123;
+        vector&lt;int&gt; ans&#x3D;postOrder(root);
+        return max(ans[0],ans[1]);
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -747,6 +802,9 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -923,7 +981,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

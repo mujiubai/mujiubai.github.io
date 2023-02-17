@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    558
+                    588
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -443,7 +451,60 @@
 <li>时间复杂度：O()</li>
 <li>空间复杂度：O()</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    vector&lt;string&gt; ans;</span><br><span class="line">    vector&lt;string&gt; temp;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; matrix;</span><br><span class="line">    <span class="type">bool</span> flag;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrace</span><span class="params">(<span class="type">const</span> vector&lt;string&gt; &amp;names,<span class="type">int</span> index,<span class="type">int</span> num)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(flag) <span class="keyword">return</span>;</span><br><span class="line">        temp.<span class="built_in">push_back</span>(names[index]);</span><br><span class="line">        <span class="comment">// cout&lt;&lt;names[index]&lt;&lt;endl;</span></span><br><span class="line">        <span class="keyword">if</span>(temp.<span class="built_in">size</span>()==num)&#123;</span><br><span class="line">            ans=temp;</span><br><span class="line">            flag=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;names.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[index][i]&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                matrix[index][i]-=<span class="number">1</span>;</span><br><span class="line">                <span class="built_in">backtrace</span>(names,i,num);</span><br><span class="line">                matrix[index][i]+=<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        temp.<span class="built_in">pop_back</span>();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">findItinerary</span><span class="params">(vector&lt;vector&lt;string&gt;&gt;&amp; tickets)</span> </span>&#123;</span><br><span class="line">        flag=<span class="literal">false</span>;</span><br><span class="line">        unordered_set&lt;string&gt; ticNames;<span class="comment">//记录有哪些机场</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;tickets.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;name:tickets[i])&#123;</span><br><span class="line">                ticNames.<span class="built_in">insert</span>(name);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;string&gt; sortNames;<span class="comment">//将机场名字按顺序排列</span></span><br><span class="line">        <span class="type">int</span> index=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;s:ticNames)&#123;</span><br><span class="line">            sortNames.<span class="built_in">push_back</span>(s);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">sort</span>(sortNames.<span class="built_in">begin</span>(),sortNames.<span class="built_in">end</span>());</span><br><span class="line">        unordered_map&lt;string,<span class="type">int</span>&gt; nameIndex;<span class="comment">//用于记录每个机场名字在sortNames中的位置</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;sortNames.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            nameIndex[sortNames[i]]=i;</span><br><span class="line">            <span class="keyword">if</span>(sortNames[i]==<span class="string">&quot;JFK&quot;</span>) index=i;</span><br><span class="line">        &#125;</span><br><span class="line">        matrix=vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;(sortNames.<span class="built_in">size</span>(),<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(sortNames.<span class="built_in">size</span>(),<span class="number">0</span>));<span class="comment">//记录有哪些机场是之间是有票的</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;tickets.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="type">int</span> pos1=nameIndex[tickets[i][<span class="number">0</span>]];</span><br><span class="line">            <span class="type">int</span> pos2=nameIndex[tickets[i][<span class="number">1</span>]];</span><br><span class="line">            matrix[pos1][pos2]+=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">backtrace</span>(sortNames,index,tickets.<span class="built_in">size</span>()+<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    vector&lt;string&gt; ans;
+    vector&lt;string&gt; temp;
+    vector&lt;vector&lt;int&gt;&gt; matrix;
+    bool flag;
+public:
+    void backtrace(const vector&lt;string&gt; &amp;names,int index,int num)&#123;
+        if(flag) return;
+        temp.push_back(names[index]);
+        &#x2F;&#x2F; cout&lt;&lt;names[index]&lt;&lt;endl;
+        if(temp.size()&#x3D;&#x3D;num)&#123;
+            ans&#x3D;temp;
+            flag&#x3D;true;
+        &#125;
+        for(int i&#x3D;0;i&lt;names.size();++i)&#123;
+            if(matrix[index][i]&gt;0)&#123;
+                matrix[index][i]-&#x3D;1;
+                backtrace(names,i,num);
+                matrix[index][i]+&#x3D;1;
+            &#125;
+        &#125;
+        temp.pop_back();
+
+    &#125;
+    vector&lt;string&gt; findItinerary(vector&lt;vector&lt;string&gt;&gt;&amp; tickets) &#123;
+        flag&#x3D;false;
+        unordered_set&lt;string&gt; ticNames;&#x2F;&#x2F;记录有哪些机场
+        for(int i&#x3D;0;i&lt;tickets.size();++i)&#123;
+            for(auto &amp;name:tickets[i])&#123;
+                ticNames.insert(name);
+            &#125;
+        &#125;
+        vector&lt;string&gt; sortNames;&#x2F;&#x2F;将机场名字按顺序排列
+        int index&#x3D;-1;
+        for(auto &amp;s:ticNames)&#123;
+            sortNames.push_back(s);
+        &#125;
+        sort(sortNames.begin(),sortNames.end());
+        unordered_map&lt;string,int&gt; nameIndex;&#x2F;&#x2F;用于记录每个机场名字在sortNames中的位置
+        for(int i&#x3D;0;i&lt;sortNames.size();++i)&#123;
+            nameIndex[sortNames[i]]&#x3D;i;
+            if(sortNames[i]&#x3D;&#x3D;&quot;JFK&quot;) index&#x3D;i;
+        &#125;
+        matrix&#x3D;vector&lt;vector&lt;int&gt;&gt;(sortNames.size(),vector&lt;int&gt;(sortNames.size(),0));&#x2F;&#x2F;记录有哪些机场是之间是有票的
+        for(int i&#x3D;0;i&lt;tickets.size();++i)&#123;
+            int pos1&#x3D;nameIndex[tickets[i][0]];
+            int pos2&#x3D;nameIndex[tickets[i][1]];
+            matrix[pos1][pos2]+&#x3D;1;
+        &#125;
+        backtrace(sortNames,index,tickets.size()+1);
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -644,13 +705,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C-middle/">
+                <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-37-%E8%A7%A3%E6%95%B0%E7%8B%AC-difficult/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="39. 组合总和">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="37. 解数独">
                         
-                        <span class="card-title">39. 组合总和</span>
+                        <span class="card-title">37. 解数独</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -697,6 +758,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -874,7 +938,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

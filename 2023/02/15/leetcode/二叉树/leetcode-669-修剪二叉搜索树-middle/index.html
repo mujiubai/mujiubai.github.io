@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    358
+                    373
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -441,7 +449,32 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">trimBST</span><span class="params">(TreeNode* root, <span class="type">int</span> low, <span class="type">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        root-&gt;left=<span class="built_in">trimBST</span>(root-&gt;left,low,high);</span><br><span class="line">        root-&gt;right=<span class="built_in">trimBST</span>(root-&gt;right,low,high);</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val&gt;high||root-&gt;val&lt;low)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;left!=<span class="literal">nullptr</span>) root=root-&gt;left;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;right!=<span class="literal">nullptr</span>) root=root-&gt;right;</span><br><span class="line">            <span class="keyword">else</span> root=<span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//代码随想录中的</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">trimBST</span><span class="params">(TreeNode* root, <span class="type">int</span> low, <span class="type">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">if</span> (root-&gt;val &lt; low) <span class="keyword">return</span> <span class="built_in">trimBST</span>(root-&gt;right, low, high);</span><br><span class="line">        <span class="keyword">if</span> (root-&gt;val &gt; high) <span class="keyword">return</span> <span class="built_in">trimBST</span>(root-&gt;left, low, high);</span><br><span class="line">        root-&gt;left = <span class="built_in">trimBST</span>(root-&gt;left, low, high);</span><br><span class="line">        root-&gt;right = <span class="built_in">trimBST</span>(root-&gt;right, low, high);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    TreeNode* trimBST(TreeNode* root, int low, int high) &#123;
+        if(root&#x3D;&#x3D;nullptr) return nullptr;
+        root-&gt;left&#x3D;trimBST(root-&gt;left,low,high);
+        root-&gt;right&#x3D;trimBST(root-&gt;right,low,high);
+        if(root-&gt;val&gt;high||root-&gt;val&lt;low)&#123;
+            if(root-&gt;left!&#x3D;nullptr) root&#x3D;root-&gt;left;
+            else if(root-&gt;right!&#x3D;nullptr) root&#x3D;root-&gt;right;
+            else root&#x3D;nullptr;
+        &#125;
+        return root;
+    &#125;
+&#125;;
+&#x2F;&#x2F;代码随想录中的
+class Solution &#123;
+public:
+    TreeNode* trimBST(TreeNode* root, int low, int high) &#123;
+        if (root &#x3D;&#x3D; nullptr) return nullptr;
+        if (root-&gt;val &lt; low) return trimBST(root-&gt;right, low, high);
+        if (root-&gt;val &gt; high) return trimBST(root-&gt;left, low, high);
+        root-&gt;left &#x3D; trimBST(root-&gt;left, low, high);
+        root-&gt;right &#x3D; trimBST(root-&gt;right, low, high);
+        return root;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -642,13 +675,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="236. 二叉树的最近公共祖先">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="98. 验证二叉搜索树">
                         
-                        <span class="card-title">236. 二叉树的最近公共祖先</span>
+                        <span class="card-title">98. 验证二叉搜索树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -695,6 +728,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -872,7 +908,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

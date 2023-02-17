@@ -408,7 +408,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    612
+                    655
                 </div>
                 
 
@@ -430,7 +430,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -443,7 +451,29 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//层序遍历</span></span><br><span class="line">        queue&lt;Node*&gt; que;</span><br><span class="line">        <span class="keyword">if</span>(root!=<span class="literal">nullptr</span>) que.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!que.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            <span class="type">int</span> size=que.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;size;++i)&#123;</span><br><span class="line">                Node *tem=que.<span class="built_in">front</span>();</span><br><span class="line">                que.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span>(i&lt;size<span class="number">-1</span>)&#123;</span><br><span class="line">                    tem-&gt;next=que.<span class="built_in">front</span>();</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    tem-&gt;next=<span class="literal">nullptr</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(tem-&gt;left) que.<span class="built_in">push</span>(tem-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tem-&gt;right) que.<span class="built_in">push</span>(tem-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    Node* connect(Node* root) &#123;
+        &#x2F;&#x2F;层序遍历
+        queue&lt;Node*&gt; que;
+        if(root!&#x3D;nullptr) que.push(root);
+        while(!que.empty())&#123;
+            int size&#x3D;que.size();
+            for(int i&#x3D;0;i&lt;size;++i)&#123;
+                Node *tem&#x3D;que.front();
+                que.pop();
+                if(i&lt;size-1)&#123;
+                    tem-&gt;next&#x3D;que.front();
+                &#125;else&#123;
+                    tem-&gt;next&#x3D;nullptr;
+                &#125;
+                if(tem-&gt;left) que.push(tem-&gt;left);
+                if(tem-&gt;right) que.push(tem-&gt;right);
+            &#125;
+        &#125;
+        return root;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -456,7 +486,49 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//进阶</span></span><br><span class="line">        <span class="type">int</span> curLen=<span class="number">1</span>,nextLen=<span class="number">0</span>;<span class="comment">//记录当前层节点数和下一层节点数</span></span><br><span class="line">        Node *p=root,*nextP=<span class="literal">nullptr</span>,*last=<span class="literal">nullptr</span>;<span class="comment">//p记录当前需要处理的节点，nextP记录下一层第一个节点，last记录当前节点的前一个节点</span></span><br><span class="line">        <span class="keyword">while</span>(p)&#123;</span><br><span class="line">            --curLen;</span><br><span class="line">            <span class="keyword">if</span>(p-&gt;left)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nextLen==<span class="number">0</span>) &#123;<span class="comment">//如果下一层节点数为0则表示此节点是下一层第一个节点</span></span><br><span class="line">                    nextP=p-&gt;left;</span><br><span class="line">                    last=p-&gt;left;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;<span class="comment">//设置next</span></span><br><span class="line">                    last-&gt;next=p-&gt;left;</span><br><span class="line">                    last=p-&gt;left;</span><br><span class="line">                &#125; </span><br><span class="line">                ++nextLen;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(p-&gt;right)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nextLen==<span class="number">0</span>) &#123;</span><br><span class="line">                    nextP=p-&gt;right;</span><br><span class="line">                    last=p-&gt;right;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    last-&gt;next=p-&gt;right;</span><br><span class="line">                    last=p-&gt;right;</span><br><span class="line">                &#125;</span><br><span class="line">                ++nextLen;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(curLen==<span class="number">0</span>)&#123;</span><br><span class="line">                curLen=nextLen;</span><br><span class="line">                nextLen=<span class="number">0</span>;</span><br><span class="line">                p=nextP;</span><br><span class="line">                nextP=<span class="literal">nullptr</span>;</span><br><span class="line">                last=<span class="literal">nullptr</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                p=p-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    Node* connect(Node* root) &#123;
+        &#x2F;&#x2F;进阶
+        int curLen&#x3D;1,nextLen&#x3D;0;&#x2F;&#x2F;记录当前层节点数和下一层节点数
+        Node *p&#x3D;root,*nextP&#x3D;nullptr,*last&#x3D;nullptr;&#x2F;&#x2F;p记录当前需要处理的节点，nextP记录下一层第一个节点，last记录当前节点的前一个节点
+        while(p)&#123;
+            --curLen;
+            if(p-&gt;left)&#123;
+                if(nextLen&#x3D;&#x3D;0) &#123;&#x2F;&#x2F;如果下一层节点数为0则表示此节点是下一层第一个节点
+                    nextP&#x3D;p-&gt;left;
+                    last&#x3D;p-&gt;left;
+                &#125;
+                else &#123;&#x2F;&#x2F;设置next
+                    last-&gt;next&#x3D;p-&gt;left;
+                    last&#x3D;p-&gt;left;
+                &#125; 
+                ++nextLen;
+            &#125;
+            if(p-&gt;right)&#123;
+                if(nextLen&#x3D;&#x3D;0) &#123;
+                    nextP&#x3D;p-&gt;right;
+                    last&#x3D;p-&gt;right;
+                &#125;
+                else&#123;
+                    last-&gt;next&#x3D;p-&gt;right;
+                    last&#x3D;p-&gt;right;
+                &#125;
+                ++nextLen;
+            &#125;
+            if(curLen&#x3D;&#x3D;0)&#123;
+                curLen&#x3D;nextLen;
+                nextLen&#x3D;0;
+                p&#x3D;nextP;
+                nextP&#x3D;nullptr;
+                last&#x3D;nullptr;
+            &#125;else&#123;
+                p&#x3D;p-&gt;next;
+            &#125;
+        &#125;
+        return root;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -606,13 +678,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-475-%E4%BE%9B%E6%9A%96%E5%99%A8-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-106-%E4%BB%8E%E4%B8%AD%E5%BA%8F%E4%B8%8E%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="475. 供暖器">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="106. 从中序与后序遍历序列构造二叉树">
                         
-                        <span class="card-title">475. 供暖器</span>
+                        <span class="card-title">106. 从中序与后序遍历序列构造二叉树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -640,8 +712,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                        <span class="chip bg-color">二分查找</span>
+                    <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                        <span class="chip bg-color">Alg-二叉树</span>
                     </a>
                     
                 </div>
@@ -655,13 +727,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91-simple/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-450-%E5%88%A0%E9%99%A4%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="617. 合并二叉树">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="450. 删除二叉搜索树中的节点">
                         
-                        <span class="card-title">617. 合并二叉树</span>
+                        <span class="card-title">450. 删除二叉搜索树中的节点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -708,6 +780,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -885,7 +960,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

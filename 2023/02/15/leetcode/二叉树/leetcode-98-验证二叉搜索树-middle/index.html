@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    187
+                    200
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -440,7 +448,25 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">bool</span> flag;</span><br><span class="line">    TreeNode* last;<span class="comment">//last设置为数字会有一些局限性</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">midorder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(flag==<span class="literal">false</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="built_in">midorder</span>(root-&gt;left);</span><br><span class="line">        <span class="keyword">if</span>(last!=<span class="literal">nullptr</span>&amp;&amp;root-&gt;val&lt;=last-&gt;val) flag=<span class="literal">false</span>;</span><br><span class="line">        last=root;</span><br><span class="line">        <span class="built_in">midorder</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        flag=<span class="literal">true</span>;</span><br><span class="line">        last=<span class="literal">nullptr</span>;</span><br><span class="line">        <span class="built_in">midorder</span>(root);</span><br><span class="line">        <span class="keyword">return</span> flag;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    bool flag;
+    TreeNode* last;&#x2F;&#x2F;last设置为数字会有一些局限性
+public:
+    void midorder(TreeNode* root)&#123;
+        if(flag&#x3D;&#x3D;false) return;
+        if(root&#x3D;&#x3D;nullptr) return;
+        midorder(root-&gt;left);
+        if(last!&#x3D;nullptr&amp;&amp;root-&gt;val&lt;&#x3D;last-&gt;val) flag&#x3D;false;
+        last&#x3D;root;
+        midorder(root-&gt;right);
+    &#125;
+    bool isValidBST(TreeNode* root) &#123;
+        flag&#x3D;true;
+        last&#x3D;nullptr;
+        midorder(root);
+        return flag;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -592,13 +618,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-450-%E5%88%A0%E9%99%A4%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-669-%E4%BF%AE%E5%89%AA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="450. 删除二叉搜索树中的节点">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="669. 修剪二叉搜索树">
                         
-                        <span class="card-title">450. 删除二叉搜索树中的节点</span>
+                        <span class="card-title">669. 修剪二叉搜索树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -641,13 +667,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-%E5%89%91%E6%8C%87Offer07-%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/%E5%9F%BA%E7%A1%80%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="剑指 Offer 07. 重建二叉树">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="二叉树的递归遍历理论笔记">
                         
-                        <span class="card-title">剑指 Offer 07. 重建二叉树</span>
+                        <span class="card-title">二叉树的递归遍历理论笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -694,6 +720,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -871,7 +900,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

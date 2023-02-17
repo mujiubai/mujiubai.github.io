@@ -410,7 +410,7 @@ dp数组如何初始化
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    452
+                    495
                 </div>
                 
 
@@ -432,7 +432,15 @@ dp数组如何初始化
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -458,7 +466,39 @@ dp数组如何初始化
 <li>时间复杂度：O(mn) </li>
 <li>空间复杂度：O(mn)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findLength</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(nums1.<span class="built_in">size</span>()+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(nums2.<span class="built_in">size</span>()+<span class="number">1</span>,<span class="number">0</span>));</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=nums1.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=nums2.<span class="built_in">size</span>();++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums2[j<span class="number">-1</span>]==nums1[i<span class="number">-1</span>])&#123;   </span><br><span class="line">                    dp[i][j]=dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                ans=<span class="built_in">max</span>(ans,dp[i][j]);</span><br><span class="line">                cout&lt;&lt;dp[i][j]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cout&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//优化为1维数组</span></span><br><span class="line">        <span class="comment">// vector&lt;int&gt; dp(nums2.size()+1,0);</span></span><br><span class="line">        <span class="comment">// int ans=0;</span></span><br><span class="line">        <span class="comment">// for(int i=0;i&lt;nums1.size();++i)&#123;</span></span><br><span class="line">        <span class="comment">//     for(int j=nums2.size();j&gt;0;--j)&#123;</span></span><br><span class="line">        <span class="comment">//         if(nums2[j-1]==nums1[i])&#123;   </span></span><br><span class="line">        <span class="comment">//             dp[j]=dp[j-1]+1;</span></span><br><span class="line">        <span class="comment">//         &#125;else&#123;</span></span><br><span class="line">        <span class="comment">//             dp[j]=0;</span></span><br><span class="line">        <span class="comment">//         &#125;</span></span><br><span class="line">        <span class="comment">//         ans=max(ans,dp[j]);</span></span><br><span class="line">        <span class="comment">//     &#125;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int findLength(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) &#123;
+        vector&lt;vector&lt;int&gt;&gt; dp(nums1.size()+1,vector&lt;int&gt;(nums2.size()+1,0));
+        int ans&#x3D;0;
+
+        for(int i&#x3D;1;i&lt;&#x3D;nums1.size();++i)&#123;
+            for(int j&#x3D;1;j&lt;&#x3D;nums2.size();++j)&#123;
+                if(nums2[j-1]&#x3D;&#x3D;nums1[i-1])&#123;   
+                    dp[i][j]&#x3D;dp[i-1][j-1]+1;
+                &#125;
+                ans&#x3D;max(ans,dp[i][j]);
+                cout&lt;&lt;dp[i][j]&lt;&lt;&quot; &quot;;
+            &#125;
+            cout&lt;&lt;endl;
+        &#125;
+
+        &#x2F;&#x2F;优化为1维数组
+        &#x2F;&#x2F; vector&lt;int&gt; dp(nums2.size()+1,0);
+        &#x2F;&#x2F; int ans&#x3D;0;
+        &#x2F;&#x2F; for(int i&#x3D;0;i&lt;nums1.size();++i)&#123;
+        &#x2F;&#x2F;     for(int j&#x3D;nums2.size();j&gt;0;--j)&#123;
+        &#x2F;&#x2F;         if(nums2[j-1]&#x3D;&#x3D;nums1[i])&#123;   
+        &#x2F;&#x2F;             dp[j]&#x3D;dp[j-1]+1;
+        &#x2F;&#x2F;         &#125;else&#123;
+        &#x2F;&#x2F;             dp[j]&#x3D;0;
+        &#x2F;&#x2F;         &#125;
+        &#x2F;&#x2F;         ans&#x3D;max(ans,dp[j]);
+        &#x2F;&#x2F;     &#125;
+        &#x2F;&#x2F; &#125;
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -725,6 +765,9 @@ dp数组如何初始化
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -901,7 +944,7 @@ dp数组如何初始化
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

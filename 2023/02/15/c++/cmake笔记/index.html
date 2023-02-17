@@ -410,7 +410,7 @@ cmake的定义是什么 ？—–高级编译配置工具
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.5k
+                    4.4k
                 </div>
                 
 
@@ -432,7 +432,15 @@ cmake的定义是什么 ？—–高级编译配置工具
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -444,17 +452,37 @@ cmake的定义是什么 ？—–高级编译配置工具
 <p>当多个人用不同的语言或者编译器开发一个项目，最终要输出一个可执行文件或者共享库（dll，so等等）这时候神器就出现了—–CMake！</p>
 <p>所有操作都是通过编译CMakeLists.txt来完成的—简单</p>
 <h1 id="1-CMake一个HelloWord"><a href="#1-CMake一个HelloWord" class="headerlink" title="1. CMake一个HelloWord"></a>1. CMake一个HelloWord</h1><p>1、步骤一，写一个HelloWord</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#main.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">std::cout &lt;&lt;  <span class="string">&quot;hello word&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">main</span><span class="token expression"><span class="token punctuation">.</span>cpp</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span>  <span class="token string">"hello word"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>2、步骤二，写CMakeLists.txt</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#CMakeLists.<span class="function">txt</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">PROJECT</span> <span class="params">(HELLO)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">SET</span><span class="params">(SRC_LIST main.cpp)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">MESSAGE</span><span class="params">(STATUS <span class="string">&quot;This is BINARY dir &quot;</span> $&#123;HELLO_BINARY_DIR&#125;)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">MESSAGE</span><span class="params">(STATUS <span class="string">&quot;This is SOURCE dir &quot;</span>$&#123;HELLO_SOURCE_DIR&#125;)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">ADD_EXECUTABLE</span><span class="params">(hello $&#123;SRC_LIST&#125;)</span></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token expression">CMakeLists<span class="token punctuation">.</span>txt</span></span>
+
+<span class="token function">PROJECT</span> <span class="token punctuation">(</span>HELLO<span class="token punctuation">)</span>
+
+<span class="token function">SET</span><span class="token punctuation">(</span>SRC_LIST main<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
+
+<span class="token function">MESSAGE</span><span class="token punctuation">(</span>STATUS <span class="token string">"This is BINARY dir "</span> $<span class="token punctuation">&#123;</span>HELLO_BINARY_DIR<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token function">MESSAGE</span><span class="token punctuation">(</span>STATUS <span class="token string">"This is SOURCE dir "</span>$<span class="token punctuation">&#123;</span>HELLO_SOURCE_DIR<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token function">ADD_EXECUTABLE</span><span class="token punctuation">(</span>hello $<span class="token punctuation">&#123;</span>SRC_LIST<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>3、步骤三、使用cmake，生成makefile文件</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake .</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">cmake <span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>目录下就生成了这些文件-CMakeFiles, CMakeCache.txt, cmake_install.cmake 等文件，并且生成了Makefile。</p>
 <p>4、使用make命令编译</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@localhost cmake]<span class="meta"># make</span></span><br><span class="line">Scanning dependencies of target hello</span><br><span class="line">[<span class="number">100</span>%] Building CXX object CMakeFiles/hello.dir/main.cpp.o</span><br><span class="line">Linking CXX executable hello</span><br><span class="line">[<span class="number">100</span>%] Built target hello</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">root@localhost cmake<span class="token punctuation">]</span># make
+Scanning dependencies of target hello
+<span class="token punctuation">[</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">]</span> Building CXX object CMakeFiles<span class="token operator">/</span>hello<span class="token punctuation">.</span>dir<span class="token operator">/</span>main<span class="token punctuation">.</span>cpp<span class="token punctuation">.</span>o
+Linking CXX executable hello
+<span class="token punctuation">[</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">]</span> Built target hello<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>5、最终生成了Hello的可执行程序</p>
 <h1 id="2-CMake一个HelloWord-的语法介绍"><a href="#2-CMake一个HelloWord-的语法介绍" class="headerlink" title="2. CMake一个HelloWord-的语法介绍"></a>2. CMake一个HelloWord-的语法介绍</h1><h2 id="2-1-关键字"><a href="#2-1-关键字" class="headerlink" title="2.1 关键字"></a>2.1 关键字</h2><p><strong>PROJECT关键字</strong></p>
@@ -485,7 +513,8 @@ cmake的定义是什么 ？—–高级编译配置工具
 <p>ADD_EXECUTABLE(hello ${SRC_LIST})     生成的可执行文件名是hello，源文件读取变量SRC_LIST中的内容</p>
 <p>也可以直接写 ADD_EXECUTABLE(hello main.cpp)</p>
 <p>上述例子可以简化的写成</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROJECT</span>(HELLO)</span><br><span class="line"><span class="keyword">ADD_EXECUTABLE</span>(hello main.cpp)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">PROJECT</span><span class="token punctuation">(</span>HELLO<span class="token punctuation">)</span>
+<span class="token function">ADD_EXECUTABLE</span><span class="token punctuation">(</span>hello main.cpp<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>注意：工程名的 HELLO 和生成的可执行文件 hello 是没有任何关系的</p>
 <h2 id="2-2-语法的基本原则"><a href="#2-2-语法的基本原则" class="headerlink" title="2.2 语法的基本原则"></a>2.2 语法的基本原则</h2><ul>
@@ -506,7 +535,13 @@ cmake的定义是什么 ？—–高级编译配置工具
 <li>外部构建，就会把生成的临时文件放在build目录下，不会对源文件有任何影响强烈使用外部构建方式</li>
 </ul>
 <p><strong>外部构建方式举例</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例子目录，CMakeLists.txt和上面例子一致</span></span><br><span class="line">[root@localhost cmake]<span class="meta"># pwd</span></span><br><span class="line">/root/cmake</span><br><span class="line">[root@localhost cmake]<span class="meta"># ll</span></span><br><span class="line">total <span class="number">8</span></span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root <span class="number">198</span> Dec <span class="number">28</span> <span class="number">20</span>:<span class="number">59</span> CMakeLists.txt</span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root  <span class="number">76</span> Dec <span class="number">28</span> <span class="number">00</span>:<span class="number">18</span> main.cpp</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//例子目录，CMakeLists.txt和上面例子一致</span>
+<span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span># pwd
+<span class="token operator">/</span>root<span class="token operator">/</span>cmake
+<span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span># ll
+total <span class="token number">8</span>
+<span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span><span class="token punctuation">.</span> <span class="token number">1</span> root root <span class="token number">198</span> Dec <span class="token number">28</span> <span class="token number">20</span><span class="token operator">:</span><span class="token number">59</span> CMakeLists<span class="token punctuation">.</span>txt
+<span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span><span class="token punctuation">.</span> <span class="token number">1</span> root root  <span class="token number">76</span> Dec <span class="token number">28</span> <span class="token number">00</span><span class="token operator">:</span><span class="token number">18</span> main<span class="token punctuation">.</span>cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>1、建立一个build目录，可以在任何地方，建议在当前目录下</p>
 <p>2、进入build，运行cmake ..    当然..表示上一级目录，你可以写CMakeLists.txt所在的绝对路径，生产的文件都在build目录下了</p>
@@ -523,16 +558,23 @@ cmake的定义是什么 ？—–高级编译配置工具
 <li>将 doc 目录 的内容以及 COPYRIGHT&#x2F;README 安装到&#x2F;usr&#x2F;share&#x2F;doc&#x2F;cmake&#x2F;</li>
 </ul>
 <h2 id="4-1-将目标文件放入构建目录的-bin-子目录"><a href="#4-1-将目标文件放入构建目录的-bin-子目录" class="headerlink" title="4.1 将目标文件放入构建目录的 bin 子目录"></a>4.1 将目标文件放入构建目录的 bin 子目录</h2><p>每个目录下都要有一个CMakeLists.txt说明</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost cmake]<span class="meta"># tree</span></span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">└── src</span><br><span class="line">    ├── CMakeLists.txt</span><br><span class="line">    └── main.cpp</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span># tree
+<span class="token punctuation">.</span>
+├── build
+├── CMakeLists<span class="token punctuation">.</span>txt
+└── src
+    ├── CMakeLists<span class="token punctuation">.</span>txt
+    └── main<span class="token punctuation">.</span>cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>外层CMakeLists.txt</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">PROJECT</span>(HELLO)</span><br><span class="line"><span class="built_in">ADD_SUBDIRECTORY</span>(src bin)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">PROJECT</span><span class="token punctuation">(</span>HELLO<span class="token punctuation">)</span>
+<span class="token function">ADD_SUBDIRECTORY</span><span class="token punctuation">(</span>src bin<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>src下的CMakeLists.txt</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ADD_EXECUTABLE</span>(hello main.cpp)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">ADD_EXECUTABLE</span><span class="token punctuation">(</span>hello main<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>ADD_SUBDIRECTORY 指令</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD_SUBDIRECTORY</span>(source_dir [binary_dir] [EXCLUDE_FROM_ALL])</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">ADD_SUBDIRECTORY</span><span class="token punctuation">(</span>source_dir [binary_dir] [<span class="token property">EXCLUDE_FROM_ALL</span>]<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li><p>这个指令用于向当前工程添加存放源文件的子目录，并可以指定中间二进制和目标二进制存放的位置</p>
@@ -546,7 +588,8 @@ cmake的定义是什么 ？—–高级编译配置工具
 </ul>
 <p><strong>更改二进制的保存路径</strong></p>
 <p>SET 指令重新定义 EXECUTABLE_OUTPUT_PATH 和 LIBRARY_OUTPUT_PATH 变量 来指定最终的目标二进制的位置</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span>(EXECUTABLE_OUTPUT_PATH <span class="variable">$&#123;PROJECT_BINARY_DIR&#125;</span>/bin)</span><br><span class="line"><span class="keyword">SET</span>(LIBRARY_OUTPUT_PATH <span class="variable">$&#123;PROJECT_BINARY_DIR&#125;</span>/lib)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">SET</span><span class="token punctuation">(</span><span class="token variable">EXECUTABLE_OUTPUT_PATH</span> <span class="token punctuation">$&#123;</span><span class="token variable">PROJECT_BINARY_DIR</span><span class="token punctuation">&#125;</span>/bin<span class="token punctuation">)</span>
+<span class="token function">SET</span><span class="token punctuation">(</span><span class="token variable">LIBRARY_OUTPUT_PATH</span> <span class="token punctuation">$&#123;</span><span class="token variable">PROJECT_BINARY_DIR</span><span class="token punctuation">&#125;</span>/lib<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>思考：加载哪个CMakeLists.txt当中</p>
 <p>哪里要改变目标存放路径，就在哪里加入上述的定义，所以应该在src下的CMakeLists.txt下写</p>
@@ -562,10 +605,24 @@ cmake的定义是什么 ？—–高级编译配置工具
 <p>使用CMAKE一个新的指令：INSTALL</p>
 <p>INSTALL的安装可以包括：二进制、动态库、静态库以及文件、目录、脚本等</p>
 <p>使用CMAKE一个新的变量：CMAKE_INSTALL_PREFIX</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 目录树结构</span></span><br><span class="line">[root@localhost cmake]<span class="meta"># tree</span></span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── COPYRIGHT</span><br><span class="line">├── doc</span><br><span class="line">│   └── hello.txt</span><br><span class="line">├── README</span><br><span class="line">├── runhello.sh</span><br><span class="line">└── src</span><br><span class="line">    ├── CMakeLists.txt</span><br><span class="line">    └── main.cpp</span><br><span class="line"></span><br><span class="line"><span class="number">3</span> directories, <span class="number">7</span> files</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 目录树结构</span>
+<span class="token punctuation">[</span>root@localhost cmake<span class="token punctuation">]</span># tree
+<span class="token punctuation">.</span>
+├── build
+├── CMakeLists<span class="token punctuation">.</span>txt
+├── COPYRIGHT
+├── doc
+│   └── hello<span class="token punctuation">.</span>txt
+├── README
+├── runhello<span class="token punctuation">.</span>sh
+└── src
+    ├── CMakeLists<span class="token punctuation">.</span>txt
+    └── main<span class="token punctuation">.</span>cpp
+
+<span class="token number">3</span> directories<span class="token punctuation">,</span> <span class="token number">7</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>安装文件COPYRIGHT和README</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSTALL</span>(FILES COPYRIGHT README DESTINATION share/doc/cmake/)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">INSTALL</span><span class="token punctuation">(</span>FILES COPYRIGHT README DESTINATION share/doc/cmake/<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li><p>FILES：文件</p>
@@ -583,7 +640,7 @@ cmake的定义是什么 ？—–高级编译配置工具
 <p>cmake -DCMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr    在cmake的时候指定CMAKE_INSTALL_PREFIX变量的路径</p>
 <p><strong>安装脚本runhello.sh</strong></p>
 <p>PROGRAMS：非目标文件的可执行程序安装(比如脚本之类)</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSTALL</span>(PROGRAMS runhello.sh DESTINATION bin)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">INSTALL</span><span class="token punctuation">(</span>PROGRAMS runhello.sh DESTINATION bin<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>说明：实际安装到的是 &#x2F;usr&#x2F;bin</p>
 <p><strong>从零开始详细介绍CMake</strong></p>
@@ -591,14 +648,18 @@ cmake的定义是什么 ？—–高级编译配置工具
 <li><p>一、是通过在 doc 目录建立CMakeLists.txt ，通过install下的file</p>
 </li>
 <li><p>二、是直接在工程目录通过</p>
-   <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSTALL</span>(DIRECTORY doc/ DESTINATION share/doc/cmake)</span><br></pre></td></tr></table></figure></li>
+   <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">INSTALL</span><span class="token punctuation">(</span>DIRECTORY doc/ DESTINATION share/doc/cmake<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 <p>DIRECTORY 后面连接的是所在 Source 目录的相对路径</p>
 <p>注意：abc 和 abc&#x2F;有很大的区别</p>
 <p>目录名不以&#x2F;结尾：这个目录将被安装为目标路径下的</p>
 <p>目录名以&#x2F;结尾：将这个目录中的内容安装到目标路径</p>
 <p><strong>安装过程</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cmake ..</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">make instal</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cmake <span class="token punctuation">..</span>
+
+<span class="token function">make</span>
+
+<span class="token function">make</span> instal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -611,74 +672,135 @@ cmake的定义是什么 ？—–高级编译配置工具
 <li>静态库在编译时会直接整合到目标程序中，编译成功的可执行文件可独立运行</li>
 <li>动态库在编译时不会放到连接的目标程序中，即可执行文件无法单独运行。</li>
 </ul>
-<h2 id="5-1构建实例"><a href="#5-1构建实例" class="headerlink" title="5.1构建实例"></a>5.1构建实例</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost cmake2]<span class="meta"># tree</span></span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">└── lib</span><br><span class="line">    ├── CMakeLists.txt</span><br><span class="line">    ├── hello.cpp</span><br><span class="line">    └── hello.h</span><br></pre></td></tr></table></figure>
+<h2 id="5-1构建实例"><a href="#5-1构建实例" class="headerlink" title="5.1构建实例"></a>5.1构建实例</h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>root@localhost cmake2<span class="token punctuation">]</span># tree
+<span class="token punctuation">.</span>
+├── build
+├── CMakeLists<span class="token punctuation">.</span>txt
+└── lib
+    ├── CMakeLists<span class="token punctuation">.</span>txt
+    ├── hello<span class="token punctuation">.</span>cpp
+    └── hello<span class="token punctuation">.</span>h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>hello.h中的内容</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> HELLO_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Hello_H</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">HelloFunc</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">HELLO_H</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">Hello_H</span></span>
+
+<span class="token keyword">void</span> <span class="token function">HelloFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>hello.cpp中的内容</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;hello.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">HelloFunc</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello World&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"hello.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token keyword">void</span> <span class="token function">HelloFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello World"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>项目中的cmake内容</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">PROJECT</span>(HELLO)</span><br><span class="line"><span class="built_in">ADD_SUBDIRECTORY</span>(lib bin)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">PROJECT</span><span class="token punctuation">(</span>HELLO<span class="token punctuation">)</span>
+<span class="token function">ADD_SUBDIRECTORY</span><span class="token punctuation">(</span>lib bin<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>lib中CMakeLists.txt中的内容</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">SET</span>(LIBHELLO_SRC hello.cpp)</span><br><span class="line"><span class="built_in">ADD_LIBRARY</span>(hello SHARED $&#123;LIBHELLO_SRC&#125;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">SET</span><span class="token punctuation">(</span>LIBHELLO_SRC hello<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello SHARED $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>ADD_LIBRARY</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD_LIBRARY</span>(hello SHARED <span class="variable">$&#123;LIBHELLO_SRC&#125;</span>)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello <span class="token namespace">SHARED</span> <span class="token punctuation">$&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li>hello：就是正常的库名，生成的名字前面会加上lib，最终产生的文件是libhello.so</li>
 <li>SHARED，动态库    STATIC，静态库</li>
 <li>${LIBHELLO_SRC} ：源文件</li>
 </ul>
-<h2 id="5-2-同时构建静态和动态库"><a href="#5-2-同时构建静态和动态库" class="headerlink" title="5.2 同时构建静态和动态库"></a>5.2 同时构建静态和动态库</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果用这种方式，只会构建一个动态库，不会构建出静态库，虽然静态库的后缀是.a</span></span><br><span class="line"><span class="built_in">ADD_LIBRARY</span>(hello SHARED $&#123;LIBHELLO_SRC&#125;)</span><br><span class="line"><span class="built_in">ADD_LIBRARY</span>(hello STATIC $&#123;LIBHELLO_SRC&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改静态库的名字，这样是可以的，但是我们往往希望他们的名字是相同的，只是后缀不同而已</span></span><br><span class="line"><span class="built_in">ADD_LIBRARY</span>(hello SHARED $&#123;LIBHELLO_SRC&#125;)</span><br><span class="line"><span class="built_in">ADD_LIBRARY</span>(hello_static STATIC $&#123;LIBHELLO_SRC&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="5-2-同时构建静态和动态库"><a href="#5-2-同时构建静态和动态库" class="headerlink" title="5.2 同时构建静态和动态库"></a>5.2 同时构建静态和动态库</h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 如果用这种方式，只会构建一个动态库，不会构建出静态库，虽然静态库的后缀是.a</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello SHARED $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello STATIC $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 修改静态库的名字，这样是可以的，但是我们往往希望他们的名字是相同的，只是后缀不同而已</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello SHARED $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello_static STATIC $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>SET_TARGET_PROPERTIES</strong></p>
 <p>这条指令可以用来设置输出的名称，对于动态库，还可以用来指定动态库版本和 API 版本</p>
 <p>同时构建静态和动态库</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">SET</span>(LIBHELLO_SRC hello.cpp)</span><br><span class="line"></span><br><span class="line"><span class="built_in">ADD_LIBRARY</span>(hello_static STATIC $&#123;LIBHELLO_SRC&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//对hello_static的重名为hello</span></span><br><span class="line"><span class="built_in">SET_TARGET_PROPERTIES</span>(hello_static PROPERTIES  OUTPUT_NAME <span class="string">&quot;hello&quot;</span>)</span><br><span class="line"><span class="comment">//cmake 在构建一个新的target 时，会尝试清理掉其他使用这个名字的库，因为，在构建 libhello.so 时， 就会清理掉 libhello.a</span></span><br><span class="line"><span class="built_in">SET_TARGET_PROPERTIES</span>(hello_static PROPERTIES CLEAN_DIRECT_OUTPUT <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">ADD_LIBRARY</span>(hello SHARED $&#123;LIBHELLO_SRC&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">SET_TARGET_PROPERTIES</span>(hello PROPERTIES  OUTPUT_NAME <span class="string">&quot;hello&quot;</span>)</span><br><span class="line"><span class="built_in">SET_TARGET_PROPERTIES</span>(hello PROPERTIES CLEAN_DIRECT_OUTPUT <span class="number">1</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">SET</span><span class="token punctuation">(</span>LIBHELLO_SRC hello<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
+
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello_static STATIC $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">//对hello_static的重名为hello</span>
+<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello_static PROPERTIES  OUTPUT_NAME <span class="token string">"hello"</span><span class="token punctuation">)</span>
+<span class="token comment">//cmake 在构建一个新的target 时，会尝试清理掉其他使用这个名字的库，因为，在构建 libhello.so 时， 就会清理掉 libhello.a</span>
+<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello_static PROPERTIES CLEAN_DIRECT_OUTPUT <span class="token number">1</span><span class="token punctuation">)</span>
+
+<span class="token function">ADD_LIBRARY</span><span class="token punctuation">(</span>hello SHARED $<span class="token punctuation">&#123;</span>LIBHELLO_SRC<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello PROPERTIES  OUTPUT_NAME <span class="token string">"hello"</span><span class="token punctuation">)</span>
+<span class="token function">SET_TARGET_PROPERTIES</span><span class="token punctuation">(</span>hello PROPERTIES CLEAN_DIRECT_OUTPUT <span class="token number">1</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>动态库的版本号</strong></p>
 <p>一般动态库都有一个版本号的关联</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">libhello.so<span class="number">.1</span><span class="number">.2</span></span><br><span class="line">libhello.so -&gt;libhello.so<span class="number">.1</span></span><br><span class="line">libhello.so<span class="number">.1</span>-&gt;libhello.so<span class="number">.1</span><span class="number">.2</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">libhello<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1.2</span>
+libhello<span class="token punctuation">.</span>so <span class="token operator">-></span>libhello<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span>
+libhello<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span><span class="token operator">-></span>libhello<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1.2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>CMakeLists.txt 插入如下</p>
 <p><code>SET_TARGET_PROPERTIES(hello PROPERTIES VERSION 1.2 SOVERSION 1)</code></p>
 <p>VERSION 指代动态库版本，SOVERSION 指代 API 版本。</p>
 <h2 id="5-3-安装共享库和头文件"><a href="#5-3-安装共享库和头文件" class="headerlink" title="5.3 安装共享库和头文件"></a>5.3 安装共享库和头文件</h2><p>本例中我们将 hello 的共享库安装到<prefix>&#x2F;lib目录，</p>
 <p>将 hello.h 安装到<prefix>&#x2F;include&#x2F;hello 目录</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//文件放到该目录下</span></span><br><span class="line"><span class="built_in">INSTALL</span>(FILES hello.h DESTINATION include/hello)</span><br><span class="line"></span><br><span class="line"><span class="comment">//二进制，静态库，动态库安装都用TARGETS</span></span><br><span class="line"><span class="comment">//ARCHIVE 特指静态库，LIBRARY 特指动态库，RUNTIME 特指可执行目标二进制。</span></span><br><span class="line"><span class="built_in">INSTALL</span>(TARGETS hello hello_static LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//文件放到该目录下</span>
+<span class="token function">INSTALL</span><span class="token punctuation">(</span>FILES hello<span class="token punctuation">.</span>h DESTINATION include<span class="token operator">/</span>hello<span class="token punctuation">)</span>
+
+<span class="token comment">//二进制，静态库，动态库安装都用TARGETS</span>
+<span class="token comment">//ARCHIVE 特指静态库，LIBRARY 特指动态库，RUNTIME 特指可执行目标二进制。</span>
+<span class="token function">INSTALL</span><span class="token punctuation">(</span>TARGETS hello hello_static LIBRARY DESTINATION lib ARCHIVE DESTINATION lib<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>注意：</p>
 <p>安装的时候，指定一下路径，放到系统下</p>
 <p><code>cmake -DCMAKE_INSTALL_PREFIX=/usr ..</code></p>
 <h2 id="5-4-使用外部共享库和头文件"><a href="#5-4-使用外部共享库和头文件" class="headerlink" title="5.4 使用外部共享库和头文件"></a>5.4 使用外部共享库和头文件</h2><p>准备工作，新建一个目录来使用外部共享库和头文件</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@MiWiFi-R4CM-srv cmake3]<span class="meta"># tree</span></span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">└── src</span><br><span class="line">    ├── CMakeLists.txt</span><br><span class="line">    └── main.cpp</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>root@MiWiFi<span class="token operator">-</span>R4CM<span class="token operator">-</span>srv cmake3<span class="token punctuation">]</span># tree
+<span class="token punctuation">.</span>
+├── build
+├── CMakeLists<span class="token punctuation">.</span>txt
+└── src
+    ├── CMakeLists<span class="token punctuation">.</span>txt
+    └── main<span class="token punctuation">.</span>cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>main.cpp</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;hello.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">HelloFunc</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;hello.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+	<span class="token function">HelloFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>解决：make后头文件找不到的问题</strong></p>
 <p>PS：include &lt;hello&#x2F;hello.h&gt;  这样include是可以，这么做的话，就没啥好讲的了</p>
 <p>关键字：INCLUDE_DIRECTORIES    这条指令可以用来向工程添加多个特定的头文件搜索路径，路径之间用空格分割</p>
 <p>在CMakeLists.txt中加入头文件搜索路径</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INCLUDE_DIRECTORIES</span>(/usr/<span class="keyword">include</span>/hello)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token property">INCLUDE_DIRECTORIES</span><span class="token punctuation">(</span>/usr/include/hello<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>解决：找到引用的函数问题</strong></p>
 <p>报错信息：undefined reference to &#96;HelloFunc()’</p>
 <p>关键字：LINK_DIRECTORIES     添加非标准的共享库搜索路径</p>
 <p>指定第三方库所在路径</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LINK_DIRECTORIES</span>(/home/myproject/libs)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token property">LINK_DIRECTORIES</span><span class="token punctuation">(</span>/home/myproject/libs<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>关键字：TARGET_LINK_LIBRARIES    添加需要链接的共享库</p>
 <p>TARGET_LINK_LIBRARIES的时候，只需要给出动态链接库的名字就行了。</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TARGET_LINK_LIBRARIES</span>(main libhello.a)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">TARGET_LINK_LIBRARIES</span><span class="token punctuation">(</span>main libhello.a<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>在CMakeLists.txt中插入链接共享库，主要要插在executable的后面</p>
 <p>查看main的链接情况</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@MiWiFi-R4CM-srv bin]<span class="meta"># ldd main </span></span><br><span class="line">	linux-vdso.so<span class="number">.1</span> =&gt;  (<span class="number">0x00007ffedfda4000</span>)</span><br><span class="line">	libhello.so =&gt; /lib64/libhello.<span class="built_in">so</span> (<span class="number">0x00007f41c0d8f000</span>)</span><br><span class="line">	libstdc++.so<span class="number">.6</span> =&gt; /lib64/libstdc++.so<span class="number">.6</span> (<span class="number">0x00007f41c0874000</span>)</span><br><span class="line">	libm.so<span class="number">.6</span> =&gt; /lib64/libm.so<span class="number">.6</span> (<span class="number">0x00007f41c0572000</span>)</span><br><span class="line">	libgcc_s.so<span class="number">.1</span> =&gt; /lib64/libgcc_s.so<span class="number">.1</span> (<span class="number">0x00007f41c035c000</span>)</span><br><span class="line">	libc.so<span class="number">.6</span> =&gt; /lib64/libc.so<span class="number">.6</span> (<span class="number">0x00007f41bff8e000</span>)</span><br><span class="line">	/lib64/ld-linux-x86<span class="number">-64.</span>so<span class="number">.2</span> (<span class="number">0x00007f41c0b7c000</span>)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>root@MiWiFi<span class="token operator">-</span>R4CM<span class="token operator">-</span>srv bin<span class="token punctuation">]</span># ldd main 
+	linux<span class="token operator">-</span>vdso<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">></span>  <span class="token punctuation">(</span><span class="token number">0x00007ffedfda4000</span><span class="token punctuation">)</span>
+	libhello<span class="token punctuation">.</span>so <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libhello<span class="token punctuation">.</span><span class="token function">so</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c0d8f000</span><span class="token punctuation">)</span>
+	libstdc<span class="token operator">++</span><span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libstdc<span class="token operator">++</span><span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c0874000</span><span class="token punctuation">)</span>
+	libm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c0572000</span><span class="token punctuation">)</span>
+	libgcc_s<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libgcc_s<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c035c000</span><span class="token punctuation">)</span>
+	libc<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">/</span>lib64<span class="token operator">/</span>libc<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x00007f41bff8e000</span><span class="token punctuation">)</span>
+	<span class="token operator">/</span>lib64<span class="token operator">/</span>ld<span class="token operator">-</span>linux<span class="token operator">-</span>x86<span class="token operator">-</span><span class="token number">64.</span>so<span class="token punctuation">.</span><span class="token number">2</span> <span class="token punctuation">(</span><span class="token number">0x00007f41c0b7c000</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>链接静态库</p>
 <p><code>TARGET_LINK_LIBRARIES(main libhello.a)</code></p>
@@ -688,68 +810,117 @@ cmake的定义是什么 ？—–高级编译配置工具
 <p>我们还可以使用另外一种方式，使用环境变量export CMAKE_INCLUDE_PATH&#x3D;&#x2F;usr&#x2F;include&#x2F;hello</p>
 <p>补充：生产debug版本的方法：<br>cmake .. -DCMAKE_BUILD_TYPE&#x3D;debug</p>
 <h1 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h1><h2 id="6-1-常用命令"><a href="#6-1-常用命令" class="headerlink" title="6.1 常用命令"></a>6.1 常用命令</h2><p>&#x3D;&#x3D;<strong>(1) project命令：</strong>&#x3D;&#x3D;</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法:<span class="keyword">project</span>(&lt;projectname&gt; [languageName1 languageName2 ...])</span><br><span class="line">命令简述:用于指定项目的名称和支持语言</span><br><span class="line">使用范例:<span class="keyword">project</span>(Main CXX)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法:<span class="token keyword">project</span><span class="token punctuation">(</span>&lt;projectname<span class="token punctuation">></span> [languageName1 languageName2 ...]<span class="token punctuation">)</span>
+命令简述:用于指定项目的名称和支持语言
+使用范例:<span class="token keyword">project</span><span class="token punctuation">(</span>Main CXX<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>(2) cmake_minimum_required命令:</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法:cmake_minimum_requried(VERSION major[.minor[.patch)</span><br><span class="line">命令简述:用于指定需要的CMake的最低版本</span><br><span class="line">使用范例:cmake_minimum_requried(VERSION <span class="number">2.8</span>.<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法:<span class="token function">cmake_minimum_requried</span><span class="token punctuation">(</span><span class="token property">VERSION</span> major[.minor[.patch<span class="token punctuation">)</span>
+命令简述:用于指定需要的CMake的最低版本
+使用范例:<span class="token function">cmake_minimum_requried</span><span class="token punctuation">(</span><span class="token property">VERSION</span> <span class="token number">2.8.3</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>&#x3D;&#x3D;<strong>(3) aux_source_directory命令:</strong>&#x3D;&#x3D;</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法:<span class="keyword">aux_source_directory</span>(&lt;dir&gt; &lt;variable&gt;)</span><br><span class="line">命令简述:用于包含源文件目录，dir目录下的所有源文件的名字保存在变量variable中</span><br><span class="line">使用范例：<span class="keyword">aux_source_directory</span>(<span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src  DIR_SRCS)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法:<span class="token keyword">aux_source_directory</span><span class="token punctuation">(</span>&lt;dir<span class="token punctuation">></span> &lt;variable<span class="token punctuation">></span><span class="token punctuation">)</span>
+命令简述:用于包含源文件目录，dir目录下的所有源文件的名字保存在变量variable中
+使用范例：<span class="token keyword">aux_source_directory</span><span class="token punctuation">(</span><span class="token punctuation">$&#123;</span><span class="token variable">CMAKE_CURRENT_SOURCE_DIR</span><span class="token punctuation">&#125;</span>/src  DIR_SRCS<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>&#x3D;&#x3D;<strong>(4) add_executable命令:</strong>&#x3D;&#x3D;</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">add_executable</span>(&lt;name&gt; [WIN32] [MACOSX_BUNDLE][EXCLUDE_FROM_ALL] source1 source2 … sourceN)</span><br><span class="line">命令简述:用于指定从一组源文件source1 source2 ... sourceN 编译出一个可执行文件且命名为name</span><br><span class="line">使用范例:<span class="keyword">add_executable</span>(Main $(DIR_SRCS))</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">add_executable</span><span class="token punctuation">(</span>&lt;name<span class="token punctuation">></span> [<span class="token variable">WIN32</span>] [<span class="token property">MACOSX_BUNDLE</span>][<span class="token property">EXCLUDE_FROM_ALL</span>] source1 source2 … sourceN<span class="token punctuation">)</span>
+命令简述:用于指定从一组源文件source1 source2 ... sourceN 编译出一个可执行文件且命名为name
+使用范例:<span class="token keyword">add_executable</span><span class="token punctuation">(</span>Main $<span class="token punctuation">(</span>DIR_SRCS<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>&#x3D;&#x3D;<strong>(5) add_library命令:</strong>&#x3D;&#x3D;</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">add_library</span>([STATIC | SHARED | MODULE] [EXCLUDE_FROM_ALL] source1source2 … sourceN)</span><br><span class="line">命令简述：用于指定从一组源文件 source1 source2 ... sourceN编译出一个库文件且命名为name</span><br><span class="line">使用范例：<span class="keyword">add_library</span>(Lib $(DIR_SRCS))</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">add_library</span><span class="token punctuation">(</span>[<span class="token namespace">STATIC</span> | <span class="token namespace">SHARED</span> | MODULE] [<span class="token property">EXCLUDE_FROM_ALL</span>] source1source2 … sourceN<span class="token punctuation">)</span>
+命令简述：用于指定从一组源文件 source1 source2 ... sourceN编译出一个库文件且命名为name
+使用范例：<span class="token keyword">add_library</span><span class="token punctuation">(</span>Lib $<span class="token punctuation">(</span>DIR_SRCS<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>(6) add_dependencies命令:</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">add_dependencies</span>(<span class="keyword">target</span>-name depend-target1 depend-target2 …)</span><br><span class="line">命令简述：用于指定某个目标（可执行文件或者库文件）依赖于其他的目标。</span><br><span class="line">        这里的目标必须是<span class="keyword">add_executable</span>、<span class="keyword">add_library</span>、<span class="keyword">add_custom_target</span>命令创建的目标</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">add_dependencies</span><span class="token punctuation">(</span>target-name depend-target1 depend-target2 …<span class="token punctuation">)</span>
+命令简述：用于指定某个目标（可执行文件或者库文件）依赖于其他的目标。
+        这里的目标必须是add_executable、add_library、add_custom_target命令创建的目标<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>&#x3D;&#x3D;<strong>(7) add_subdirectory命令:</strong>&#x3D;&#x3D;</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">add_subdirectory</span>(source_dir [binary_dir] [EXCLUDE_FROM_ALL])</span><br><span class="line">命令简述:用于添加一个需要进行构建的子目录</span><br><span class="line">使用范例:<span class="keyword">add_subdirectory</span>(Lib)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">add_subdirectory</span><span class="token punctuation">(</span>source_dir [binary_dir] [<span class="token property">EXCLUDE_FROM_ALL</span>]<span class="token punctuation">)</span>
+命令简述:用于添加一个需要进行构建的子目录
+使用范例:<span class="token keyword">add_subdirectory</span><span class="token punctuation">(</span>Lib<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>&#x3D;&#x3D;<strong>(8) target_link_libraries命令:</strong>&#x3D;&#x3D;</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">target_link_libraries</span>(&lt;<span class="keyword">target</span>&gt; [item1 [item2 […]]][[debug|optimized|general] ] …)</span><br><span class="line">命令简述:用于指定<span class="keyword">target</span>需要链接item1 item2 ...。这里<span class="keyword">target</span>必须已经被创建，链接的item可以是已经存在的<span class="keyword">target</span>（依赖关系会自动添加）</span><br><span class="line">使用范例:<span class="keyword">target_link_libraries</span>(Main Lib)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>&lt;target<span class="token punctuation">></span> [item1 [item2 […]]][[debug|optimized|general] ] …<span class="token punctuation">)</span>
+命令简述:用于指定target需要链接item1 item2 ...。这里target必须已经被创建，链接的item可以是已经存在的target（依赖关系会自动添加）
+使用范例:<span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>Main Lib<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>(9) set命令：</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令简述：用于设定变量 variable 的值为 value。如果指定了 CACHE 变量将被放入 Cache（缓存）中。</span><br><span class="line">命令语法：<span class="keyword">set</span>(&lt;variable&gt; &lt;value&gt; [[CACHE &lt;type&gt;&lt;docstring&gt; [FORCE]] | PARENT_SCOPE])</span><br><span class="line">使用范例：<span class="keyword">set</span>(ProjectName Main)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令简述：用于设定变量 variable 的值为 value。如果指定了 <span class="token variable">CACHE</span> 变量将被放入 Cache（缓存）中。
+命令语法：<span class="token keyword">set</span><span class="token punctuation">(</span>&lt;variable<span class="token punctuation">></span> &lt;value<span class="token punctuation">></span> [[<span class="token variable">CACHE</span> &lt;type<span class="token punctuation">></span>&lt;docstring<span class="token punctuation">></span> [FORCE]] | PARENT_SCOPE]<span class="token punctuation">)</span>
+使用范例：<span class="token keyword">set</span><span class="token punctuation">(</span>ProjectName Main<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>(10) unset命令：</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">unset</span>(&lt;variable&gt; [CACHE])</span><br><span class="line">命令简述：用于移除变量 variable。如果指定了 CACHE 变量将被从 Cache 中移除。</span><br><span class="line">使用范例：<span class="keyword">unset</span>(VAR CACHE)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">unset</span><span class="token punctuation">(</span>&lt;variable<span class="token punctuation">></span> [<span class="token variable">CACHE</span>]<span class="token punctuation">)</span>
+命令简述：用于移除变量 variable。如果指定了 <span class="token variable">CACHE</span> 变量将被从 Cache 中移除。
+使用范例：<span class="token keyword">unset</span><span class="token punctuation">(</span>VAR <span class="token variable">CACHE</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>(11) message命令：</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">message</span>([STATUS|WARNING|AUTHOR_WARNING|FATAL_ERROR|SEND_ERROR] “<span class="keyword">message</span> todisplay”…)</span><br><span class="line">命令简述:用于输出信息</span><br><span class="line">使用范例:<span class="keyword">message</span>(“Hello World”)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">message</span><span class="token punctuation">(</span>[STATUS|WARNING|AUTHOR_WARNING|FATAL_ERROR|SEND_ERROR] “message todisplay”…<span class="token punctuation">)</span>
+命令简述:用于输出信息
+使用范例:<span class="token keyword">message</span><span class="token punctuation">(</span>“Hello World”<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>&#x3D;&#x3D;<strong>(12) include_directories命令：</strong>&#x3D;&#x3D;</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">include_directories</span>([AFTER|BEFORE] [SYSTEM] dir1 dir2 …)</span><br><span class="line">命令简述：用于设定目录，这些设定的目录将被编译器用来查找 <span class="keyword">include</span> 文件</span><br><span class="line">使用范例：<span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/lib)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">include_directories</span><span class="token punctuation">(</span>[AFTER|BEFORE] [SYSTEM] dir1 dir2 …<span class="token punctuation">)</span>
+命令简述：用于设定目录，这些设定的目录将被编译器用来查找 include 文件
+使用范例：<span class="token keyword">include_directories</span><span class="token punctuation">(</span><span class="token punctuation">$&#123;</span><span class="token variable">PROJECT_SOURCE_DIR</span><span class="token punctuation">&#125;</span>/lib<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>(13) find_path命令：</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">find_path</span>(&lt;VAR&gt; name1 [path1 path2 …])</span><br><span class="line">命令简述：用于查找包含文件name1的路径，如果找到则将路径保存在VAR中（此路径为一个绝对路径），如果没有找到则结果为&lt;VAR&gt;-NOTFOUND.默认情况下，VAR会被保存在Cache中，这时候我们需要清除VAR才可以进行下一次查询（使用<span class="keyword">unset</span>命令）</span><br><span class="line"><span class="keyword">find_path</span>(LUA_INCLUDE_PATH lua.h <span class="variable">$&#123;LUA_INCLUDE_FIND_PATH&#125;</span>)</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">NOT</span> LUA_INCLUDE_PATH)</span><br><span class="line">     <span class="keyword">message</span>(SEND_ERROR <span class="string">&quot;Header file lua.h not found&quot;</span>)</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">find_path</span><span class="token punctuation">(</span>&lt;VAR<span class="token punctuation">></span> name1 [path1 path2 …]<span class="token punctuation">)</span>
+命令简述：用于查找包含文件name1的路径，如果找到则将路径保存在VAR中（此路径为一个绝对路径），如果没有找到则结果为&lt;VAR<span class="token punctuation">></span>-NOTFOUND.默认情况下，VAR会被保存在Cache中，这时候我们需要清除VAR才可以进行下一次查询（使用unset命令）
+<span class="token keyword">find_path</span><span class="token punctuation">(</span>LUA_INCLUDE_PATH lua.h <span class="token punctuation">$&#123;</span>LUA_INCLUDE_FIND_PATH<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">NOT</span> LUA_INCLUDE_PATH<span class="token punctuation">)</span>
+     <span class="token keyword">message</span><span class="token punctuation">(</span>SEND_ERROR <span class="token string">"Header file lua.h not found"</span><span class="token punctuation">)</span>
+<span class="token keyword">endif</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>&#x3D;&#x3D;<strong>(14) find_library命令：</strong>&#x3D;&#x3D;</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">find_library</span>(&lt;VAR&gt; name1 [path1 path2 …])</span><br><span class="line">命令简述：用于查找库文件 name1 的路径，如果找到则将路径保存在 VAR 中（此路径为一个绝对路径），</span><br><span class="line">        如果没有找到则结果为 &lt;VAR&gt;-NOTFOUND。</span><br><span class="line">        一个类似的命令 <span class="keyword">link_directories</span> 已经不太建议使用了</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">find_library</span><span class="token punctuation">(</span>&lt;VAR<span class="token punctuation">></span> name1 [path1 path2 …]<span class="token punctuation">)</span>
+命令简述：用于查找库文件 name1 的路径，如果找到则将路径保存在 VAR 中（此路径为一个绝对路径），
+        如果没有找到则结果为 &lt;VAR<span class="token punctuation">></span>-NOTFOUND。
+        一个类似的命令 link_directories 已经不太建议使用了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>(15) add_definitions命令：</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">add_definitions</span>(-DFOO -DBAR …)</span><br><span class="line">命令简述：用于添加编译器命令行标志（选项），通常的情况下我们使用其来添加预处理器定义</span><br><span class="line">使用范例：<span class="keyword">add_definitions</span>(-D_UNICODE -DUNICODE)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">add_definitions</span><span class="token punctuation">(</span>-DFOO -DBAR …<span class="token punctuation">)</span>
+命令简述：用于添加编译器命令行标志（选项），通常的情况下我们使用其来添加预处理器定义
+使用范例：<span class="token keyword">add_definitions</span><span class="token punctuation">(</span>-D_UNICODE -DUNICODE<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>(16) file命令：</strong></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">命令简述：此命令提供了丰富的文件和目录的相关操作（这里仅说一下比较常用的）</span><br><span class="line">使用范例：</span><br><span class="line"><span class="comment"># 目录的遍历</span></span><br><span class="line"><span class="comment"># GLOB 用于产生一个文件（目录）路径列表并保存在variable 中</span></span><br><span class="line"><span class="comment"># 文件路径列表中的每个文件的文件名都能匹配globbing expressions（非正则表达式，但是类似）</span></span><br><span class="line"><span class="comment"># 如果指定了 RELATIVE 路径，那么返回的文件路径列表中的路径为相对于 RELATIVE 的路径</span></span><br><span class="line"><span class="keyword">file</span>(GLOB variable [RELATIVE path][globbing expressions]...)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 获取当前目录下的所有的文件（目录）的路径并保存到 ALL_FILE_PATH 变量中</span></span><br><span class="line"><span class="keyword">file</span>(GLOB ALL_FILE_PATH ./*)</span><br><span class="line"><span class="comment"># 获取当前目录下的 .h 文件的文件名并保存到ALL_H_FILE 变量中</span></span><br><span class="line"><span class="comment"># 这里的变量CMAKE_CURRENT_LIST_DIR 表示正在处理的 CMakeLists.txt 文件的所在的目录的绝对路径（2.8.3 以及以后版本才支持）</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令简述：此命令提供了丰富的文件和目录的相关操作（这里仅说一下比较常用的）
+使用范例：
+<span class="token comment"># 目录的遍历</span>
+<span class="token comment"># GLOB 用于产生一个文件（目录）路径列表并保存在variable 中</span>
+<span class="token comment"># 文件路径列表中的每个文件的文件名都能匹配globbing expressions（非正则表达式，但是类似）</span>
+<span class="token comment"># 如果指定了 RELATIVE 路径，那么返回的文件路径列表中的路径为相对于 RELATIVE 的路径</span>
+<span class="token keyword">file</span><span class="token punctuation">(</span>GLOB variable [RELATIVE path][globbing expressions]...<span class="token punctuation">)</span>
+ 
+<span class="token comment"># 获取当前目录下的所有的文件（目录）的路径并保存到 ALL_FILE_PATH 变量中</span>
+<span class="token keyword">file</span><span class="token punctuation">(</span>GLOB ALL_FILE_PATH ./*<span class="token punctuation">)</span>
+<span class="token comment"># 获取当前目录下的 .h 文件的文件名并保存到ALL_H_FILE 变量中</span>
+<span class="token comment"># 这里的变量CMAKE_CURRENT_LIST_DIR 表示正在处理的 CMakeLists.txt 文件的所在的目录的绝对路径（2.8.3 以及以后版本才支持）</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>&#x3D;&#x3D;<strong>(17) find_package命令：</strong>&#x3D;&#x3D;</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：<span class="keyword">find_package</span>(&lt;Name&gt;)</span><br><span class="line">命令简述：用于查找包（通常是使用三方库），并返回关于包的细节（使用包所依赖的头文件、库文件、编译选项、链接选项等）</span><br><span class="line">使用范例：<span class="keyword">find_package</span>(Boost)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">命令语法：<span class="token keyword">find_package</span><span class="token punctuation">(</span>&lt;Name<span class="token punctuation">></span><span class="token punctuation">)</span>
+命令简述：用于查找包（通常是使用三方库），并返回关于包的细节（使用包所依赖的头文件、库文件、编译选项、链接选项等）
+使用范例：<span class="token keyword">find_package</span><span class="token punctuation">(</span>Boost<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>(18) link_directories命令 :</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令语法：link_directories(&lt;dir&gt;)</span><br><span class="line">命令简述：用于指定第三方库所在路径</span><br><span class="line">使用范例：link_directories(/home/myproject/libs)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">命令语法：link_directories(&lt;dir&gt;)
+命令简述：用于指定第三方库所在路径
+使用范例：link_directories(&#x2F;home&#x2F;myproject&#x2F;libs)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="6-2-使用第三方库"><a href="#6-2-使用第三方库" class="headerlink" title="6.2 使用第三方库"></a>6.2 使用第三方库</h2><p><strong>方法一：</strong></p>
 <p>先包含第三方库头文件</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INCLUDE_DIRECTORIES</span>(/usr/<span class="keyword">include</span>/hello)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token property">INCLUDE_DIRECTORIES</span><span class="token punctuation">(</span>/usr/include/hello<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>指定第三方库静态库或动态库文件位置</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LINK_DIRECTORIES</span>(/home/myproject/libs)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token property">LINK_DIRECTORIES</span><span class="token punctuation">(</span>/home/myproject/libs<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>连接第三方库的静态或动态库</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TARGET_LINK_LIBRARIES</span>(main libhello.a)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">TARGET_LINK_LIBRARIES</span><span class="token punctuation">(</span>main libhello.a<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>方法二：</strong></p>
 <p>使用find_libary</p>
@@ -905,13 +1076,13 @@ cmake的定义是什么 ？—–高级编译配置工具
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/c++/C++11%E6%96%B0%E7%89%B9%E6%80%A7/">
+                <a href="/2023/02/15/c++/Effective_Modern_C++/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="C++11新特性">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Effective Modern C++">
                         
-                        <span class="card-title">C++11新特性</span>
+                        <span class="card-title">Effective Modern C++</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -941,10 +1112,6 @@ cmake的定义是什么 ？—–高级编译配置工具
                     
                     <a href="/tags/C/">
                         <span class="chip bg-color">C++</span>
-                    </a>
-                    
-                    <a href="/tags/C-11/">
-                        <span class="chip bg-color">C++11</span>
                     </a>
                     
                 </div>
@@ -1015,6 +1182,9 @@ cmake的定义是什么 ？—–高级编译配置工具
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -1192,7 +1362,7 @@ cmake的定义是什么 ？—–高级编译配置工具
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

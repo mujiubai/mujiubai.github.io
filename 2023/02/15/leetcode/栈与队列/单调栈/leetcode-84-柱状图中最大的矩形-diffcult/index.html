@@ -413,7 +413,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    599
+                    613
                 </div>
                 
 
@@ -435,7 +435,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -449,7 +457,38 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">largestRectangleArea</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans=heights[<span class="number">0</span>];</span><br><span class="line">        stack&lt;<span class="type">int</span>&gt; lmaxs,rmaxs;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">lnum</span><span class="params">(heights.size(),<span class="number">-1</span>)</span>,<span class="title">rnum</span><span class="params">(heights.size(),heights.size())</span></span>;</span><br><span class="line">        lmaxs.<span class="built_in">push</span>(heights.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=heights.<span class="built_in">size</span>()<span class="number">-2</span>;i&gt;=<span class="number">0</span>;--i)&#123;</span><br><span class="line">            <span class="keyword">while</span>(!lmaxs.<span class="built_in">empty</span>()&amp;&amp;heights[lmaxs.<span class="built_in">top</span>()]&gt;heights[i])&#123;</span><br><span class="line">                lnum[lmaxs.<span class="built_in">top</span>()]=i;</span><br><span class="line">                lmaxs.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            lmaxs.<span class="built_in">push</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        rmaxs.<span class="built_in">push</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;heights.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">while</span>(!rmaxs.<span class="built_in">empty</span>()&amp;&amp;heights[rmaxs.<span class="built_in">top</span>()]&gt;heights[i])&#123;</span><br><span class="line">                rnum[rmaxs.<span class="built_in">top</span>()]=i;                </span><br><span class="line">                rmaxs.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            rmaxs.<span class="built_in">push</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;heights.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            ans=<span class="built_in">max</span>(ans,(rnum[i]-lnum[i]<span class="number">-1</span>)*heights[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int largestRectangleArea(vector&lt;int&gt;&amp; heights) &#123;
+        int ans&#x3D;heights[0];
+        stack&lt;int&gt; lmaxs,rmaxs;
+        vector&lt;int&gt; lnum(heights.size(),-1),rnum(heights.size(),heights.size());
+        lmaxs.push(heights.size()-1);
+        for(int i&#x3D;heights.size()-2;i&gt;&#x3D;0;--i)&#123;
+            while(!lmaxs.empty()&amp;&amp;heights[lmaxs.top()]&gt;heights[i])&#123;
+                lnum[lmaxs.top()]&#x3D;i;
+                lmaxs.pop();
+            &#125;
+            lmaxs.push(i);
+        &#125;
+
+        rmaxs.push(0);
+        for(int i&#x3D;1;i&lt;heights.size();++i)&#123;
+            while(!rmaxs.empty()&amp;&amp;heights[rmaxs.top()]&gt;heights[i])&#123;
+                rnum[rmaxs.top()]&#x3D;i;                
+                rmaxs.pop();
+            &#125;
+            rmaxs.push(i);
+        &#125;
+
+        for(int i&#x3D;0;i&lt;heights.size();++i)&#123;
+            ans&#x3D;max(ans,(rnum[i]-lnum[i]-1)*heights[i]);
+        &#125;
+        
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -460,7 +499,26 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int largestRectangleArea(vector&lt;int&gt;&amp; heights) &#123;</span><br><span class="line">        int ans=heights[0];</span><br><span class="line">        stack&lt;int&gt; s;</span><br><span class="line">        heights.insert(heights.begin(),0);</span><br><span class="line">        heights.push_back(0);//在头尾分别插入0使得对任意柱子都会存在左右边界（高为0的柱子不需要考虑）</span><br><span class="line">        s.push(0);</span><br><span class="line">        for(int i=1;i&lt;heights.size();++i)&#123;</span><br><span class="line">            while(!s.empty()&amp;&amp;heights[s.top()]&gt;heights[i])&#123;</span><br><span class="line">                int index=s.top();</span><br><span class="line">                s.pop();</span><br><span class="line">                ans=max(ans,(i-s.top()-1)*heights[index]);</span><br><span class="line">            &#125;</span><br><span class="line">            s.push(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">class Solution &#123;
+public:
+    int largestRectangleArea(vector&lt;int&gt;&amp; heights) &#123;
+        int ans&#x3D;heights[0];
+        stack&lt;int&gt; s;
+        heights.insert(heights.begin(),0);
+        heights.push_back(0);&#x2F;&#x2F;在头尾分别插入0使得对任意柱子都会存在左右边界（高为0的柱子不需要考虑）
+        s.push(0);
+        for(int i&#x3D;1;i&lt;heights.size();++i)&#123;
+            while(!s.empty()&amp;&amp;heights[s.top()]&gt;heights[i])&#123;
+                int index&#x3D;s.top();
+                s.pop();
+                ans&#x3D;max(ans,(i-s.top()-1)*heights[index]);
+            &#125;
+            s.push(i);
+        &#125;
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -627,13 +685,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-503%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0II-middle/">
+                <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-496-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0I-simple/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="503. 下一个更大元素 II">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="496. 下一个更大元素 I">
                         
-                        <span class="card-title">503. 下一个更大元素 II</span>
+                        <span class="card-title">496. 下一个更大元素 I</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -646,6 +704,63 @@
                         <span class="publish-date">
                             <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                        <span class="chip bg-color">Alg-哈希表</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">Alg-栈与队列</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
+                        <span class="chip bg-color">Alg-单调栈</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-739-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6-middle/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="739. 每日温度">
+                        
+                        <span class="card-title">739. 每日温度</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -674,59 +789,6 @@
             </div>
         </div>
         
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/02/15/c++/muduo%E7%B3%BB%E5%88%97/muduo%E7%BD%91%E7%BB%9C%E5%BA%93-Linux%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Linux多线程服务器编程：使用muduo C++网络库 笔记">
-                        
-                        <span class="card-title">Linux多线程服务器编程：使用muduo C++网络库 笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/C/" class="post-category">
-                                    C++
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
-                    </a>
-                    
-                    <a href="/tags/muduo/">
-                        <span class="chip bg-color">muduo</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
     </div>
 </article>
 
@@ -737,6 +799,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -914,7 +979,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

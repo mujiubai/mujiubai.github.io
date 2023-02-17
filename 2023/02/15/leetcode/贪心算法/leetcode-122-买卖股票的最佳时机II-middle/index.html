@@ -415,7 +415,7 @@ dp数组如何初始化
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    374
+                    390
                 </div>
                 
 
@@ -437,7 +437,15 @@ dp数组如何初始化
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -460,7 +468,20 @@ dp数组如何初始化
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//动态规划</span></span><br><span class="line">         <span class="type">int</span> dp1=-prices[<span class="number">0</span>],dp2=<span class="number">0</span>;</span><br><span class="line">         <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;prices.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">             <span class="type">int</span> t=dp1;</span><br><span class="line">             dp1=<span class="built_in">max</span>(dp1,dp2-prices[i]);</span><br><span class="line">             dp2=<span class="built_in">max</span>(dp2,t+prices[i]);            </span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">max</span>(dp1,dp2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;
+        &#x2F;&#x2F;动态规划
+         int dp1&#x3D;-prices[0],dp2&#x3D;0;
+         for(int i&#x3D;1;i&lt;prices.size();++i)&#123;
+             int t&#x3D;dp1;
+             dp1&#x3D;max(dp1,dp2-prices[i]);
+             dp2&#x3D;max(dp2,t+prices[i]);            
+         &#125;
+
+         return max(dp1,dp2);
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -477,7 +498,23 @@ dp数组如何初始化
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//贪心</span></span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> sp=prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;prices.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prices[i]&lt;prices[i<span class="number">-1</span>])&#123;</span><br><span class="line">                ans+=prices[i<span class="number">-1</span>]-sp;</span><br><span class="line">                sp=prices[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans+=prices[prices.<span class="built_in">size</span>()<span class="number">-1</span>]-sp;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;
+        &#x2F;&#x2F;贪心
+        int ans&#x3D;0;
+        int sp&#x3D;prices[0];
+        for(int i&#x3D;1;i&lt;prices.size();++i)&#123;
+            if(prices[i]&lt;prices[i-1])&#123;
+                ans+&#x3D;prices[i-1]-sp;
+                sp&#x3D;prices[i];
+            &#125;
+        &#125;
+        ans+&#x3D;prices[prices.size()-1]-sp;
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -631,13 +668,13 @@ dp数组如何初始化
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-1005-K%E6%AC%A1%E5%8F%96%E5%8F%8D%E5%90%8E%E6%9C%80%E5%A4%A7%E5%8C%96%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C-simple/">
+                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-1029-%E4%B8%A4%E5%9C%B0%E8%B0%83%E5%BA%A6-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="45. 跳跃游戏 II">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="1029. 两地调度">
                         
-                        <span class="card-title">45. 跳跃游戏 II</span>
+                        <span class="card-title">1029. 两地调度</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -733,6 +770,9 @@ dp数组如何初始化
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -910,7 +950,7 @@ dp数组如何初始化
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

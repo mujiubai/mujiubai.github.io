@@ -13,7 +13,8 @@
 时间复杂度：O(n)
 空间复杂度：O(1)
 
-1234567891011121314151617181920212">
+class MyLinkedList &amp;#123;
+    int ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -410,7 +411,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    280
+                    310
                 </div>
                 
 
@@ -432,7 +433,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -445,7 +454,69 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyLinkedList</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">MyLinkedList</span> *next;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyLinkedList</span>():<span class="built_in">val</span>(<span class="number">0</span>),<span class="built_in">next</span>(<span class="literal">nullptr</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">MyLinkedList</span>(<span class="type">int</span> val):<span class="built_in">val</span>(val),<span class="built_in">next</span>(<span class="literal">nullptr</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">get</span><span class="params">(<span class="type">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index&lt;<span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        MyLinkedList *h=<span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">while</span>(index&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            h=h-&gt;next;</span><br><span class="line">            index--;</span><br><span class="line">            <span class="keyword">if</span>(h==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> h-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addAtHead</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        MyLinkedList *t=<span class="keyword">new</span> <span class="built_in">MyLinkedList</span>(val);</span><br><span class="line">        t-&gt;next=<span class="keyword">this</span>-&gt;next;</span><br><span class="line">        <span class="keyword">this</span>-&gt;next=t;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addAtTail</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        MyLinkedList *t=<span class="keyword">new</span> <span class="built_in">MyLinkedList</span>(val);</span><br><span class="line">        MyLinkedList *h=<span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">while</span>(h-&gt;next!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            h=h-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        h-&gt;next=t;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addAtIndex</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">addAtHead</span>(val);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        MyLinkedList *pos=<span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">while</span>(index&gt;<span class="number">0</span>&amp;&amp;pos!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            pos=pos-&gt;next;</span><br><span class="line">            index--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pos==<span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        MyLinkedList *t=<span class="keyword">new</span> <span class="built_in">MyLinkedList</span>(val);</span><br><span class="line">        t-&gt;next=pos-&gt;next;</span><br><span class="line">        pos-&gt;next=t;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">deleteAtIndex</span><span class="params">(<span class="type">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index&lt;<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        MyLinkedList *p=<span class="keyword">this</span>,*q=p-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(index&gt;<span class="number">0</span>&amp;&amp;q!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            p=p-&gt;next;</span><br><span class="line">            q=q-&gt;next;</span><br><span class="line">            index--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(q==<span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        p-&gt;next=q-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> q;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class MyLinkedList &#123;
+    int val;
+    class MyLinkedList *next;
+public:
+    MyLinkedList():val(0),next(nullptr) &#123;
+    &#125;
+    MyLinkedList(int val):val(val),next(nullptr) &#123;
+    &#125;
+    int get(int index) &#123;
+        if(index&lt;0) return -1;
+        MyLinkedList *h&#x3D;this;
+        while(index&gt;&#x3D;0)&#123;
+            h&#x3D;h-&gt;next;
+            index--;
+            if(h&#x3D;&#x3D;nullptr) return -1;
+        &#125;
+        return h-&gt;val;
+    &#125;
+    
+    void addAtHead(int val) &#123;
+        MyLinkedList *t&#x3D;new MyLinkedList(val);
+        t-&gt;next&#x3D;this-&gt;next;
+        this-&gt;next&#x3D;t;
+    &#125;
+    
+    void addAtTail(int val) &#123;
+        MyLinkedList *t&#x3D;new MyLinkedList(val);
+        MyLinkedList *h&#x3D;this;
+        while(h-&gt;next!&#x3D;nullptr)&#123;
+            h&#x3D;h-&gt;next;
+        &#125;
+        h-&gt;next&#x3D;t;
+    &#125;
+    
+    void addAtIndex(int index, int val) &#123;
+        if(index&lt;&#x3D;0)&#123;
+            addAtHead(val);
+            return;
+        &#125;
+        MyLinkedList *pos&#x3D;this;
+        while(index&gt;0&amp;&amp;pos!&#x3D;nullptr)&#123;
+            pos&#x3D;pos-&gt;next;
+            index--;
+        &#125;
+        if(pos&#x3D;&#x3D;nullptr) return;
+        MyLinkedList *t&#x3D;new MyLinkedList(val);
+        t-&gt;next&#x3D;pos-&gt;next;
+        pos-&gt;next&#x3D;t;
+    &#125;
+    
+    void deleteAtIndex(int index) &#123;
+        if(index&lt;0) return;
+        MyLinkedList *p&#x3D;this,*q&#x3D;p-&gt;next;
+        while(index&gt;0&amp;&amp;q!&#x3D;nullptr)&#123;
+            p&#x3D;p-&gt;next;
+            q&#x3D;q-&gt;next;
+            index--;
+        &#125;
+        if(q&#x3D;&#x3D;nullptr) return;
+        p-&gt;next&#x3D;q-&gt;next;
+        delete q;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -648,13 +719,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-1029-%E4%B8%A4%E5%9C%B0%E8%B0%83%E5%BA%A6-middle/">
+                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-1005-K%E6%AC%A1%E5%8F%96%E5%8F%8D%E5%90%8E%E6%9C%80%E5%A4%A7%E5%8C%96%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C-simple/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="1029. 两地调度">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="45. 跳跃游戏 II">
                         
-                        <span class="card-title">1029. 两地调度</span>
+                        <span class="card-title">45. 跳跃游戏 II</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -701,6 +772,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -878,7 +952,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

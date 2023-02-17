@@ -414,7 +414,7 @@ ZooKeeper分布式一致性协调服务应用以及编程
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    2.8k
                 </div>
                 
 
@@ -436,7 +436,15 @@ ZooKeeper分布式一致性协调服务应用以及编程
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -485,14 +493,46 @@ ZooKeeper分布式一致性协调服务应用以及编程
 <p><code>protobuf</code>中定义一个消息类型是通过关键字<code>message</code>字段指定的，这个关键字类似于C++&#x2F;Java中的class关键字。使用protobuf编译器将<code>proto</code>编译成C++代码之后，每个<code>message</code>都会生成一个名字与之对应的C++类，该类公开继承自<code>google::protobuf::Message</code>。</p>
 </blockquote>
 <p>声明protobuf版本</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syntax=<span class="string">&quot;proto3&quot;</span>;<span class="comment">//protobuf版本</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-protobuf" data-language="protobuf"><code class="language-protobuf"><span class="token keyword">syntax</span><span class="token operator">=</span><span class="token string">"proto3"</span><span class="token punctuation">;</span><span class="token comment">//protobuf版本</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>声明定义message或service所在包（c++中对应为namespace）</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> fixbug;<span class="comment">//声明代码所在包（namespace）</span></span><br><span class="line"><span class="keyword">package</span> a.fixbug;<span class="comment">//二级</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-protobuf" data-language="protobuf"><code class="language-protobuf"><span class="token keyword">package</span> fixbug<span class="token punctuation">;</span><span class="token comment">//声明代码所在包（namespace）</span>
+<span class="token keyword">package</span> a<span class="token punctuation">.</span>fixbug<span class="token punctuation">;</span><span class="token comment">//二级</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>message实例</strong></p>
 <p>message有三种成员类型：数据、列表、映射表</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">message </span><span class="title class_">ResultCode</span>&#123;</span><br><span class="line">    <span class="type">int32</span> errcode=<span class="number">1</span>;</span><br><span class="line">    <span class="type">bytes</span> errmsg=<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//登录消息类型</span></span><br><span class="line"><span class="keyword">message </span><span class="title class_">LoginRequest</span>&#123;</span><br><span class="line">    <span class="type">bytes</span> name=<span class="number">1</span>;<span class="comment">//1:消息类型字段</span></span><br><span class="line">    <span class="type">bytes</span> pwd=<span class="number">2</span>;</span><br><span class="line">    <span class="comment">// map&lt;int32,string&gt; test=3; //映射表</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//登录相应消息类型</span></span><br><span class="line"><span class="keyword">message </span><span class="title class_">LoginResponse</span>&#123;</span><br><span class="line">    ResultCode result=<span class="number">1</span>;<span class="comment">//1为标识号</span></span><br><span class="line">    <span class="type">bool</span> success=<span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义User类型</span></span><br><span class="line"><span class="keyword">message </span><span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="type">bytes</span> name=<span class="number">1</span>;</span><br><span class="line">    <span class="type">uint32</span> age=<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">enum </span><span class="title class_">Sex</span>&#123;<span class="comment">//枚举</span></span><br><span class="line">        MAN=<span class="number">0</span>;</span><br><span class="line">        WOMAN=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Sex sex=<span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">message </span><span class="title class_">GetFriendListsResponse</span>&#123;</span><br><span class="line">    ResultCode result=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">repeated</span> User friend_list=<span class="number">2</span>;<span class="comment">//列表类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-protobuf" data-language="protobuf"><code class="language-protobuf"><span class="token keyword">message</span> <span class="token class-name">ResultCode</span><span class="token punctuation">&#123;</span>
+    <span class="token builtin">int32</span> errcode<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token builtin">bytes</span> errmsg<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//登录消息类型</span>
+<span class="token keyword">message</span> <span class="token class-name">LoginRequest</span><span class="token punctuation">&#123;</span>
+    <span class="token builtin">bytes</span> name<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token comment">//1:消息类型字段</span>
+    <span class="token builtin">bytes</span> pwd<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token comment">// map&lt;int32,string> test=3; //映射表</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//登录相应消息类型</span>
+<span class="token keyword">message</span> <span class="token class-name">LoginResponse</span><span class="token punctuation">&#123;</span>
+    <span class="token positional-class-name class-name">ResultCode</span> result<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token comment">//1为标识号</span>
+    <span class="token builtin">bool</span> success<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//定义User类型</span>
+<span class="token keyword">message</span> <span class="token class-name">User</span><span class="token punctuation">&#123;</span>
+    <span class="token builtin">bytes</span> name<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token builtin">uint32</span> age<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">enum</span> <span class="token class-name">Sex</span><span class="token punctuation">&#123;</span><span class="token comment">//枚举</span>
+        MAN<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+        WOMAN<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token positional-class-name class-name">Sex</span> sex<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">message</span> <span class="token class-name">GetFriendListsResponse</span><span class="token punctuation">&#123;</span>
+    <span class="token positional-class-name class-name">ResultCode</span> result<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">repeated</span> <span class="token positional-class-name class-name">User</span> friend_list<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span><span class="token comment">//列表类型</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>message字段规则</strong></p>
 <ul>
@@ -509,33 +549,128 @@ ZooKeeper分布式一致性协调服务应用以及编程
 <p>许多标准的简单数据类型都可以用作<code>message</code>字段类型，包括<code>bool</code>,<code>int32</code>,<code>float</code>,<code>double</code>和<code>string</code>。还可以使用其他<code>message</code>类型作为字段类型在消息体中添加更多结构，如上面的ResultCode。</p>
 <p><strong>函数方法</strong></p>
 <p>用<code>message</code>关键字声明的的消息体，允许你检查、操作、读、或写整个消息，包括解析二进制字符串，以及序列化二进制字符串。除此之外，也定义了下列方法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">LoginResponse:缺省的构造函数。</span><br><span class="line"></span><br><span class="line">~<span class="built_in">LoginResponse</span>():缺省的析构函数。</span><br><span class="line"></span><br><span class="line"><span class="built_in">LoginResponse</span>(<span class="type">const</span> LoginResponse&amp; other):拷贝构造函数。</span><br><span class="line"></span><br><span class="line">LoginResponse&amp; <span class="keyword">operator</span>=(<span class="type">const</span> LoginResponse&amp; other):</span><br><span class="line">赋值 (Assignment ）操作符。</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> UnknownFieldSet&amp; <span class="built_in">unknown_fields</span>() <span class="type">const</span>:</span><br><span class="line">返回当解析信息时遇到的未知字段的集合。</span><br><span class="line"></span><br><span class="line">UnknownFieldSet* <span class="built_in">mutable_unknown_fields</span>():</span><br><span class="line">返回当前解析信息时遇到的未知字段的集合的一个mutale指针。</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">LoginResponse:缺省的构造函数。
+
+~LoginResponse():缺省的析构函数。
+
+LoginResponse(const LoginResponse&amp; other):拷贝构造函数。
+
+LoginResponse&amp; operator&#x3D;(const LoginResponse&amp; other):
+赋值 (Assignment ）操作符。
+
+const UnknownFieldSet&amp; unknown_fields() const:
+返回当解析信息时遇到的未知字段的集合。
+
+UnknownFieldSet* mutable_unknown_fields():
+返回当前解析信息时遇到的未知字段的集合的一个mutale指针。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>message实例</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> LoginRequest req;</span><br><span class="line"> req.<span class="built_in">set_name</span>(<span class="string">&quot;wang&quot;</span>);</span><br><span class="line"> req.<span class="built_in">set_pwd</span>(<span class="string">&quot;123434&quot;</span>);</span><br><span class="line"> <span class="comment">//对象序列化</span></span><br><span class="line"> std::string send_str;</span><br><span class="line"> <span class="keyword">if</span> (req.<span class="built_in">SerializeToString</span>(&amp;send_str)) &#123;</span><br><span class="line">   std::cout &lt;&lt; send_str &lt;&lt; std::endl;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// send_str反序列化</span></span><br><span class="line"> LoginRequest reqB;</span><br><span class="line"> <span class="keyword">if</span> (reqB.<span class="built_in">ParseFromString</span>(send_str)) &#123;</span><br><span class="line">   std::cout &lt;&lt; reqB.<span class="built_in">name</span>() &lt;&lt; std::endl;</span><br><span class="line">   std::cout &lt;&lt; reqB.<span class="built_in">pwd</span>() &lt;&lt; std::endl;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">//GetFriendListsResponse 定义列表成员示例</span></span><br><span class="line"> GetFriendListsResponse rsp;</span><br><span class="line"> ResultCode *rc = rsp.<span class="built_in">mutable_result</span>();</span><br><span class="line"> rc-&gt;<span class="built_in">set_errcode</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"> User *user1 = rsp.<span class="built_in">add_friend_list</span>();</span><br><span class="line"> user1-&gt;<span class="built_in">set_name</span>(<span class="string">&quot;zhang san&quot;</span>);</span><br><span class="line"> user1-&gt;<span class="built_in">set_age</span>(<span class="number">10</span>);</span><br><span class="line"> user1-&gt;<span class="built_in">set_sex</span>(User::MAN);<span class="comment">//设置枚举</span></span><br><span class="line"></span><br><span class="line"> std::cout &lt;&lt; rsp.<span class="built_in">friend_list_size</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++"> LoginRequest req;
+ req.set_name(&quot;wang&quot;);
+ req.set_pwd(&quot;123434&quot;);
+ &#x2F;&#x2F;对象序列化
+ std::string send_str;
+ if (req.SerializeToString(&amp;send_str)) &#123;
+   std::cout &lt;&lt; send_str &lt;&lt; std::endl;
+ &#125;
+
+ &#x2F;&#x2F; send_str反序列化
+ LoginRequest reqB;
+ if (reqB.ParseFromString(send_str)) &#123;
+   std::cout &lt;&lt; reqB.name() &lt;&lt; std::endl;
+   std::cout &lt;&lt; reqB.pwd() &lt;&lt; std::endl;
+ &#125;
+&#x2F;&#x2F;GetFriendListsResponse 定义列表成员示例
+ GetFriendListsResponse rsp;
+ ResultCode *rc &#x3D; rsp.mutable_result();
+ rc-&gt;set_errcode(0);
+
+ User *user1 &#x3D; rsp.add_friend_list();
+ user1-&gt;set_name(&quot;zhang san&quot;);
+ user1-&gt;set_age(10);
+ user1-&gt;set_sex(User::MAN);&#x2F;&#x2F;设置枚举
+
+ std::cout &lt;&lt; rsp.friend_list_size() &lt;&lt; std::endl;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>protobuf编译</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ main.cc test.pb.cc -o t -std=c++11 -L /usr/local/lib -lprotobuf -pthread</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">g++ main.cc test.pb.cc <span class="token parameter variable">-o</span> t <span class="token parameter variable">-std</span><span class="token operator">=</span>c++11 <span class="token parameter variable">-L</span> /usr/local/lib <span class="token parameter variable">-lprotobuf</span> <span class="token parameter variable">-pthread</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="1-4-2-service"><a href="#1-4-2-service" class="headerlink" title="1.4.2 service"></a>1.4.2 service</h3><p>message定义了消息类型，service则定义了方法</p>
 <p>protobuf默认不生成service类，需使用如下option开启：</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">option</span> cc_generic_services=<span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-protobuf" data-language="protobuf"><code class="language-protobuf"><span class="token keyword">option</span> cc_generic_services<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>service实例</strong></p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">service </span><span class="title class_">UserServiceRpc</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">rpc</span> Login(LoginRequest) <span class="keyword">returns</span>(LoginResponse)</span>;</span><br><span class="line">    <span class="function"><span class="keyword">rpc</span> GetFriendLists(GetFriendListsQuest) <span class="keyword">returns</span>(GetFriendListsResponse)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-protobuf" data-language="protobuf"><code class="language-protobuf"><span class="token keyword">service</span> <span class="token class-name">UserServiceRpc</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">rpc</span> <span class="token function">Login</span><span class="token punctuation">(</span><span class="token class-name">LoginRequest</span><span class="token punctuation">)</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token class-name">LoginResponse</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">rpc</span> <span class="token function">GetFriendLists</span><span class="token punctuation">(</span><span class="token class-name">GetFriendListsQuest</span><span class="token punctuation">)</span> <span class="token keyword">returns</span><span class="token punctuation">(</span><span class="token class-name">GetFriendListsResponse</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>定义的UserServiceRpc默认会生成两个类：UserServiceRpc和UserServiceRpc_Stub</p>
 <p><strong>UserServiceRpc</strong></p>
 <p>是被调用类，其继承自protobuf的service基类</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserServiceRpc</span> : <span class="keyword">public</span> ::PROTOBUF_NAMESPACE_ID::Service &#123;</span><br><span class="line"> <span class="keyword">protected</span>:</span><br><span class="line">  <span class="comment">// This class should be treated as an abstract interface.</span></span><br><span class="line">  <span class="function"><span class="keyword">inline</span> <span class="title">UserServiceRpc</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">virtual</span> ~<span class="built_in">UserServiceRpc</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">typedef</span> UserServiceRpc_Stub Stub;</span><br><span class="line"></span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> ::<span class="function">PROTOBUF_NAMESPACE_ID::ServiceDescriptor* <span class="title">descriptor</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Login</span><span class="params">(::PROTOBUF_NAMESPACE_ID::RpcController* controller,</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="type">const</span> ::fixbug::LoginRequest* request,</span></span></span><br><span class="line"><span class="params"><span class="function">                       ::fixbug::LoginResponse* response,</span></span></span><br><span class="line"><span class="params"><span class="function">                       ::google::protobuf::Closure* done)</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">GetFriendLists</span><span class="params">(::PROTOBUF_NAMESPACE_ID::RpcController* controller,</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="type">const</span> ::fixbug::GetFriendListsQuest* request,</span></span></span><br><span class="line"><span class="params"><span class="function">                       ::fixbug::GetFriendListsResponse* response,</span></span></span><br><span class="line"><span class="params"><span class="function">                       ::google::protobuf::Closure* done)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// implements Service ----------------------------------------------</span></span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> ::<span class="function">PROTOBUF_NAMESPACE_ID::ServiceDescriptor* <span class="title">GetDescriptor</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class UserServiceRpc : public ::PROTOBUF_NAMESPACE_ID::Service &#123;
+ protected:
+  &#x2F;&#x2F; This class should be treated as an abstract interface.
+  inline UserServiceRpc() &#123;&#125;;
+ public:
+  virtual ~UserServiceRpc();
+
+  typedef UserServiceRpc_Stub Stub;
+
+  static const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* descriptor();
+
+  virtual void Login(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::fixbug::LoginRequest* request,
+                       ::fixbug::LoginResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void GetFriendLists(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::fixbug::GetFriendListsQuest* request,
+                       ::fixbug::GetFriendListsResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  &#x2F;&#x2F; implements Service ----------------------------------------------
+
+  const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* GetDescriptor();
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>UserServiceRpc_Stub</strong></p>
 <p>UserServiceRpc_Stub是调用类，其继承自UserServiceRpc类，通过使用此类来调用方法，</p>
 <p>注意，其没有默认的初始化构造函数，需通过RpcChannel指针来初始化</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserServiceRpc_Stub</span> : <span class="keyword">public</span> UserServiceRpc &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">UserServiceRpc_Stub</span>(::PROTOBUF_NAMESPACE_ID::RpcChannel* channel);</span><br><span class="line">  <span class="built_in">UserServiceRpc_Stub</span>(::PROTOBUF_NAMESPACE_ID::RpcChannel* channel,</span><br><span class="line">                   ::PROTOBUF_NAMESPACE_ID::Service::ChannelOwnership ownership);</span><br><span class="line">  ~<span class="built_in">UserServiceRpc_Stub</span>();</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Login</span><span class="params">(::PROTOBUF_NAMESPACE_ID::RpcController* controller,</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="type">const</span> ::fixbug::LoginRequest* request,</span></span></span><br><span class="line"><span class="params"><span class="function">                       ::fixbug::LoginResponse* response,</span></span></span><br><span class="line"><span class="params"><span class="function">                       ::google::protobuf::Closure* done)</span></span>;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">GetFriendLists</span><span class="params">(::PROTOBUF_NAMESPACE_ID::RpcController* controller,</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="type">const</span> ::fixbug::GetFriendListsQuest* request,</span></span></span><br><span class="line"><span class="params"><span class="function">                       ::fixbug::GetFriendListsResponse* response,</span></span></span><br><span class="line"><span class="params"><span class="function">                       ::google::protobuf::Closure* done)</span></span>;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  ::PROTOBUF_NAMESPACE_ID::RpcChannel* channel_;</span><br><span class="line">  <span class="type">bool</span> owns_channel_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class UserServiceRpc_Stub : public UserServiceRpc &#123;
+ public:
+  UserServiceRpc_Stub(::PROTOBUF_NAMESPACE_ID::RpcChannel* channel);
+  UserServiceRpc_Stub(::PROTOBUF_NAMESPACE_ID::RpcChannel* channel,
+                   ::PROTOBUF_NAMESPACE_ID::Service::ChannelOwnership ownership);
+  ~UserServiceRpc_Stub();
+  void Login(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::fixbug::LoginRequest* request,
+                       ::fixbug::LoginResponse* response,
+                       ::google::protobuf::Closure* done);
+  void GetFriendLists(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::fixbug::GetFriendListsQuest* request,
+                       ::fixbug::GetFriendListsResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::PROTOBUF_NAMESPACE_ID::RpcChannel* channel_;
+  bool owns_channel_;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>注意看Login和GetFriendLists方法实现如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">UserServiceRpc_Stub::Login</span><span class="params">(::PROTOBUF_NAMESPACE_ID::RpcController* controller,</span></span></span><br><span class="line"><span class="params"><span class="function">                              <span class="type">const</span> ::fixbug::LoginRequest* request,</span></span></span><br><span class="line"><span class="params"><span class="function">                              ::fixbug::LoginResponse* response,</span></span></span><br><span class="line"><span class="params"><span class="function">                              ::google::protobuf::Closure* done)</span> </span>&#123;</span><br><span class="line">  channel_-&gt;<span class="built_in">CallMethod</span>(<span class="built_in">descriptor</span>()-&gt;<span class="built_in">method</span>(<span class="number">0</span>),</span><br><span class="line">                       controller, request, response, done);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">UserServiceRpc_Stub::GetFriendLists</span><span class="params">(::PROTOBUF_NAMESPACE_ID::RpcController* controller,</span></span></span><br><span class="line"><span class="params"><span class="function">                              <span class="type">const</span> ::fixbug::GetFriendListsQuest* request,</span></span></span><br><span class="line"><span class="params"><span class="function">                              ::fixbug::GetFriendListsResponse* response,</span></span></span><br><span class="line"><span class="params"><span class="function">                              ::google::protobuf::Closure* done)</span> </span>&#123;</span><br><span class="line">  channel_-&gt;<span class="built_in">CallMethod</span>(<span class="built_in">descriptor</span>()-&gt;<span class="built_in">method</span>(<span class="number">1</span>),</span><br><span class="line">                       controller, request, response, done);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void UserServiceRpc_Stub::Login(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                              const ::fixbug::LoginRequest* request,
+                              ::fixbug::LoginResponse* response,
+                              ::google::protobuf::Closure* done) &#123;
+  channel_-&gt;CallMethod(descriptor()-&gt;method(0),
+                       controller, request, response, done);
+&#125;
+void UserServiceRpc_Stub::GetFriendLists(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                              const ::fixbug::GetFriendListsQuest* request,
+                              ::fixbug::GetFriendListsResponse* response,
+                              ::google::protobuf::Closure* done) &#123;
+  channel_-&gt;CallMethod(descriptor()-&gt;method(1),
+                       controller, request, response, done);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>两个方法都是通过调用channel的CallMethod来调用，因此需要使用一个MyRpcChannel类继承RpcChannel类，实现其CallMethod方法来完成序列号、调用等操作。</p>
 <h1 id="2-mprpc实现"><a href="#2-mprpc实现" class="headerlink" title="2. mprpc实现"></a>2. mprpc实现</h1><p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221113162552596.png" alt="image-20221113162552596"></p>
@@ -545,28 +680,105 @@ ZooKeeper分布式一致性协调服务应用以及编程
 <p><strong>私有成员</strong></p>
 <p>将OnMessage绑定到muduo库，当有消息到来时，所有反序列化、调用函数等操作都在OnMessage函数中进行</p>
 <p>最后将调用结果发送到调用方是在SendRpcResponse方法中进行</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//组合eventloop</span></span><br><span class="line">muduo::EventLoop m_eventLoop;</span><br><span class="line"></span><br><span class="line"><span class="comment">// service服务类型信息</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ServiceInfo</span> &#123;</span><br><span class="line">  google::protobuf::Service *m_service;</span><br><span class="line">  std::unordered_map&lt;std::string, <span class="type">const</span> google::protobuf::MethodDescriptor *&gt;</span><br><span class="line">      m_methodMap;  <span class="comment">//保存服务方法</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//存储服务对象和其服务方法的所有信息</span></span><br><span class="line">std::unordered_map&lt;std::string, ServiceInfo&gt; m_serviceMap;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">OnConnection</span><span class="params">(<span class="type">const</span> muduo::TcpConnectionPtr &amp;)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">OnMessage</span><span class="params">(<span class="type">const</span> muduo::TcpConnectionPtr &amp;, muduo::Buffer *,</span></span></span><br><span class="line"><span class="params"><span class="function">               muduo::Timestamp)</span></span>;</span><br><span class="line"><span class="comment">// closure回调操作，用于序列号rpc的响应和网络发送</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">SendRpcResponse</span><span class="params">(<span class="type">const</span> muduo::TcpConnectionPtr &amp;,</span></span></span><br><span class="line"><span class="params"><span class="function">                     google::protobuf::Message *)</span></span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;组合eventloop
+muduo::EventLoop m_eventLoop;
+
+&#x2F;&#x2F; service服务类型信息
+struct ServiceInfo &#123;
+  google::protobuf::Service *m_service;
+  std::unordered_map&lt;std::string, const google::protobuf::MethodDescriptor *&gt;
+      m_methodMap;  &#x2F;&#x2F;保存服务方法
+&#125;;
+
+&#x2F;&#x2F;存储服务对象和其服务方法的所有信息
+std::unordered_map&lt;std::string, ServiceInfo&gt; m_serviceMap;
+
+void OnConnection(const muduo::TcpConnectionPtr &amp;);
+void OnMessage(const muduo::TcpConnectionPtr &amp;, muduo::Buffer *,
+               muduo::Timestamp);
+&#x2F;&#x2F; closure回调操作，用于序列号rpc的响应和网络发送
+void SendRpcResponse(const muduo::TcpConnectionPtr &amp;,
+                     google::protobuf::Message *);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>公有成员</strong></p>
 <p>用户通过NotiFyService发布方法，然后调用Run函数即可</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发布Rpc方法的函数 主要是通过遍历将service中的函数指针和函数名都保存起来，方便调用</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">NotiFyService</span><span class="params">(google::protobuf::Service *service)</span></span>;</span><br><span class="line"><span class="comment">//启动rpc服务节点，开始提供rpc远程网络调用服务：绑定消息函数，启动server监听</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Run</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;发布Rpc方法的函数 主要是通过遍历将service中的函数指针和函数名都保存起来，方便调用
+void NotiFyService(google::protobuf::Service *service);
+&#x2F;&#x2F;启动rpc服务节点，开始提供rpc远程网络调用服务：绑定消息函数，启动server监听
+void Run();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-2-MprpcChannel类"><a href="#2-2-MprpcChannel类" class="headerlink" title="2.2 MprpcChannel类"></a>2.2 MprpcChannel类</h2><p>在使用中，用户都是通过调用protobuf提供的<em>ServiceRpc_Stub</em>类来调用函数的，而<em>ServiceRpc_Stub</em>初始化需要一个<em>RpcChannel</em>，当调用<em>ServiceRpc_Stub</em>的函数时最后都会转到调用<em>RpcChannel</em>的CallMethod方法，因此需要将<em>MprpcChannel</em>类继承rpcchannel类，实现其虚有方法CallMethod即可。</p>
 <p>MprpcChannel类只有一个成员：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//所有通过stub代理对象调用的rpc方法，都到这里做rpc方法调用数据的序列化和网络发送</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">CallMethod</span><span class="params">(<span class="type">const</span> google::protobuf::MethodDescriptor* method,</span></span></span><br><span class="line"><span class="params"><span class="function">                google::protobuf::RpcController* controller,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="type">const</span> google::protobuf::Message* request,</span></span></span><br><span class="line"><span class="params"><span class="function">                google::protobuf::Message* response,</span></span></span><br><span class="line"><span class="params"><span class="function">                google::protobuf::Closure* done)</span> <span class="keyword">override</span></span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;所有通过stub代理对象调用的rpc方法，都到这里做rpc方法调用数据的序列化和网络发送
+void CallMethod(const google::protobuf::MethodDescriptor* method,
+                google::protobuf::RpcController* controller,
+                const google::protobuf::Message* request,
+                google::protobuf::Message* response,
+                google::protobuf::Closure* done) override;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>在CallMethod方法中，主要是将要调用的方法名和参数进行序列化然后发送到远程，然后等待其返回结果，最后将返回结果反序列化即可。</p>
 <h2 id="2-3-Mprpc框架使用"><a href="#2-3-Mprpc框架使用" class="headerlink" title="2.3 Mprpc框架使用"></a>2.3 Mprpc框架使用</h2><p>先使用protobuf定义好远程调用service、方法和参数，比如定义提供<em>FriendServiceRpc</em>，其中包括GetFriendList方法</p>
 <p><strong>callee</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FriendService</span> : <span class="keyword">public</span> fixbug::FriendServiceRpc &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function">std::vector&lt;std::string&gt; <span class="title">GetFriendList</span><span class="params">(<span class="type">uint32_t</span> userid)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">getFriendList</span><span class="params">(google::protobuf::RpcController* controller,</span></span></span><br><span class="line"><span class="params"><span class="function">                     <span class="type">const</span> ::fixbug::getFriendListRequest* request,</span></span></span><br><span class="line"><span class="params"><span class="function">                     ::fixbug::getFriendListResponse* response,</span></span></span><br><span class="line"><span class="params"><span class="function">                     ::google::protobuf::Closure* done)</span> </span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class FriendService : public fixbug::FriendServiceRpc &#123;
+ public:
+  std::vector&lt;std::string&gt; GetFriendList(uint32_t userid);
+
+  void getFriendList(google::protobuf::RpcController* controller,
+                     const ::fixbug::getFriendListRequest* request,
+                     ::fixbug::getFriendListResponse* response,
+                     ::google::protobuf::Closure* done) ;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>对于提供服务者，定义<em>FriendService</em>类继承<em>FriendServiceRpc</em>类，实现其虚有方法getFriendList，为使逻辑清晰，注意在此getFriendList方法中只是将设计的远程调用参数转为本地调用需要的参数，然后调用业务逻辑，最后将返回的参数打包成远程接口参数，并没有在此函数中执行真正的业务逻辑。</p>
 <p>最后，用户只需要将此业务注册发布即可</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">LOG_INFO</span>(<span class="string">&quot;first log message test&quot;</span>);</span><br><span class="line">  <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;%s:%s:%d&quot;</span>,__FILE__,__FUNCTION__,__LINE__);</span><br><span class="line">  <span class="comment">//框架初始化</span></span><br><span class="line">  MprpcApplication::<span class="built_in">Init</span>(argc, argv);</span><br><span class="line"></span><br><span class="line">  RpcProvider provider;</span><br><span class="line">  provider.<span class="built_in">NotiFyService</span>(<span class="keyword">new</span> <span class="built_in">FriendService</span>());</span><br><span class="line"></span><br><span class="line">  provider.<span class="built_in">Run</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main(int argc, char** argv) &#123;
+  LOG_INFO(&quot;first log message test&quot;);
+  LOG_ERROR(&quot;%s:%s:%d&quot;,__FILE__,__FUNCTION__,__LINE__);
+  &#x2F;&#x2F;框架初始化
+  MprpcApplication::Init(argc, argv);
+
+  RpcProvider provider;
+  provider.NotiFyService(new FriendService());
+
+  provider.Run();
+
+  return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>caller</strong></p>
 <p>调用方都是通过protobu生成的service_stub去调用，只需要在定义service_stub变量时使用mprpcchannel初始化，然后定义请求参数和接受参数变量，再调用stub的方法即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span> </span>&#123;</span><br><span class="line">  <span class="comment">//需要先调用框架的初始化函数</span></span><br><span class="line">  MprpcApplication::<span class="built_in">Init</span>(argc, argv);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//调用远程发布的rpc方法Login</span></span><br><span class="line">  <span class="function">fixbug::FriendServiceRpc_Stub <span class="title">stub</span><span class="params">(<span class="keyword">new</span> MprpcChannel())</span></span>;</span><br><span class="line">  <span class="comment">//相当于调用RpcChannel-&gt;RpcChannel::callMethod</span></span><br><span class="line">  <span class="comment">// stub.Login();</span></span><br><span class="line">  fixbug::getFriendListRequest request;</span><br><span class="line">  request.<span class="built_in">set_id</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  fixbug::getFriendListResponse response;</span><br><span class="line">  MprpcController controller;</span><br><span class="line"></span><br><span class="line">  stub.<span class="built_in">getFriendList</span>(&amp;controller, &amp;request, &amp;response, <span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (controller.<span class="built_in">Failed</span>()) &#123;</span><br><span class="line">    <span class="built_in">LOG_INFO</span>(<span class="string">&quot;%s&quot;</span>, controller.<span class="built_in">ErrorText</span>().<span class="built_in">c_str</span>());</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (response.<span class="built_in">result</span>().<span class="built_in">errcode</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="built_in">LOG_INFO</span>(<span class="string">&quot;rpc login response: &quot;</span>);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">auto</span> name : response.<span class="built_in">friends</span>()) &#123;</span><br><span class="line">        <span class="built_in">LOG_INFO</span>(<span class="string">&quot;%s&quot;</span>, name.<span class="built_in">c_str</span>());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">LOG_INFO</span>(<span class="string">&quot;rpc login response error:%s&quot;</span>,</span><br><span class="line">               response.<span class="built_in">result</span>().<span class="built_in">errmsg</span>().<span class="built_in">c_str</span>());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main(int argc, char **argv) &#123;
+  &#x2F;&#x2F;需要先调用框架的初始化函数
+  MprpcApplication::Init(argc, argv);
+
+  &#x2F;&#x2F;调用远程发布的rpc方法Login
+  fixbug::FriendServiceRpc_Stub stub(new MprpcChannel());
+  &#x2F;&#x2F;相当于调用RpcChannel-&gt;RpcChannel::callMethod
+  &#x2F;&#x2F; stub.Login();
+  fixbug::getFriendListRequest request;
+  request.set_id(1);
+
+  fixbug::getFriendListResponse response;
+  MprpcController controller;
+
+  stub.getFriendList(&amp;controller, &amp;request, &amp;response, nullptr);
+
+  if (controller.Failed()) &#123;
+    LOG_INFO(&quot;%s&quot;, controller.ErrorText().c_str());
+  &#125; else &#123;
+    if (response.result().errcode() &#x3D;&#x3D; 0) &#123;
+      LOG_INFO(&quot;rpc login response: &quot;);
+      for (auto name : response.friends()) &#123;
+        LOG_INFO(&quot;%s&quot;, name.c_str());
+      &#125;
+    &#125; else &#123;
+      LOG_INFO(&quot;rpc login response error:%s&quot;,
+               response.result().errmsg().c_str());
+    &#125;
+  &#125;
+
+  return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -773,13 +985,13 @@ ZooKeeper分布式一致性协调服务应用以及编程
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/c++/muduo%E7%B3%BB%E5%88%97/%E9%87%8D%E5%86%99muduo%E5%BA%93/">
+                <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-42-%E6%8E%A5%E9%9B%A8%E6%B0%B4-diffcult/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="重写Muduo库笔记">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="42. 接雨水">
                         
-                        <span class="card-title">重写Muduo库笔记</span>
+                        <span class="card-title">42. 接雨水</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -796,8 +1008,8 @@ ZooKeeper分布式一致性协调服务应用以及编程
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C/" class="post-category">
-                                    C++
+                            <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
                                 </a>
                             
                             
@@ -807,12 +1019,16 @@ ZooKeeper分布式一致性协调服务应用以及编程
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
+                    <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                        <span class="chip bg-color">Alg-双指针</span>
                     </a>
                     
-                    <a href="/tags/muduo/">
-                        <span class="chip bg-color">muduo</span>
+                    <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">Alg-栈与队列</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
+                        <span class="chip bg-color">Alg-单调栈</span>
                     </a>
                     
                 </div>
@@ -830,6 +1046,9 @@ ZooKeeper分布式一致性协调服务应用以及编程
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -1007,7 +1226,7 @@ ZooKeeper分布式一致性协调服务应用以及编程
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

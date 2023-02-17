@@ -410,7 +410,7 @@ dp数组如何初始化
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    482
+                    495
                 </div>
                 
 
@@ -432,7 +432,15 @@ dp数组如何初始化
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -455,7 +463,17 @@ dp数组如何初始化
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> pMin=INT_MAX,res=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;prices.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            pMin=<span class="built_in">min</span>(pMin,prices[i]);</span><br><span class="line">            res=<span class="built_in">max</span>(prices[i]-pMin,res);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;
+        int pMin&#x3D;INT_MAX,res&#x3D;0;
+        for(int i&#x3D;0;i&lt;prices.size();++i)&#123;
+            pMin&#x3D;min(pMin,prices[i]);
+            res&#x3D;max(prices[i]-pMin,res);
+        &#125;
+        return res;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -470,7 +488,19 @@ dp数组如何初始化
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> have=-prices[<span class="number">0</span>],nohave=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;prices.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="type">int</span> t=have;</span><br><span class="line">            have=<span class="built_in">max</span>(have,-prices[i]);</span><br><span class="line">            nohave=<span class="built_in">max</span>(t+prices[i],nohave);</span><br><span class="line">            <span class="comment">// cout&lt;&lt;have&lt;&lt;&quot; &quot;&lt;&lt;nohave&lt;&lt;endl;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(have,nohave);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;
+        int have&#x3D;-prices[0],nohave&#x3D;0;
+        for(int i&#x3D;1;i&lt;prices.size();++i)&#123;
+            int t&#x3D;have;
+            have&#x3D;max(have,-prices[i]);
+            nohave&#x3D;max(t+prices[i],nohave);
+            &#x2F;&#x2F; cout&lt;&lt;have&lt;&lt;&quot; &quot;&lt;&lt;nohave&lt;&lt;endl;
+        &#125;
+        return max(have,nohave);
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -620,13 +650,13 @@ dp数组如何初始化
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-115-%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97-difficult/">
+                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-1143-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="115. 不同的子序列">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="1143. 最长公共子序列">
                         
-                        <span class="card-title">115. 不同的子序列</span>
+                        <span class="card-title">1143. 最长公共子序列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -669,13 +699,13 @@ dp数组如何初始化
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86-middle/">
+                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-115-%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97-difficult/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="322. 零钱兑换">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="115. 不同的子序列">
                         
-                        <span class="card-title">322. 零钱兑换</span>
+                        <span class="card-title">115. 不同的子序列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -722,6 +752,9 @@ dp数组如何初始化
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -899,7 +932,7 @@ dp数组如何初始化
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

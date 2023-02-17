@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    285
+                    296
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -442,7 +450,29 @@
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(logn)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">bool</span> <span class="title">compare</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt; &amp;a,<span class="type">const</span> vector&lt;<span class="type">int</span>&gt; &amp;b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a[<span class="number">0</span>]&lt;b[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findMinArrowShots</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; points)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">sort</span>(points.<span class="built_in">begin</span>(),points.<span class="built_in">end</span>(),compare);</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>,start=<span class="number">-1</span>,end=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;points.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; &amp;p=points[i];</span><br><span class="line">            <span class="keyword">if</span>(p[<span class="number">0</span>]&lt;start||p[<span class="number">0</span>]&gt;end)&#123;</span><br><span class="line">                ++ans;</span><br><span class="line">                start=p[<span class="number">0</span>];</span><br><span class="line">                end=p[<span class="number">1</span>];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                start=<span class="built_in">max</span>(start,p[<span class="number">0</span>]);<span class="comment">//更新为重叠的区间，这样就避免三个以上气球区间其实不重叠</span></span><br><span class="line">                end=<span class="built_in">min</span>(end,p[<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    static bool compare(const vector&lt;int&gt; &amp;a,const vector&lt;int&gt; &amp;b)&#123;
+        return a[0]&lt;b[0];
+    &#125;
+    int findMinArrowShots(vector&lt;vector&lt;int&gt;&gt;&amp; points) &#123;
+        sort(points.begin(),points.end(),compare);
+        int ans&#x3D;0,start&#x3D;-1,end&#x3D;-1;
+        for(int i&#x3D;0;i&lt;points.size();++i)&#123;
+            vector&lt;int&gt; &amp;p&#x3D;points[i];
+            if(p[0]&lt;start||p[0]&gt;end)&#123;
+                ++ans;
+                start&#x3D;p[0];
+                end&#x3D;p[1];
+            &#125;else&#123;
+                start&#x3D;max(start,p[0]);&#x2F;&#x2F;更新为重叠的区间，这样就避免三个以上气球区间其实不重叠
+                end&#x3D;min(end,p[1]);
+            &#125;
+        &#125;
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -592,13 +622,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-455-%E5%88%86%E5%8F%91%E9%A5%BC%E5%B9%B2-middle/">
+                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8FII-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="455. 分发饼干">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="45. 跳跃游戏 II">
                         
-                        <span class="card-title">455. 分发饼干</span>
+                        <span class="card-title">45. 跳跃游戏 II</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -641,13 +671,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-53-%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C-middle/">
+                <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-455-%E5%88%86%E5%8F%91%E9%A5%BC%E5%B9%B2-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="53. 最大子数组和">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="455. 分发饼干">
                         
-                        <span class="card-title">53. 最大子数组和</span>
+                        <span class="card-title">455. 分发饼干</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -679,10 +709,6 @@
                         <span class="chip bg-color">Alg-贪心</span>
                     </a>
                     
-                    <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                        <span class="chip bg-color">Alg-动态规划</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -698,6 +724,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -875,7 +904,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

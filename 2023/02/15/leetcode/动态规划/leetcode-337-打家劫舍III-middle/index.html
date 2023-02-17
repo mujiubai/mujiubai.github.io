@@ -410,7 +410,7 @@ dp数组如何初始化
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    346
+                    357
                 </div>
                 
 
@@ -432,7 +432,15 @@ dp数组如何初始化
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -458,7 +466,22 @@ dp数组如何初始化
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(logn)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rob</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans=<span class="built_in">robTree</span>(root);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(ans[<span class="number">0</span>],ans[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">robTree</span><span class="params">(TreeNode *root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> &#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; left=<span class="built_in">robTree</span>(root-&gt;left);</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; right=<span class="built_in">robTree</span>(root-&gt;right);</span><br><span class="line">        <span class="type">int</span> val1=root-&gt;val+left[<span class="number">1</span>]+right[<span class="number">1</span>];<span class="comment">//偷当前节点</span></span><br><span class="line">        <span class="type">int</span> val2=<span class="built_in">max</span>(left[<span class="number">0</span>],left[<span class="number">1</span>])+<span class="built_in">max</span>(right[<span class="number">0</span>],right[<span class="number">1</span>]);<span class="comment">//不偷当前节点</span></span><br><span class="line">        <span class="keyword">return</span> &#123;val1,val2&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int rob(TreeNode* root) &#123;
+        vector&lt;int&gt; ans&#x3D;robTree(root);
+        return max(ans[0],ans[1]);
+    &#125;
+
+    vector&lt;int&gt; robTree(TreeNode *root)&#123;
+        if(root&#x3D;&#x3D;nullptr) return &#123;0,0&#125;;
+        vector&lt;int&gt; left&#x3D;robTree(root-&gt;left);
+        vector&lt;int&gt; right&#x3D;robTree(root-&gt;right);
+        int val1&#x3D;root-&gt;val+left[1]+right[1];&#x2F;&#x2F;偷当前节点
+        int val2&#x3D;max(left[0],left[1])+max(right[0],right[1]);&#x2F;&#x2F;不偷当前节点
+        return &#123;val1,val2&#125;;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -657,13 +680,13 @@ dp数组如何初始化
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-377-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%E2%85%A3-middle/">
+                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-343-%E6%95%B4%E6%95%B0%E6%8B%86%E5%88%86-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="377. 组合总和 Ⅳ">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="343. 整数拆分">
                         
-                        <span class="card-title">377. 组合总和 Ⅳ</span>
+                        <span class="card-title">343. 整数拆分</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -710,6 +733,9 @@ dp数组如何初始化
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -887,7 +913,7 @@ dp数组如何初始化
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

@@ -431,7 +431,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -460,10 +468,13 @@
 <hr>
 <hr>
 <h1 id="2-多线程基础功能函数"><a href="#2-多线程基础功能函数" class="headerlink" title="2. 多线程基础功能函数"></a>2. 多线程基础功能函数</h1><h2 id="2-1-创建线程函数"><a href="#2-1-创建线程函数" class="headerlink" title="2.1 创建线程函数"></a>2.1 创建线程函数</h2><p>​		每一个线程都有唯一的线程 ID，类型为 pthread_t，在Linux下也就是一个无符号长整形数，得到当前线程的线程 ID函数：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pthread_t</span> <span class="title function_">pthread_self</span><span class="params">(<span class="type">void</span>)</span>;	<span class="comment">// 返回当前线程的线程ID</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">pthread_t</span> <span class="token function">pthread_self</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	<span class="token comment">// 返回当前线程的线程ID</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>​		在一个进程中调用线程创建函数，就可得到一个子线程，注意，一个进程创建子线程后，进程就变为主线程+一个子线程，子线程创建函数如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_create</span><span class="params">(<span class="type">pthread_t</span> *thread, <span class="type">const</span> <span class="type">pthread_attr_t</span> *attr,</span></span><br><span class="line"><span class="params">                   <span class="type">void</span> *(*start_routine) (<span class="type">void</span> *), <span class="type">void</span> *arg)</span>;</span><br><span class="line"><span class="comment">// Compile and link with -pthread, 线程库的名字叫pthread, 全名: libpthread.so libptread.a</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;pthread.h></span></span>
+<span class="token keyword">int</span> <span class="token function">pthread_create</span><span class="token punctuation">(</span><span class="token class-name">pthread_t</span> <span class="token operator">*</span>thread<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token class-name">pthread_attr_t</span> <span class="token operator">*</span>attr<span class="token punctuation">,</span>
+                   <span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">(</span><span class="token operator">*</span>start_routine<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Compile and link with -pthread, 线程库的名字叫pthread, 全名: libpthread.so libptread.a</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><p>参数</p>
@@ -479,7 +490,8 @@
 </ul>
 <p>​		如果主线程退出了, 虚拟地址空间就被释放了, 子线程就一并被销毁了。但是如果某一个子线程退出了, 主线程仍在运行, 虚拟地址空间依旧存在。</p>
 <h2 id="2-2-线程退出"><a href="#2-2-线程退出" class="headerlink" title="2.2 线程退出"></a>2.2 线程退出</h2><p>​		只要调用线程退出函数当前线程就马上退出了，并且不会影响到其他线程的正常运行，不管是在子线程或者主线程中都可以使用。但是主线程退出结束后，子线程也会退出结束。线程退出函数如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">pthread_exit</span><span class="params">(<span class="type">void</span> *retval)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;pthread.h></span></span>
+<span class="token keyword">void</span> <span class="token function">pthread_exit</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>retval<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <ul>
 <li>参数：线程退出的时候携带的数据，当前子线程的主线程会得到该数据。如果不需要使用，指定为 NULL（<strong>如需返回多个数据，可定义一个结构体</strong>）</li>
@@ -487,7 +499,10 @@
 <h2 id="2-3-线程回收"><a href="#2-3-线程回收" class="headerlink" title="2.3 线程回收"></a>2.3 线程回收</h2><p>​		线程和进程一样，子线程退出的时候其内核资源主要由主线程回收，线程库中提供的线程回收函叫做 pthread_join()，这个函数是一个阻塞函数。</p>
 <p>​		如果还有子线程在运行，调用该函数就会阻塞，子线程退出函数解除阻塞进行资源的回收，函数被调用一次，只能回收一个子线程，如果有多个子线程则需要循环进行回收。</p>
 <p>​		<strong>线程回收函数</strong>如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="comment">// 这是一个阻塞函数, 子线程在运行这个函数就阻塞</span></span><br><span class="line"><span class="comment">// 子线程退出, 函数解除阻塞, 回收对应的子线程资源, 类似于回收进程使用的函数 wait()</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_join</span><span class="params">(<span class="type">pthread_t</span> thread, <span class="type">void</span> **retval)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;pthread.h></span></span>
+<span class="token comment">// 这是一个阻塞函数, 子线程在运行这个函数就阻塞</span>
+<span class="token comment">// 子线程退出, 函数解除阻塞, 回收对应的子线程资源, 类似于回收进程使用的函数 wait()</span>
+<span class="token keyword">int</span> <span class="token function">pthread_join</span><span class="token punctuation">(</span><span class="token class-name">pthread_t</span> thread<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span><span class="token operator">*</span>retval<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><p>thread: 要被回收的子线程的线程 ID</p>
@@ -509,7 +524,8 @@
 <p>​		调用线程分离函数后，子线程就可以和主线程分离，当子线程退出的时候，其占用的内核资源就被系统的其他进程接管并回收了。</p>
 <p>​		线程分离之后在主线程中使用 pthread_join() 就回收不到子线程资源了。</p>
 <p>​		<strong>线程分离函数</strong>如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数就子线程的线程ID, 主线程就可以和这个子线程分离了</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_detach</span><span class="params">(<span class="type">pthread_t</span> thread)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 参数就子线程的线程ID, 主线程就可以和这个子线程分离了</span>
+<span class="token keyword">int</span> <span class="token function">pthread_detach</span><span class="token punctuation">(</span><span class="token class-name">pthread_t</span> thread<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
 
@@ -520,10 +536,12 @@
 <li>（2）当线程进行一次系统调用时（切换到内核态）时，线程才会死亡，否则一直存活</li>
 </ul>
 <p>​		<strong>线程取消函数</strong>如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数是子线程的线程ID</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_cancel</span><span class="params">(<span class="type">pthread_t</span> thread)</span>;</span><br><span class="line"><span class="comment">//返回值：函数调用成功返回 0，调用失败返回非 0 错误号。</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 参数是子线程的线程ID</span>
+<span class="token keyword">int</span> <span class="token function">pthread_cancel</span><span class="token punctuation">(</span><span class="token class-name">pthread_t</span> thread<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//返回值：函数调用成功返回 0，调用失败返回非 0 错误号。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="2-5-2-线程-ID-比较"><a href="#2-5-2-线程-ID-比较" class="headerlink" title="2.5.2 线程 ID 比较"></a>2.5.2 线程 ID 比较</h3><p>​		此函数也就是比较是否是一个线程</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">pthread_equal</span><span class="params">(<span class="type">pthread_t</span> t1, <span class="type">pthread_t</span> t2)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">pthread_equal</span><span class="token punctuation">(</span><span class="token class-name">pthread_t</span> t1<span class="token punctuation">,</span> <span class="token class-name">pthread_t</span> t2<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li>参数：t1 和 t2 是要比较的线程的线程 ID</li>
@@ -535,10 +553,15 @@
 <p>常用的线程同步方式有四种：<strong>互斥锁、读写锁、条件变量、信号量</strong></p>
 <p><strong>死锁</strong>：两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。</p>
 <h2 id="3-1-互斥锁"><a href="#3-1-互斥锁" class="headerlink" title="3.1 互斥锁"></a>3.1 互斥锁</h2><p>Linux 中互斥锁的类型为 pthread_mutex_t，定义互斥锁方法如下，变量保存了锁的<strong>状态信息</strong>和打开其的线程</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pthread_mutex_t</span>  mutex;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">pthread_mutex_t</span>  mutex<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>初始化锁和销毁锁</strong>函数如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化互斥锁</span></span><br><span class="line"><span class="comment">// restrict: 是一个关键字, 用来修饰指针, 只有这个关键字修饰的指针可以访问指向的内存地址, 其他指针是不行的</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_mutex_init</span><span class="params">(<span class="type">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex,</span></span><br><span class="line"><span class="params">           <span class="type">const</span> <span class="type">pthread_mutexattr_t</span> *<span class="keyword">restrict</span> attr)</span>;</span><br><span class="line"><span class="comment">// 释放互斥锁资源            </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_mutex_destroy</span><span class="params">(<span class="type">pthread_mutex_t</span> *mutex)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 初始化互斥锁</span>
+<span class="token comment">// restrict: 是一个关键字, 用来修饰指针, 只有这个关键字修饰的指针可以访问指向的内存地址, 其他指针是不行的</span>
+<span class="token keyword">int</span> <span class="token function">pthread_mutex_init</span><span class="token punctuation">(</span><span class="token class-name">pthread_mutex_t</span> <span class="token operator">*</span>restrict mutex<span class="token punctuation">,</span>
+           <span class="token keyword">const</span> <span class="token class-name">pthread_mutexattr_t</span> <span class="token operator">*</span>restrict attr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 释放互斥锁资源            </span>
+<span class="token keyword">int</span> <span class="token function">pthread_mutex_destroy</span><span class="token punctuation">(</span><span class="token class-name">pthread_mutex_t</span> <span class="token operator">*</span>mutex<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li>参数<ul>
@@ -548,10 +571,11 @@
 </li>
 </ul>
 <p><strong>线程加锁函数</strong>如下，其工作流程是：先判断mutex是否被锁定，如果没有则加锁成功，否则，线程被阻塞，当锁被解除锁定后，阻塞线程则被唤醒。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修改互斥锁的状态, 将其设定为锁定状态, 这个状态被写入到参数 mutex 中</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_mutex_lock</span><span class="params">(<span class="type">pthread_mutex_t</span> *mutex)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 修改互斥锁的状态, 将其设定为锁定状态, 这个状态被写入到参数 mutex 中</span>
+<span class="token keyword">int</span> <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token class-name">pthread_mutex_t</span> <span class="token operator">*</span>mutex<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>线程解锁函数</strong>如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">pthread_mutex_unlock</span><span class="params">(<span class="type">pthread_mutex_t</span> *mutex)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token class-name">pthread_mutex_t</span> <span class="token operator">*</span>mutex<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>互斥锁造成死锁场景</strong>：</p>
 <ul>
@@ -567,35 +591,47 @@
 <h2 id="3-2-读写锁"><a href="#3-2-读写锁" class="headerlink" title="3.2 读写锁"></a>3.2 读写锁</h2><p>相比起互斥锁不区分读写权限，读写锁对读写权限进行了细分控制。读写锁的读操作是可以并行的，但写操作必须是串行的。</p>
 <p>使用读写锁分别对两个临界区加了读锁和写锁，访问数据时，访问写锁临界区的线程继续运行，访问读锁临界区的线程阻塞，因为<strong>写锁比读锁的优先级高</strong>。</p>
 <p>读写锁类型为pthread_rwlock_t，定义：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pthread_rwlock_t</span> rwlock;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">pthread_rwlock_t</span> rwlock<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>读写锁初始化函数和销毁函数</strong>如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pthread_rwlock_t</span> rwlock;</span><br><span class="line"><span class="comment">// 初始化读写锁</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_rwlock_init</span><span class="params">(<span class="type">pthread_rwlock_t</span> *<span class="keyword">restrict</span> rwlock,</span></span><br><span class="line"><span class="params">           <span class="type">const</span> <span class="type">pthread_rwlockattr_t</span> *<span class="keyword">restrict</span> attr)</span>;</span><br><span class="line"><span class="comment">// 释放读写锁占用的系统资源</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_rwlock_destroy</span><span class="params">(<span class="type">pthread_rwlock_t</span> *rwlock)</span>;</span><br><span class="line"><span class="comment">//rwlock: 读写锁的地址，传出参数</span></span><br><span class="line"><span class="comment">//attr: 读写锁属性，一般使用默认属性即NULL</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">pthread_rwlock_t</span> rwlock<span class="token punctuation">;</span>
+<span class="token comment">// 初始化读写锁</span>
+<span class="token keyword">int</span> <span class="token function">pthread_rwlock_init</span><span class="token punctuation">(</span><span class="token class-name">pthread_rwlock_t</span> <span class="token operator">*</span>restrict rwlock<span class="token punctuation">,</span>
+           <span class="token keyword">const</span> <span class="token class-name">pthread_rwlockattr_t</span> <span class="token operator">*</span>restrict attr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 释放读写锁占用的系统资源</span>
+<span class="token keyword">int</span> <span class="token function">pthread_rwlock_destroy</span><span class="token punctuation">(</span><span class="token class-name">pthread_rwlock_t</span> <span class="token operator">*</span>rwlock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//rwlock: 读写锁的地址，传出参数</span>
+<span class="token comment">//attr: 读写锁属性，一般使用默认属性即NULL</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>读写锁加读锁</strong>，其只有在已经被加写锁时才被阻塞</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">pthread_rwlock_rdlock</span><span class="params">(<span class="type">pthread_rwlock_t</span> *rwlock)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">pthread_rwlock_rdlock</span><span class="token punctuation">(</span><span class="token class-name">pthread_rwlock_t</span> <span class="token operator">*</span>rwlock<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>读写锁加写锁</strong>，和互斥锁类似</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">pthread_rwlock_wrlock</span><span class="params">(<span class="type">pthread_rwlock_t</span> *rwlock)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">pthread_rwlock_wrlock</span><span class="token punctuation">(</span><span class="token class-name">pthread_rwlock_t</span> <span class="token operator">*</span>rwlock<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>读写锁尝试加写锁</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个函数可以有效的避免死锁</span></span><br><span class="line"><span class="comment">// 如果加写锁失败, 不会阻塞当前线程, 直接返回错误号</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_rwlock_trywrlock</span><span class="params">(<span class="type">pthread_rwlock_t</span> *rwlock)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 这个函数可以有效的避免死锁</span>
+<span class="token comment">// 如果加写锁失败, 不会阻塞当前线程, 直接返回错误号</span>
+<span class="token keyword">int</span> <span class="token function">pthread_rwlock_trywrlock</span><span class="token punctuation">(</span><span class="token class-name">pthread_rwlock_t</span> <span class="token operator">*</span>rwlock<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>读写锁解锁，读锁和解锁都用此函数</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">pthread_rwlock_unlock</span><span class="params">(<span class="type">pthread_rwlock_t</span> *rwlock)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">pthread_rwlock_unlock</span><span class="token punctuation">(</span><span class="token class-name">pthread_rwlock_t</span> <span class="token operator">*</span>rwlock<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
 <h2 id="3-3-条件变量"><a href="#3-3-条件变量" class="headerlink" title="3.3 条件变量"></a>3.3 条件变量</h2><p>条件变量以我的理解是不带资源计数，只记录阻塞线程信息，调用条件变量阻塞函数则直接阻塞线程，需要自己写是否阻塞判定语句。</p>
 <p>条件变量能直接唤醒所有阻塞线程，当唤醒所有阻塞线程时，代码中应该判定是否满足需要条件，否则继续等待（通常用while来写）</p>
 <p><strong>条件变量定义</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pthread_cond_t</span> cond;<span class="comment">//条件变量阻塞的线程的线程信息会被记录到变量中</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">pthread_cond_t</span> cond<span class="token punctuation">;</span><span class="token comment">//条件变量阻塞的线程的线程信息会被记录到变量中</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>条件变量初始化函数和销毁函数</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">pthread_cond_init</span><span class="params">(<span class="type">pthread_cond_t</span> *<span class="keyword">restrict</span> cond,</span></span><br><span class="line"><span class="params">      <span class="type">const</span> <span class="type">pthread_condattr_t</span> *<span class="keyword">restrict</span> attr)</span>;      </span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_cond_destroy</span><span class="params">(<span class="type">pthread_cond_t</span> *cond)</span>;</span><br><span class="line"><span class="comment">//attr: 条件变量属性，一般使用默认属性，指定为 NULL</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">pthread_cond_init</span><span class="token punctuation">(</span><span class="token class-name">pthread_cond_t</span> <span class="token operator">*</span>restrict cond<span class="token punctuation">,</span>
+      <span class="token keyword">const</span> <span class="token class-name">pthread_condattr_t</span> <span class="token operator">*</span>restrict attr<span class="token punctuation">)</span><span class="token punctuation">;</span>      
+<span class="token keyword">int</span> <span class="token function">pthread_cond_destroy</span><span class="token punctuation">(</span><span class="token class-name">pthread_cond_t</span> <span class="token operator">*</span>cond<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//attr: 条件变量属性，一般使用默认属性，指定为 NULL</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>线程阻塞函数</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">pthread_cond_wait</span><span class="params">(<span class="type">pthread_cond_t</span> *<span class="keyword">restrict</span> cond, <span class="type">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">pthread_cond_wait</span><span class="token punctuation">(</span><span class="token class-name">pthread_cond_t</span> <span class="token operator">*</span>restrict cond<span class="token punctuation">,</span> <span class="token class-name">pthread_mutex_t</span> <span class="token operator">*</span>restrict mutex<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>该函数在阻塞线程的时候，需要一个互斥锁参数，<strong>这个互斥锁主要功能是保护条件变量</strong>进行线程同步。该函数会对这个互斥锁做以下几件事情：</p>
 <ul>
@@ -605,15 +641,34 @@
 </ul>
 <p>理解：在多线程中也需要对条件变量进行互斥访问，因此在使用函数前需要对互斥锁进行加锁，而在阻塞函数开始阻塞后，则立即将互斥锁释放掉。当满足条件变量时，会立即对互斥锁进行加锁，这是因为条件变量满足后，通常会有个临界区代码需要执行，为保证访问不混乱，则需要对这段代码开始加锁。</p>
 <p>简单来说就是pthread_cond_wait函数里在包含一个解锁函数和加锁函数，如下代码中的2345，其中23是一个原子操作。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> lock(mutex);</span><br><span class="line"><span class="number">2</span> judge condition;</span><br><span class="line"><span class="number">3</span> unlock(mutex);</span><br><span class="line"><span class="number">4</span> condition is met;</span><br><span class="line"><span class="number">5</span> trylock(mutex);</span><br><span class="line"><span class="number">6</span> unlock(mutex);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token number">1</span> <span class="token function">lock</span><span class="token punctuation">(</span>mutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">2</span> judge condition<span class="token punctuation">;</span>
+<span class="token number">3</span> <span class="token function">unlock</span><span class="token punctuation">(</span>mutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">4</span> condition is met<span class="token punctuation">;</span>
+<span class="token number">5</span> <span class="token function">trylock</span><span class="token punctuation">(</span>mutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">6</span> <span class="token function">unlock</span><span class="token punctuation">(</span>mutex<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <p><strong>带时间的线程阻塞函数</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表示的时间是从1971.1.1到某个时间点的时间, 总长度使用秒/纳秒表示</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> &#123;</span></span><br><span class="line">	<span class="type">time_t</span> tv_sec;      <span class="comment">/* Seconds */</span></span><br><span class="line">	<span class="type">long</span>   tv_nsec;     <span class="comment">/* Nanoseconds [0 .. 999999999] */</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 将线程阻塞一定的时间长度, 时间到达之后, 线程就解除阻塞了</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_cond_timedwait</span><span class="params">(<span class="type">pthread_cond_t</span> *<span class="keyword">restrict</span> cond,</span></span><br><span class="line"><span class="params">           <span class="type">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex, <span class="type">const</span> <span class="keyword">struct</span> timespec *<span class="keyword">restrict</span> abstime)</span>;</span><br><span class="line"><span class="type">time_t</span> mytim = time(<span class="literal">NULL</span>);	<span class="comment">// 1970.1.1 0:0:0 到当前的总秒数</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">tmsp</span>;</span></span><br><span class="line">tmsp.tv_nsec = <span class="number">0</span>;</span><br><span class="line">tmsp.tv_sec = time(<span class="literal">NULL</span>) + <span class="number">100</span>;	<span class="comment">// 线程阻塞100s</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 表示的时间是从1971.1.1到某个时间点的时间, 总长度使用秒/纳秒表示</span>
+<span class="token keyword">struct</span> <span class="token class-name">timespec</span> <span class="token punctuation">&#123;</span>
+	<span class="token class-name">time_t</span> tv_sec<span class="token punctuation">;</span>      <span class="token comment">/* Seconds */</span>
+	<span class="token keyword">long</span>   tv_nsec<span class="token punctuation">;</span>     <span class="token comment">/* Nanoseconds [0 .. 999999999] */</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token comment">// 将线程阻塞一定的时间长度, 时间到达之后, 线程就解除阻塞了</span>
+<span class="token keyword">int</span> <span class="token function">pthread_cond_timedwait</span><span class="token punctuation">(</span><span class="token class-name">pthread_cond_t</span> <span class="token operator">*</span>restrict cond<span class="token punctuation">,</span>
+           <span class="token class-name">pthread_mutex_t</span> <span class="token operator">*</span>restrict mutex<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">struct</span> <span class="token class-name">timespec</span> <span class="token operator">*</span>restrict abstime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">time_t</span> mytim <span class="token operator">=</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	<span class="token comment">// 1970.1.1 0:0:0 到当前的总秒数</span>
+<span class="token keyword">struct</span> <span class="token class-name">timespec</span> tmsp<span class="token punctuation">;</span>
+tmsp<span class="token punctuation">.</span>tv_nsec <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+tmsp<span class="token punctuation">.</span>tv_sec <span class="token operator">=</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">100</span><span class="token punctuation">;</span>	<span class="token comment">// 线程阻塞100s</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>条件变量唤醒函数</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 唤醒阻塞在条件变量上的线程, 至少有一个被解除阻塞</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_cond_signal</span><span class="params">(<span class="type">pthread_cond_t</span> *cond)</span>;</span><br><span class="line"><span class="comment">// 唤醒阻塞在条件变量上的线程, 被阻塞的线程全部解除阻塞</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_cond_broadcast</span><span class="params">(<span class="type">pthread_cond_t</span> *cond)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 唤醒阻塞在条件变量上的线程, 至少有一个被解除阻塞</span>
+<span class="token keyword">int</span> <span class="token function">pthread_cond_signal</span><span class="token punctuation">(</span><span class="token class-name">pthread_cond_t</span> <span class="token operator">*</span>cond<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 唤醒阻塞在条件变量上的线程, 被阻塞的线程全部解除阻塞</span>
+<span class="token keyword">int</span> <span class="token function">pthread_cond_broadcast</span><span class="token punctuation">(</span><span class="token class-name">pthread_cond_t</span> <span class="token operator">*</span>cond<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -628,28 +683,40 @@
 <p>信号量不能完全保证线程安全，如果要保证线程安全，需要信号量和互斥锁一起使用（存疑）</p>
 <p>信号量时互斥量的扩展</p>
 <p><strong>信号量声明</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="type">sem_t</span> sem;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;semaphore.h></span></span>
+<span class="token class-name">sem_t</span> sem<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>信号量初始化和销毁</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化信号量/信号灯</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sem_init</span><span class="params">(<span class="type">sem_t</span> *sem, <span class="type">int</span> pshared, <span class="type">unsigned</span> <span class="type">int</span> value)</span>;</span><br><span class="line"><span class="comment">// 资源释放, 线程销毁之后调用这个函数即可         </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sem_destroy</span><span class="params">(<span class="type">sem_t</span> *sem)</span>;</span><br><span class="line"><span class="comment">//sem：信号量变量地址</span></span><br><span class="line"><span class="comment">//pshared  0：线程同步 非 0：进程同步</span></span><br><span class="line"><span class="comment">//value：初始化当前信号量拥有的资源数（&gt;=0），如果资源数为 0，线程就会被阻塞了</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 初始化信号量/信号灯</span>
+<span class="token keyword">int</span> <span class="token function">sem_init</span><span class="token punctuation">(</span><span class="token class-name">sem_t</span> <span class="token operator">*</span>sem<span class="token punctuation">,</span> <span class="token keyword">int</span> pshared<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">int</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 资源释放, 线程销毁之后调用这个函数即可         </span>
+<span class="token keyword">int</span> <span class="token function">sem_destroy</span><span class="token punctuation">(</span><span class="token class-name">sem_t</span> <span class="token operator">*</span>sem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//sem：信号量变量地址</span>
+<span class="token comment">//pshared  0：线程同步 非 0：进程同步</span>
+<span class="token comment">//value：初始化当前信号量拥有的资源数（>=0），如果资源数为 0，线程就会被阻塞了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>wait函数</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数被调用sem中的资源就会被消耗1个, 资源数-1</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sem_trywait</span><span class="params">(<span class="type">sem_t</span> *sem)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 函数被调用sem中的资源就会被消耗1个, 资源数-1</span>
+<span class="token keyword">int</span> <span class="token function">sem_trywait</span><span class="token punctuation">(</span><span class="token class-name">sem_t</span> <span class="token operator">*</span>sem<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>资源数大于0时，调用此函数，资源数-1，当资源数&lt;&#x3D;0时，则被阻塞</p>
 <p><strong>trywait函数</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sem_trywait</span><span class="params">(<span class="type">sem_t</span> *sem)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">sem_trywait</span><span class="token punctuation">(</span><span class="token class-name">sem_t</span> <span class="token operator">*</span>sem<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>同理，和sem_trywait相比差别就是，资源数&lt;&#x3D;0时，线程不是被阻塞而是返回一个错误信号</p>
 <p><strong>wait+time函数</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// abs_timeout: 阻塞的时间长度, 单位是s, 是从1970.1.1开始计算的,和前面计算时间类似</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sem_timedwait</span><span class="params">(<span class="type">sem_t</span> *sem, <span class="type">const</span> <span class="keyword">struct</span> timespec *abs_timeout)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// abs_timeout: 阻塞的时间长度, 单位是s, 是从1970.1.1开始计算的,和前面计算时间类似</span>
+<span class="token keyword">int</span> <span class="token function">sem_timedwait</span><span class="token punctuation">(</span><span class="token class-name">sem_t</span> <span class="token operator">*</span>sem<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">struct</span> <span class="token class-name">timespec</span> <span class="token operator">*</span>abs_timeout<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>post函数</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用该函数给sem中的资源数+1</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sem_post</span><span class="params">(<span class="type">sem_t</span> *sem)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 调用该函数给sem中的资源数+1</span>
+<span class="token keyword">int</span> <span class="token function">sem_post</span><span class="token punctuation">(</span><span class="token class-name">sem_t</span> <span class="token operator">*</span>sem<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>当有线程被阻塞时，调用此函数后有一个阻塞线程会被唤醒</p>
 <p><strong>查询资源个数</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查看信号量 sem 中的整形数的当前值, 这个值会被写入到sval指针对应的内存中</span></span><br><span class="line"><span class="comment">// sval是一个传出参数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sem_getvalue</span><span class="params">(<span class="type">sem_t</span> *sem, <span class="type">int</span> *sval)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 查看信号量 sem 中的整形数的当前值, 这个值会被写入到sval指针对应的内存中</span>
+<span class="token comment">// sval是一个传出参数</span>
+<span class="token keyword">int</span> <span class="token function">sem_getvalue</span><span class="token punctuation">(</span><span class="token class-name">sem_t</span> <span class="token operator">*</span>sem<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>sval<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -803,13 +870,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/other/leetcode-341-%E6%89%81%E5%B9%B3%E5%8C%96%E5%B5%8C%E5%A5%97%E5%88%97%E8%A1%A8%E8%BF%AD%E4%BB%A3%E5%99%A8-middle/">
+                <a href="/2023/02/15/c++/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5_C++11/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="341. 扁平化嵌套列表迭代器">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="多线程和线程同步-C++11">
                         
-                        <span class="card-title">341. 扁平化嵌套列表迭代器</span>
+                        <span class="card-title">多线程和线程同步-C++11</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -826,8 +893,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
+                            <a href="/categories/C/" class="post-category">
+                                    C++
                                 </a>
                             
                             
@@ -837,8 +904,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E6%B7%B1%E5%BA%A6%E6%90%9C%E7%B4%A2/">
-                        <span class="chip bg-color">Alg-深度搜索</span>
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="chip bg-color">多线程</span>
                     </a>
                     
                 </div>
@@ -852,13 +923,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/other/leetcode-179-%E6%9C%80%E5%A4%A7%E6%95%B0-middle/">
+                <a href="/2023/02/15/leetcode/other/leetcode-1619-simple/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="179. 最大数">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="1619. 删除某些元素后的数组均值">
                         
-                        <span class="card-title">179. 最大数</span>
+                        <span class="card-title">1619. 删除某些元素后的数组均值</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -905,6 +976,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -1082,7 +1156,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

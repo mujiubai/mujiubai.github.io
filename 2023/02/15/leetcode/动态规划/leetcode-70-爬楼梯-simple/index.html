@@ -415,7 +415,7 @@ dp[i]表">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    427
+                    441
                 </div>
                 
 
@@ -437,7 +437,15 @@ dp[i]表">
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -463,7 +471,19 @@ dp[i]表">
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">climbStairs</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n&lt;<span class="number">3</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="type">int</span> a=<span class="number">1</span>,b=<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">3</span>;i&lt;=n;++i)&#123;</span><br><span class="line">            <span class="type">int</span> t=a+b;</span><br><span class="line">            a=b;</span><br><span class="line">            b=t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int climbStairs(int n) &#123;
+        if(n&lt;3) return n;
+        int a&#x3D;1,b&#x3D;2;
+        for(int i&#x3D;3;i&lt;&#x3D;n;++i)&#123;
+            int t&#x3D;a+b;
+            a&#x3D;b;
+            b&#x3D;t;
+        &#125;
+        return b;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -478,7 +498,21 @@ dp[i]表">
 <li>时间复杂度：O(2*n) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int climbStairs(int n) &#123;</span><br><span class="line">        vector&lt;int&gt; dp(n+1,0);</span><br><span class="line">        dp[0]=1;</span><br><span class="line">        for(int j=1;j&lt;=n;++j)&#123;</span><br><span class="line">            for(int i=1;i&lt;=2;++i)&#123;</span><br><span class="line">                if(j&gt;=i)&#123;</span><br><span class="line">                    dp[j]+=dp[j-i];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">class Solution &#123;
+public:
+    int climbStairs(int n) &#123;
+        vector&lt;int&gt; dp(n+1,0);
+        dp[0]&#x3D;1;
+        for(int j&#x3D;1;j&lt;&#x3D;n;++j)&#123;
+            for(int i&#x3D;1;i&lt;&#x3D;2;++i)&#123;
+                if(j&gt;&#x3D;i)&#123;
+                    dp[j]+&#x3D;dp[j-i];
+                &#125;
+            &#125;
+        &#125;
+        return dp[n];
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -731,6 +765,9 @@ dp[i]表">
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -907,7 +944,7 @@ dp[i]表">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

@@ -414,7 +414,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    272
+                    274
                 </div>
                 
 
@@ -436,7 +436,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -449,7 +457,29 @@
 <li>时间复杂度：O(nlogn) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">bool</span> <span class="title">compare</span><span class="params">(pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&amp; a,pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&amp; b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a.second&gt;b.second;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">topKFrequent</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; map;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            map[nums[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&gt; freq;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;it:map)&#123;</span><br><span class="line">            freq.<span class="built_in">push_back</span>(<span class="built_in">pair</span>&lt;<span class="type">int</span>,<span class="type">int</span>&gt;(it.first,it.second));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">sort</span>(freq.<span class="built_in">begin</span>(),freq.<span class="built_in">end</span>(),compare);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;k;++i)&#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(freq[i].first);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    static bool compare(pair&lt;int,int&gt;&amp; a,pair&lt;int,int&gt;&amp; b)&#123;
+        return a.second&gt;b.second;
+    &#125;
+    vector&lt;int&gt; topKFrequent(vector&lt;int&gt;&amp; nums, int k) &#123;
+        vector&lt;int&gt; ans;
+        unordered_map&lt;int,int&gt; map;
+        for(int i&#x3D;0;i&lt;nums.size();++i)&#123;
+            map[nums[i]]++;
+        &#125;
+        vector&lt;pair&lt;int,int&gt;&gt; freq;
+        for(auto &amp;it:map)&#123;
+            freq.push_back(pair&lt;int,int&gt;(it.first,it.second));
+        &#125;
+        sort(freq.begin(),freq.end(),compare);
+        for(int i&#x3D;0;i&lt;k;++i)&#123;
+            ans.push_back(freq[i].first);
+        &#125;
+        
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -714,6 +744,9 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -890,7 +923,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

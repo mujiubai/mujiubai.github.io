@@ -411,14 +411,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    758
+                    781
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 
@@ -433,7 +433,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -462,7 +470,33 @@
 <li>时间复杂度：O(m+n)</li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">strStr</span><span class="params">(string haystack, string needle)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//计算next数组</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">next</span><span class="params">(needle.size(),<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,j=<span class="number">0</span>;i&lt;needle.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;needle[j]!=needle[i])&#123;<span class="comment">//不能是j&gt;=0，否则面对没有公共节点的前缀和后缀会一直循环</span></span><br><span class="line">                j=next[j<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(needle[j]==needle[i]) ++j;</span><br><span class="line">            next[i]=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//匹配</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;i&lt;haystack.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;haystack[i]!=needle[j])&#123;</span><br><span class="line">                j=next[j<span class="number">-1</span>];<span class="comment">//看前一个字符得next值是因为当前字符已经匹配失败，用前一个字符才能找到多少个不用不配字符</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(haystack[i]==needle[j])&#123;</span><br><span class="line">                ++j;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(j==needle.<span class="built_in">size</span>())&#123;</span><br><span class="line">                <span class="keyword">return</span> i-needle.<span class="built_in">size</span>()+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int strStr(string haystack, string needle) &#123;
+        &#x2F;&#x2F;计算next数组
+        vector&lt;int&gt; next(needle.size(),0);
+        for(int i&#x3D;1,j&#x3D;0;i&lt;needle.size();++i)&#123;
+            while(j&gt;0&amp;&amp;needle[j]!&#x3D;needle[i])&#123;&#x2F;&#x2F;不能是j&gt;&#x3D;0，否则面对没有公共节点的前缀和后缀会一直循环
+                j&#x3D;next[j-1];
+            &#125;
+            if(needle[j]&#x3D;&#x3D;needle[i]) ++j;
+            next[i]&#x3D;j;
+        &#125;
+        &#x2F;&#x2F;匹配
+        for(int i&#x3D;0,j&#x3D;0;i&lt;haystack.size();++i)&#123;
+            while(j&gt;0&amp;&amp;haystack[i]!&#x3D;needle[j])&#123;
+                j&#x3D;next[j-1];&#x2F;&#x2F;看前一个字符得next值是因为当前字符已经匹配失败，用前一个字符才能找到多少个不用不配字符
+            &#125;
+            if(haystack[i]&#x3D;&#x3D;needle[j])&#123;
+                ++j;
+            &#125;
+            if(j&#x3D;&#x3D;needle.size())&#123;
+                return i-needle.size()+1;
+            &#125;
+        &#125;
+        return -1;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -472,7 +506,7 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O()</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
@@ -740,6 +774,9 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -916,7 +953,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

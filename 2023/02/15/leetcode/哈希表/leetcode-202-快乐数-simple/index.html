@@ -366,12 +366,12 @@ Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但�
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                                <span class="chip bg-color">Alg-哈希表</span>
-                            </a>
-                        
                             <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
                                 <span class="chip bg-color">Alg-双指针</span>
+                            </a>
+                        
+                            <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                                <span class="chip bg-color">Alg-哈希表</span>
                             </a>
                         
                     </div>
@@ -409,14 +409,14 @@ Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    446
+                    468
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -431,7 +431,15 @@ Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但�
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -453,7 +461,24 @@ Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但�
 <li>时间复杂度：O(logn) 计算方法可见官方解析</li>
 <li>空间复杂度：O(logn)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isHappy</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(n&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                sum+=(n%<span class="number">10</span>)*(n%<span class="number">10</span>);</span><br><span class="line">                n/=<span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(sum==<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(s.<span class="built_in">count</span>(sum)&gt;<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            s.<span class="built_in">insert</span>(sum);</span><br><span class="line">            n=sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    bool isHappy(int n) &#123;
+        unordered_set&lt;int&gt; s;
+        while(1)&#123;
+            int sum&#x3D;0;
+            while(n&gt;0)&#123;
+                sum+&#x3D;(n%10)*(n%10);
+                n&#x2F;&#x3D;10;
+            &#125;
+            if(sum&#x3D;&#x3D;1) return true;
+            if(s.count(sum)&gt;0) return false;
+            s.insert(sum);
+            n&#x3D;sum;
+        &#125;
+        return false;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -464,7 +489,29 @@ Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但�
 <li>时间复杂度：O(logn)</li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getSum</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            sum+=(n%<span class="number">10</span>)*(n%<span class="number">10</span>);</span><br><span class="line">            n/=<span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isHappy</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> p=n,q=n;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">            p=<span class="built_in">getSum</span>(p);</span><br><span class="line">            q=<span class="built_in">getSum</span>(q);</span><br><span class="line">            <span class="keyword">if</span>(q==<span class="number">1</span>)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            q=<span class="built_in">getSum</span>(q);</span><br><span class="line">            <span class="keyword">if</span>(q==<span class="number">1</span>)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(p==q)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int getSum(int n)&#123;
+        int sum&#x3D;0;
+        while(n&gt;0)&#123;
+            sum+&#x3D;(n%10)*(n%10);
+            n&#x2F;&#x3D;10;
+        &#125;
+        return sum;
+    &#125;
+    bool isHappy(int n) &#123;
+        int p&#x3D;n,q&#x3D;n;
+        while(1)&#123;
+            p&#x3D;getSum(p);
+            q&#x3D;getSum(q);
+            if(q&#x3D;&#x3D;1)return true;
+            q&#x3D;getSum(q);
+            if(q&#x3D;&#x3D;1)return true;
+            if(p&#x3D;&#x3D;q)return false;
+        &#125;
+        return false;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -538,12 +585,12 @@ Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但�
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                                    <span class="chip bg-color">Alg-哈希表</span>
-                                </a>
-                            
                                 <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
                                     <span class="chip bg-color">Alg-双指针</span>
+                                </a>
+                            
+                                <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                                    <span class="chip bg-color">Alg-哈希表</span>
                                 </a>
                             
                         </div>
@@ -733,6 +780,9 @@ Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但�
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -909,7 +959,7 @@ Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

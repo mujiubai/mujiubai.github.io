@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    579
+                    586
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -440,7 +448,21 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">checkPossibility</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>()<span class="number">-1</span>;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;nums[i+<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="comment">//判断前后两段是有序的情况，这种情况下只需要判断nums[i-1]和nums[i+2]即可</span></span><br><span class="line">                <span class="keyword">if</span>((i&gt;<span class="number">0</span>&amp;&amp;nums[i<span class="number">-1</span>]&gt;nums[i+<span class="number">1</span>])&amp;&amp;(i&lt;nums.<span class="built_in">size</span>()<span class="number">-2</span>&amp;&amp;nums[i]&gt;nums[i+<span class="number">2</span>])) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                ++ans;</span><br><span class="line">                <span class="keyword">if</span>(ans&gt;<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    bool checkPossibility(vector&lt;int&gt;&amp; nums) &#123;
+        int ans&#x3D;0;
+        for(int i&#x3D;0;i&lt;nums.size()-1;++i)&#123;
+            if(nums[i]&gt;nums[i+1])&#123;
+                &#x2F;&#x2F;判断前后两段是有序的情况，这种情况下只需要判断nums[i-1]和nums[i+2]即可
+                if((i&gt;0&amp;&amp;nums[i-1]&gt;nums[i+1])&amp;&amp;(i&lt;nums.size()-2&amp;&amp;nums[i]&gt;nums[i+2])) return false;
+                ++ans;
+                if(ans&gt;1) return false;
+            &#125;
+        &#125;
+        return true;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -454,7 +476,20 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">checkPossibility</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>()<span class="number">-1</span>;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;nums[i+<span class="number">1</span>])&#123;</span><br><span class="line">                ++ans;</span><br><span class="line">                <span class="keyword">if</span>(ans&gt;<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;nums[i+<span class="number">1</span>]&lt;nums[i<span class="number">-1</span>]) nums[i+<span class="number">1</span>]=nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    bool checkPossibility(vector&lt;int&gt;&amp; nums) &#123;
+        int ans&#x3D;0;
+        for(int i&#x3D;0;i&lt;nums.size()-1;++i)&#123;
+            if(nums[i]&gt;nums[i+1])&#123;
+                ++ans;
+                if(ans&gt;1) return false;
+                if(i&gt;0&amp;&amp;nums[i+1]&lt;nums[i-1]) nums[i+1]&#x3D;nums[i];
+            &#125;
+        &#125;
+        return true;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -604,13 +639,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-581-%E6%9C%80%E7%9F%AD%E6%97%A0%E5%BA%8F%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84-middle/">
+                <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-59-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="581. 最短无序连续子数组">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="59. 螺旋矩阵 II">
                         
-                        <span class="card-title">581. 最短无序连续子数组</span>
+                        <span class="card-title">59. 螺旋矩阵 II</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -642,6 +677,10 @@
                         <span class="chip bg-color">Alg-数组</span>
                     </a>
                     
+                    <a href="/tags/Alg-%E6%A8%A1%E6%8B%9F/">
+                        <span class="chip bg-color">Alg-模拟</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -653,13 +692,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-775-%E5%85%A8%E5%B1%80%E5%80%92%E7%BD%AE%E4%B8%8E%E5%B1%80%E9%83%A8%E5%80%92%E7%BD%AE/">
+                <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="775. 全局倒置与局部倒置">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="75. 颜色分类">
                         
-                        <span class="card-title">775. 全局倒置与局部倒置</span>
+                        <span class="card-title">75. 颜色分类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -687,6 +726,10 @@
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                        <span class="chip bg-color">Alg-双指针</span>
+                    </a>
+                    
                     <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
                         <span class="chip bg-color">Alg-数组</span>
                     </a>
@@ -706,6 +749,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -883,7 +929,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

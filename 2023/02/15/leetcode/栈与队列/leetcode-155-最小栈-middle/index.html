@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    399
+                    403
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -440,7 +448,36 @@
 <li>时间复杂度：O(1) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinStack</span> &#123;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; ms;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MinStack</span>() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        s.<span class="built_in">push</span>(val);</span><br><span class="line">        <span class="keyword">if</span>(!ms.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            ms.<span class="built_in">push</span>(<span class="built_in">min</span>(ms.<span class="built_in">top</span>(),s.<span class="built_in">top</span>()));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            ms.<span class="built_in">push</span>(s.<span class="built_in">top</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        s.<span class="built_in">pop</span>();</span><br><span class="line">        ms.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> s.<span class="built_in">top</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ms.<span class="built_in">top</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class MinStack &#123;
+    stack&lt;int&gt; s;
+    stack&lt;int&gt; ms;
+public:
+    MinStack() &#123;
+
+    &#125;
+    
+    void push(int val) &#123;
+        s.push(val);
+        if(!ms.empty())&#123;
+            ms.push(min(ms.top(),s.top()));
+        &#125;else&#123;
+            ms.push(s.top());
+        &#125;
+    &#125;
+    
+    void pop() &#123;
+        s.pop();
+        ms.pop();
+    &#125;
+    
+    int top() &#123;
+        return s.top();
+    &#125;
+    
+    int getMin() &#123;
+        return ms.top();
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -452,7 +489,40 @@
 <li>时间复杂度：O(1) </li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinStack</span> &#123;</span><br><span class="line">    stack&lt;<span class="type">long</span>&gt; s;</span><br><span class="line">    <span class="type">int</span> minValue;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MinStack</span>() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            s.<span class="built_in">push</span>(<span class="number">0</span>);</span><br><span class="line">            minValue=val;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="type">long</span> dif=(<span class="type">long</span>)val-minValue;</span><br><span class="line">            <span class="keyword">if</span>(dif&lt;<span class="number">0</span>) minValue=val;</span><br><span class="line">            s.<span class="built_in">push</span>(dif);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">top</span>()&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            minValue-=s.<span class="built_in">top</span>();            </span><br><span class="line">        &#125;</span><br><span class="line">        s.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> s.<span class="built_in">top</span>()&lt;<span class="number">0</span>?minValue:minValue+s.<span class="built_in">top</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> minValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class MinStack &#123;
+    stack&lt;long&gt; s;
+    int minValue;
+public:
+    MinStack() &#123;
+
+    &#125;
+    
+    void push(int val) &#123;
+        if(s.empty())&#123;
+            s.push(0);
+            minValue&#x3D;val;
+        &#125;else&#123;
+            long dif&#x3D;(long)val-minValue;
+            if(dif&lt;0) minValue&#x3D;val;
+            s.push(dif);
+        &#125;
+    &#125;
+    
+    void pop() &#123;
+        if(s.top()&lt;0)&#123;
+            minValue-&#x3D;s.top();            
+        &#125;
+        s.pop();
+    &#125;
+    
+    int top() &#123;
+        return s.top()&lt;0?minValue:minValue+s.top();
+    &#125;
+    
+    int getMin() &#123;
+        return minValue;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -602,13 +672,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%B1%BB%E5%9E%8B%E6%80%BB%E7%BB%93-middle/">
+                <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-977-simple/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="买卖股票类型算法总结">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="977. 有序数组的平方">
                         
-                        <span class="card-title">买卖股票类型算法总结</span>
+                        <span class="card-title">977. 有序数组的平方</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -636,8 +706,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                        <span class="chip bg-color">Alg-动态规划</span>
+                    <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                        <span class="chip bg-color">Alg-双指针</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                        <span class="chip bg-color">Alg-数组</span>
                     </a>
                     
                 </div>
@@ -704,6 +778,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -881,7 +958,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

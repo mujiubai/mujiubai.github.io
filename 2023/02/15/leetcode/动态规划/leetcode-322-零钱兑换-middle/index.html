@@ -408,7 +408,7 @@ dp数组如">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    427
+                    437
                 </div>
                 
 
@@ -430,7 +430,15 @@ dp数组如">
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -456,7 +464,22 @@ dp数组如">
 <li>时间复杂度：O(n*amount) </li>
 <li>空间复杂度：O(amount)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">coinChange</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; coins, <span class="type">int</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(amount+<span class="number">1</span>,INT_MAX)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">//先遍历背包容量还是物品皆可，因为与顺序无关</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;coins.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=coins[i];j&lt;=amount;++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(dp[j-coins[i]]!=INT_MAX)</span><br><span class="line">                    dp[j]=<span class="built_in">min</span>(dp[j],dp[j-coins[i]]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[amount]==INT_MAX?<span class="number">-1</span>:dp[amount];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int coinChange(vector&lt;int&gt;&amp; coins, int amount) &#123;
+        vector&lt;int&gt; dp(amount+1,INT_MAX);
+        dp[0]&#x3D;0;
+        &#x2F;&#x2F;先遍历背包容量还是物品皆可，因为与顺序无关
+        for(int i&#x3D;0;i&lt;coins.size();++i)&#123;
+            for(int j&#x3D;coins[i];j&lt;&#x3D;amount;++j)&#123;
+                if(dp[j-coins[i]]!&#x3D;INT_MAX)
+                    dp[j]&#x3D;min(dp[j],dp[j-coins[i]]+1);
+            &#125;
+        &#125;
+
+        return dp[amount]&#x3D;&#x3D;INT_MAX?-1:dp[amount];
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -713,6 +736,9 @@ dp数组如">
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -889,7 +915,7 @@ dp数组如">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

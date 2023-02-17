@@ -406,14 +406,14 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    20.5k
+                    20.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    75 分
+                    78 分
                 </div>
                 
 
@@ -428,7 +428,15 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -437,7 +445,9 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <hr>
 <hr>
 <h1 id="CHAPTER1-Deducing-Types"><a href="#CHAPTER1-Deducing-Types" class="headerlink" title="CHAPTER1 Deducing Types"></a><strong>CHAPTER1 Deducing Types</strong></h1><p>C++98有⼀套⽤于模板类型推导的规则，C++11修改了其中的⼀些规则并为<strong>auto</strong>和<strong>decltype</strong>添加了新的规则。</p>
-<h2 id="1-理解模板类型推导"><a href="#1-理解模板类型推导" class="headerlink" title="1. 理解模板类型推导"></a>1. 理解模板类型推导</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(ParamType param)</span></span>;</span><br><span class="line"><span class="built_in">f</span>(expr);                        <span class="comment">//从expr中推导T和ParamType</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-理解模板类型推导"><a href="#1-理解模板类型推导" class="headerlink" title="1. 理解模板类型推导"></a>1. 理解模板类型推导</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void f(ParamType param);
+f(expr);                        &#x2F;&#x2F;从expr中推导T和ParamType<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>基于上述模板，有三种情况：</p>
 <h3 id="ParamType是一个指针或引用，但不是通用引用"><a href="#ParamType是一个指针或引用，但不是通用引用" class="headerlink" title="ParamType是一个指针或引用，但不是通用引用"></a>ParamType是一个指针或引用，但不是通用引用</h3><p>推导规则：</p>
@@ -446,7 +456,14 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li>然后剩下的部分决定T，然后T与形参匹配得出最终ParamType</li>
 </ul>
 <p>示例：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T &amp; param)</span></span>; <span class="comment">//param是⼀个引⽤</span></span><br><span class="line"><span class="type">int</span> x=<span class="number">27</span>; <span class="comment">//x是int</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> cx=x; <span class="comment">//cx是const int</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp; rx=cx; <span class="comment">//rx是指向const int的引⽤</span></span><br><span class="line"><span class="built_in">f</span>(x); <span class="comment">//T是int，param的类型是int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cx); <span class="comment">//T是const int，param的类型是const int &amp;</span></span><br><span class="line"><span class="built_in">f</span>(rx); <span class="comment">//T是const int，param的类型是const int &amp;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void f(T &amp; param); &#x2F;&#x2F;param是⼀个引⽤
+int x&#x3D;27; &#x2F;&#x2F;x是int
+const int cx&#x3D;x; &#x2F;&#x2F;cx是const int
+const int &amp; rx&#x3D;cx; &#x2F;&#x2F;rx是指向const int的引⽤
+f(x); &#x2F;&#x2F;T是int，param的类型是int&amp;
+f(cx); &#x2F;&#x2F;T是const int，param的类型是const int &amp;
+f(rx); &#x2F;&#x2F;T是const int，param的类型是const int &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>此类情况右值和左值同等对待</p>
 <h3 id="ParamType是⼀个通⽤引⽤"><a href="#ParamType是⼀个通⽤引⽤" class="headerlink" title="ParamType是⼀个通⽤引⽤"></a>ParamType是⼀个通⽤引⽤</h3><p>推导规则：</p>
@@ -458,9 +475,18 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </li>
 <li>如果<strong>expr</strong>是右值，就使⽤（1）的推导规则</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T&amp;&amp; param)</span></span>; <span class="comment">//param现在是⼀个通⽤引⽤类型</span></span><br><span class="line"><span class="type">int</span> x=<span class="number">27</span>; <span class="comment">//如之前⼀样</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> cx=x; <span class="comment">//如之前⼀样</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp; rx=cx; <span class="comment">//如之前⼀样</span></span><br><span class="line"><span class="built_in">f</span>(x); <span class="comment">//x是左值，所以T是int&amp; //param类型也是int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cx); <span class="comment">//cx是左值，所以T是const int &amp; //param类型也是const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(rx); <span class="comment">//rx是左值，所以T是const int &amp; //param类型也是const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(<span class="number">27</span>); <span class="comment">//27是右值，所以T是int //param类型就是int&amp;&amp;      ！！！！！</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void f(T&amp;&amp; param); &#x2F;&#x2F;param现在是⼀个通⽤引⽤类型
+int x&#x3D;27; &#x2F;&#x2F;如之前⼀样
+const int cx&#x3D;x; &#x2F;&#x2F;如之前⼀样
+const int &amp; rx&#x3D;cx; &#x2F;&#x2F;如之前⼀样
+f(x); &#x2F;&#x2F;x是左值，所以T是int&amp; &#x2F;&#x2F;param类型也是int&amp;
+f(cx); &#x2F;&#x2F;cx是左值，所以T是const int &amp; &#x2F;&#x2F;param类型也是const int&amp;
+f(rx); &#x2F;&#x2F;rx是左值，所以T是const int &amp; &#x2F;&#x2F;param类型也是const int&amp;
+f(27); &#x2F;&#x2F;27是右值，所以T是int &#x2F;&#x2F;param类型就是int&amp;&amp;      ！！！！！<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="ParamType既不是指针也不是引⽤"><a href="#ParamType既不是指针也不是引⽤" class="headerlink" title="ParamType既不是指针也不是引⽤"></a>ParamType既不是指针也不是引⽤</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T param)</span></span>; <span class="comment">//以传值的⽅式处理param</span></span><br></pre></td></tr></table></figure>
+<h3 id="ParamType既不是指针也不是引⽤"><a href="#ParamType既不是指针也不是引⽤" class="headerlink" title="ParamType既不是指针也不是引⽤"></a>ParamType既不是指针也不是引⽤</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void f(T param); &#x2F;&#x2F;以传值的⽅式处理param<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>这意味着⽆论传递什么param都会成为它的⼀份拷⻉——⼀个完整的新对象！！此性质决定了可以舍弃自身的const属性，因为<strong>expr</strong>不可修改并不意味着他的拷⻉也不能被修改。</p>
 <p>推导规则：</p>
@@ -468,10 +494,17 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li>如果expr的类型是⼀个引⽤，忽略这个引⽤部分</li>
 <li>如果忽略引⽤之后expr是⼀个const，那就再忽略const。如果它是volatile，也会被忽略（注意！const int* const 类型只会舍弃自身const属性，即第二个const）</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x=<span class="number">27</span>; <span class="comment">//如之前⼀样</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> cx=x; <span class="comment">//如之前⼀样</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp; rx=cx; <span class="comment">//如之前⼀样</span></span><br><span class="line"><span class="built_in">f</span>(x); <span class="comment">//T和param都是int</span></span><br><span class="line"><span class="built_in">f</span>(cx); <span class="comment">//T和param都是int</span></span><br><span class="line"><span class="built_in">f</span>(rx); <span class="comment">//T和param都是int</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int x&#x3D;27; &#x2F;&#x2F;如之前⼀样
+const int cx&#x3D;x; &#x2F;&#x2F;如之前⼀样
+const int &amp; rx&#x3D;cx; &#x2F;&#x2F;如之前⼀样
+f(x); &#x2F;&#x2F;T和param都是int
+f(cx); &#x2F;&#x2F;T和param都是int
+f(rx); &#x2F;&#x2F;T和param都是int<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>常量指针常量情况，最终T会被推导为<strong>const char*</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T param)</span></span>; <span class="comment">//传值</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span>* <span class="type">const</span> ptr = <span class="string">&quot; Fun with pointers&quot;</span>;<span class="comment">//ptr是⼀个常量指针，指向常量对象</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void f(T param); &#x2F;&#x2F;传值
+const char* const ptr &#x3D; &quot; Fun with pointers&quot;;&#x2F;&#x2F;ptr是⼀个常量指针，指向常量对象<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p>解引⽤符号（*）的右边的const表⽰ptr本⾝是⼀个const：ptr不能被修改为指向其它地址，也不能被设置为null</p>
@@ -480,10 +513,19 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>c++中数组和指针并非一种类型，只是有数组退化为指针的规则。</p>
 <p>当ParamType既不是指针也不是引⽤时，数组推导时会被视为指针，如果是个常量数组，推导出来的类型会是一个常量指针</p>
 <p>注意！虽然函数不能接受真正的数组，但是可以接受指向数组的引⽤！下述示例中param被推导为为<strong>const char(&amp;)[13]</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T&amp; param)</span></span>;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span> name[] = <span class="string">&quot;J. P. Briggs&quot;</span>; <span class="comment">//name的类型是const char[13]</span></span><br><span class="line"><span class="built_in">f</span>(name); <span class="comment">//传数组 param被推导为为**const char(&amp;)[13]**</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void f(T&amp; param);
+const char name[] &#x3D; &quot;J. P. Briggs&quot;; &#x2F;&#x2F;name的类型是const char[13]
+f(name); &#x2F;&#x2F;传数组 param被推导为为**const char(&amp;)[13]**<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="函数实参"><a href="#函数实参" class="headerlink" title="函数实参"></a>函数实参</h3><p>在C++中不⽌是数组会退化为指针，函数类型也会退化为⼀个函数指针，因此函数规则和数组类似</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">someFunc</span><span class="params">(<span class="type">int</span>, <span class="type">double</span>)</span></span>; <span class="comment">//someFunc是⼀个函数，类型是void(int,double)</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f1</span><span class="params">(T param)</span></span>; <span class="comment">//传值</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f2</span><span class="params">(T &amp; param)</span></span>; <span class="comment">//传引⽤</span></span><br><span class="line"><span class="built_in">f1</span>(someFunc); <span class="comment">//param被推导为指向函数的指针，类型是void(*)(int, double)</span></span><br><span class="line"><span class="built_in">f2</span>(someFunc); <span class="comment">//param被推导为指向函数的引⽤，类型为void(&amp;)(int, bouel)</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void someFunc(int, double); &#x2F;&#x2F;someFunc是⼀个函数，类型是void(int,double)
+template&lt;typename T&gt;
+void f1(T param); &#x2F;&#x2F;传值
+template&lt;typename T&gt;
+void f2(T &amp; param); &#x2F;&#x2F;传引⽤
+f1(someFunc); &#x2F;&#x2F;param被推导为指向函数的指针，类型是void(*)(int, double)
+f2(someFunc); &#x2F;&#x2F;param被推导为指向函数的引⽤，类型为void(&amp;)(int, bouel)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结</strong></p>
@@ -496,14 +538,43 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </blockquote>
 <h2 id="2-理解auto类型推导"><a href="#2-理解auto类型推导" class="headerlink" title="2. 理解auto类型推导"></a>2. 理解<code>auto</code>类型推导</h2><p><strong>auto</strong>是建⽴在模板类型推导的基础上的，auto和模板类型推导唯一不同之处在于花括号初始化的推导。</p>
 <p>auto推导其实就是使用模板类型来进行推导，当一个变量使用<code>auto</code>进行声明时，<code>auto</code>扮演了模板中<code>T</code>的角色，变量的类型说明符扮演了<code>ParamType</code>的角色。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(ParmaType param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> x = <span class="number">27</span>; <span class="comment">//类型说明符是auto</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> cx = x;<span class="comment">//类型说明符是const auto</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> &amp; rx=cx;<span class="comment">//类型说明符是const auto&amp;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="comment">//理想化的模板⽤来推导x的类型</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func_for_x</span><span class="params">(T param)</span></span>;</span><br><span class="line"><span class="built_in">func_for_x</span>(<span class="number">27</span>);</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="comment">//理想化的模板⽤来推导cx 的类型</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func_for_cx</span><span class="params">(<span class="type">const</span> T param)</span></span>;</span><br><span class="line"><span class="built_in">func_for_cx</span>(cx);</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="comment">//理想化的模板⽤来推导rx的类型</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func_for_rx</span><span class="params">(<span class="type">const</span> T &amp; param)</span></span>;</span><br><span class="line"><span class="built_in">func_for_rx</span>(rx);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void f(ParmaType param);
+
+auto x &#x3D; 27; &#x2F;&#x2F;类型说明符是auto
+const auto cx &#x3D; x;&#x2F;&#x2F;类型说明符是const auto
+const auto &amp; rx&#x3D;cx;&#x2F;&#x2F;类型说明符是const auto&amp;
+
+template&lt;typename T&gt; &#x2F;&#x2F;理想化的模板⽤来推导x的类型
+void func_for_x(T param);
+func_for_x(27);
+template&lt;typename T&gt; &#x2F;&#x2F;理想化的模板⽤来推导cx 的类型
+void func_for_cx(const T param);
+func_for_cx(cx);
+template&lt;typename T&gt; &#x2F;&#x2F;理想化的模板⽤来推导rx的类型
+void func_for_rx(const T &amp; param);
+func_for_rx(rx);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>auto推导结果和模板类型推导结果规则相同，只有在花括号初始化时推导不同。</p>
 <p>当使⽤auto的变量使⽤花括号的语法进⾏初始化的时候，会推导出<strong>std::initializer_list</strong>的实例化，但是对于模板类型推导这样就⾏不通</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x3=&#123;<span class="number">27</span>&#125;; <span class="comment">//推导为std::initializer_list&lt;int&gt;</span></span><br><span class="line"><span class="keyword">auto</span> x4&#123;<span class="number">27</span>&#125;; <span class="comment">//推导为std::initializer_list&lt;int&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> x=&#123;<span class="number">11</span>,<span class="number">23</span>,<span class="number">9</span>&#125;; <span class="comment">//x的类型是std::initializer_list&lt;int&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T param)</span></span>;</span><br><span class="line"><span class="built_in">f</span>(&#123;<span class="number">11</span>,<span class="number">23</span>,<span class="number">9</span>&#125;); <span class="comment">//错误！不能推导出T</span></span><br><span class="line"><span class="comment">//然而如果指定T是std::initializer而留下未知T,模板类型推导就能正常⼯作：</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(std::initializer_list&lt;T&gt; initList)</span></span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto x3&#x3D;&#123;27&#125;; &#x2F;&#x2F;推导为std::initializer_list&lt;int&gt;
+auto x4&#123;27&#125;; &#x2F;&#x2F;推导为std::initializer_list&lt;int&gt;
+
+auto x&#x3D;&#123;11,23,9&#125;; &#x2F;&#x2F;x的类型是std::initializer_list&lt;int&gt;
+template&lt;typename T&gt;
+void f(T param);
+f(&#123;11,23,9&#125;); &#x2F;&#x2F;错误！不能推导出T
+&#x2F;&#x2F;然而如果指定T是std::initializer而留下未知T,模板类型推导就能正常⼯作：
+template&lt;typename T&gt;
+void f(std::initializer_list&lt;T&gt; initList);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>C++14中<code>auto</code>用于函数返回值和lambda时，实际上使用模板类型推导的那一套规则在工作，而不是<code>auto</code>类型推导，如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">createInitList</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;         <span class="comment">//错误！不能推导&#123; 1, 2, 3 &#125;的类型</span></span><br><span class="line">&#125;</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v;</span><br><span class="line"><span class="keyword">auto</span> resetV = [&amp;v](<span class="type">const</span> <span class="keyword">auto</span>&amp; newValue)&#123; v = newValue; &#125;;        <span class="comment">//C++14</span></span><br><span class="line"><span class="built_in">resetV</span>(&#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;);            <span class="comment">//错误！不能推导&#123; 1, 2, 3 &#125;的类型</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto createInitList()&#123;
+    return &#123; 1, 2, 3 &#125;;         &#x2F;&#x2F;错误！不能推导&#123; 1, 2, 3 &#125;的类型
+&#125;
+std::vector&lt;int&gt; v;
+auto resetV &#x3D; [&amp;v](const auto&amp; newValue)&#123; v &#x3D; newValue; &#125;;        &#x2F;&#x2F;C++14
+resetV(&#123; 1, 2, 3 &#125;);            &#x2F;&#x2F;错误！不能推导&#123; 1, 2, 3 &#125;的类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结：</strong></p>
@@ -514,18 +585,28 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </blockquote>
 <h2 id="3-理解decltype"><a href="#3-理解decltype" class="headerlink" title="3. 理解decltype"></a>3. 理解<code>decltype</code></h2><p>提供名字或者表达式，decltype能推导出其类型</p>
 <p>decltype最主要用于就是用于声明函数模板，而这个函数返回类型依赖于形参类型，即使用尾置返回类型</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Container, <span class="keyword">typename</span> Index&gt;    <span class="comment">//可以工作，</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">authAndAccess</span><span class="params">(Container&amp; c, Index i)</span>       <span class="comment">//但是需要改良</span></span></span><br><span class="line"><span class="function">    -&gt;<span class="title">decltype</span><span class="params">(c[i])</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> c[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename Container, typename Index&gt;    &#x2F;&#x2F;可以工作，
+auto authAndAccess(Container&amp; c, Index i)       &#x2F;&#x2F;但是需要改良
+    -&gt;decltype(c[i])&#123;
+    return c[i];
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>lambda表达式能忽略尾置返回类型，只留下auto。但是当返回值是一个int&amp;类型时，模板类型推导会去除引用部分，最后推导出int类型，这会导致当赋值时出现意料外错误。</p>
 <ul>
 <li><p>解决办法：使用decltype(auto)，<code>auto</code>说明符表示这个类型将会被推导，<code>decltype</code>说明<code>decltype</code>的规则将会被用到这个推导过程中</p>
 </li>
 <li><p>&#96;&#96;&#96;c++<br>template&lt;typename Container, typename Index&gt;    &#x2F;&#x2F;C++14版本，<br>decltype(auto)                                  &#x2F;&#x2F;可以工作，<br>authAndAccess(Container&amp; c, Index i) {}           &#x2F;&#x2F;但是还需要<br>&#x2F;&#x2F;传左值正常，但传右值可能会出现意料外的结果，解决方法是使用通用引用+完美转发</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 如果想对初始化表达式使用`decltype`推导的规则，也可以使用decltype(auto)</span><br><span class="line"></span><br><span class="line">  ```c++</span><br><span class="line">  decltype(auto) myWidget2 = cw;          //decltype类型推导，会推导出引用类型</span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-none"><code class="language-none">
+- 如果想对初始化表达式使用&#96;decltype&#96;推导的规则，也可以使用decltype(auto)
+
+  &#96;&#96;&#96;c++
+  decltype(auto) myWidget2 &#x3D; cw;          &#x2F;&#x2F;decltype类型推导，会推导出引用类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <p>将<code>decltype</code>应用于变量名会产生该变量名的声明类型。</p>
 <p>然而，对于比单纯的变量名更复杂的左值表达式，<code>decltype</code>可以确保报告的类型始终是左值引用。C++11定义了表达式<code>(x)</code>也是一个左值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">0</span>,b; </span><br><span class="line"><span class="keyword">decltype</span>(x); <span class="comment">//推导为int</span></span><br><span class="line"><span class="keyword">decltype</span>(b=x)   <span class="keyword">decltype</span>((x)); <span class="comment">//推导为int&amp;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int x &#x3D; 0,b; 
+decltype(x); &#x2F;&#x2F;推导为int
+decltype(b&#x3D;x)   decltype((x)); &#x2F;&#x2F;推导为int&amp;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结</strong></p>
@@ -552,7 +633,7 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <h2 id="5-优先考虑auto而⾮显式类型声明"><a href="#5-优先考虑auto而⾮显式类型声明" class="headerlink" title="5. 优先考虑auto而⾮显式类型声明"></a>5. 优先考虑auto而⾮显式类型声明</h2><p>auto会强制初始化，避免出现意料之外的初始值。auto能在修改代码后自动重构代码，且避免一些平台导致的问题。</p>
 <p>定义lambda函数变量时，<code>std::function</code>方法比<code>auto</code>方法要更耗空间且调用更慢，还可能有<em>out-of-memory</em>异常。（更耗空间是因为std::function声明的对象空间不足以存储闭包，此时需要重新申请堆内存来存储）</p>
 <p>遍历<code>std::unordered_map</code>时，其key时const，如果遍历方法如下则会导致每个元素生成一个非const的临时对象，然后将p绑定在临时对象上，从而出现意料之外的结果。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">const</span> std::pair&lt;std::string, <span class="type">int</span>&gt;&amp; p : m)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">for(const std::pair&lt;std::string, int&gt;&amp; p : m)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结</strong></p>
@@ -563,7 +644,7 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </blockquote>
 <h2 id="6-auto推导若非己愿，使用显式类型初始化惯用法"><a href="#6-auto推导若非己愿，使用显式类型初始化惯用法" class="headerlink" title="6. auto推导若非己愿，使用显式类型初始化惯用法"></a>6. <code>auto</code>推导若非己愿，使用显式类型初始化惯用法</h2><p>一些类的取值返回结果并未原始结果，而是代理类，其内部实现未知从而导致出现错误。如vector<bool>，其如果是临时对象时，可能会存在访问时已被释放的问题（其细节可以详见原书）。</p>
 <p>auto有时会推导为代理类的类型，可以使用显式类型初始器惯用法强制指定推导类型。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> highPriority = <span class="built_in">static_cast</span>&lt;<span class="type">bool</span>&gt;(<span class="built_in">features</span>(w)[<span class="number">5</span>]);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto highPriority &#x3D; static_cast&lt;bool&gt;(features(w)[5]);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结</strong></p>
@@ -582,17 +663,22 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <p><strong>注意</strong></p>
 <ul>
 <li><p>花括号表达式有一个异常的特性，它不允许内置类型间隐式的变窄转换（变化为更高类型允许）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> x, y, z;</span><br><span class="line"><span class="type">int</span> sum1&#123; x + y + z &#125;;          <span class="comment">//错误！double的和可能不能表示为int</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double x, y, z;
+int sum1&#123; x + y + z &#125;;          &#x2F;&#x2F;错误！double的和可能不能表示为int<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>花括号表达式能很好创建一个使用默认构造函数构造的对象</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Widget <span class="title">w2</span><span class="params">()</span></span>;                    <span class="comment">//最令人头疼的解析！声明一个函数w2，返回Widget</span></span><br><span class="line">Widget w3&#123;&#125;;                    <span class="comment">//调用没有参数的构造函数构造对象</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">Widget w2();                    &#x2F;&#x2F;最令人头疼的解析！声明一个函数w2，返回Widget
+Widget w3&#123;&#125;;                    &#x2F;&#x2F;调用没有参数的构造函数构造对象<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 </ul>
 <p><strong>缺陷</strong></p>
 <ul>
 <li><p>使用花括号初始化时会优先调用声明有<code>std::initializer_list</code>形参的（移动）构造函数（即使直观上其他构造函数更适合），编译器热衷于把花括号初始化与使<code>std::initializer_list</code>构造函数匹配（如果花括号里面是空集则不会优先，除非里面再加一个花括号）</p>
 </li>
 <li><p>容器定义时使用花括号和小括号意义完全不同</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">v1</span><span class="params">(<span class="number">10</span>, <span class="number">20</span>)</span></span>;    <span class="comment">//使用非std::initializer_list构造函数</span></span><br><span class="line">                                <span class="comment">//创建一个包含10个元素的std::vector，所有的元素的值都是20</span></span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v2&#123;<span class="number">10</span>, <span class="number">20</span>&#125;;    <span class="comment">//使用std::initializer_list构造函数</span></span><br><span class="line">                                <span class="comment">//创建包含两个元素的std::vector，元素的值为10和20</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::vector&lt;int&gt; v1(10, 20);    &#x2F;&#x2F;使用非std::initializer_list构造函数
+                                &#x2F;&#x2F;创建一个包含10个元素的std::vector，所有的元素的值都是20
+std::vector&lt;int&gt; v2&#123;10, 20&#125;;    &#x2F;&#x2F;使用std::initializer_list构造函数
+                                &#x2F;&#x2F;创建包含两个元素的std::vector，元素的值为10和20<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <blockquote>
 <p><strong>总结</strong></p>
@@ -605,7 +691,11 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </blockquote>
 <h2 id="8-优先考虑nullptr而非0和NULL"><a href="#8-优先考虑nullptr而非0和NULL" class="headerlink" title="8. 优先考虑nullptr而非0和NULL"></a>8. 优先考虑<code>nullptr</code>而非<code>0</code>和<code>NULL</code></h2><p>字面量0和NULL是int型，而非指针</p>
 <p>当函数重载时，如果传递NULL，会优先与int型形参匹配</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span>)</span></span>;        <span class="comment">//三个f的重载函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">void</span>*)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">f</span>(<span class="number">0</span>);               <span class="comment">//调用f(int)而不是f(void*)</span></span><br><span class="line"><span class="built_in">f</span>(<span class="literal">NULL</span>);            <span class="comment">//一般来说调用f(int)，绝对不会调用f(void*)</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void f(int);        &#x2F;&#x2F;三个f的重载函数
+void f(void*);
+
+f(0);               &#x2F;&#x2F;调用f(int)而不是f(void*)
+f(NULL);            &#x2F;&#x2F;一般来说调用f(int)，绝对不会调用f(void*)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>nullptr</code>的优点是它不是整型，是<strong>所有</strong>类型的指针，其真正类型是<code>std::nullptr_t</code>，<code>std::nullptr_t</code>可以隐式转换为指向任何内置类型的指针</p>
 <p>使用nullptr而非NULL可以避免使用模板时将NULL指针推导为int型。</p>
@@ -617,10 +707,19 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </ul>
 </blockquote>
 <h1 id="9-优先考虑别名声明而非typedefs"><a href="#9-优先考虑别名声明而非typedefs" class="headerlink" title="9. 优先考虑别名声明而非typedefs"></a>9. 优先考虑别名声明而非<code>typedef</code>s</h1><p>当声明一个函数指针时别名声明using更容易理解：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*FP)</span><span class="params">(<span class="type">int</span>, <span class="type">const</span> std::string&amp;)</span></span>;    <span class="comment">//typedef</span></span><br><span class="line"><span class="keyword">using</span> FP = <span class="built_in">void</span> (*)(<span class="type">int</span>, <span class="type">const</span> std::string&amp;);   <span class="comment">//别名声明</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef void (*FP)(int, const std::string&amp;);    &#x2F;&#x2F;typedef
+using FP &#x3D; void (*)(int, const std::string&amp;);   &#x2F;&#x2F;别名声明<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>using相比typedef最大一个特点是可以被模板化，而typedef定义模板别名只能嵌套进模板化的struct（其如果用来定义对象时又使用了模板形参，则定义对象时需要加typename）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;                            <span class="comment">//MyAllocList&lt;T&gt;是</span></span><br><span class="line"><span class="keyword">using</span> MyAllocList = std::list&lt;T, MyAlloc&lt;T&gt;&gt;;   <span class="comment">//std::list&lt;T, MyAlloc&lt;T&gt;&gt;的同义词</span></span><br><span class="line">MyAllocList&lt;Widget&gt; lw;                         <span class="comment">//用户代码</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;                            <span class="comment">//MyAllocList&lt;T&gt;是</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyAllocList</span> &#123;                            <span class="comment">//std::list&lt;T, MyAlloc&lt;T&gt;&gt;</span></span><br><span class="line">    <span class="keyword">typedef</span> std::list&lt;T, MyAlloc&lt;T&gt;&gt; type;      <span class="comment">//的同义词  </span></span><br><span class="line">&#125;;</span><br><span class="line">MyAllocList&lt;Widget&gt;::type lw;                   <span class="comment">//用户代码</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;                            &#x2F;&#x2F;MyAllocList&lt;T&gt;是
+using MyAllocList &#x3D; std::list&lt;T, MyAlloc&lt;T&gt;&gt;;   &#x2F;&#x2F;std::list&lt;T, MyAlloc&lt;T&gt;&gt;的同义词
+MyAllocList&lt;Widget&gt; lw;                         &#x2F;&#x2F;用户代码
+
+template&lt;typename T&gt;                            &#x2F;&#x2F;MyAllocList&lt;T&gt;是
+struct MyAllocList &#123;                            &#x2F;&#x2F;std::list&lt;T, MyAlloc&lt;T&gt;&gt;
+    typedef std::list&lt;T, MyAlloc&lt;T&gt;&gt; type;      &#x2F;&#x2F;的同义词  
+&#125;;
+MyAllocList&lt;Widget&gt;::type lw;                   &#x2F;&#x2F;用户代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结</strong></p>
@@ -631,10 +730,11 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </ul>
 </blockquote>
 <h2 id="10-优先考虑限域enum而非未限域enum"><a href="#10-优先考虑限域enum而非未限域enum" class="headerlink" title="10. 优先考虑限域enum而非未限域enum"></a>10. 优先考虑限域<code>enum</code>而非未限域<code>enum</code></h2><p>未限域<code>enum</code>，枚举名的名字属于包含这个<code>enum</code>的作用域，这意味着作用域内不能含有相同名字的其他东西</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Color</span> &#123; black, white, red &#125;;   <span class="comment">//black, white, red在Color所在的作用域</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">enum Color &#123; black, white, red &#125;;   &#x2F;&#x2F;black, white, red在Color所在的作用域<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>限域<code>enum</code>，枚举名的名字属于<code>enum</code>作用域</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum class</span> <span class="title class_">Color</span> &#123; black, white, red &#125;; <span class="comment">//black, white, red//限制在Color域内</span></span><br><span class="line"><span class="comment">//默认情况下，限域枚举的底层类型是int</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">enum class Color &#123; black, white, red &#125;; &#x2F;&#x2F;black, white, red&#x2F;&#x2F;限制在Color域内
+&#x2F;&#x2F;默认情况下，限域枚举的底层类型是int<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>限域<code>enum</code>优点：</p>
 <ul>
@@ -643,10 +743,12 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li><p>在作用域中，枚举名是强类型。未限域<code>enum</code>中的枚举名会隐式转换为整型</p>
 </li>
 <li><p>可以被前置声明，而非限域不行（除非指定底层类型，但编译器实现时需要知道所有枚举值从而选择一个最小的底层类型）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Color</span>: std::<span class="type">uint8_t</span>;   <span class="comment">//非限域enum前向声明 底层类型为std::uint8_t</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">enum Color: std::uint8_t;   &#x2F;&#x2F;非限域enum前向声明 底层类型为std::uint8_t<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 <p>未限域<code>enum</code>由于可隐式转换为整形，因此可有以下用法，限域要实现以下用法只能增加一个模板函数来转换，较为麻烦。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">UserInfoFields</span> &#123; uiName, uiEmail, uiReputation &#125;;</span><br><span class="line">UserInfo uInfo;                         <span class="comment">//有三个字段</span></span><br><span class="line"><span class="keyword">auto</span> val = std::<span class="built_in">get</span>&lt;uiEmail&gt;(uInfo);    <span class="comment">//想获取用户email字段的值</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">enum UserInfoFields &#123; uiName, uiEmail, uiReputation &#125;;
+UserInfo uInfo;                         &#x2F;&#x2F;有三个字段
+auto val &#x3D; std::get&lt;uiEmail&gt;(uInfo);    &#x2F;&#x2F;想获取用户email字段的值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -669,7 +771,8 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li><p><strong>任何</strong>函数（包括普通函数、模板示例函数）都可以标记为<em>deleted</em></p>
 </li>
 <li><p>禁止一些模板的实例化（在类中，无法使用private禁止函数模板实例化，因为模板特例化必须位于一个命名空间作用域，而不是类作用域）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="type">void</span> <span class="built_in">processPointer</span>&lt;<span class="type">void</span>&gt;(<span class="type">void</span>*) = <span class="keyword">delete</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;&gt;
+void processPointer&lt;void&gt;(void*) &#x3D; delete;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结</strong></p>
@@ -693,7 +796,9 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li><p>基类和派生类函数的返回值和异常说明（<em>exception specifications</em>）必须兼容</p>
 </li>
 <li><p>函数的引用限定符（<em>reference qualifiers</em>）必须完全一样。（c++11添加，它可以限定成员函数只能用于左值或者右值）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;</span>;    <span class="comment">//只有*this为左值的时候才能被调用</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;&amp;</span>;&#125;; <span class="comment">//只有*this为右值的时候才能被调用</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Widget &#123;
+    void doWork() &amp;;    &#x2F;&#x2F;只有*this为左值的时候才能被调用
+    void doWork() &amp;&amp;;&#125;; &#x2F;&#x2F;只有*this为右值的时候才能被调用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <p>重写要求过于多，因此需要使用override来显性让编译器检查是否是重写函数。</p>
 <blockquote>
@@ -705,10 +810,14 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </blockquote>
 <h2 id="13-优先考虑const-iterator而非iterator"><a href="#13-优先考虑const-iterator而非iterator" class="headerlink" title="13. 优先考虑const_iterator而非iterator"></a>13. 优先考虑<code>const_iterator</code>而非<code>iterator</code></h2><p> <code>const_iterator</code>等价于指向常量的指针，指向不能被修改的值。</p>
 <p>C++98使用 <code>const_iterator</code>存在诸多不便，但C++11使用 <code>const_iterator</code>变得容器使用，例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = std::<span class="built_in">find</span>(values.<span class="built_in">cbegin</span>(), values.<span class="built_in">cend</span>(), <span class="number">1983</span>);<span class="comment">//使用cbegin和cend</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto it &#x3D; std::find(values.cbegin(), values.cend(), 1983);&#x2F;&#x2F;使用cbegin和cend<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>C++11唯一支持不足在于不支持非成员函数<code>cbegin</code>，<code>cend</code>，<code>rbegin</code>，<code>rend</code>等，只提供<code>begin</code>、<code>end</code>（C++14中都已提供）。但可以通过以下方式自己支持：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">C</span>&gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">cbegin</span><span class="params">(<span class="type">const</span> C&amp; container)</span>-&gt;<span class="title">decltype</span><span class="params">(std::begin(container))</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">begin</span>(container);   <span class="comment">//解释见下</span></span><br><span class="line">&#125;<span class="comment">//对const容器调用非成员函数begin（由C++11提供）将产出const_iterator，</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template &lt;class C&gt;
+auto cbegin(const C&amp; container)-&gt;decltype(std::begin(container))
+&#123;
+    return std::begin(container);   &#x2F;&#x2F;解释见下
+&#125;&#x2F;&#x2F;对const容器调用非成员函数begin（由C++11提供）将产出const_iterator，<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结</strong></p>
@@ -746,7 +855,52 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li><p>不表明函数返回一个<code>const</code>值，<strong>如果实参是编译期常量，这些函数将产出编译期常量；如果实参是运行时才能知道的值，它们就将产出运行时值</strong>。</p>
 </li>
 <li><pre><code class="c++">constexpr int pow(int base, int exp)&#123;&#125; //constexpr函数
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- C++11中，`constexpr`函数的代码不超过一行语句：一个`return`（可使用`:? `运算符和递归），在C++14中，`constexpr`函数的限制变得非常宽松，不再限制一行语句。</span><br><span class="line"></span><br><span class="line">- `constexpr`函数限制为只能获取和返回**字面值类型**，在C++11中，除了`void`外的所有内置类型，以及一些用户定义类型都可以是字面值类型，因为构造函数和其他成员函数可能是`constexpr`</span><br><span class="line">  - 当构造函数可被声明为`constexpr`，如果传入的参数在编译期可知，其数据成员也能在编译器可知，此时这样定义的`constexpr`类变量会在编译期就构造完成。</span><br><span class="line">  - 当成员函数被声明为`constexpr`，则调用此函数的代码也能被编译期构造完成。在C++11中， 成员函数以下情况不能被声明为`constexpr`，在C++14中无此限制。</span><br><span class="line">    - 成员函数中修改操作的对象的状态</span><br><span class="line">    - 成员函数有`void`返回类型</span><br><span class="line"></span><br><span class="line">&gt; **总结**</span><br><span class="line">&gt;</span><br><span class="line">&gt; - `constexpr`对象是`const`，它被在编译期可知的值初始化</span><br><span class="line">&gt; - 当传递编译期可知的值时，`constexpr`函数可以产出编译期可知的结果</span><br><span class="line">&gt; - `constexpr`对象和函数可以使用的范围比non-`constexpr`对象和函数要大</span><br><span class="line">&gt; - `constexpr`是对象和函数接口的一部分</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 16. [让const成员函数线程安全](https://github.com/CnTransGroup/EffectiveModernCppChinese/blob/master/src/3.MovingToModernCpp/item16.md)</span><br><span class="line"></span><br><span class="line">`const`成员函数应支持并发执行，确保`const`成员函数是线程安全的，但是mutable定义的变量在const成员函数中仍能被修改，从而导致线程不安全。</span><br><span class="line"></span><br><span class="line">当const成员函数中需要修改mutable变量时，需保证互斥访问：</span><br><span class="line"></span><br><span class="line">- 对于需要同步的是单个的变量或者内存位置，使用`std::atomic`就足够</span><br><span class="line">- 对两个以上的变量或内存位置作为一个单元来操作的话，就应该使用互斥量</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 17. [理解特殊成员函数函数的生成](https://github.com/CnTransGroup/EffectiveModernCppChinese/blob/master/src/3.MovingToModernCpp/item17.md)</span><br><span class="line"></span><br><span class="line">**特殊成员函数**是指C++自己生成的函数。</span><br><span class="line"></span><br><span class="line">**C++98**</span><br><span class="line"></span><br><span class="line">- 有四个特殊成员函数：默认构造函数，析构函数，拷贝构造函数，拷贝赋值运算符，这些函数仅在需要的时候才生成</span><br><span class="line"></span><br><span class="line">- 默认构造函数仅在类完全没有构造函数的时候才生成，生成的特殊成员函数是隐式public且`inline`。它们是非虚的，除非相关函数是在派生类中的析构函数，派生类继承了有虚析构函数的基类。</span><br><span class="line"></span><br><span class="line">**C++11**</span><br><span class="line"></span><br><span class="line">- 新增两个特殊成员函数：移动构造函数和移动赋值运算符</span><br><span class="line"></span><br><span class="line">  ```c++</span><br><span class="line">  Widget(Widget&amp;&amp; rhs);               //移动构造函数</span><br><span class="line">  Widget&amp; operator=(Widget&amp;&amp; rhs);    //移动赋值运算符</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">
+- C++11中，&#96;constexpr&#96;函数的代码不超过一行语句：一个&#96;return&#96;（可使用&#96;:? &#96;运算符和递归），在C++14中，&#96;constexpr&#96;函数的限制变得非常宽松，不再限制一行语句。
+
+- &#96;constexpr&#96;函数限制为只能获取和返回**字面值类型**，在C++11中，除了&#96;void&#96;外的所有内置类型，以及一些用户定义类型都可以是字面值类型，因为构造函数和其他成员函数可能是&#96;constexpr&#96;
+  - 当构造函数可被声明为&#96;constexpr&#96;，如果传入的参数在编译期可知，其数据成员也能在编译器可知，此时这样定义的&#96;constexpr&#96;类变量会在编译期就构造完成。
+  - 当成员函数被声明为&#96;constexpr&#96;，则调用此函数的代码也能被编译期构造完成。在C++11中， 成员函数以下情况不能被声明为&#96;constexpr&#96;，在C++14中无此限制。
+    - 成员函数中修改操作的对象的状态
+    - 成员函数有&#96;void&#96;返回类型
+
+&gt; **总结**
+&gt;
+&gt; - &#96;constexpr&#96;对象是&#96;const&#96;，它被在编译期可知的值初始化
+&gt; - 当传递编译期可知的值时，&#96;constexpr&#96;函数可以产出编译期可知的结果
+&gt; - &#96;constexpr&#96;对象和函数可以使用的范围比non-&#96;constexpr&#96;对象和函数要大
+&gt; - &#96;constexpr&#96;是对象和函数接口的一部分
+
+
+
+## 16. [让const成员函数线程安全](https:&#x2F;&#x2F;github.com&#x2F;CnTransGroup&#x2F;EffectiveModernCppChinese&#x2F;blob&#x2F;master&#x2F;src&#x2F;3.MovingToModernCpp&#x2F;item16.md)
+
+&#96;const&#96;成员函数应支持并发执行，确保&#96;const&#96;成员函数是线程安全的，但是mutable定义的变量在const成员函数中仍能被修改，从而导致线程不安全。
+
+当const成员函数中需要修改mutable变量时，需保证互斥访问：
+
+- 对于需要同步的是单个的变量或者内存位置，使用&#96;std::atomic&#96;就足够
+- 对两个以上的变量或内存位置作为一个单元来操作的话，就应该使用互斥量
+
+
+
+## 17. [理解特殊成员函数函数的生成](https:&#x2F;&#x2F;github.com&#x2F;CnTransGroup&#x2F;EffectiveModernCppChinese&#x2F;blob&#x2F;master&#x2F;src&#x2F;3.MovingToModernCpp&#x2F;item17.md)
+
+**特殊成员函数**是指C++自己生成的函数。
+
+**C++98**
+
+- 有四个特殊成员函数：默认构造函数，析构函数，拷贝构造函数，拷贝赋值运算符，这些函数仅在需要的时候才生成
+
+- 默认构造函数仅在类完全没有构造函数的时候才生成，生成的特殊成员函数是隐式public且&#96;inline&#96;。它们是非虚的，除非相关函数是在派生类中的析构函数，派生类继承了有虚析构函数的基类。
+
+**C++11**
+
+- 新增两个特殊成员函数：移动构造函数和移动赋值运算符
+
+  &#96;&#96;&#96;c++
+  Widget(Widget&amp;&amp; rhs);               &#x2F;&#x2F;移动构造函数
+  Widget&amp; operator&#x3D;(Widget&amp;&amp; rhs);    &#x2F;&#x2F;移动赋值运算符<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 - 使用移动构造或者移动赋值时，如果支持移动就会逐成员移动类成员和基类成员，如果不支持移动就执行拷贝操作
 </code></pre>
@@ -829,7 +983,8 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <ul>
 <li>导致自带不同的删除器的两个<code>std::shared_ptr</code>，可以放到同一个类型的容器中，且能互相赋值。<code>std::unique_ptr</code>不行，因为删除器是其类型一部分。</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::unique_ptr&lt;Widget, <span class="title">decltype</span><span class="params">(loggingDel)</span>&gt; <span class="title">upw</span><span class="params">(<span class="keyword">new</span> Widget, loggingDel)</span></span>;  <span class="comment">// 删除器类型是指针类型的一部分</span></span><br><span class="line"><span class="function">std::shared_ptr&lt;Widget&gt; <span class="title">spw</span><span class="params">(<span class="keyword">new</span> Widget,loggingDel)</span></span>;  <span class="comment">// 删除器类型不是指针类型的一部分</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::unique_ptr&lt;Widget, decltype(loggingDel)&gt; upw(new Widget, loggingDel);  &#x2F;&#x2F; 删除器类型是指针类型的一部分
+std::shared_ptr&lt;Widget&gt; spw(new Widget,loggingDel);  &#x2F;&#x2F; 删除器类型不是指针类型的一部分<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><code>std::unique_ptr</code>指定自定义删除器不会改变<code>std::shared_ptr</code>对象的大小，总是只有两个指针大小。</p>
 <ul>
@@ -860,10 +1015,10 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <p>使用expired函数+解引用组合会存在竟态问题，但可以通过从<code>std::weak_ptr</code>上创建<code>std::shared_ptr</code>指针是否成功来判断所指对象是否已过期，有两种方法：</p>
 <ol>
 <li><p>使用lock函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::shared_ptr&lt;Widget&gt; spw1 = wpw.<span class="built_in">lock</span>();  <span class="comment">//如果wpw过期，spw1就为空</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::shared_ptr&lt;Widget&gt; spw1 &#x3D; wpw.lock();  &#x2F;&#x2F;如果wpw过期，spw1就为空<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>以<code>std::weak_ptr</code>为实参构造<code>std::shared_ptr</code>，这种情况中，如果<code>std::weak_ptr</code>过期，会抛出一个异常：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::shared_ptr&lt;Widget&gt; <span class="title">spw3</span><span class="params">(wpw)</span></span>;          <span class="comment">//如果wpw过期，抛出std::bad_weak_ptr异常</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::shared_ptr&lt;Widget&gt; spw3(wpw);          &#x2F;&#x2F;如果wpw过期，抛出std::bad_weak_ptr异常<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ol>
 <p><code>std::weak_ptr</code>可以解决指针循环持有问题，假如有三个对象<code>A</code>、<code>B</code>、<code>C</code>，每个对象中都有一个指针指向资源，<code>A</code>和<code>C</code>指针指向<code>B</code>，因此持有<code>std::shared_ptr</code>：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230208212020138.png" alt="image-20230208212020138"></p>
@@ -883,19 +1038,26 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </ul>
 </blockquote>
 <h2 id="21-优先考虑使用std-make-unique和std-make-shared，而非直接使用new"><a href="#21-优先考虑使用std-make-unique和std-make-shared，而非直接使用new" class="headerlink" title="21. 优先考虑使用std::make_unique和std::make_shared，而非直接使用new"></a>21. <a target="_blank" rel="noopener" href="https://github.com/CnTransGroup/EffectiveModernCppChinese/blob/master/src/4.SmartPointers/item21.md">优先考虑使用std::make_unique和std::make_shared，而非直接使用new</a></h2><p><code>std::make_shared</code>是C++11标准的一部分，但很可惜的是，<code>std::make_unique</code>不是。它从C++14开始加入标准库，自己实现如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Ts&gt;</span></span><br><span class="line"><span class="function">std::unique_ptr&lt;T&gt; <span class="title">make_unique</span><span class="params">(Ts&amp;&amp;... params)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">unique_ptr</span>&lt;T&gt;(<span class="keyword">new</span> <span class="built_in">T</span>(std::forward&lt;Ts&gt;(params)...));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T, typename... Ts&gt;
+std::unique_ptr&lt;T&gt; make_unique(Ts&amp;&amp;... params)&#123;
+    return std::unique_ptr&lt;T&gt;(new T(std::forward&lt;Ts&gt;(params)...));
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>为何使用<code>make</code>函数更好的原因：</p>
 <ul>
 <li>无需重复写两次类型，避免重复代码</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">upw1</span><span class="params">(std::make_unique&lt;Widget&gt;())</span></span>;      <span class="comment">//使用make函数 还能如此初始化？</span></span><br><span class="line"><span class="function">std::unique_ptr&lt;Widget&gt; <span class="title">upw2</span><span class="params">(<span class="keyword">new</span> Widget)</span></span>;   <span class="comment">//不使用make函数</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">spw1</span><span class="params">(std::make_shared&lt;Widget&gt;())</span></span>;      <span class="comment">//使用make函数</span></span><br><span class="line"><span class="function">std::shared_ptr&lt;Widget&gt; <span class="title">spw2</span><span class="params">(<span class="keyword">new</span> Widget)</span></span>;   <span class="comment">//不使用make函数</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto upw1(std::make_unique&lt;Widget&gt;());      &#x2F;&#x2F;使用make函数 还能如此初始化？
+std::unique_ptr&lt;Widget&gt; upw2(new Widget);   &#x2F;&#x2F;不使用make函数
+auto spw1(std::make_shared&lt;Widget&gt;());      &#x2F;&#x2F;使用make函数
+std::shared_ptr&lt;Widget&gt; spw2(new Widget);   &#x2F;&#x2F;不使用make函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><p>避免函数调用时发生异常导致资源泄露</p>
 <ul>
 <li><p>假设调用一个函数如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">processWidget</span>(std::<span class="built_in">shared_ptr</span>&lt;Widget&gt;(<span class="keyword">new</span> Widget),  <span class="comment">//潜在的资源泄漏！</span></span><br><span class="line">              <span class="built_in">computePriority</span>());</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">processWidget(std::shared_ptr&lt;Widget&gt;(new Widget),  &#x2F;&#x2F;潜在的资源泄漏！
+              computePriority());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>在函数调用前，会有“<code>new Widget</code>”、<code>std::shared_ptr&lt;Widget&gt;</code>构造、<code>computePriority</code>三个步骤需要执行，但是编译器执行顺序不一定，如果先执行“<code>new Widget</code>”，然后执行<code>computePriority</code>时发生异常则会导致shared指针不会构造，从而造成资源泄露</p>
 </li>
@@ -924,10 +1086,25 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </blockquote>
 <h2 id="22-当使用Pimpl惯用法，请在实现文件中定义特殊成员函数"><a href="#22-当使用Pimpl惯用法，请在实现文件中定义特殊成员函数" class="headerlink" title="22. 当使用Pimpl惯用法，请在实现文件中定义特殊成员函数"></a>22. <a target="_blank" rel="noopener" href="https://github.com/CnTransGroup/EffectiveModernCppChinese/blob/master/src/4.SmartPointers/item22.md">当使用Pimpl惯用法，请在实现文件中定义特殊成员函数</a></h2><p><strong>Pimpl</strong>（<em>pointer to implementation</em>）：将类数据成员替换成一个指向包含具体实现的类（或结构体）的指针，并将放在主类（primary class）的数据成员们移动到实现类（implementation class）去，而这些数据成员的访问将通过指针间接访问</p>
 <p>假设有一个类使用Pimpl惯用法，但<strong>使用的是一个unique_ptr指针</strong>，类定义和类实现如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span> &#123;                      <span class="comment">//在“widget.h”中</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Widget</span>();</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Impl</span>;</span><br><span class="line">    std::unique_ptr&lt;Impl&gt; pImpl;    <span class="comment">//使用智能指针而不是原始指针</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//实现文件cpp</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Widget</span>::Impl &#123;               <span class="comment">//跟之前一样</span></span><br><span class="line">    std::string name;</span><br><span class="line">    std::vector&lt;<span class="type">double</span>&gt; data;</span><br><span class="line">    Gadget g1,g2,g3;</span><br><span class="line">&#125;;</span><br><span class="line">Widget::<span class="built_in">Widget</span>()                    <span class="comment">//根据条款21，通过std::make_unique</span></span><br><span class="line">: <span class="built_in">pImpl</span>(std::<span class="built_in">make_unique</span>&lt;Impl&gt;())   <span class="comment">//来创建std::unique_ptr</span></span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Widget &#123;                      &#x2F;&#x2F;在“widget.h”中
+public:
+    Widget();
+private:
+    struct Impl;
+    std::unique_ptr&lt;Impl&gt; pImpl;    &#x2F;&#x2F;使用智能指针而不是原始指针
+&#125;;
+&#x2F;&#x2F;实现文件cpp
+struct Widget::Impl &#123;               &#x2F;&#x2F;跟之前一样
+    std::string name;
+    std::vector&lt;double&gt; data;
+    Gadget g1,g2,g3;
+&#125;;
+Widget::Widget()                    &#x2F;&#x2F;根据条款21，通过std::make_unique
+: pImpl(std::make_unique&lt;Impl&gt;())   &#x2F;&#x2F;来创建std::unique_ptr
+&#123;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>以上的代码能编译，但是最普通的<code>Widget</code>用法却会导致编译出错：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Widget w;                           <span class="comment">//错误！</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">Widget w;                           &#x2F;&#x2F;错误！<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>这是因为对象<code>w</code>被析构时，编译器会自动生成一个析构函数，在这个析构函数里，编译器会插入一些代码来调用类<code>Widget</code>的数据成员<code>pImpl</code>的析构函数。<code>pImpl</code>的默认删除器会使用<code>delete</code>来销毁内置于<code>std::unique_ptr</code>的原始指针，然而在使用<code>delete</code>之前通常会使用<code>static_assert</code>来确保原始指针指向的类型不是一个未完成类型。</p>
 <ul>
@@ -961,7 +1138,12 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <h2 id="23-理解std-move和std-forward"><a href="#23-理解std-move和std-forward" class="headerlink" title="23. 理解std::move和std::forward"></a>23. <a target="_blank" rel="noopener" href="https://github.com/CnTransGroup/EffectiveModernCppChinese/blob/master/src/5.RRefMovSemPerfForw/item23.md">理解std::move和std::forward</a></h2><p><code>std::move</code>不移动（move）任何东西，<code>std::forward</code>也不转发（forward）任何东西。在运行时，它们不做任何事情，不产生任何可执行代码。</p>
 <p><code>std::move</code>和<code>std::forward</code>仅仅是执行转换（cast）的函数（事实上是函数模板）。<code>std::move</code>无条件的将它的实参转换为右值，而<code>std::forward</code>只在特定情况满足时下进行转换。</p>
 <p><code>std::move</code>的实现只是做了一个类型转换，注意返回类型是先去除引用再添加右值引用：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;                            <span class="comment">//在std命名空间</span></span><br><span class="line"><span class="keyword">typename</span> remove_reference&lt;T&gt;::<span class="function">type&amp;&amp;</span></span><br><span class="line"><span class="function"><span class="title">move</span><span class="params">(T&amp;&amp; param)</span></span>&#123;</span><br><span class="line">    <span class="keyword">using</span> ReturnType =<span class="keyword">typename</span> remove_reference&lt;T&gt;::type&amp;&amp;;                         </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;ReturnType&gt;(param);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;                            &#x2F;&#x2F;在std命名空间
+typename remove_reference&lt;T&gt;::type&amp;&amp;
+move(T&amp;&amp; param)&#123;
+    using ReturnType &#x3D;typename remove_reference&lt;T&gt;::type&amp;&amp;;                         
+    return static_cast&lt;ReturnType&gt;(param);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong><code>std::move</code>注意</strong></p>
 <ul>
@@ -983,12 +1165,17 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li>通用引用，可以绑定到几乎任何东西。</li>
 </ul>
 <p>观察是否存在类型推导来区分是否为通用引用，一般有以下两种通用引用类型：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T&amp;&amp; param)</span></span>;                  <span class="comment">//param是一个通用引用</span></span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; var2 = var1;                 <span class="comment">//var2是一个通用引用</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void f(T&amp;&amp; param);                  &#x2F;&#x2F;param是一个通用引用
+auto&amp;&amp; var2 &#x3D; var1;                 &#x2F;&#x2F;var2是一个通用引用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>注意</strong></p>
 <ul>
 <li><p>通用引用的格式必须为“<code>T&amp;&amp;</code>”（T可以是其他名字），无论是加const还是其他格式皆非通用引用</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(std::vector&lt;T&gt;&amp;&amp; param)</span></span>;     <span class="comment">//param是一个右值引用！！</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">const</span> T&amp;&amp; param)</span></span>;        <span class="comment">//param是一个右值引用</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
+void f(std::vector&lt;T&gt;&amp;&amp; param);     &#x2F;&#x2F;param是一个右值引用！！
+template &lt;typename T&gt;
+void f(const T&amp;&amp; param);        &#x2F;&#x2F;param是一个右值引用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>模板内的函数即使有“<code>T&amp;&amp;</code>”形参，但也不一定是通用引用，因为其类型可能在模板推导时就被推导出来了，只有在函数调用时进行推导的“<code>T&amp;&amp;</code>”形参才是通用引用</p>
 </li>
@@ -1063,7 +1250,10 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li>如果任一引用为左值引用，则结果为左值引用。否则（即，如果引用都是右值引用），结果为右值引用。</li>
 </ul>
 <p>std::forward实现也利用了引用折叠原理：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;                                <span class="comment">//在std命名空间</span></span><br><span class="line"><span class="function">T&amp;&amp; <span class="title">forward</span><span class="params">(<span class="keyword">typename</span> remove_reference&lt;T&gt;::type&amp; param)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;T&amp;&amp;&gt;(param);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;                                &#x2F;&#x2F;在std命名空间
+T&amp;&amp; forward(typename remove_reference&lt;T&gt;::type&amp; param)&#123;
+    return static_cast&lt;T&amp;&amp;&gt;(param);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>有四种情况会发生引用折叠：</p>
 <ul>
@@ -1155,7 +1345,8 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li>初始化该成员的<strong>表达式</strong>；</li>
 </ol>
 <p>初始化捕获示例如下，“<code>=</code>”的左侧是指定的闭包类中数据成员的名称，右侧则是初始化表达式。“<code>=</code>”左侧的作用域不同于右侧的作用域，“<code>=</code>”左侧的名称<code>pw</code>表示闭包类中的数据成员，而右侧的名称<code>pw</code>表示在<em>lambda</em>上方声明的对象</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> func = [pw = std::<span class="built_in">move</span>(pw)]        <span class="comment">//使用std::move(pw)初始化闭包数据成员</span></span><br><span class="line">            &#123; <span class="keyword">return</span> pw-&gt;<span class="built_in">isValidated</span>()&amp;&amp; pw-&gt;<span class="built_in">isArchived</span>(); &#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto func &#x3D; [pw &#x3D; std::move(pw)]        &#x2F;&#x2F;使用std::move(pw)初始化闭包数据成员
+            &#123; return pw-&gt;isValidated()&amp;&amp; pw-&gt;isArchived(); &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>移动捕获可以在C++11中这样模拟：</p>
 <ol>
@@ -1164,13 +1355,19 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </ol>
 <p>由于bind对象的生命周期与闭包对象的生命周期相同，因此可以将bind对象中的对象视为闭包中的对象。</p>
 <p>模拟示例代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> func =</span><br><span class="line">    std::<span class="built_in">bind</span>(                              <span class="comment">//C++11模拟初始化捕获</span></span><br><span class="line">        [](<span class="type">const</span> std::vector&lt;<span class="type">double</span>&gt;&amp; data) <span class="comment">//译者注：本行高亮</span></span><br><span class="line">        &#123; <span class="comment">/*使用data*/</span> &#125;,</span><br><span class="line">        std::<span class="built_in">move</span>(data)                     <span class="comment">//译者注：本行高亮</span></span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto func &#x3D;
+    std::bind(                              &#x2F;&#x2F;C++11模拟初始化捕获
+        [](const std::vector&lt;double&gt;&amp; data) &#x2F;&#x2F;译者注：本行高亮
+        &#123; &#x2F;*使用data*&#x2F; &#125;,
+        std::move(data)                     &#x2F;&#x2F;译者注：本行高亮
+    );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h2 id="33-对auto-amp-amp-形参使用decltype以std-forward它们"><a href="#33-对auto-amp-amp-形参使用decltype以std-forward它们" class="headerlink" title="33. 对auto&amp;&amp;形参使用decltype以std::forward它们"></a>33. <a target="_blank" rel="noopener" href="https://github.com/CnTransGroup/EffectiveModernCppChinese/blob/master/src/6.LambdaExpressions/item33.md">对<code>auto&amp;&amp;</code>形参使用<code>decltype</code>以<code>std::forward</code>它们</a></h2><p><strong>泛型lambda</strong>的实现很简洁，即在闭包类中的<code>operator()</code>函数是一个函数模版</p>
 <p>如果需要进行完美转发，则需要将lambda表达式形参定义为auto&amp;&amp;，但是这会导致std::forward的模板类型无法填写。解决方法是使用<code>decltype(x)</code>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> f = [](<span class="keyword">auto</span>&amp;&amp; x) &#123; <span class="keyword">return</span> <span class="built_in">func</span>(<span class="built_in">normalize</span>(std::forward&lt;???&gt;(x))); &#125;;</span><br><span class="line"><span class="keyword">auto</span> f = [](<span class="keyword">auto</span>&amp;&amp; x) &#123; <span class="keyword">return</span> <span class="built_in">func</span>(<span class="built_in">normalize</span>(std::forward&lt;<span class="keyword">decltype</span>(x)&gt;(x))); &#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto f &#x3D; [](auto&amp;&amp; x) &#123; return func(normalize(std::forward&lt;???&gt;(x))); &#125;;
+auto f &#x3D; [](auto&amp;&amp; x) &#123; return func(normalize(std::forward&lt;decltype(x)&gt;(x))); &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
 
@@ -1180,7 +1377,13 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li>一个解决方法是将实参函数也使用bind函数绑定。</li>
 <li>但是此方法面对函数重载时会编译失败，除非将函数名静态转换为函数指针，但编译器通常不会对函数指针进行内联。因此，使用<em>lambda</em>可能会比使用<code>std::bind</code>能生成更快的代码。</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> setSoundB =                            <span class="comment">//“B”代表“bind”</span></span><br><span class="line">    std::<span class="built_in">bind</span>(setAlarm, steady_clock::<span class="built_in">now</span>() + <span class="number">1</span>h,     <span class="comment">//不正确！见下</span></span><br><span class="line">              _1,<span class="number">30</span>s);</span><br><span class="line"><span class="comment">//解决方法</span></span><br><span class="line"><span class="keyword">auto</span> setSoundB = std::<span class="built_in">bind</span>(setAlarm,</span><br><span class="line">              std::<span class="built_in">bind</span>(std::plus&lt;&gt;(), std::<span class="built_in">bind</span>(steady_clock::now), <span class="number">1</span>h),</span><br><span class="line">              _1,<span class="number">30</span>s);     </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto setSoundB &#x3D;                            &#x2F;&#x2F;“B”代表“bind”
+    std::bind(setAlarm, steady_clock::now() + 1h,     &#x2F;&#x2F;不正确！见下
+              _1,30s);
+&#x2F;&#x2F;解决方法
+auto setSoundB &#x3D; std::bind(setAlarm,
+              std::bind(std::plus&lt;&gt;(), std::bind(steady_clock::now), 1h),
+              _1,30s);     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>std::bind总是拷贝它的实参，但是可以使用引用来存储实参，这要通过应用<code>std::ref</code>到实参上实现。<code>auto compressRateB = std::bind(compress, std::ref(w), _1)</code>;</p>
 <p>在C++14中，没有<code>std::bind</code>的合理用例。 但在C++11中，两个受约束的情况下证明使用<code>std::bind</code>是合理的：</p>
@@ -1198,10 +1401,10 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <h1 id="CHAPTER7-The-Concurrency-API"><a href="#CHAPTER7-The-Concurrency-API" class="headerlink" title="CHAPTER7 The Concurrency API"></a><strong>CHAPTER7 The Concurrency API</strong></h1><h2 id="35-优先考虑基于任务的编程而非基于线程的编程"><a href="#35-优先考虑基于任务的编程而非基于线程的编程" class="headerlink" title="35. 优先考虑基于任务的编程而非基于线程的编程"></a>35. <a target="_blank" rel="noopener" href="https://github.com/CnTransGroup/EffectiveModernCppChinese/blob/master/src/7.TheConcurrencyAPI/Item35.md">优先考虑基于任务的编程而非基于线程的编程</a></h2><p>异步执行<code>doAsyncWork</code>函数，通常有两种方式：</p>
 <ul>
 <li><p>创建<code>std::thread</code>执行<code>doAsyncWork</code>，这是应用了<strong>基于线程</strong>（<em>thread-based</em>）的方式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::thread <span class="title">t</span><span class="params">(doAsyncWork)</span></span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::thread t(doAsyncWork);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>将<code>doAsyncWork</code>传递给<code>std::async</code>，一种<strong>基于任务</strong>（<em>task-based</em>）的策略（传递给<code>std::async</code>的函数对象被称为一个<strong>任务</strong>）：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> fut = std::<span class="built_in">async</span>(doAsyncWork); <span class="comment">//“fut”表示“future”</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto fut &#x3D; std::async(doAsyncWork); &#x2F;&#x2F;“fut”表示“future”<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 <p>基于任务的方法通常比基于线程的方法更优，原因：</p>
 <ul>
@@ -1242,7 +1445,8 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li>默认启动策略的调度灵活性导致使用<code>thread_local</code>变量比较麻烦，因为无法确认线程局部变量是新创建线程的还是调用方所在线程的</li>
 <li>会影响到基于<code>wait</code>的循环使用超时机制，因为在一个延时的任务上调用<code>wait_for</code>或者<code>wait_until</code>会产生<code>std::launch::deferred</code>值</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> fut2 = std::<span class="built_in">async</span>(std::launch::async |     <span class="comment">//使用async或者deferred运行f</span></span><br><span class="line">                       std::launch::deferred,f);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto fut2 &#x3D; std::async(std::launch::async |     &#x2F;&#x2F;使用async或者deferred运行f
+                       std::launch::deferred,f);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>只要满足以下条件，<code>std::async</code>的默认启动策略就可以使用：</p>
 <ul>
@@ -1272,7 +1476,25 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </ul>
 <p><strong><code>std::thread</code>的可结合性如此重要的原因之一</strong>：当可结合的线程的析构函数被调用，程序执行会终止</p>
 <p>为了保证<code>std::thread</code>最后是不可结合的，可使用RALL来管理，即类似智能指针。实现代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ThreadRAII</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">enum class</span> <span class="title class_">DtorAction</span> &#123; join, detach &#125;;    <span class="comment">// enum class的信息见条款10</span></span><br><span class="line">  <span class="built_in">ThreadRAII</span>(std::thread&amp;&amp; t, DtorAction a)  <span class="comment">// 析构函数中对t实行a动作</span></span><br><span class="line">      : <span class="built_in">action</span>(a), <span class="built_in">t</span>(std::<span class="built_in">move</span>(t)) &#123;&#125;</span><br><span class="line">  ~<span class="built_in">ThreadRAII</span>() &#123;  <span class="comment">// 可结合性测试见下</span></span><br><span class="line">    <span class="keyword">if</span> (t.<span class="built_in">joinable</span>()) &#123;</span><br><span class="line">      <span class="keyword">if</span> (action == DtorAction::join) &#123;</span><br><span class="line">        t.<span class="built_in">join</span>();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        t.<span class="built_in">detach</span>();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function">std::thread&amp; <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> t; &#125;  <span class="comment">// 见下</span></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  DtorAction action;</span><br><span class="line">  std::thread t;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class ThreadRAII &#123;
+ public:
+  enum class DtorAction &#123; join, detach &#125;;    &#x2F;&#x2F; enum class的信息见条款10
+  ThreadRAII(std::thread&amp;&amp; t, DtorAction a)  &#x2F;&#x2F; 析构函数中对t实行a动作
+      : action(a), t(std::move(t)) &#123;&#125;
+  ~ThreadRAII() &#123;  &#x2F;&#x2F; 可结合性测试见下
+    if (t.joinable()) &#123;
+      if (action &#x3D;&#x3D; DtorAction::join) &#123;
+        t.join();
+      &#125; else &#123;
+        t.detach();
+      &#125;
+    &#125;
+  &#125;
+  std::thread&amp; get() &#123; return t; &#125;  &#x2F;&#x2F; 见下
+ private:
+  DtorAction action;
+  std::thread t;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结</strong></p>
@@ -1332,7 +1554,14 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 </ul>
 </li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">std::promise&lt;<span class="type">void</span>&gt; p;                   <span class="comment">//通信信道的promise</span></span><br><span class="line"><span class="comment">//检测任务</span></span><br><span class="line">…                                       <span class="comment">//检测某个事件</span></span><br><span class="line">p.<span class="built_in">set_value</span>();                          <span class="comment">//通知反应任务</span></span><br><span class="line"><span class="comment">//反应任务</span></span><br><span class="line">…                                       <span class="comment">//准备作出反应</span></span><br><span class="line">p.<span class="built_in">get_future</span>().<span class="built_in">wait</span>();                  <span class="comment">//等待对应于p的那个future</span></span><br><span class="line">…                                       <span class="comment">//对事件作出反应</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::promise&lt;void&gt; p;                   &#x2F;&#x2F;通信信道的promise
+&#x2F;&#x2F;检测任务
+…                                       &#x2F;&#x2F;检测某个事件
+p.set_value();                          &#x2F;&#x2F;通知反应任务
+&#x2F;&#x2F;反应任务
+…                                       &#x2F;&#x2F;准备作出反应
+p.get_future().wait();                  &#x2F;&#x2F;等待对应于p的那个future
+…                                       &#x2F;&#x2F;对事件作出反应<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p><strong>总结</strong></p>
@@ -1360,7 +1589,7 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li><p><code>volatile</code>用于访问特殊内存，对并发编程没用。</p>
 </li>
 <li><p>因为<code>std::atomic</code>和<code>volatile</code>用于不同的目的，所以可以结合起来使用：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> std::atomic&lt;<span class="type">int</span>&gt; vai;          <span class="comment">//对vai的操作是原子性的，且不能被优化掉</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">volatile std::atomic&lt;int&gt; vai;          &#x2F;&#x2F;对vai的操作是原子性的，且不能被优化掉<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 <blockquote>
 <p><strong>总结</strong></p>
@@ -1372,12 +1601,17 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <h1 id="CHAPTER8-Tweaks"><a href="#CHAPTER8-Tweaks" class="headerlink" title="CHAPTER8 Tweaks"></a><strong>CHAPTER8 Tweaks</strong></h1><h2 id="41-对于移动成本低且总是被拷贝的可拷贝形参，考虑按值传递"><a href="#41-对于移动成本低且总是被拷贝的可拷贝形参，考虑按值传递" class="headerlink" title="41. 对于移动成本低且总是被拷贝的可拷贝形参，考虑按值传递"></a>41. <a target="_blank" rel="noopener" href="https://github.com/CnTransGroup/EffectiveModernCppChinese/blob/master/src/8.Tweaks/item41.md">对于移动成本低且总是被拷贝的可拷贝形参，考虑按值传递</a></h2><p>假设需要拷贝一个形参到私有容器，</p>
 <ul>
 <li><p>为了提高效率，应该设计以下两个函数，但会导致维护十分麻烦。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addName</span><span class="params">(<span class="type">const</span> std::string&amp; newName)</span>    <span class="comment">//接受左值；拷贝它</span></span></span><br><span class="line"><span class="function">    </span>&#123; names.<span class="built_in">push_back</span>(newName); &#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">addName</span><span class="params">(std::string&amp;&amp; newName)</span>         <span class="comment">//接受右值；移动它；std::move</span></span></span><br><span class="line"><span class="function">    </span>&#123; names.<span class="built_in">push_back</span>(std::<span class="built_in">move</span>(newName)); &#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void addName(const std::string&amp; newName)    &#x2F;&#x2F;接受左值；拷贝它
+    &#123; names.push_back(newName); &#125;
+void addName(std::string&amp;&amp; newName)         &#x2F;&#x2F;接受右值；移动它；std::move
+    &#123; names.push_back(std::move(newName)); &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>或使<code>addName</code>函数成为具有通用引用的函数模板，但是通用引用会导致实现必须放置在头文件、实例化等复杂性</p>
 </li>
 <li><p>一个可行的方式就是直接使用传值的方式，在C++11中，只有在左值实参情况下，<code>addName</code>被拷贝构造出来；对于右值，它会被移动构造（应该是编译器优化实现）。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addName</span><span class="params">(std::string newName)</span> </span>&#123;         <span class="comment">//接受左值或右值；移动它</span></span><br><span class="line">        names.<span class="built_in">push_back</span>(std::<span class="built_in">move</span>(newName));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void addName(std::string newName) &#123;         &#x2F;&#x2F;接受左值或右值；移动它
+        names.push_back(std::move(newName));
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <p>考虑以上三种方法的开销：</p>
 <ul>
@@ -1409,7 +1643,8 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <li>从”xyzzy”创建一个临时对象，然后传递给push_back的右值重载函数，然后此临时对象会被拷贝（移动）构造在vector内部创建一个新的对象，最后将临时对象销毁</li>
 <li>上述操作多了一组不必要的构造和析构操作，造成了性能开销</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;std::string&gt; vs;        <span class="comment">//std::string的容器</span></span><br><span class="line">vs.<span class="built_in">push_back</span>(<span class="string">&quot;xyzzy&quot;</span>);              <span class="comment">//添加字符串字面量</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::vector&lt;std::string&gt; vs;        &#x2F;&#x2F;std::string的容器
+vs.push_back(&quot;xyzzy&quot;);              &#x2F;&#x2F;添加字符串字面量<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>使用emplace_back会直接在vector内部构造一个string，不会有临时变量生成和销毁。emplace_back是使用完美转发实现。可用于支持push_back的标准容器。</p>
 <ul>
@@ -1582,13 +1817,13 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/c++/%E4%BE%AF%E6%8D%B7STL/">
+                <a href="/2023/02/15/c++/C++11%E6%96%B0%E7%89%B9%E6%80%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="侯捷STL视频笔记">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="C++11新特性">
                         
-                        <span class="card-title">侯捷STL视频笔记</span>
+                        <span class="card-title">C++11新特性</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1620,8 +1855,8 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
                         <span class="chip bg-color">C++</span>
                     </a>
                     
-                    <a href="/tags/STL/">
-                        <span class="chip bg-color">STL</span>
+                    <a href="/tags/C-11/">
+                        <span class="chip bg-color">C++11</span>
                     </a>
                     
                 </div>
@@ -1635,13 +1870,13 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/c++/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5_C++11/">
+                <a href="/2023/02/15/c++/cmake%E7%AC%94%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="多线程和线程同步-C++11">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CMake笔记">
                         
-                        <span class="card-title">多线程和线程同步-C++11</span>
+                        <span class="card-title">CMake笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1673,8 +1908,8 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
                         <span class="chip bg-color">C++</span>
                     </a>
                     
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-                        <span class="chip bg-color">多线程</span>
+                    <a href="/tags/CMake/">
+                        <span class="chip bg-color">CMake</span>
                     </a>
                     
                 </div>
@@ -1692,6 +1927,9 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -1869,7 +2107,7 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

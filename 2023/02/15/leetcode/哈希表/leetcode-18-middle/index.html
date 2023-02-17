@@ -406,7 +406,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    444
+                    467
                 </div>
                 
 
@@ -428,7 +428,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -441,7 +449,41 @@
 <li>时间复杂度：O(n^3^)</li>
 <li>空间复杂度：O(logn)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">fourSum</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;n;++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(j&gt;i+<span class="number">1</span>&amp;&amp;nums[j]==nums[j<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="type">long</span> <span class="type">long</span> remain=(<span class="type">long</span> <span class="type">long</span>)target-nums[i]-nums[j];<span class="comment">//不转为long long有个例子会越界,转成long也不会报错，但迷惑的是long和int相同范围，猜测减法时long会提升到long long</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> l=j+<span class="number">1</span>,r=n<span class="number">-1</span>;l&lt;r;)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(l&gt;j+<span class="number">1</span>&amp;&amp;nums[l]==nums[l<span class="number">-1</span>])&#123;<span class="comment">//避免重复值</span></span><br><span class="line">                        ++l;</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(r&lt;n<span class="number">-1</span>&amp;&amp;nums[r]==nums[r+<span class="number">1</span>])&#123;<span class="comment">//避免重复值</span></span><br><span class="line">                        --r;</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="type">int</span> sum=nums[l]+nums[r];</span><br><span class="line">                    <span class="keyword">if</span>(sum==remain)&#123;</span><br><span class="line">                        ans.<span class="built_in">push_back</span>(&#123;nums[i],nums[j],nums[l],nums[r]&#125;);</span><br><span class="line">                        ++l;</span><br><span class="line">                    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(sum&gt;remain)&#123;</span><br><span class="line">                        --r;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        ++l;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt;&amp; nums, int target) &#123;
+        sort(nums.begin(),nums.end());
+        int n&#x3D;nums.size();
+        vector&lt;vector&lt;int&gt;&gt; ans;
+        for(int i&#x3D;0;i&lt;n;++i)&#123;
+            if(i&gt;0&amp;&amp;nums[i]&#x3D;&#x3D;nums[i-1]) continue;
+            for(int j&#x3D;i+1;j&lt;n;++j)&#123;
+                if(j&gt;i+1&amp;&amp;nums[j]&#x3D;&#x3D;nums[j-1]) continue;
+                long long remain&#x3D;(long long)target-nums[i]-nums[j];&#x2F;&#x2F;不转为long long有个例子会越界,转成long也不会报错，但迷惑的是long和int相同范围，猜测减法时long会提升到long long
+                for(int l&#x3D;j+1,r&#x3D;n-1;l&lt;r;)&#123;
+                    if(l&gt;j+1&amp;&amp;nums[l]&#x3D;&#x3D;nums[l-1])&#123;&#x2F;&#x2F;避免重复值
+                        ++l;
+                        continue;
+                    &#125;
+                    if(r&lt;n-1&amp;&amp;nums[r]&#x3D;&#x3D;nums[r+1])&#123;&#x2F;&#x2F;避免重复值
+                        --r;
+                        continue;
+                    &#125;
+                    int sum&#x3D;nums[l]+nums[r];
+                    if(sum&#x3D;&#x3D;remain)&#123;
+                        ans.push_back(&#123;nums[i],nums[j],nums[l],nums[r]&#125;);
+                        ++l;
+                    &#125;else if(sum&gt;remain)&#123;
+                        --r;
+                    &#125;else&#123;
+                        ++l;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -631,12 +673,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                        <span class="chip bg-color">Alg-哈希表</span>
-                    </a>
-                    
                     <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
                         <span class="chip bg-color">Alg-双指针</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                        <span class="chip bg-color">Alg-哈希表</span>
                     </a>
                     
                 </div>
@@ -684,12 +726,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                        <span class="chip bg-color">Alg-哈希表</span>
-                    </a>
-                    
                     <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
                         <span class="chip bg-color">Alg-双指针</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                        <span class="chip bg-color">Alg-哈希表</span>
                     </a>
                     
                 </div>
@@ -707,6 +749,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -884,7 +929,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

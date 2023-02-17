@@ -423,27 +423,28 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0-simple/">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91-simple/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="509. 斐波那契数">
+                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="617. 合并二叉树">
                             
-                            <span class="card-title">509. 斐波那契数</span>
+                            <span class="card-title">617. 合并二叉树</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                509. 斐波那契数First：直接使用递归来做，但时间打败率挺低。
+                                617. 合并二叉树First：比较简单，只是解析答案有些巧妙，记录下
 
 方法1：递归
-不断递归找到最终结果即可。
+开始使用的创建新树来做，代码随想录的解法巧妙些。
 
 时间复杂度：O(n) 
 空间复杂度：O(n)
 
-12345678910class Solution &#123;public
+class Solution &#123;
+publ
                             
                         </div>
                         <div class="publish-info">
@@ -466,8 +467,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
                         </a>
                         
                     </div>
@@ -477,25 +478,229 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-494-%E7%9B%AE%E6%A0%87%E5%92%8C-middle/">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-450-%E5%88%A0%E9%99%A4%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="494. 目标和">
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="450. 删除二叉搜索树中的节点">
                             
-                            <span class="card-title">494. 目标和</span>
+                            <span class="card-title">450. 删除二叉搜索树中的节点</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                494. 目标和First：以前做过，但还是没做出来，想到了要找(sum-target)&#x2F;2，但dp含义没理解透彻，初始化也没搞对。
+                                450. 删除二叉搜索树中的节点First：方法不难，记一下细节
 
-动态规划五部法：
+方法1：递归遍历
+由于当前被删节点是可能有父节点，父节点要删除此子节点，因此遍历时返回TreeNode*指针。先找到被删节点，如果被删节点左右孩子有一个不为空，返回不为空的
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="116. 填充每个节点的下一个右侧节点指针">
+                            
+                            <span class="card-title">116. 填充每个节点的下一个右侧节点指针</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                116. 填充每个节点的下一个右侧节点指针First：普通解法挺简单，进阶要求要复杂些。此题和117题解法一模一样，没任何差别。
+
+方法1：层序遍历
+使用层序遍历，每次将前一个节点指向后一个节点即可
+
+时间复杂度：O(n) 
+空间复杂度：O
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-106-%E4%BB%8E%E4%B8%AD%E5%BA%8F%E4%B8%8E%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="106. 从中序与后序遍历序列构造二叉树">
+                            
+                            <span class="card-title">106. 从中序与后序遍历序列构造二叉树</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                106. 从中序与后序遍历序列构造二叉树First：没想到可以利用pos1求出的长度来求出pos2所在位置
+
+方法1：递归
+postorder的最后一个数k可以将inorder分为两部分，这两部分分别是k的左右两个子树构成。而这两部分也可以
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="236. 二叉树的最近公共祖先">
+                            
+                            <span class="card-title">236. 二叉树的最近公共祖先</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                236. 二叉树的最近公共祖先First：递归解法挺巧妙，但还是没写出来
+
+方法1：递归遍历
+原理值得细看，原来只是知其然不知其所以然。解析
+
+时间复杂度：O(n) 
+空间复杂度：O(n)
+
+class Solution &#123;
+pu
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="回溯算法理论总结">
+                            
+                            <span class="card-title">回溯算法理论总结</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                回溯法解决的问题回溯法，一般可以解决如下几种问题：
+
+组合问题：N个数里面按一定规则找出k个数的集合
+切割问题：一个字符串按一定规则有几种切割方式
+子集问题：一个N个数的集合里有多少符合条件的子集
+排列问题：N个数按一定规则全排列，有几种排
                             
                         </div>
                         <div class="publish-info">
@@ -522,10 +727,6 @@ dp数组如何
                             <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
                     </div>
                     
                 </div>
@@ -533,31 +734,22 @@ dp数组如何
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-474-%E4%B8%80%E5%92%8C%E9%9B%B6-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-93-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="474. 一和零">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="93. 复原 IP 地址">
                             
-                            <span class="card-title">474. 一和零</span>
+                            <span class="card-title">93. 复原 IP 地址</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                474. 一和零First：想了下，相比常规01背包只是变成了两个维度，dp多一维就行了。
+                                93. 复原 IP 地址First：在细节处折腾了好久，虽然最后还是做出来了
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-
-方法1
+方法1：回溯
+题目中规定了逗号只能有三个，因此使用k来记录现有逗号数量（不包括最后一个，因为是要删除的），index来记录从哪开始遍历。不断递归重复找，按顺序遍
                             
                         </div>
                         <div class="publish-info">
@@ -580,8 +772,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -591,19 +783,24 @@ dp数组如何初始化
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-416-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-90-%E5%AD%90%E9%9B%86%20II-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="416. 分割等和子集">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="90. 子集 II">
                             
-                            <span class="card-title">416. 分割等和子集</span>
+                            <span class="card-title">90. 子集 II</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                416. 分割等和子集First：从代码备忘录中做到这题，考虑用动态规划方法，但开始想的是找n-1以下个数字，如果找到和的一半则返回true，但是忽略了找几个数字之和都是找到的最大和，但和的一般可能不是由几个数字的最大和组成，这种思路应该用
+                                90. 子集 IIFirst：注意不遍历同层相同值即可
+
+方法1：回溯
+和78题差不多，只是本题关键是避免重复值，先对数组进行排序，使得避免重复。
+中止条件：当index与数组大小相同时，结束
+遍历过程：从小到大遍历，假设遍历到i，如果nu
                             
                         </div>
                         <div class="publish-info">
@@ -626,8 +823,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -637,26 +834,24 @@ dp数组如何初始化
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-392-%E5%88%A4%E6%96%AD%E5%AD%90%E5%BA%8F%E5%88%97-simple/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-77-%E7%BB%84%E5%90%88-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="392. 判断子序列">
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="77. 组合">
                             
-                            <span class="card-title">392. 判断子序列</span>
+                            <span class="card-title">77. 组合</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                392. 判断子序列First：开始使用动态规划找最长公共子序列来做的，虽然也能通过但比较耗时，后来一想这简单题也应该这么复杂。
+                                77. 组合First：基础的回溯算法再加上一点剪枝
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍
+方法1：回溯
+不断递归重复找，按顺序遍历（只添加当前值后面的数）使得不存在重复值
+中止条件：当k值小于等于0时，将收集到的数组添加到结果种
+遍历过程：从小到大遍历，将当前值添加进临时数
                             
                         </div>
                         <div class="publish-info">
@@ -679,12 +874,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -694,24 +885,24 @@ dp数组如何初始化
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-343-%E6%95%B4%E6%95%B0%E6%8B%86%E5%88%86-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-78-%E5%AD%90%E9%9B%86-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="343. 整数拆分">
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="78. 子集">
                             
-                            <span class="card-title">343. 整数拆分</span>
+                            <span class="card-title">78. 子集</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                343. 整数拆分First：用数学方法做出来的，虽然逻辑想清楚了，但最底层的原理大于4的数拆分成两项后的乘积大于原数没理出来，只是理出了只能用2和3进行拆分。
+                                78. 子集First：很简单，注意添加空就可
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推
+方法1：回溯
+按回溯递归进行遍历，记录每次路径即可，需要在开头添加一个空容器。
+中止条件：当index等于数组长度时，结束
+遍历过程：从index遍历，每当添加一个数字到temp中后，就将t
                             
                         </div>
                         <div class="publish-info">
@@ -734,227 +925,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-377-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%E2%85%A3-middle/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="377. 组合总和 Ⅳ">
-                            
-                            <span class="card-title">377. 组合总和 Ⅳ</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                377. 组合总和 ⅣFirst：这是一道完全背包中求排列方法数量类型的题，此时需要注意必须容量在外层循环否则只是求得组合方法数量，注意求排列和组合两种类型遍历顺序的差别
-
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-337-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DIII-middle/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="213. 打家劫舍 II">
-                            
-                            <span class="card-title">213. 打家劫舍 II</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                213. 打家劫舍 IIFirst：没想出咋记录选与不选状态，感觉用数组来记录又消耗太大，这是到树形动态规划的基本题
-
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-322-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2-middle/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="322. 零钱兑换">
-                            
-                            <span class="card-title">322. 零钱兑换</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                322. 零钱兑换First：这次没做出来，但以前做过，是动态规划中又出现的一种类型题，主要是这道题的初始化没搞对，再加上遍历顺序也理解不深刻。
-
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-middle/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="300. 最长递增子序列">
-                            
-                            <span class="card-title">300. 最长递增子序列</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                300. 最长递增子序列First：以前做过，不难，就按动态规划思想来即可
-
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-
-方法1：动态规划
-使用
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -1065,7 +1037,7 @@ dp数组如何初始化
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

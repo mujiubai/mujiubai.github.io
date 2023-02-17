@@ -411,7 +411,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    333
+                    344
                 </div>
                 
 
@@ -433,7 +433,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -446,7 +454,39 @@
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(1)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">sortedSquares</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        ans.<span class="built_in">reserve</span>(n);</span><br><span class="line">        <span class="type">int</span> pos=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(;pos&lt;n&amp;&amp;nums[pos]&lt;<span class="number">0</span>;++pos)&#123;&#125;</span><br><span class="line">        <span class="type">int</span> positive=pos,negative=pos<span class="number">-1</span>;</span><br><span class="line">        <span class="type">int</span> ansSize=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(positive&lt;n&amp;&amp;negative&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="type">int</span> t1=nums[positive]*nums[positive];</span><br><span class="line">            <span class="type">int</span> t2=nums[negative]*nums[negative];</span><br><span class="line">            <span class="keyword">if</span>(t1&lt;t2)&#123;</span><br><span class="line">                ans.<span class="built_in">push_back</span>(t1);</span><br><span class="line">                ++positive;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                ans.<span class="built_in">push_back</span>(t2);                </span><br><span class="line">                --negative;</span><br><span class="line">            &#125;</span><br><span class="line">            ++ansSize;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(positive&lt;n)&#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(nums[positive]*nums[positive++]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(negative&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(nums[negative]*nums[negative--]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    vector&lt;int&gt; sortedSquares(vector&lt;int&gt;&amp; nums) &#123;
+        int n&#x3D;nums.size();
+        if(n&#x3D;&#x3D;0) return &#123;&#125;;
+        vector&lt;int&gt; ans;
+        ans.reserve(n);
+        int pos&#x3D;0;
+        for(;pos&lt;n&amp;&amp;nums[pos]&lt;0;++pos)&#123;&#125;
+        int positive&#x3D;pos,negative&#x3D;pos-1;
+        int ansSize&#x3D;0;
+        while(positive&lt;n&amp;&amp;negative&gt;&#x3D;0)&#123;
+            int t1&#x3D;nums[positive]*nums[positive];
+            int t2&#x3D;nums[negative]*nums[negative];
+            if(t1&lt;t2)&#123;
+                ans.push_back(t1);
+                ++positive;
+            &#125;else&#123;
+                ans.push_back(t2);                
+                --negative;
+            &#125;
+            ++ansSize;
+        &#125;
+        while(positive&lt;n)&#123;
+            ans.push_back(nums[positive]*nums[positive++]);
+        &#125;
+        while(negative&gt;&#x3D;0)&#123;
+            ans.push_back(nums[negative]*nums[negative--]);
+        &#125;
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -609,13 +649,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB-middle/">
+                <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-775-%E5%85%A8%E5%B1%80%E5%80%92%E7%BD%AE%E4%B8%8E%E5%B1%80%E9%83%A8%E5%80%92%E7%BD%AE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="75. 颜色分类">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="775. 全局倒置与局部倒置">
                         
-                        <span class="card-title">75. 颜色分类</span>
+                        <span class="card-title">775. 全局倒置与局部倒置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -643,10 +683,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                        <span class="chip bg-color">Alg-双指针</span>
-                    </a>
-                    
                     <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
                         <span class="chip bg-color">Alg-数组</span>
                     </a>
@@ -662,13 +698,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-151-middle/">
+                <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-155-%E6%9C%80%E5%B0%8F%E6%A0%88-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="151. 反转字符串中的单词">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="155. 最小栈">
                         
-                        <span class="card-title">151. 反转字符串中的单词</span>
+                        <span class="card-title">155. 最小栈</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -696,12 +732,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                        <span class="chip bg-color">Alg-双指针</span>
-                    </a>
-                    
-                    <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                        <span class="chip bg-color">Alg-字符串</span>
+                    <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">Alg-栈与队列</span>
                     </a>
                     
                 </div>
@@ -719,6 +751,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -896,7 +931,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

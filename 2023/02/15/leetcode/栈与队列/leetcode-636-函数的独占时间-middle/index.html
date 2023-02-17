@@ -405,7 +405,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    458
+                    483
                 </div>
                 
 
@@ -427,7 +427,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -455,7 +463,44 @@
 <li><p>空间复杂度：O(n)</p>
 </li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:    </span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">getLog</span><span class="params">(string &amp;log)</span></span>&#123;</span><br><span class="line">        <span class="type">int</span> k1=<span class="number">0</span>,k2=log.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">while</span>(log[k1]!=<span class="string">&#x27;:&#x27;</span>)++k1;</span><br><span class="line">        <span class="keyword">while</span>(log[k2]!=<span class="string">&#x27;:&#x27;</span>)--k2;</span><br><span class="line">        <span class="keyword">return</span> &#123;log.<span class="built_in">substr</span>(<span class="number">0</span>,k1),log.<span class="built_in">substr</span>(k1+<span class="number">1</span>,k2-k1<span class="number">-1</span>),log.<span class="built_in">substr</span>(k2+<span class="number">1</span>,log.<span class="built_in">size</span>()-k2<span class="number">-1</span>)&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">exclusiveTime</span><span class="params">(<span class="type">int</span> n, vector&lt;string&gt;&amp; logs)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        stack&lt;<span class="type">int</span>&gt; st;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;logs.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            vector&lt;string&gt; log=<span class="built_in">getLog</span>(logs[i<span class="number">-1</span>]);</span><br><span class="line">            <span class="type">int</span> idx1=<span class="built_in">atoi</span>(log[<span class="number">0</span>].<span class="built_in">c_str</span>());</span><br><span class="line">            <span class="type">int</span> num1=<span class="built_in">atoi</span>(log[<span class="number">2</span>].<span class="built_in">c_str</span>());</span><br><span class="line">            string flag1=log[<span class="number">1</span>];</span><br><span class="line">            log=<span class="built_in">getLog</span>(logs[i]);</span><br><span class="line">            <span class="type">int</span> idx2=<span class="built_in">atoi</span>(log[<span class="number">0</span>].<span class="built_in">c_str</span>());</span><br><span class="line">            <span class="type">int</span> num2=<span class="built_in">atoi</span>(log[<span class="number">2</span>].<span class="built_in">c_str</span>());</span><br><span class="line">            string flag2=log[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(flag1==<span class="string">&quot;start&quot;</span>) st.<span class="built_in">push</span>(idx1);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(flag2==<span class="string">&quot;start&quot;</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(flag1==<span class="string">&quot;start&quot;</span>) ans[idx1]+=(num2-num1);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(num2-num1<span class="number">-1</span>&gt;<span class="number">0</span>) ans[st.<span class="built_in">top</span>()]+=(num2-num1<span class="number">-1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span>(flag1==<span class="string">&quot;start&quot;</span>) ans[idx1]+=(num2-num1+<span class="number">1</span>); </span><br><span class="line">                <span class="keyword">else</span> ans[idx2]+=(num2-num1); </span><br><span class="line">            &#125;   </span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:    
+    vector&lt;string&gt; getLog(string &amp;log)&#123;
+        int k1&#x3D;0,k2&#x3D;log.size();
+        while(log[k1]!&#x3D;&#39;:&#39;)++k1;
+        while(log[k2]!&#x3D;&#39;:&#39;)--k2;
+        return &#123;log.substr(0,k1),log.substr(k1+1,k2-k1-1),log.substr(k2+1,log.size()-k2-1)&#125;;
+    &#125;
+    vector&lt;int&gt; exclusiveTime(int n, vector&lt;string&gt;&amp; logs) &#123;
+        vector&lt;int&gt; ans(n,0);
+        stack&lt;int&gt; st;
+        for(int i&#x3D;1;i&lt;logs.size();++i)&#123;
+            vector&lt;string&gt; log&#x3D;getLog(logs[i-1]);
+            int idx1&#x3D;atoi(log[0].c_str());
+            int num1&#x3D;atoi(log[2].c_str());
+            string flag1&#x3D;log[1];
+            log&#x3D;getLog(logs[i]);
+            int idx2&#x3D;atoi(log[0].c_str());
+            int num2&#x3D;atoi(log[2].c_str());
+            string flag2&#x3D;log[1];
+
+            if(flag1&#x3D;&#x3D;&quot;start&quot;) st.push(idx1);
+
+            if(flag2&#x3D;&#x3D;&quot;start&quot;) &#123;
+                if(flag1&#x3D;&#x3D;&quot;start&quot;) ans[idx1]+&#x3D;(num2-num1);
+                else if(num2-num1-1&gt;0) ans[st.top()]+&#x3D;(num2-num1-1);
+            &#125;
+            else &#123;
+                st.pop();
+                if(flag1&#x3D;&#x3D;&quot;start&quot;) ans[idx1]+&#x3D;(num2-num1+1); 
+                else ans[idx2]+&#x3D;(num2-num1); 
+            &#125;   
+
+        &#125;
+        return ans;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -658,13 +703,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-209-middle/">
+                <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-142-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="209. 长度最小的子数组">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="142. 环形链表 II">
                         
-                        <span class="card-title">209. 长度最小的子数组</span>
+                        <span class="card-title">142. 环形链表 II</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -692,12 +737,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
-                        <span class="chip bg-color">Alg-数组</span>
+                    <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                        <span class="chip bg-color">Alg-双指针</span>
                     </a>
                     
-                    <a href="/tags/Alg-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
-                        <span class="chip bg-color">Alg-滑动窗口</span>
+                    <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                        <span class="chip bg-color">Alg-哈希表</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
+                        <span class="chip bg-color">Alg-链表</span>
                     </a>
                     
                 </div>
@@ -715,6 +764,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -892,7 +944,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

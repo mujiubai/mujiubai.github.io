@@ -405,7 +405,7 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    428
+                    477
                 </div>
                 
 
@@ -427,7 +427,15 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -440,7 +448,41 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
 <li>时间复杂度：O(n) </li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; inmap,postmap;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// TreeNode* creatTree(vector&lt;int&gt;&amp; inorder,vector&lt;int&gt;&amp; postorder,int inl,int inr,int postl,int postr)&#123;</span></span><br><span class="line">    <span class="comment">//     if(inl&gt;inr||postl&gt;postr) return nullptr;</span></span><br><span class="line">    <span class="comment">//     TreeNode *root=new TreeNode(postorder[postr]);</span></span><br><span class="line">    <span class="comment">//     int pos1=inmap[postorder[postr]];//pos1是在inorder中的分割</span></span><br><span class="line">    <span class="comment">//     int pos2=-1;//pos2是在postorder中的分割</span></span><br><span class="line">    <span class="comment">//     for(int i=inl;i&lt;pos1;++i)&#123;</span></span><br><span class="line">    <span class="comment">//         pos2=max(pos2,postmap[inorder[i]]);</span></span><br><span class="line">    <span class="comment">//     &#125;</span></span><br><span class="line">    <span class="comment">//     root-&gt;left=creatTree(inorder,postorder,inl,pos1-1,postl,pos2);</span></span><br><span class="line">    <span class="comment">//     root-&gt;right=creatTree(inorder,postorder,pos1+1,inr,pos2+1,postr-1);</span></span><br><span class="line">    <span class="comment">//     return root;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//上面方法还专门计算post2来找到在postorder中的切割点，但是中序遍历和后序遍历数组是相同的，可以用post1得到的数组大小来直接推导post2</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">creatTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder,vector&lt;<span class="type">int</span>&gt;&amp; postorder,<span class="type">int</span> inl,<span class="type">int</span> inr,<span class="type">int</span> postl,<span class="type">int</span> postr)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(inl&gt;inr||postl&gt;postr) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        TreeNode *root=<span class="keyword">new</span> <span class="built_in">TreeNode</span>(postorder[postr]);</span><br><span class="line">        <span class="type">int</span> pos1=inmap[postorder[postr]];<span class="comment">//pos1是在inorder中的分割</span></span><br><span class="line">        <span class="type">int</span> pos2=pos1<span class="number">-1</span>-inl+postl;<span class="comment">//pos2是在postorder中的分割</span></span><br><span class="line">        root-&gt;left=<span class="built_in">creatTree</span>(inorder,postorder,inl,pos1<span class="number">-1</span>,postl,pos2);</span><br><span class="line">        root-&gt;right=<span class="built_in">creatTree</span>(inorder,postorder,pos1+<span class="number">1</span>,inr,pos2+<span class="number">1</span>,postr<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;inorder.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            inmap[inorder[i]]=i;</span><br><span class="line">            postmap[postorder[i]]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">creatTree</span>(inorder,postorder,<span class="number">0</span>,inorder.<span class="built_in">size</span>()<span class="number">-1</span>,<span class="number">0</span>,postorder.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    unordered_map&lt;int,int&gt; inmap,postmap;
+public:
+    &#x2F;&#x2F; TreeNode* creatTree(vector&lt;int&gt;&amp; inorder,vector&lt;int&gt;&amp; postorder,int inl,int inr,int postl,int postr)&#123;
+    &#x2F;&#x2F;     if(inl&gt;inr||postl&gt;postr) return nullptr;
+    &#x2F;&#x2F;     TreeNode *root&#x3D;new TreeNode(postorder[postr]);
+    &#x2F;&#x2F;     int pos1&#x3D;inmap[postorder[postr]];&#x2F;&#x2F;pos1是在inorder中的分割
+    &#x2F;&#x2F;     int pos2&#x3D;-1;&#x2F;&#x2F;pos2是在postorder中的分割
+    &#x2F;&#x2F;     for(int i&#x3D;inl;i&lt;pos1;++i)&#123;
+    &#x2F;&#x2F;         pos2&#x3D;max(pos2,postmap[inorder[i]]);
+    &#x2F;&#x2F;     &#125;
+    &#x2F;&#x2F;     root-&gt;left&#x3D;creatTree(inorder,postorder,inl,pos1-1,postl,pos2);
+    &#x2F;&#x2F;     root-&gt;right&#x3D;creatTree(inorder,postorder,pos1+1,inr,pos2+1,postr-1);
+    &#x2F;&#x2F;     return root;
+    &#x2F;&#x2F; &#125;
+
+    &#x2F;&#x2F;上面方法还专门计算post2来找到在postorder中的切割点，但是中序遍历和后序遍历数组是相同的，可以用post1得到的数组大小来直接推导post2
+    TreeNode* creatTree(vector&lt;int&gt;&amp; inorder,vector&lt;int&gt;&amp; postorder,int inl,int inr,int postl,int postr)&#123;
+        if(inl&gt;inr||postl&gt;postr) return nullptr;
+        TreeNode *root&#x3D;new TreeNode(postorder[postr]);
+        int pos1&#x3D;inmap[postorder[postr]];&#x2F;&#x2F;pos1是在inorder中的分割
+        int pos2&#x3D;pos1-1-inl+postl;&#x2F;&#x2F;pos2是在postorder中的分割
+        root-&gt;left&#x3D;creatTree(inorder,postorder,inl,pos1-1,postl,pos2);
+        root-&gt;right&#x3D;creatTree(inorder,postorder,pos1+1,inr,pos2+1,postr-1);
+        return root;
+    &#125;
+
+    TreeNode* buildTree(vector&lt;int&gt;&amp; inorder, vector&lt;int&gt;&amp; postorder) &#123;
+        for(int i&#x3D;0;i&lt;inorder.size();++i)&#123;
+            inmap[inorder[i]]&#x3D;i;
+            postmap[postorder[i]]&#x3D;i;
+        &#125;
+        return creatTree(inorder,postorder,0,inorder.size()-1,0,postorder.size()-1);
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -592,13 +634,13 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/other/leetcode-670-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="670. 最大交换">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="236. 二叉树的最近公共祖先">
                         
-                        <span class="card-title">670. 最大交换</span>
+                        <span class="card-title">236. 二叉树的最近公共祖先</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -626,8 +668,8 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                        <span class="chip bg-color">Alg-贪心</span>
+                    <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                        <span class="chip bg-color">Alg-二叉树</span>
                     </a>
                     
                 </div>
@@ -641,13 +683,13 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-475-%E4%BE%9B%E6%9A%96%E5%99%A8-middle/">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88-middle/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="475. 供暖器">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="116. 填充每个节点的下一个右侧节点指针">
                         
-                        <span class="card-title">475. 供暖器</span>
+                        <span class="card-title">116. 填充每个节点的下一个右侧节点指针</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -675,8 +717,8 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                        <span class="chip bg-color">二分查找</span>
+                    <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                        <span class="chip bg-color">Alg-二叉树</span>
                     </a>
                     
                 </div>
@@ -694,6 +736,9 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -871,7 +916,7 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             

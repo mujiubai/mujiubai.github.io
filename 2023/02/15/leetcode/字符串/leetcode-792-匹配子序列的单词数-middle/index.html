@@ -366,12 +366,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                                <span class="chip bg-color">Alg-哈希表</span>
-                            </a>
-                        
                             <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
                                 <span class="chip bg-color">Alg-双指针</span>
+                            </a>
+                        
+                            <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                                <span class="chip bg-color">Alg-哈希表</span>
                             </a>
                         
                             <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
@@ -413,7 +413,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    589
+                    612
                 </div>
                 
 
@@ -435,7 +435,15 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
         
 
         <div class="card-content article-card-content">
@@ -448,7 +456,36 @@
 <li>时间复杂度：O(mn)</li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">match</span><span class="params">(<span class="type">const</span> string &amp;s1,<span class="type">const</span> string &amp;s2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s2.<span class="built_in">size</span>()&gt;s1.<span class="built_in">size</span>()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;s1.<span class="built_in">size</span>()&amp;&amp;j&lt;s2.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="keyword">if</span>(s1[i]==s2[j])&#123;</span><br><span class="line">                ++i;</span><br><span class="line">                ++j;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                ++i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> j==s2.<span class="built_in">size</span>()?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numMatchingSubseq</span><span class="params">(string s, vector&lt;string&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        unordered_map&lt;string,<span class="type">int</span>&gt; map;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;words.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            map[words[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;it:map)&#123;</span><br><span class="line">            <span class="type">int</span> t=<span class="built_in">match</span>(s,it.first);</span><br><span class="line">            ans+=t*it.second;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int match(const string &amp;s1,const string &amp;s2)&#123;
+        if(s2.size()&gt;s1.size()) return 0;
+        int i&#x3D;0,j&#x3D;0;
+        while(i&lt;s1.size()&amp;&amp;j&lt;s2.size())&#123;
+            if(s1[i]&#x3D;&#x3D;s2[j])&#123;
+                ++i;
+                ++j;
+            &#125;else&#123;
+                ++i;
+            &#125;
+        &#125;
+        return j&#x3D;&#x3D;s2.size()?1:0;
+    &#125;
+    int numMatchingSubseq(string s, vector&lt;string&gt;&amp; words) &#123;
+        int ans&#x3D;0;
+        unordered_map&lt;string,int&gt; map;
+        for(int i&#x3D;0;i&lt;words.size();++i)&#123;
+            map[words[i]]++;
+        &#125;
+
+        for(auto &amp;it:map)&#123;
+            int t&#x3D;match(s,it.first);
+            ans+&#x3D;t*it.second;
+        &#125;
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -461,7 +498,41 @@
 <li>时间复杂度：O(logn*words数量 * word字符数)</li>
 <li>空间复杂度：O(n)</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; pos;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">match</span><span class="params">(<span class="type">const</span> string &amp;s1,<span class="type">const</span> string &amp;s2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s2.<span class="built_in">size</span>()&gt;s1.<span class="built_in">size</span>()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> p=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s2.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">auto</span> &amp;t=pos[s2[i]-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            <span class="keyword">auto</span> idx=<span class="built_in">upper_bound</span>(t.<span class="built_in">begin</span>(),t.<span class="built_in">end</span>(),p);</span><br><span class="line">            <span class="keyword">if</span>(idx==t.<span class="built_in">end</span>())&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            p=*idx;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numMatchingSubseq</span><span class="params">(string s, vector&lt;string&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        pos=vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;(<span class="number">26</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            pos[s[i]-<span class="string">&#x27;a&#x27;</span>].<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        unordered_map&lt;string,<span class="type">int</span>&gt; map;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;words.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            map[words[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;it:map)&#123;</span><br><span class="line">            <span class="type">int</span> t=<span class="built_in">match</span>(s,it.first);</span><br><span class="line">            ans+=t*it.second;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; pos;
+public:
+    int match(const string &amp;s1,const string &amp;s2)&#123;
+        if(s2.size()&gt;s1.size()) return 0;
+        int p&#x3D;-1;
+        for(int i&#x3D;0;i&lt;s2.size();++i)&#123;
+            auto &amp;t&#x3D;pos[s2[i]-&#39;a&#39;];
+            auto idx&#x3D;upper_bound(t.begin(),t.end(),p);
+            if(idx&#x3D;&#x3D;t.end())&#123;
+                return 0;
+            &#125;
+            p&#x3D;*idx;
+        &#125;
+        return 1;
+    &#125;
+    int numMatchingSubseq(string s, vector&lt;string&gt;&amp; words) &#123;
+        int ans&#x3D;0;
+        pos&#x3D;vector&lt;vector&lt;int&gt;&gt;(26);
+        for(int i&#x3D;0;i&lt;s.size();++i)&#123;
+            pos[s[i]-&#39;a&#39;].push_back(i);
+        &#125;
+        unordered_map&lt;string,int&gt; map;
+        for(int i&#x3D;0;i&lt;words.size();++i)&#123;
+            map[words[i]]++;
+        &#125;
+
+        for(auto &amp;it:map)&#123;
+            int t&#x3D;match(s,it.first);
+            ans+&#x3D;t*it.second;
+        &#125;
+
+        return ans;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -527,12 +598,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                                    <span class="chip bg-color">Alg-哈希表</span>
-                                </a>
-                            
                                 <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
                                     <span class="chip bg-color">Alg-双指针</span>
+                                </a>
+                            
+                                <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                                    <span class="chip bg-color">Alg-哈希表</span>
                                 </a>
                             
                                 <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
@@ -619,13 +690,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-541-simple/">
+                <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-459-simple/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="541. 反转字符串 II">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="459. 重复的子字符串">
                         
-                        <span class="card-title">541. 反转字符串 II</span>
+                        <span class="card-title">459. 重复的子字符串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -657,6 +728,10 @@
                         <span class="chip bg-color">Alg-字符串</span>
                     </a>
                     
+                    <a href="/tags/Alg-KMP/">
+                        <span class="chip bg-color">Alg-KMP</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -668,13 +743,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-459-simple/">
+                <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-541-simple/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="459. 重复的子字符串">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="541. 反转字符串 II">
                         
-                        <span class="card-title">459. 重复的子字符串</span>
+                        <span class="card-title">541. 反转字符串 II</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -706,10 +781,6 @@
                         <span class="chip bg-color">Alg-字符串</span>
                     </a>
                     
-                    <a href="/tags/Alg-KMP/">
-                        <span class="chip bg-color">Alg-KMP</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -725,6 +796,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -902,7 +976,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">160.9k</span>
+                        class="white-color">165.5k</span>
             
             
             
