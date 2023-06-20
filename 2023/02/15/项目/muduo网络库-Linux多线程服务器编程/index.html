@@ -1,0 +1,2379 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Linux多线程服务器编程：使用muduo C++网络库 笔记, w">
+    <meta name="description" content="阅读《Linux多线程服务器编程：使用muduo C++网络库》笔记
+
+
+第1章 线程安全的对象生命期管理1.1 当析构函数遇到多线程
+当一个对象能被多个线程同时看到时，那么对象的销毁时机就会变得模糊不清，可能出现多种竞态条件（race c">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Linux多线程服务器编程：使用muduo C++网络库 笔记 | w</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">w</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/categories/C/">
+          
+          <span>C++</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/LeetCode/">
+          
+          <span>LeetCode</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+          
+          <span>计算机基础知识</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">w</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/categories/C/ " style="margin-left:75px">
+				  
+		          <span>C++</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/LeetCode/ " style="margin-left:75px">
+				  
+		          <span>LeetCode</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/ " style="margin-left:75px">
+				  
+		          <span>计算机基础知识</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Linux多线程服务器编程：使用muduo C++网络库 笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
+                            </a>
+                        
+                            <a href="/tags/muduo/">
+                                <span class="chip bg-color">muduo</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                项目
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-02-15
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2023-06-20
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    28.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    101 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>阅读《Linux多线程服务器编程：使用muduo C++网络库》笔记</p>
+<hr>
+<hr>
+<h1 id="第1章-线程安全的对象生命期管理"><a href="#第1章-线程安全的对象生命期管理" class="headerlink" title="第1章 线程安全的对象生命期管理"></a>第1章 线程安全的对象生命期管理</h1><h2 id="1-1-当析构函数遇到多线程"><a href="#1-1-当析构函数遇到多线程" class="headerlink" title="1.1 当析构函数遇到多线程"></a>1.1 当析构函数遇到多线程</h2><blockquote>
+<p>当一个对象能被多个线程同时看到时，那么对象的销毁时机就会变得模糊不清，可能出现多种竞态条件（race condition）</p>
+<ul>
+<li>在即将析构一个对象时，从何而知此刻是否有别的线程正在执行该对象的成员函数</li>
+<li>如何保证在执行成员函数期间，对象不会在另一个线程被析构？</li>
+<li>在调用某个对象的成员函数之前，如何得知这个对象还活着？它的析构函数会不会碰巧执行到一半？</li>
+</ul>
+</blockquote>
+<p>使用shared_ptr能一劳永逸地解决这些问题，减轻C++多线程编程的精神负担</p>
+<h3 id="1-1-1-线程安全的定义"><a href="#1-1-1-线程安全的定义" class="headerlink" title="1.1.1 线程安全的定义"></a>1.1.1 线程安全的定义</h3><p>一个线程安全的class应当满足以下三个条件：</p>
+<ul>
+<li>多个线程同时访问时，其表现出正确的行为。</li>
+<li>无论操作系统如何调度这些线程，无论这些线程的执行顺序如何交织（interleaving）</li>
+<li>调用端代码无须额外的同步或其他协调动作。</li>
+</ul>
+<blockquote>
+<p>C++标准库里的大多数class都不是线程安全的，包括std:: string、std::vector、std::map等，因为这些class通常需要在外部加锁才能供多个线程同时访问</p>
+</blockquote>
+<p>本书中定义了两个有关锁的工具类：</p>
+<ul>
+<li>MutexLock类：封装临界区，其是一个简单的资源类，用RALL手法封装互斥器的创建与销毁</li>
+<li>MutexLockGuard类：封装临界区的进入和退出，即加锁和解锁。MutexLockGuard一般是个栈上对象，它的作用域刚好等于临界区域。（创建了一个此类对象，其析构通常在return后，因此保护了共享数据）</li>
+</ul>
+<p>编写单个的线程安全的class不算太难，只需用同步原语保护其内部状态。但如果此对象是通过动态指针创建的，那么仍需要解决race condition。</p>
+<h2 id="1-2-对象的创建很简单"><a href="#1-2-对象的创建很简单" class="headerlink" title="1.2 对象的创建很简单"></a>1.2 对象的创建很简单</h2><p>对象构造要做到线程安全，&#x3D;&#x3D;唯一的要求是在构造期间不要泄露this指针&#x3D;&#x3D;，即：</p>
+<ul>
+<li>不要在构造函数中注册任何回调</li>
+<li>也不要在构造函数中把this传给跨线程的对象</li>
+<li>即便在构造函数的最后一行也不行（此类可能是一个基类，其先于派生类构造，此时派生类可能还没构造完）</li>
+</ul>
+<p><strong>原因</strong>：在构造函数执行期间对象还没有完成初始化，如果this被泄露（escape）给了其他对象（其自身创建的子对象除外），那么别的线程有可能访问这个半成品对象，这会造成难以预料的后果。</p>
+<h2 id="1-3-销毁太难"><a href="#1-3-销毁太难" class="headerlink" title="1.3 销毁太难"></a>1.3 销毁太难</h2><p>对一般成员函数而言，做到线程安全的办法是让它们顺次执行，而不要并发执行，也就是让每个成员函数的临界区不重叠</p>
+<blockquote>
+<p>但是成员函数用来保护临界区的互斥器可能会被析构函数销毁掉</p>
+<p>比如，一个类对象能被所有线程所见，一个线程执行到析构函数并持有互斥锁，另一个线程开始执行某函数，此时这个线程可能永远阻塞，也可能进入临界区然后core dump</p>
+</blockquote>
+<p><strong>作为数据成员的mutex不能保护析构</strong></p>
+<p>作为class数据成员的MutexLock只能用于同步本class的其他数据成员的读和写，它不能保护安全地析构</p>
+<blockquote>
+<p>因为MutexLock成员的生命期最多与对象一样长，而析构动作可说是发生在对象身故之后</p>
+</blockquote>
+<p>同时读写一个class的两个对象，有潜在的死锁可能</p>
+<blockquote>
+<p>比如swap函数，两个线程都使用swap调用相同的两个对象，则有可能锁死</p>
+<p>一个函数如果要锁住相同类型的多个对象，为了保证始终按相同的顺序加锁，我们可以比较mutex对象的地址，始终先加锁地址较小的mutex</p>
+</blockquote>
+<h2 id="1-4-线程安全的Observer有多难"><a href="#1-4-线程安全的Observer有多难" class="headerlink" title="1.4 线程安全的Observer有多难"></a>1.4 线程安全的Observer有多难</h2><p>Observer模式示例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220911221246890.png"></p>
+<p>一个动态创建的对象是否还活着，光看指针是看不出来的（引用也一样看不出来）</p>
+<blockquote>
+<p>针就是指向了一块内存，这块内存上的对象如果已经销毁，那么就根本不能访问。既然不能访问又如何知道对象的状态呢？</p>
+<p>且万一原址又创建了一个新的对象呢？再万一这个新的对象的类型异于老的对象呢？</p>
+</blockquote>
+<p>对象的关系主要有三种：</p>
+<ul>
+<li>composition组合：在类中定义一个对象，其生命周期一致。在多线程里不会遇到什么麻烦，因为对象x的生命期由其唯一的拥有者owner控制，owner析构的时候会把x也析构掉</li>
+<li>association关联：表示一个对象a用到了另一个对象b，调用了后者的成员函数（将一个类指针传到了类中使用）。从代码形式上看，a持有b的指针（或引用），但是b的生命期不由a单独控制。（似乎一个简单的解决办法是创建一个对象池，其只创建但不销毁，但也会存在许多问题）</li>
+<li>aggregation聚合：聚合是一种特殊的关联关系，它是较强的一种关联关系（在类中动态创建了一个对象）。其面对情况和关联类似。</li>
+</ul>
+<h2 id="1-5-原始指针有何不妥"><a href="#1-5-原始指针有何不妥" class="headerlink" title="1.5 原始指针有何不妥"></a>1.5 原始指针有何不妥</h2><p>直接给其他类传指针对象是不妥得，无法判断此对象是否存货，可以使用shared_ptr，但需要注意循环引用</p>
+<p><strong>空悬指针</strong></p>
+<p>有两个指针p1和p2，指向堆上的同一个对象Object，p1和p2位于不同的线程中。假设线程A通过p1指针将对象销毁了，那p2就成了空悬指针。</p>
+<blockquote>
+<p>一种解决办法就是添加一个中间层指针proxy，此中间指针指向对象地址，p1和p2都指向proxy。（但如果p2看第一眼的时候proxy不是零，正准备去调用Object的成员函数，期间对象已经被p1给销毁了，此时也会存在问题）</p>
+<p>另一种解决办法就是使用shared_ptr，其自带引用计数，当不存在引用时才销毁对象</p>
+</blockquote>
+<h2 id="1-6-神器shared-ptr-x2F-weak-ptr"><a href="#1-6-神器shared-ptr-x2F-weak-ptr" class="headerlink" title="1.6 神器shared_ptr&#x2F;weak_ptr"></a>1.6 神器shared_ptr&#x2F;weak_ptr</h2><p>shared_ptr和weak_ptr是引用计数型智能指针，具体用法略过</p>
+<p>一些关键点：</p>
+<ul>
+<li>shared_ptr控制对象的生命期。shared_ptr是强引用，只要有一个指向x对象的shared_ptr存在，该x对象就不会析构。当指向对象x的最后一个shared_ptr析构或reset()的时候，x保证会被销毁</li>
+<li>weak_ptr不控制对象的生命期，但是它知道对象是否还活着。如果对象还活着，那么它可以提升为有效的shared_ptr；如果对象已经死了，提升会失败，返回一个空的shared_ptr。<em>“提升／lock()”行为是线程安全的</em>。</li>
+<li>shared_ptr&#x2F;weak_ptr的“计数”在主流平台上是原子操作，没有用锁，性能不俗</li>
+<li>shared_ptr&#x2F;weak_ptr的线程安全级别与std::string和STL容器一样</li>
+</ul>
+<h2 id="1-7-插曲：系统地避免各种指针错误"><a href="#1-7-插曲：系统地避免各种指针错误" class="headerlink" title="1.7 插曲：系统地避免各种指针错误"></a>1.7 插曲：系统地避免各种指针错误</h2><p>C++里可能出现的内存问题大致有这么几个方面：</p>
+<ul>
+<li>1．缓冲区溢出：用std::vector<char>&#x2F;std::string或自己编写Buffer class来管理缓冲区，自动记住用缓冲区的长度，并通过成员函数而不是裸指针来修改缓冲区</li>
+<li>2．空悬指针／野指针：用shared_ptr&#x2F;weak_ptr</li>
+<li>3．重复释放：用scoped_ptr，只在对象析构的时候释放一次</li>
+<li>4．内存泄漏：用scoped_ptr，对象析构的时候自动释放内存</li>
+<li>5．不配对的new[]&#x2F;delete：把new[]统统替换为std::vector&#x2F;scoped_array</li>
+<li>6．内存碎片：在9.2.1和1.8探讨</li>
+</ul>
+<blockquote>
+<p>scoped_ptr&#x2F;shared_ptr&#x2F;weak_ptr都是值语意，要么是栈上对象，或是其他对象的直接数据成员，或是标准库容器里的元素。（其实就是说这几种智能指针用得时候都是使用对象，而不是定义这几种智能指针的指针）</p>
+<p>如果这几种智能指针是对象x的数据成员，而它的模板参数T是个incomplete类型，那么x的析构函数不能是默认的或内联的，必须在.cpp文件里边显式定义，否则会有编译错或运行错</p>
+</blockquote>
+<h2 id="1-8-应用到Observer上"><a href="#1-8-应用到Observer上" class="headerlink" title="1.8 应用到Observer上"></a>1.8 应用到Observer上</h2><p>observer使用weak_ptr</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220911221605354.png"></p>
+<p>使用weak_ptr能部分解决Observer模式的线程安全，但还有以下问题待解决：</p>
+<ul>
+<li>侵入性：强制要求Observer必须以shared_ptr来管理。</li>
+<li>不是完全线程安全：observer的析构函数可能会调用其他对象的函数，但是此函数可能不存在</li>
+<li>锁争用：即Observable的三个成员函数都用了互斥器来同步，这会造成register_()和unregister()等待notifyObservers()，而后者的执行时间是无上限的，因为它同步回调了用户提供的update()函数</li>
+<li>死锁：万一L62的update()虚函数中调用了(un)register呢？如果mutex_是不可重入的，那么会死锁</li>
+</ul>
+<h2 id="1-9-再论shared-ptr的线程安全"><a href="#1-9-再论shared-ptr的线程安全" class="headerlink" title="1.9 再论shared_ptr的线程安全"></a>1.9 再论shared_ptr的线程安全</h2><p>shared_ptr本身不是100％线程安全的，它的引用计数本身是安全且无锁的，但对象的读写则不是，因为shared_ptr有两个数据成员，读写操作不能原子化</p>
+<ul>
+<li>一个shared_ptr对象实体可被多个线程同时读取</li>
+<li>两个shared_ptr对象实体可以被两个线程同时写入，“析构”算写操作</li>
+<li>如果要从多个线程读写同一个shared_ptr对象，那么需要加锁。</li>
+<li><em>以上是shared_ptr对象本身的线程安全级别，不是它管理的对象的线程安全级别。</em></li>
+</ul>
+<p>&#x3D;&#x3D;在多个线程中同时访问同一个shared_ptr，正确的做法是用mutex保护&#x3D;&#x3D;</p>
+<h2 id="1-10-shared-ptr技术与陷阱"><a href="#1-10-shared-ptr技术与陷阱" class="headerlink" title="1.10 shared_ptr技术与陷阱"></a>1.10 shared_ptr技术与陷阱</h2><p><strong>意外延长对象的生命期</strong>：shared_ptr是强引用（“铁丝”绑的），只要有一个指向x对象的shared_ptr存在，该对象就不会析构，而其又能拷贝和赋值</p>
+<p><strong>函数参数</strong>：因为要修改引用计数shared_ptr的拷贝开销比拷贝原始指针要高，在不拷贝的情况下可以使用const reference方式传递</p>
+<p><strong>析构动作在创建时被捕获</strong>：这是一个非常有用的特性，这意味着</p>
+<ul>
+<li>虚析构不再是必需的。</li>
+<li>shared_ptr<void>可以持有任何对象，而且能安全地释放。</li>
+<li>shared_ptr对象可以安全地跨越模块边界，比如从DLL里返回，而不会造成从模块A分配的内存在模块B里被释放这种错误。</li>
+<li>二进制兼容性，即便Foo对象的大小变了，那么旧的客户代码仍然可以使用新的动态库，而无须重新编译</li>
+<li>析构动作可以定制。</li>
+</ul>
+<p><strong>析构所在的线程</strong>：</p>
+<ul>
+<li>当最后一个指向x的shared_ptr离开其作用域的时候，x会在线程中析构，这个线程不一定是对象诞生的线程。</li>
+<li>如果对象的析构比较耗时，那么可能会拖慢关键线程的速度</li>
+<li>可以用一个单独的线程来专门做析构，通过一个BlockingQueue&lt;shared_ptr<void> &gt;把对象的析构都转移到那个专用线程，从而解放关键线程。</li>
+</ul>
+<p><strong>现成的RAII handle</strong></p>
+<ul>
+<li>RAII（资源获取即初始化）是C++语言区别于其他所有编程语言的最重要的特性</li>
+<li>&#x3D;&#x3D;每一个明确的资源配置动作（例如new）都应该在单一语句中执行，并在该语句中立刻将配置获得的资源交给handle对象（如shared_ptr），程序中一般不出现delete&#x3D;&#x3D;</li>
+<li>避免循环引用的通常做法是owner持有指向child的shared_ptr，child持有指向owner的weak_ptr</li>
+</ul>
+<h2 id="1-11-对象池"><a href="#1-11-对象池" class="headerlink" title="1.11 对象池"></a>1.11 对象池</h2><blockquote>
+<p>有时只允许程序中出现一个类对象，但其可以被多个线程使用，当有线程使用而对象不存在时则创建对象，当没有线程使用时则析构，解决办法则是定义一个<em>对象池</em></p>
+</blockquote>
+<p>一个简单的对象池示例，其根据key返回对象</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220911225550229.png"></p>
+<p>但是，上述map定义会导致stock对象永远不会销毁，应改成weak_ptr定义</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220911225749678.png"></p>
+<p>但是stocks的大小只增不减，stocks.size()是曾经存活过的Stock对象的总数，即便活的Stock对象数目降为0。当对象创建很多时，就会导致内存一直得不到释放。</p>
+<p>解决的办法是，利用shared_ptr的定制析构功能</p>
+<blockquote>
+<p>定义shared_ptr时，自定义一个析构函数来释放空间</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220911230353031.png"></p>
+<p>上面代码在定义析构函数时，将this指针绑定在了析构函数中，这会导致线程安全问题：如果这个StockFactory先于Stock对象析构，那么会core dump</p>
+<p><em>解决办法是使用下面的弱回调技术</em></p>
+</blockquote>
+<h3 id="1-11-1-enable-shared-from-this"><a href="#1-11-1-enable-shared-from-this" class="headerlink" title="1.11.1 enable_shared_from_this"></a>1.11.1 <strong>enable_shared_from_this</strong></h3><p>上小节中，StockFactory可能先于Stock对象析构，解决办法就是使用shared_ptr来管理stockfactory，获得当前对象的shared_ptr可以先继承enable_shared_from_this类，然后调用shared_from_this()函数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220912094909137.png"></p>
+<blockquote>
+<p>function里保存了一份shared_ptr<StockFactory>，可以保证调用StockFactory::deleteStock的时候那个StockFactory对象还活着</p>
+</blockquote>
+<p><strong>注意</strong>：shared_from_this()不能在构造函数里调用，因为在构造StockFactory的时候，它还没有被交给shared_ptr接管</p>
+<h3 id="1-11-2-弱回调"><a href="#1-11-2-弱回调" class="headerlink" title="1.11.2 弱回调"></a>1.11.2 弱回调</h3><blockquote>
+<p>shared_ptr绑到boost:function里，那么回调的时候StockFactory对象始终存在</p>
+<p>有时候我们需要“如果对象还活着，就调用它的成员函数，否则忽略之”，称之为“弱回调”</p>
+</blockquote>
+<p>利用weak_ptr可以实现弱回调，可以把weak_ptr绑到boost::function里，这样对象的生命期就不会被延长。然后在回调的时候先尝试提升为shared_ptr，如果提升成功，说明接受回调的对象还健在，那么就执行回调；如果提升失败，就不必劳神了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220912095447284.png"></p>
+<h2 id="1-12-替代方案"><a href="#1-12-替代方案" class="headerlink" title="1.12 替代方案"></a>1.12 替代方案</h2><p>除了使用shared_ptr&#x2F;weak_ptr，做到线程安全的对象回调与析构还有以下办法：</p>
+<ul>
+<li>所有线程通过一个全局对象去访问想访问的对象（加了个中间层）</li>
+<li>只创建不销毁</li>
+<li>自己编写引用计数的智能指针</li>
+<li>使用unique_ptr</li>
+</ul>
+<h2 id="1-13-心得与体会"><a href="#1-13-心得与体会" class="headerlink" title="1.13 心得与体会"></a>1.13 心得与体会</h2><ul>
+<li>尽量减少使用跨线程的对象</li>
+<li>原始指针暴露给多个线程往往会造成race condition或额外的簿记负担</li>
+<li>统一用shared_ptr&#x2F;scoped_ptr来管理对象的生命期，在多线程中尤其重要</li>
+<li>shared_ptr是值语意，当心意外延长对象的生命期。例如boost::bind和容器都可能拷贝shared_ptr</li>
+<li>weak_ptr是shared_ptr的好搭档，可以用作弱回调、对象池等</li>
+</ul>
+<h1 id="第2章-线程同步精要"><a href="#第2章-线程同步精要" class="headerlink" title="第2章 线程同步精要"></a>第2章 线程同步精要</h1><blockquote>
+<p>并发编程有两种基本模型，一种是message passing，另一种是shared memory。</p>
+<p>在分布式系统中，运行在多台机器上的多个进程的并行编程只有一种实用模型：message passing1。</p>
+<p>在单机上，可以使用message passing作为多个进程的并发模型。这样整个分布式系统的架构的一致性很强，扩容（scale out）起来也较容易。</p>
+</blockquote>
+<p><strong>线程同步的四项原则</strong>：</p>
+<ul>
+<li>首要原则是尽量最低限度地共享对象，减少需要同步的场合。一个对象能不暴露给别的线程就不要暴露；如果要暴露，优先考虑immutable对象；实在不行才暴露可修改的对象，并用同步措施来充分保护它。</li>
+<li>其次是使用高级的并发编程构件，如TaskQueue、Producer-Consumer Queue、CountDownLatch等等。</li>
+<li>最后不得已必须使用底层同步原语（primitives）时，只用非递归的互斥器和条件变量，慎用读写锁，不要用信号量。</li>
+<li>除了使用atomic整数之外，不自己编写lock-free代码，也不要用“内核级”同步原语。不凭空猜测“哪种做法性能会更好”，比如spin lock vs. mutex。</li>
+</ul>
+<h2 id="2-1-互斥器"><a href="#2-1-互斥器" class="headerlink" title="2.1 互斥器"></a>2.1 互斥器</h2><p>互斥器（mutex）保护了临界区，任何一个时刻最多只能有一个线程在此mutex划出的临界区内活动。单独使用mutex时，主要为了保护共享数据。</p>
+<p><strong>主要使用原则</strong></p>
+<ul>
+<li>用RAII手法封装mutex的创建、销毁、加锁、解锁这四个操作，保证锁的生效期间等于一个作用域（scope），不会因异常而忘记解锁。</li>
+<li>只用非递归的mutex（即不可重入的mutex）</li>
+<li>不手工调用lock()和unlock()函数，一切交给栈上的Guard对象的构造和析构函数负责。Guard对象的生命期正好等于临界区。保证始终在同一个函数同一个scope里对某个mutex加锁和解锁。避免在foo()里加锁，然后跑到bar()里解锁；也避免在不同的语句分支中分别加锁、解锁。这种做法被称为Scoped Locking。</li>
+<li>在每次构造Guard对象的时候，思考一路上（调用栈上）已经持有的锁，防止因加锁顺序不同而导致死锁（deadlock）。由于Guard对象是栈上对象，看函数调用栈就能分析用锁的情况，非常便利</li>
+</ul>
+<p><strong>次要使用原则</strong></p>
+<ul>
+<li>不使用<em>跨进程</em>的mutex，进程间通信只用TCP sockets</li>
+<li>加锁、解锁在同一个线程，线程a不能去unlock线程b已经锁住的mutex（RAII自动保证）</li>
+<li>别忘了解锁（RAII自动保证）</li>
+<li>不重复解锁（RAII自动保证）</li>
+<li>必要的时候可以考虑用PTHREAD_MUTEX_ERRORCHECK来排错</li>
+</ul>
+<h3 id="2-1-1-只使用非递归的mutex"><a href="#2-1-1-只使用非递归的mutex" class="headerlink" title="2.1.1 只使用非递归的mutex"></a>2.1.1 只使用非递归的mutex</h3><blockquote>
+<p>mutex分为递归（recursive）和非递归（non-recursive）两种，或叫可重入（reentrant）与非可重入</p>
+<p>唯一区别在于：同一个线程可以重复对recursive mutex加锁，但是不能重复对non-recursive mutex加锁。</p>
+<p>non-recursive和recursive的性能差别其实不大，因为少用一个计数器，前者略快一点点</p>
+</blockquote>
+<p>non-recursive mutex优点就是多次加锁会立刻导致死锁，使得代码问题及时暴露</p>
+<p>典型情况是以为拿到一个锁就能修改对象了，没想到外层代码已经拿到了锁，正在修改（或读取）同一个对象</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220912112117338.png"></p>
+<p>post()加锁，然后修改foos对象；traverse()加锁，然后遍历foos向量。这些都是正确的。</p>
+<p>但是，如果Foo::doit()间接调用了post()，那么会很有戏剧性的结果：</p>
+<ul>
+<li>mutex是非递归的，于是死锁了。</li>
+<li>mutex是递归的，由于push_back()可能（但不总是）导致vector迭代器失效，程序偶尔会crash。</li>
+</ul>
+<p>使用非递归的优点就体现出来了，使我们能更早发现程序的逻辑错误并解决</p>
+<p>如果一个函数既可能在已加锁的情况下调用，又可能在未加锁的情况下调用，那么就拆成两个函数：</p>
+<ul>
+<li>跟原来的函数同名，函数加锁，转而调用第2个函数。</li>
+<li>给函数名加上后缀WithLockHold，不加锁，把原来的函数体搬过来。</li>
+</ul>
+<blockquote>
+<p>可能出现两个问题：</p>
+<ul>
+<li><p>（a）误用了加锁版本，死锁了（使用2.1.2方法解决）</p>
+</li>
+<li><p>（b）误用了不加锁版本，数据损坏了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220912112442239.png"></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="2-1-2-死锁"><a href="#2-1-2-死锁" class="headerlink" title="2.1.2 死锁"></a>2.1.2 死锁</h3><p>解决死锁：应使得临界区不交叉</p>
+<h2 id="2-2-条件变量"><a href="#2-2-条件变量" class="headerlink" title="2.2 条件变量"></a>2.2 条件变量</h2><p>条件变量即等待某个条件成立然后被唤醒，其学名叫<em>管程</em></p>
+<p><strong>条件变量wait使用</strong>：</p>
+<ul>
+<li>1．必须与mutex一起使用，该布尔表达式的读写需受此mutex保护。</li>
+<li>2．在mutex已上锁的时候才能调用wait()。</li>
+<li>3．把判断布尔条件和wait()放到while循环中。</li>
+</ul>
+<p><strong>条件变量signal&#x2F;broadcast使用</strong>：</p>
+<ul>
+<li>1．不一定要在mutex已上锁的情况下调用signal（理论上）</li>
+<li>2．在signal之前一般要修改布尔表达式。</li>
+<li>3．修改布尔表达式通常要用mutex保护（至少用作full memory barrier）。</li>
+<li>4．注意区分signal与broadcast：“broadcast通常用于表明状态变化，signal通常用于表示资源可用。</li>
+</ul>
+<p>条件变量是非常底层的同步原语，很少直接使用，一般都是用它来实现高层的同步措施，如BlockingQueue<T>或CountDownLatch。</p>
+<blockquote>
+<p>倒计时（CountDownLatch）是一种常用且易用的同步手段。它主要有两种用途：</p>
+<ul>
+<li>主线程发起多个子线程，等这些子线程各自都完成一定的任务之后，主线程才继续执行。通常用于主线程等待多个子线程完成初始化。</li>
+<li>主线程发起多个子线程，子线程都等待主线程，主线程完成其他一些任务之后通知所有子线程开始执行。通常用于多个子线程等待主线程发出“起跑”命令。</li>
+</ul>
+<p>CountDownLatch简单实现如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220912195311021.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220912195328455.png"></p>
+</blockquote>
+<blockquote>
+<p>BlockingQueue简单实现如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220912195438814.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220912195500887.png"></p>
+</blockquote>
+<p>互斥器和条件变量构成了多线程编程的全部必备同步原语，用它们即可完成任何多线程同步任务，二者不能相互替代</p>
+<h2 id="2-3-不要用读写锁和信号量"><a href="#2-3-不要用读写锁和信号量" class="headerlink" title="2.3 不要用读写锁和信号量"></a>2.3 不要用读写锁和信号量</h2><p><strong>读写锁区分了read和write两种行为，但是其并不一定比mutex好</strong></p>
+<ul>
+<li>正确性，在持有read lock时可能会调用修改数据的函数</li>
+<li>性能，读写锁因为要更新当前reader数目，因此其开销不比mutex小，且如果竞争不激烈，mutex会更快</li>
+<li>如果允许读锁提升为写锁，那么有些情况本应发生死锁的情况只是发生了程序崩溃，使得不易排查</li>
+<li>通常reader lock是可重入的，writer lock是不可重入的。但是为了防止writer饥饿，writer lock通常会阻塞后来的reader lock，因此reader lock在重入的时候可能死锁</li>
+<li>如果确实对并发读写有极高的性能要求，可以考虑read-copy-update</li>
+</ul>
+<p><strong>条件变量配合互斥器可以完全替代信号量</strong></p>
+<ul>
+<li>信号量有自己的计数值，而通常我们自己的数据结构也有长度值，这就造成了同样的信息存了两份，需要时刻保持一致，这增加了程序员的负担和出错的可能</li>
+<li>使用信号量的一些场景如哲学家就餐，可以进行简化，设计成简单的资源争抢</li>
+</ul>
+<h2 id="2-4-封装MutexLock、MutexLockGuard、Condition"><a href="#2-4-封装MutexLock、MutexLockGuard、Condition" class="headerlink" title="2.4 封装MutexLock、MutexLockGuard、Condition"></a>2.4 封装MutexLock、MutexLockGuard、Condition</h2><p>MutexLock、MutexLockGuard类定义</p>
+<blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220913110208143.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220913110223337.png"></p>
+<p>注意上面代码的最后一行定义了一个宏，这个宏的作用是防止程序里出现如下错误：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220913110443295.png"></p>
+<p>上述代码还有改进地方：</p>
+<ul>
+<li>mutex创建为PTHREAD_MUTEX_DEFAULT类型，而不是PTHREAD_MUTEX_NORMAL类型（实际上这二者很可能是等同的），严格的做法是用mutexattr来显示指定mutex的类型</li>
+<li>没有检查返回值。这里不能用assert()检查返回值，因为assert()在release build里是空语句。</li>
+</ul>
+</blockquote>
+<p>Condition类将mutex和条件变量绑定了，没有实现wait时指定mutex，定义如下</p>
+<blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220914095528426.png"></p>
+<p>如果一个class要包含MutexLock和Condition，请注意它们的声明顺序和初始化顺序，mutex_应先于condition_构造，并作为后者的构造参数：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220914095635228.png"></p>
+</blockquote>
+<h2 id="2-5-线程安全的Singleton实现"><a href="#2-5-线程安全的Singleton实现" class="headerlink" title="2.5 线程安全的Singleton实现"></a>2.5 线程安全的Singleton实现</h2><p>Singleton的线程安全实现使用double checked locking也是靠不住的，可使用pthread_once来保证</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220914100255773.png"></p>
+<p>使用方法：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220914100320437.png"></p>
+<blockquote>
+<p>这个Singleton没有考虑对象的销毁。在长时间运行的服务器程序里，这不是一个问题，反正进程也不打算正常退出。在短期运行的程序中，程序退出的时候自然就释放所有资源了（前提是程序里不使用不能由操作系统自动关闭的资源，比如跨进程的mutex）</p>
+</blockquote>
+<h2 id="2-6-sleep-3-不是同步原语"><a href="#2-6-sleep-3-不是同步原语" class="headerlink" title="2.6 sleep(3)不是同步原语"></a>2.6 sleep(3)不是同步原语</h2><blockquote>
+<p>生产代码中线程的等待可分为两种：</p>
+<ul>
+<li>一种是等待资源可用（要么等在select&#x2F;poll&#x2F;epoll_wait上，要么等在条件变量上43）；</li>
+<li>一种是等着进入临界区（等在mutex上）以便读写共享数据。后一种等待通常极短，否则程序性能和伸缩性就会有问题。</li>
+</ul>
+</blockquote>
+<p>在程序的正常执行中，如果需要等待一段已知的时间，应该往event loop里注册一个timer，然后在timer的回调函数里接着干活，因为线程是个珍贵的共享资源，不能轻易浪费</p>
+<p>如果等待某个事件发生，那么应该采用条件变量或IO事件回调，不能用sleep来轮询</p>
+<p>等待某个事件发生，正确的做法是用select()等价物或Condition，抑或（更理想地）高层同步工具；在用户态做轮询（polling）是低效的。</p>
+<h2 id="2-7-归纳与总结"><a href="#2-7-归纳与总结" class="headerlink" title="2.7 归纳与总结"></a>2.7 归纳与总结</h2><p>前面几节内容归纳如下：</p>
+<ul>
+<li>线程同步的四项原则，尽量用高层同步设施（线程池、队列、倒计时）</li>
+<li>使用普通互斥器和条件变量完成剩余的同步任务，采用RAII惯用手法（idiom）和Scoped Locking。</li>
+</ul>
+<h2 id="2-8-借shared-ptr实现copy-on-write"><a href="#2-8-借shared-ptr实现copy-on-write" class="headerlink" title="2.8 借shared_ptr实现copy-on-write"></a>2.8 借shared_ptr实现copy-on-write</h2><p>使用普通mutex替换读写锁，都基于用shared_ptr来管理共享数据，原理如下：</p>
+<ul>
+<li>shared_ptr是引用计数型智能指针，如果当前只有一个观察者，那么引用计数的值为147。</li>
+<li>对于write端，如果发现引用计数为1，这时可以安全地修改共享对象，不必担心有人正在读它。</li>
+<li>对于read端，在读之前把引用计数加1，读完之后减1，这样保证在读的期间其引用计数大于1，可以阻止并发写。</li>
+<li>比较难的是，对于write端，如果发现引用计数大于1，该如何处理？将原来数据复制一份，在复制数据上进行修改，然后再拷贝回去（不直接在原来数据上修改是因为还有线程在读，读线程的互斥锁可能只有取数据那一小部分临界区，而进行处理的操作可能没在临界区）。</li>
+</ul>
+<blockquote>
+<p>示例</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220914105842469.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220914105909144.png"></p>
+<p>读函数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220914110003319.png"></p>
+<p>写函数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220914110031548.png"></p>
+</blockquote>
+<h1 id="第3章-多线程服务器的适用场合与常用编程模型"><a href="#第3章-多线程服务器的适用场合与常用编程模型" class="headerlink" title="第3章 多线程服务器的适用场合与常用编程模型"></a>第3章 多线程服务器的适用场合与常用编程模型</h1><h2 id="3-1-进程与线程"><a href="#3-1-进程与线程" class="headerlink" title="3.1 进程与线程"></a>3.1 进程与线程</h2><p>多进程设计时需要思考以下内容：</p>
+<ul>
+<li>容错</li>
+<li>扩容</li>
+<li>负载均衡</li>
+<li>退休（暂停使用）</li>
+</ul>
+<p>线程的特点是共享地址空间，从而可以高效地共享数据</p>
+<h2 id="3-2-单线程服务器的常用编程模型"><a href="#3-2-单线程服务器的常用编程模型" class="headerlink" title="3.2 单线程服务器的常用编程模型"></a>3.2 单线程服务器的常用编程模型</h2><p>Reactor模式：non-blocking IO＋IO multiplexing（IO多路复用）</p>
+<p>其基本结构是一个事件循环（event loop），以事件驱动（event-driven）和事件回调的方式实现业务逻辑：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220914111640559.png"></p>
+<blockquote>
+<p>基于事件驱动的编程模型也有其本质的缺点，它要求事件回调函数必须是非阻塞的。对于涉及网络IO的请求响应式协议，它容易割裂业务逻辑，使其散布于多个回调函数之中，相对不容易理解和维护</p>
+</blockquote>
+<h2 id="3-3-多线程服务器的常用编程模型"><a href="#3-3-多线程服务器的常用编程模型" class="headerlink" title="3.3 多线程服务器的常用编程模型"></a>3.3 多线程服务器的常用编程模型</h2><p>主要有以下几种方法：</p>
+<ul>
+<li>每个请求创建一个线程，使用阻塞式IO操作</li>
+<li>使用线程池，同样使用阻塞式IO操作（相比上一种能提高性能）</li>
+<li>使用non-blocking IO＋IO multiplexing（one loop per thread）</li>
+<li>Leader&#x2F;Follower等高级模式</li>
+</ul>
+<h3 id="3-3-1-one-loop-per-thread"><a href="#3-3-1-one-loop-per-thread" class="headerlink" title="3.3.1 one loop per thread"></a>3.3.1 one loop per thread</h3><p>此模型下，程序里的每个IO线程有一个event loop（或者叫Reactor），用于处理读写和定时事件</p>
+<blockquote>
+<p>好处：</p>
+<ul>
+<li>线程数目基本固定，可以在程序启动的时候设置，不会频繁创建与销毁。</li>
+<li>可以很方便地在线程间调配负载。</li>
+<li>IO事件发生的线程是固定的，同一个TCP连接不必考虑事件并发。</li>
+</ul>
+</blockquote>
+<p>Eventloop代表了线程的主循环，需要让哪个线程干活，就把timer或IOchannel（如TCP连接）注册到哪个线程的loop里即可，因此这个loop必须得是线程安全的</p>
+<p>对于non-trivial的服务端程序，一般会采用non-blocking IO＋IO multiplexing，每个connection&#x2F;acceptor都会注册到某个event loop上，程序里有多个event loop，每个线程至多有一个event loop。</p>
+<h3 id="3-3-2-线程池"><a href="#3-3-2-线程池" class="headerlink" title="3.3.2 线程池"></a>3.3.2 线程池</h3><p>对于没有IO而光有计算任务的线程，使用event loop有点浪费，用blocking queue实现的任务队列（TaskQueue）效果会更好</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220915095054503.png"></p>
+<p>用这种方式实现线程池特别容易，以下是启动容量（并发数）为N的线程池：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220915095146398.png"></p>
+<p>使用方法：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220915095225249.png"></p>
+<p>可以用BlockingQueue<T>实现数据的生产者消费者队列，T是数据类型而非函数对象，queue的消费者从中拿到数据进行处理</p>
+<h3 id="3-3-3-推荐模式"><a href="#3-3-3-推荐模式" class="headerlink" title="3.3.3 推荐模式"></a>3.3.3 推荐模式</h3><p>推荐的C++多线程服务端编程模式为：one (event) loop per thread+ thread pool：</p>
+<ul>
+<li>event loop（也叫IO loop）用作IO multiplexing，配合non-blocking IO和定时器。</li>
+<li>thread pool用来做计算，具体可以是任务队列或生产者消费者队列。</li>
+</ul>
+<h2 id="3-4-进程间通信只用TCP"><a href="#3-4-进程间通信只用TCP" class="headerlink" title="3.4 进程间通信只用TCP"></a>3.4 进程间通信只用TCP</h2><blockquote>
+<p>Linux下进程间通信（IPC）的方式很多：匿名管道（pipe）、具名管道（FIFO）、POSIX消息队列、共享内存、信号（signals）等等，更不必说Sockets了。同步原语（synchronization primitives）也很多，如互斥器（mutex）、条件变量（condition variable）、读写锁（reader-writer lock）、文件锁（record locking）、信号量（semaphore）等等</p>
+</blockquote>
+<p>进程间通信选Sockets主要好处在于：可以跨主机，具有伸缩性。而其他IPC都不能跨机器。</p>
+<p>使用TCP这种字节流（byte stream）方式通信，会有marshal&#x2F;unmarshal的开销，这要求选用合适的消息格式，准确地说是wire format，推荐Google Protocol Buffers</p>
+<blockquote>
+<p>优点：</p>
+<ul>
+<li>TCP port由一个进程独占，且操作系统会自动回收（<em>listening port和已建立连接的TCP socket都是文件描述符，在进程结束时操作系统会关闭所有文件描述符</em>）</li>
+<li>port是独占的，那么可以防止程序重复启动，后面那个进程抢不到port，自然就没法初始化了，避免造成意料之外的结果</li>
+<li>两个进程通过TCP通信，如果一个崩溃了，操作系统会关闭连接，另一个进程几乎立刻就能感知</li>
+<li>TCP协议的一个天生的好处是“可记录、可重现”，很方便使用工具进行分析</li>
+<li>TCP连接是可再生的，连接的任何一方都可以退出再启动，重建连接之后就能继续工作，这对开发牢靠的分布式系统意义重大</li>
+</ul>
+</blockquote>
+<p><strong>分布式系统中使用TCP长连接通信</strong></p>
+<ul>
+<li>分布式系统的软件设计和功能划分一般应该以“进程”为单位。从宏观上看，一个分布式系统是由运行在多台机器上的多个进程组成的，进程之间采用TCP长连接通信</li>
+<li>容易定位分布式系统中的服务之间的依赖关系，TCP短连接和UDP则不具备这一特性</li>
+<li>通过接收和发送队列的长度也较容易定位网络或程序故障</li>
+</ul>
+<h2 id="3-5-多线程服务器的适用场合"><a href="#3-5-多线程服务器的适用场合" class="headerlink" title="3.5 多线程服务器的适用场合"></a>3.5 多线程服务器的适用场合</h2><blockquote>
+<p>开发服务端程序的一个基本任务是处理并发连接，现在服务端网络编程处理并发连接主要有两种方式：</p>
+<ul>
+<li>当“线程”很廉价时，一台机器上可以创建远高于CPU数目的“线程”。这时一个线程只处理一个TCP连接，通常使用阻塞IO。例如，Python gevent、Go goroutine、Erlang actor。这里的“线程”由语言的runtime自行调度，与操作系统线程不是一回事。</li>
+<li>当线程很宝贵时，一台机器上只能创建与CPU数目相当的线程。这时一个线程要处理多个TCP连接上的IO，通常使用非阻塞IO和IO multiplexing。例如，libevent、muduo、Netty。这是原生线程，能被操作系统的任务调度器看见。</li>
+</ul>
+</blockquote>
+<p>如果要在一台多核机器上提供一种服务或执行一个任务，可用的模式有：</p>
+<ul>
+<li>1．运行一个单线程的进程（不可伸缩，无法发挥多喝机器的计算能力）</li>
+<li>2．运行一个多线程的进程</li>
+<li>3．运行多个单线程的进程<ul>
+<li>a. 简单地把模式1中的进程运行多份</li>
+<li>b. 主进程+woker进程，如果必须绑定到一个TCP port，比如httpd+fastcgi</li>
+</ul>
+</li>
+<li>4．运行多个多线程的进程</li>
+</ul>
+<p><strong>程序是否应该使用多线程判断方法</strong>：</p>
+<ul>
+<li>如果执行任务时间远大于进程启动和销毁开销，那么应该使用进程</li>
+<li>如果执行任务时间接近进程开销大很多且也并未接近线程开销，那么使用线程（这里的接近是指大约在高一个数量级左右）</li>
+<li>如果执行任务时间接近线程开销，那么直接就在当前线程执行或使用线程池</li>
+</ul>
+<h3 id="3-5-1-必须用单线程的场合"><a href="#3-5-1-必须用单线程的场合" class="headerlink" title="3.5.1 必须用单线程的场合"></a>3.5.1 必须用单线程的场合</h3><p>有两种场合必须使用单线程：</p>
+<ul>
+<li>1．程序可能会fork()（作者认为只有守护进程类型必须坚持单线程模式）</li>
+<li>2．限制程序的CPU占用率（单线程最多使用一个核，占用率不会很高，不会影响其他任务）</li>
+</ul>
+<h3 id="3-5-2-单线程程序的优缺点"><a href="#3-5-2-单线程程序的优缺点" class="headerlink" title="3.5.2 单线程程序的优缺点"></a>3.5.2 单线程程序的优缺点</h3><p>单线程程序的优势：简单</p>
+<p>单线程程序的缺点：非抢占（如果事件a优先级高级事件b，而a所需时间比b短，但如果b先来则开始处理，其实已经发生优先级反转）</p>
+<h3 id="3-5-3-适用多线程程序的场景"><a href="#3-5-3-适用多线程程序的场景" class="headerlink" title="3.5.3 适用多线程程序的场景"></a>3.5.3 适用多线程程序的场景</h3><p>多线程的适用场景是：提高响应速度，让IO和“计算”相互重叠，降低延迟</p>
+<p>一个程序要做成多线程的，大致要满足：</p>
+<ul>
+<li>有多个CPU可用。单核机器上多线程没有性能优势</li>
+<li>线程间有共享数据，即内存中的全局状态（如果没有共享数据，用模型3b就行。虽然我们应该把线程间的共享数据降到最低，但不代表没有）</li>
+<li>共享的数据是可以修改的，而不是静态的常量表（如果数据不能修改，那么可以在进程间用shared memory，模式3就能胜任）</li>
+<li>提供非均质的服务。即，事件的响应有优先级差异，我们可以用专门的线程来处理优先级高的事件。防止优先级反转。</li>
+<li>不是逻辑简单的IO bound或CPU bound程序，即程序要有相当的计算量。</li>
+<li>利用异步操作。比如logging。无论往磁盘写log file，还是往log server发送消息都不应该阻塞critical path。</li>
+<li>能scale up。一个好的多线程程序应该能享受增加CPU数目带来的好处</li>
+<li>具有可预测的性能。随着负载增加，性能缓慢下降，超过某个临界点之后会急速下降。线程数目一般不随负载变化。</li>
+<li>多线程能有效地划分责任与功能，让每个线程的逻辑比较简单，任务单一，便于编码。而不是把所有逻辑都塞到一个event loop里，不同类别的事件之间相互影响</li>
+</ul>
+<p>书里提供了一个服务器集群管理示例，可阅读</p>
+<p><strong>线程的分类</strong></p>
+<ul>
+<li>1．IO线程，这类线程的主循环是IO multiplexing，阻塞地等在select&#x2F;poll&#x2F;epoll_wait系统调用上。这类线程也处理定时事件。有些简单计算也可以放入其中，比如消息的编码或解码。</li>
+<li>2．计算线程，这类线程的主循环是blockingqueue，阻塞地等在conditionvariable上。这类线程一般位于thread pool中。这种线程通常不涉及IO，一般要避免任何阻塞操作。</li>
+<li>3．第三方库所用的线程，比如logging，又比如database connection。</li>
+</ul>
+<p>服务器程序一般不会频繁地启动和终止线程，可在程序启动的时候就创建</p>
+<h2 id="3-6-“多线程服务器的适用场合”例释与答疑"><a href="#3-6-“多线程服务器的适用场合”例释与答疑" class="headerlink" title="3.6 “多线程服务器的适用场合”例释与答疑"></a>3.6 “多线程服务器的适用场合”例释与答疑</h2><ol>
+<li>Linux能同时启动多少个线程？</li>
+</ol>
+<blockquote>
+<p>对于32-bit Linux，一个进程的地址空间是4GiB，其中用户态能访问3GiB左右，而一个线程的默认栈（stack）大小是10MB，一个进程大约最多能同时启动300个线程。对于64-bit系统，线程数目可大大增加</p>
+</blockquote>
+<ol start="2">
+<li>多线程能提高并发度吗？</li>
+</ol>
+<blockquote>
+<p>单纯采用thread per connection的模型，那么并发连接数最多300，这远远低于基于Reactor模式的并发连接数（几千乃至上万，甚至几万）</p>
+<p>thread per connection不适合高并发场合，其scalability不佳。one loop per thread的并发度足够大，且与CPU数目成正比</p>
+</blockquote>
+<ol start="3">
+<li>多线程能提高吞吐量吗？</li>
+</ol>
+<blockquote>
+<p>对于计算密集型服务，不能。这里指的时总体吞吐量，能加快单个任务运算速度。</p>
+</blockquote>
+<ol start="4">
+<li>多线程能降低响应时间吗？</li>
+</ol>
+<blockquote>
+<p>如果设计合理，充分利用多核资源的话，可以。在突发（burst）请求时效果尤为明显</p>
+</blockquote>
+<ol start="5">
+<li>多线程程序如何让IO和“计算”相互重叠，降低latency？</li>
+</ol>
+<blockquote>
+<p>基本思路是，把IO操作（通常是写操作）通过BlockingQueue交给别的线程去做，自己不必等待。</p>
+</blockquote>
+<ol start="6">
+<li>为什么第三方库往往要用自己的线程？</li>
+</ol>
+<blockquote>
+<p>event loop模型没有标准实现。如果自己写代码，尽可以按所用Reactor的推荐方式来编程。但是第三方库不一定能很好地适应并融入这个event loop framework，有时需要用线程来做一些串并转换。</p>
+<p>比方说检测串口上的数据到达可以用文件描述符的可读事件，因此可以方便地融入event loop。但是检测串口上的某些控制信号只能用轮询或阻塞等待，要想融入event loop，需要单独起一个线程来查询串口信号翻转，再转换为文件描述符的读写事件。</p>
+</blockquote>
+<ol start="7">
+<li>什么是线程池大小的阻抗匹配原则？</li>
+</ol>
+<blockquote>
+<p>如果线程在执行任务时密集计算所占的时间比重为P，而系统一共有C个CPU，为了让这C个CPU跑满而又不过载，线程池大小的经验公式T＝C&#x2F;P，但是P小于0.2时则不适用了，T可以取项目所需的固定值</p>
+</blockquote>
+<ol start="8">
+<li>除了你推荐的Reactor＋thread poll，还有别的non-trivial多线程编程模型吗？</li>
+</ol>
+<blockquote>
+<p>Proactor。如果一次请求响应中要和别的进程打多次交道，那么Proactor模型往往能做到更高的并发度。当然，代价是代码变得支离破碎，难以理解。</p>
+<p>Proactor模式依赖操作系统或库来高效地调度这些子任务，每个子任务都不会阻塞，因此能用比较少的线程达到很高的IO并发度。</p>
+<p>Proactor能提高吞吐，但不能降低延迟</p>
+<p>书中有个案例</p>
+</blockquote>
+<ol start="9">
+<li>模式2和模式3a该如何取舍？</li>
+</ol>
+<blockquote>
+<p>模式2是一个多线程的进程，模式3a是多个相同的单线程进程</p>
+<p>在其他条件相同的情况下，可以根据工作集（work set）的大小来取舍。工作集是指服务程序响应一次请求所访问的内存大小。如果工作集较大，那么就用多线程，避免CPU cache换入换出，影响性能；否则，就用单线程多进程，享受单线程编程的便利。</p>
+<p>举例来说如果程序有一个较大的本地cache，用于缓存一些基础参考数据，几乎每次请求都会访问cache，那么多线程更适合一些，因为可以避免每个进程都自己保留一份cache，增加内存使用。</p>
+</blockquote>
+<h1 id="第4章-C-多线程系统编程精要"><a href="#第4章-C-多线程系统编程精要" class="headerlink" title="第4章 C++多线程系统编程精要"></a>第4章 C++多线程系统编程精要</h1><p>学习多线程编程思维方式的转变有两点：</p>
+<ul>
+<li>当前线程可能随时会被切换出去，或者说被抢占了</li>
+<li>多线程程序中事件的发生顺序不再有全局统一的先后关系</li>
+</ul>
+<h2 id="4-1-基本线程原语的选用"><a href="#4-1-基本线程原语的选用" class="headerlink" title="4.1 基本线程原语的选用"></a>4.1 基本线程原语的选用</h2><p>11个最基本的Pthreads函数是：</p>
+<ul>
+<li>2个：线程的创建和等待结束（join）。封装为muduo::Thread</li>
+<li>4个：mutex的创建、销毁、加锁、解锁。封装为muduo::MutexLock</li>
+<li>5个：条件变量的创建、销毁、等待、通知、广播。封装为muduo::Condition。</li>
+</ul>
+<p>可以酌情使用的有：</p>
+<ul>
+<li>pthread_once，封装为muduo::Singleton<T>。其实不如直接用全局变量。</li>
+<li>pthread_key*，封装为muduo::ThreadLocal<T>。可以考虑用_thread替换之。不建议使用</li>
+<li>pthread_rwlock，读写锁通常应慎用。muduo没有封装读写锁，这是有意的。</li>
+<li>sem_*，避免用信号量（semaphore）。它的功能与条件变量重合，但容易用错。</li>
+<li>pthread{cancel, kill}。程序中出现了它们，则通常意味着设计出了问题。</li>
+</ul>
+<h2 id="4-2-C-x2F-C-系统库的线程安全性"><a href="#4-2-C-x2F-C-系统库的线程安全性" class="headerlink" title="4.2 C&#x2F;C++系统库的线程安全性"></a>4.2 C&#x2F;C++系统库的线程安全性</h2><p>编写线程安全程序的一个难点在于线程安全是不可组合的（两个函数是线程安全的，但组合调用则不一定线程安全）</p>
+<p>设计线程安全的接口基本思路是尽量把class设计成immutable的</p>
+<p>C++系统库：</p>
+<ul>
+<li><p>C++的标准库容器和std::string都不是线程安全的</p>
+</li>
+<li><p>C++标准库中的绝大多数泛型算法是线程安全的12，因为这些都是无状态纯函数。只要输入区间是线程安全的，那么泛型函数就是线程安全的。</p>
+</li>
+<li><p>C++的iostream不是线程安全的，因为流式输出多个数据相当于调用了多个函数（可以改用printf，但不高效）</p>
+</li>
+</ul>
+<h2 id="4-3-Linux上的线程标识"><a href="#4-3-Linux上的线程标识" class="headerlink" title="4.3 Linux上的线程标识"></a>4.3 Linux上的线程标识</h2><blockquote>
+<p>threads库提供了pthread_self函数用于返回当前进程的标识符，其类型为pthread_t，不一定是一个数值类型，也有可能是一个结构体。专门提供了pthread_equal函数用于对比两个线程标识符是否相等。这就带来一系列问题，包括：</p>
+<ul>
+<li>无法打印输出pthread_t，因为不知道其确切类型</li>
+<li>无法比较pthread_t的大小或计算其hash值，因此无法用作关联容器的key</li>
+<li>无法定义一个非法的pthread_t值，用来表示绝对不可能存在的线程id，因此MutexLock class没有办法有效判断当前线程是否已经持有本锁</li>
+<li>pthread_t值只在进程内有意义，与操作系统的任务调度之间无法建立有效关联。比方说在&#x2F;proc文件系统中找不到pthread_t对应的task。</li>
+</ul>
+<p>glibc的Pthreads实现实际上把pthread_t用作一个结构体指针，指向一块动态分配的内存，而且这块内存是反复使用的。这就造成pthread_t的值很容易重复。Pthreads只保证同一进程之内，同一时刻的各个线程的id不同；不能保证同一进程先后多个线程具有不同的id，更不要说一台机器上多个进程之间的id唯一性了。</p>
+</blockquote>
+<p>在Linux上，建议使用gettid()系统调用的返回值作为线程id，这么做的好处有：</p>
+<ul>
+<li>它的类型是pid_t，其值通常是一个小整数，便于在日志中输出。</li>
+<li>在现代Linux中，它直接表示内核的任务调度id，因此在&#x2F;proc文件系统中可以轻易找到对应项</li>
+<li>在其他系统工具中也容易定位到具体某一个线程，例如在top()中我们可以按线程列出任务，然后找出CPU使用率最高的线程id，再根据程序日志判断到底哪一个线程在耗用CPU。</li>
+<li>任何时刻都是全局唯一的，并且由于Linux分配新pid采用递增轮回办法，短时间内启动的多个线程也会具有不同的线程id。</li>
+<li>0是非法值，因为操作系统第一个进程init的pid是1。</li>
+</ul>
+<p>每次都执行一次gettid()系统调用效率不高，解决办法是缓存第一次请求返回的值。</p>
+<h2 id="4-4-线程的创建与销毁的守则"><a href="#4-4-线程的创建与销毁的守则" class="headerlink" title="4.4 线程的创建与销毁的守则"></a>4.4 线程的创建与销毁的守则</h2><p><strong>线程的创建遵循原则：</strong></p>
+<ul>
+<li><p>程序库不应该在未提前告知的情况下创建自己的“背景线程”</p>
+<blockquote>
+<p>否则会导致资源规划漏算且不能安全fork</p>
+</blockquote>
+</li>
+<li><p>尽量用相同的方式创建线程，例如muduo::Thread</p>
+</li>
+<li><p>在进入main()函数之前不应该启动线程</p>
+<blockquote>
+<p>也就是别在全局对象中创建线程，这会影响其他全局对象的安全构造，C++保证在进入main()之前完成全局对象16的构造</p>
+</blockquote>
+</li>
+<li><p>程序中线程的创建最好能在初始化阶段全部完成</p>
+<blockquote>
+<p>一个服务程序的线程数目应该与当前负载无关，而应该与机器的CPU数目有关，即应该规划好线程个数</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>线程的销毁方式：</strong></p>
+<ul>
+<li>自然死亡。从线程主函数返回，线程正常退出。</li>
+<li>非正常死亡。从线程主函数抛出异常或线程触发segfault信号等非法操作18。</li>
+<li>自杀。在线程中调用pthread_exit()来立刻退出线程。</li>
+<li>他杀。其他线程调用pthread_cancel()来强制终止某个线程。</li>
+</ul>
+<p>线程正常退出的方式只有一种，即自然死亡。任何从外部强行终止线程的做法和想法都是错的</p>
+<blockquote>
+<p>如果确实需要强行终止一个耗时很长的计算任务，而又不想在计算期间周期性地检查某个全局退出标志，那么可以考虑把那一部分计算任务代码fork()，以一个新进程启动，杀一个进程比杀本进程内的线程要安全得多</p>
+<p>新进程与本进程的通信方式最好用文件描述符</p>
+</blockquote>
+<h3 id="4-4-1-pthread-cancel与C"><a href="#4-4-1-pthread-cancel与C" class="headerlink" title="4.4.1 pthread_cancel与C++"></a>4.4.1 pthread_cancel与C++</h3><p>POSIX threads有cancellation point这个概念，意思是线程执行到这里有可能会被终止（cancel）</p>
+<p>在C++中，cancellation point的实现与C语言有所不同，线程不是执行到此函数就立刻终止，而是该函数会抛出异常。这样可以有机会执行stack unwind，析构栈上对象（特别是释放持有的锁）</p>
+<h3 id="4-4-2-exit-3-在C-中不是线程安全的"><a href="#4-4-2-exit-3-在C-中不是线程安全的" class="headerlink" title="4.4.2　exit(3)在C++中不是线程安全的"></a>4.4.2　exit(3)在C++中不是线程安全的</h3><p>exit(3)函数在C++中的作用除了终止进程，还会析构全局对象和已经构造完的函数静态对象。这有潜在的死锁可能</p>
+<blockquote>
+<p>例子如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220917173424329.png"></p>
+<p>书中还有个exit推出例子，意思是一个全局对象被多个线程调用，在一个线程中调用了exit(3)，那么这个全局对象被析构，另一个线程调用此全局对象则会发生崩溃</p>
+</blockquote>
+<p>如果确实需要主动结束线程，则可以考虑用_exit(2)系统调用。它不会试图析构全局对象，但是也不会执行其他任何清理工作，比如flush标准输出。</p>
+<h2 id="4-5-善用-thread关键字"><a href="#4-5-善用-thread关键字" class="headerlink" title="4.5 善用__thread关键字"></a>4.5 善用__thread关键字</h2><p>__thread是<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=GCC&spm=1001.2101.3001.7020">GCC</a>内置的线程局部存储设施。thread变量每一个线程有一份独立实体，各个线程的值互不干扰。</p>
+<p>__thread变量的存取效率可与全局变量相比</p>
+<p><strong>thread使用规则</strong>：</p>
+<ul>
+<li>只能用于修饰POD类型，不能修饰class类型，因为无法自动调用构造函数和析构函数。</li>
+<li>thread可以用于修饰全局变量、函数内的静态变量，但是不能用于修饰函数的局部变量或者class的普通成员变量。</li>
+<li>__thread变量的初始化只能用编译期常量。</li>
+<li>可以用来修饰那些带有全局性且值可能变，但是又不值得用全局变量保护的变量。</li>
+</ul>
+<h2 id="4-6-多线程与IO"><a href="#4-6-多线程与IO" class="headerlink" title="4.6 多线程与IO"></a>4.6 多线程与IO</h2><blockquote>
+<p>操作文件描述符的系统调用本身是线程安全的，不用担心多个线程同时操作文件描述符会造成进程崩溃或内核崩溃</p>
+</blockquote>
+<p><strong>多线程程序应该遵循的原则</strong>是：每个文件描述符只由一个线程操作，从而轻松解决消息收发的顺序性问题，也避免了关闭文件描述符的各种race condition。一个线程可以操作多个文件描述符，但一个线程不能操作别的线程拥有的文件描述符。epoll也遵循相同的原则。</p>
+<p><strong>两个例外</strong>：对于磁盘文件，在必要的时候多个线程可以同时调用pread(2)&#x2F;pwrite(2)来读写同一个文件；对于UDP，由于协议本身保证消息的原子性，在适当的条件下（比如消息之间彼此独立）可以多个线程同时读写同一个UDP文件描述符。</p>
+<h2 id="4-7-用RAII包装文件描述符"><a href="#4-7-用RAII包装文件描述符" class="headerlink" title="4.7 用RAII包装文件描述符"></a>4.7 用RAII包装文件描述符</h2><blockquote>
+<p>Linux的文件描述符（file descriptor）是小整数，在程序刚刚启动的时候，0是标准输入，1是标准输出，2是标准错误。这时如果我们新打开一个文件，它的文件描述符会是3，因为POSIX标准要求每次新打开文件（含socket）的时候必须使用当前最小可用的文件描述符号码。</p>
+<p>这种分配文件描述符的方式稍不注意就会造成串话，比如一个线程正准备read()某个socket，而第二个线程几乎同时close()了此socket；第三个线程又恰好open()了另一个文件描述符，其号码正好与前面的socket相同</p>
+</blockquote>
+<p><strong>使用RAII来解决文件描述符串话问题</strong>：用Socket对象包装文件描述符，所有对此文件描述符的读写操作都通过此对象进行，在对象的析构函数里关闭文件描述符。这样一来，只要Socket对象还活着，就不会有其他Socket对象跟它有一样的文件描述符，也就不可能串话。剩下的问题就是做好多线程中的对象生命期管理。</p>
+<p>为什么服务端程序不应该关闭标准输出（fd＝1）和标准错误（fd＝2）？</p>
+<blockquote>
+<p>因为有些第三方库在特殊紧急情况下会往stdout或stderr打印出错信息，如果我们的程序关闭了标准输出（fd＝1）和标准错误（fd＝2），这两个文件描述符有可能被网络连接占用，结果造成对方收到莫名其妙的数据。</p>
+<p>正确的做法是把stdout或stderr重定向到磁盘文件（最好不要是&#x2F;dev&#x2F;null），这样我们不至于丢失关键的诊断信息。</p>
+</blockquote>
+<p>在非阻塞网络编程中，也有可能发生socket串话，解决方法仍然是使用一个类封装socket，然后使用shared_ptr来管理其声明周期。</p>
+<h2 id="4-8-RAII与fork"><a href="#4-8-RAII与fork" class="headerlink" title="4.8 RAII与fork()"></a>4.8 RAII与fork()</h2><blockquote>
+<p>在编写C++程序的时候，设法保证对象的构造和析构是成对出现的，否则就几乎一定会有内存泄漏。用对象来包装资源，把资源管理与对象生命期管理统一起来（RAII）。但是，假如程序会fork()，这一假设就会被破坏了。</p>
+</blockquote>
+<p>fork()之后，子进程继承了父进程的几乎全部状态，但也有少数例外。子进程会继承地址空间和文件描述符，因此用于管理动态内存和文件描述符的RAII class都能正常工作。但是子进程不会继承：</p>
+<ul>
+<li>父进程的内存锁，mlock(2)、mlockall(2)。</li>
+<li>父进程的文件锁，fcntl(2)。</li>
+<li>父进程的某些定时器，setitimer(2)、alarm(2)、timer_create(2)等等。</li>
+</ul>
+<p>通常我们会用RAII手法来管理以上种类的资源（加锁解锁、创建销毁定时器等等），但是在fork()出来的子进程中不一定正常工作，因为资源在fork()时已经被释放了。</p>
+<h2 id="4-9-多线程与fork"><a href="#4-9-多线程与fork" class="headerlink" title="4.9 多线程与fork()"></a>4.9 多线程与fork()</h2><p>fork()一般不能在多线程程序中调用，因为Linux的fork()只克隆当前线程的thread of control，不克隆其他线程。fork()之后，除了当前线程之外，其他线程都消失了。也就是说不能一下子fork()出一个和父进程一样的多线程子进程。</p>
+<blockquote>
+<p>Linux没有forkall()这样的系统调用，forkall()其实也是很难办的（从语意上），因为其他线程可能等在condition variable上，可能阻塞在系统调用上，可能等着mutex以跨入临界区，还可能在密集的计算中，这些都不好全盘搬到子进程里。</p>
+</blockquote>
+<p>fork()之后子进程中只有一个线程，其他线程都消失了，这就造成一个危险的局面。其他线程可能正好位于临界区之内，持有了某个锁，而它突然死亡，再也没有机会去解锁了。如果子进程试图再对同一个mutex加锁，就会立刻死锁。</p>
+<p>在fork()之后，子进程就相当于处于signal handler之中，你不能调用线程安全的函数（除非它是可重入的），而只能调用异步信号安全（async-signal-safe）的函数。比方说，fork()之后，子进程不能调用：</p>
+<ul>
+<li>malloc(3)。因为malloc()在访问全局状态时几乎肯定会加锁。</li>
+<li>任何可能分配或释放内存的函数，包括new、map::insert()、snprintf33……</li>
+<li>任何Pthreads函数。你不能用pthread_cond_signal()去通知父进程，只能通过读写pipe(2)来同步。</li>
+<li>printf()系列函数，因为其他线程可能恰好持有stdout&#x2F;stderr的锁。</li>
+<li>除了man 7 signal中明确列出的“signal安全”函数之外的任何函数。</li>
+</ul>
+<p>唯一安全的做法是在fork()之后立即调用exec()执行另一个程序，彻底隔断子进程与父进程的联系。</p>
+<h2 id="4-10-多线程与signal"><a href="#4-10-多线程与signal" class="headerlink" title="4.10 多线程与signal"></a>4.10 多线程与signal</h2><p>在多线程程序中，使用signal的第一原则是<strong>不要使用signal</strong>：</p>
+<ul>
+<li>不要用signal作为IPC的手段，包括不要用SIGUSR1等信号来触发服务端的行为。如果确实需要，可以用§9.5介绍的增加监听端口的方式来实现双向的、可远程访问的进程控制。</li>
+<li>不要使用基于signal实现的定时函数，包括alarm&#x2F;ualarm&#x2F;setitimer&#x2F;timer_create、sleep&#x2F;usleep等等。</li>
+<li>不主动处理各种异常信号（SIGTERM、SIGINT等等），只用默认语义：结束进程。有一个例外：SIGPIPE，服务器程序通常的做法是忽略此信号40，否则如果对方断开连接，而本机继续write的话，会导致程序意外终止。</li>
+<li>在没有别的替代方法的情况下（比方说需要处理SIGCHLD信号），把异步信号转换为同步的文件描述符事件。</li>
+</ul>
+<h2 id="4-11-Linux新增系统调用的启示"><a href="#4-11-Linux新增系统调用的启示" class="headerlink" title="4.11 Linux新增系统调用的启示"></a>4.11 Linux新增系统调用的启示</h2><p>Linux服务器开发的主流模型正在由fork()＋worker processes模型转变为第3章推荐的多线程模型。fork()的使用频度会大大降低，将来或许只有专门负责启动别的进程的“看门狗程序”才会调用fork()，而一般的网络服务器程序不会再fork()出子进程了。原因之一是，fork()一般不能在多线程程序中调用（§4.9）。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>编写多线程C++程序的原则如下：</p>
+<ul>
+<li>线程是宝贵的，一个程序可以使用几个或十几个线程。一台机器上不应该同时运行几百个、几千个用户线程，这会大大增加内核scheduler的负担，降低整体性能。</li>
+<li>线程的创建和销毁是有代价的，一个程序最好在一开始创建所需的线程，并一直反复使用。不要在运行期间反复创建、销毁线程，如果必须这么做，其频度最好能降到1分钟1次（或更低）。</li>
+<li>每个线程应该有明确的职责，例如IO线程（运行EventLoop::loop()，处理IO事件）、计算线程（位于ThreadPool中，负责计算）等等。</li>
+<li>线程之间的交互应该尽量简单，理想情况下，线程之间只用消息传递（例如BlockingQueue）方式交互。如果必须用锁，那么最好避免一个线程同时持有两把或更多的锁，这样可彻底防止死锁。</li>
+<li>要预先考虑清楚一个mutable shared对象将会暴露给哪些线程，每个线程是读还是写，读写有无可能并发进行。</li>
+</ul>
+<h1 id="第5章-高效的多线程日志"><a href="#第5章-高效的多线程日志" class="headerlink" title="第5章 高效的多线程日志"></a>第5章 高效的多线程日志</h1><blockquote>
+<p>“日志（logging）”有两个意思：</p>
+<ul>
+<li>诊断日志（diagnostic log）：常用日志库提供的日志功能。</li>
+<li>交易日志（transaction log）：即数据库的write-ahead log、文件系统的journaling等，用于记录状态变更，通过回放日志可以逐步恢复每一次修改之后的状态。</li>
+</ul>
+</blockquote>
+<p><strong>对于关键进程，日志通常要记录</strong>：</p>
+<ul>
+<li>1．收到的每条内部消息的id（还可以包括关键字段、长度、hash等）；</li>
+<li>2．收到的每条外部消息的全文；</li>
+<li>3．发出的每条消息的全文，每条消息都有全局唯一的id；</li>
+<li>4．关键内部状态的变更，等等。</li>
+</ul>
+<p>一个日志库大体可分为前端和后端两部分。前端是供应用程序使用的接口，并生成日志消息；后端则负责把日志消息写到目的地</p>
+<h2 id="5-1-功能需求"><a href="#5-1-功能需求" class="headerlink" title="5.1 功能需求"></a>5.1 功能需求</h2><blockquote>
+<p>常规的通用日志库如log4j13&#x2F;logback14通常会提供丰富的功能，但这些功能不一定全都是必需的：</p>
+<ul>
+<li>1．日志消息有多种级别（level），如TRACE、DEBUG、INFO、WARN、ERROR、FATAL等。</li>
+<li>2．日志消息可能有多个目的地（appender），如文件、socket、SMTP等。</li>
+<li>3．日志消息的格式可配置（layout），例如org.apache.log4j.PatternLayout。</li>
+<li>4．可以设置运行时过滤器（filter），控制不同组件的日志消息的级别和目的地。</li>
+</ul>
+<p>作者认为除了第一项之外，其余三项都是非必需的功能</p>
+</blockquote>
+<p>日志的输出级别在运行时可调，这样同一个可执行文件可以分别在QA测试环境的时候输出DEBUG级别的日志，在生产环境输出INFO级别的日志</p>
+<p>对于分布式系统中的服务进程而言，日志的目的地只有一个：本地文件。往网络写日志消息是不靠谱的，因为诊断日志的功能之一正是诊断网络故障，比如连接断开。</p>
+<p><strong>一个典型的日志文件的文件名</strong>如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220921103201748.png"></p>
+<ul>
+<li>第1部分logfile_test是进程的名字。通常是main()函数参数中argv[0]的basename(3)，这样容易区分究竟是哪个服务程序的日志。必要时还可以把程序版本加进去。</li>
+<li>第2部分是文件的创建时间（GMT时区）。这样很容易通过文件名来选择某一时间范围内的日志，例如用通配符</li>
+<li>第3部分是机器名称。这样即便把日志文件拷贝到别的机器上也能追溯其来源。</li>
+<li>第4部分是进程id。如果一个程序一秒之内反复重启，那么每次都会生成不同的日志文件。</li>
+<li>第5部分是统一的后缀名.log。同样是为了便于周边配套脚本的编写。</li>
+</ul>
+<p><strong>往文件写日志的一个常见问题是，万一程序崩溃，那么最后若干条日志往往就丢失了</strong>，因为日志库不能每条消息都flush硬盘，更不能每条日志都open&#x2F;close文件，这样性能开销太大。</p>
+<blockquote>
+<p>muduo日志库用两个办法来应对这一点：</p>
+<ul>
+<li>其一是定期（默认3秒）将缓冲区内的日志消息flush到硬盘</li>
+<li>其二是每条内存中的日志消息都带有cookie（或者叫哨兵值&#x2F;sentry），其值为某个函数的地址，这样通过在core dump文件中查找cookie就能找到尚未来得及写入磁盘的消息。</li>
+</ul>
+</blockquote>
+<p><strong>日志消息格式有几个要点</strong>：</p>
+<ul>
+<li>尽量每条日志占一行。这样很容易用awk、sed、grep等命令行工具来快速联机分析日志</li>
+<li>时间戳精确到微秒。每条消息都通过gettimeofday(2)获得当前时间，这么做不会有什么性能损失。因为在x86-64 Linux上，gettimeofday(2)不是系统调用，不会陷入内核</li>
+<li>始终使用GMT时区（Z）。对于跨洲的分布式系统而言，可省去本地时区转换的麻烦，更易于追查事件的顺序</li>
+<li>打印线程id。便于分析多线程程序的时序，也可以检测死锁</li>
+<li>打印日志级别。在线查错的时候先看看有无ERROR日志，通常可加速定位问题。</li>
+<li>打印源文件名和行号。修复bug的时候不至于搞错对象。</li>
+</ul>
+<h2 id="5-2-性能需求"><a href="#5-2-性能需求" class="headerlink" title="5.2 性能需求"></a>5.2 性能需求</h2><p>高效性体现在几方面：</p>
+<ul>
+<li>每秒写几千上万条日志的时候没有明显的性能损失。</li>
+<li>能应对一个进程产生大量日志数据的场景，例如1GB&#x2F;min。</li>
+<li>不阻塞正常的执行流程。</li>
+<li>在多线程程序中，不造成争用。这里列举一些具体的性能指标，考虑往普通7200rpm SATA硬盘写日志文件的情况：<ul>
+<li>磁盘带宽约是110MB&#x2F;s，日志库应该能瞬时写满这个带宽（不必持续太久）。</li>
+<li>假如每条日志消息的平均长度是110字节，这意味着1秒要写100万条日志。</li>
+</ul>
+</li>
+</ul>
+<p><strong>muduo日志库的几点优化措施</strong>：</p>
+<ul>
+<li>时间戳字符串中的日期和时间两部分是缓存的，一秒之内的多条日志只需重新格式化微秒部分</li>
+<li>日志消息的前4个字段是定长的，因此可以避免在运行期求字符串长度（不会反复调用strlen）。因为编译器认识memcpy()函数，对于定长的内存复制，会在编译期把它inline展开为高效的目标代码</li>
+<li>线程id是预先格式化为字符串，在输出日志消息时只需简单拷贝几个字节</li>
+<li>每行日志消息的源文件名部分采用了编译期计算来获得basename，避免运行期strrchr(3)开销。见SourceFile class，这里利用了gcc的内置函数。</li>
+</ul>
+<h2 id="5-3-多线程异步日志"><a href="#5-3-多线程异步日志" class="headerlink" title="5.3 多线程异步日志"></a>5.3 多线程异步日志</h2><blockquote>
+<p>多线程程序对日志库提出了新的需求：线程安全，即多个线程可以并发写日志，两个线程的日志消息不会出现交织。线程安全不难办到，简单的办法是用一个全局mutex保护IO，或者每个线程单独写一个日志文件，但这两种做法的高效性就堪忧了。前者会造成全部线程抢一个锁，后者有可能让业务线程阻塞在写磁盘操作上。</p>
+<p>在多线程服务程序中，异步日志（叫“非阻塞日志”似乎更准确）是必需的，因为如果在网络IO线程或业务线程中直接往磁盘写数据的话，写操作偶尔可能阻塞长达数秒之久（原因很复杂，可能是磁盘或磁盘控制器复位）。这可能导致请求方超时，或者耽误发送心跳消息，在分布式系统中更可能造成多米诺骨牌效应，例如误报死锁引发自动failover等</p>
+</blockquote>
+<p>muduo日志库采用的是双缓冲技术，基本思路是准备两块buffer：A和B，前端负责往buffer A填数据（日志消息），后端负责将buffer B的数据写入文件。当buffer A写满之后，交换A和B，让后端将buffer A的数据写入文件，而前端则往buffer B填入新的日志消息，如此往复。</p>
+<blockquote>
+<p>用两个buffer的好处是在新建日志消息的时候不必等待磁盘文件操作，也避免每条新日志消息都触发（唤醒）后端日志线程。</p>
+<p>换言之，前端不是将一条条日志消息分别传送给后端，而是将多条日志消息拼成一个大的buffer传送给后端，相当于批处理，减少了线程唤醒的频度，降低开销。</p>
+<p>另外，为了及时将日志消息写入文件，即便buffer A未满，日志库也会每3秒执行一次上述交换写入操作。</p>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<p>实际实现采用了四个缓冲区，这样可以进一步减少或避免日志前端的等待。数据结构如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220921113405077.png"></p>
+<p>前端发送消息函数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220921113439416.png"></p>
+<p>后端写接收消息函数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220921113508976.png"></p>
+<p>书中还分析了四种运行时的情况，详细见书中此章节</p>
+<p>使用四个缓冲还是可能不够用，导致消息多的时候需要新分配内存，改进措施就是使用一个缓冲池</p>
+<p><strong>如果日志消息堆积怎么办</strong></p>
+<p>muduo日志库处理日志堆积的方法很简单：直接丢掉多余的日志buffer，以腾出内存。这样可以防止日志库本身引起程序故障，是一种自我保护措施</p>
+<h2 id="5-4-其他方案"><a href="#5-4-其他方案" class="headerlink" title="5.4 其他方案"></a>5.4 其他方案</h2><p>使用常规的muduo::BlockingQueue<a href="std::string">std::string</a>或muduo::BoundedBlockingQueue<a href="std::string">std::string</a>在前后端之间传递日志消息，其中每个std::string是一条消息。</p>
+<ul>
+<li>这种做法每条日志消息都要分配内存，特别是在前端线程分配的内存要由后端线程释放，因此对malloc的实现要求较高，需要针对多线程特别优化</li>
+<li>相比前面展示的直接拷贝日志消息的做法，这个传递指针的方案似乎会更高效，但是据测试，直接拷贝日志数据的做法比传递指针快3倍（在每条日志消息不大于4kB的时候），估计是内存分配的开销所致</li>
+</ul>
+<p>muduo现在的异步日志实现用了一个全局锁。尽管临界区很小，但是如果线程数目较多，锁争用（lock contention）也可能影响性能。一种解决办法是像Java的ConcurrentHashMap那样用多个桶子（bucket），前端写日志的时候再按线程id哈希到不同的bucket中，以减少contention。</p>
+<h1 id="第6章-muduo网络库简介"><a href="#第6章-muduo网络库简介" class="headerlink" title="第6章 muduo网络库简介"></a>第6章 muduo网络库简介</h1><p>为什么需要网络库？</p>
+<blockquote>
+<p>网络库能降低开发难度，能方便地处理并发连接</p>
+</blockquote>
+<h2 id="6-3-目录结构"><a href="#6-3-目录结构" class="headerlink" title="6.3 目录结构"></a>6.3 目录结构</h2><p>muduo的目录结构如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220922104903753.png"></p>
+<p><strong>基础库</strong></p>
+<p>muduo&#x2F;base目录是一些基础库，都是用户可见的类，内容包括：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220922104942922.png"></p>
+<p><strong>网络核心库</strong></p>
+<blockquote>
+<p>muduo是基于Reactor模式的网络库，其核心是个事件循环EventLoop，用于响应计时器和IO事件。muduo采用基于对象（object-based）而非面向对象（objectoriented）的设计风格，其事件回调接口多以boost::function＋boost::bind表达，用户在使用muduo的时候不需要继承其中的class。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220922105015431.png"></p>
+<p><strong>网络附属库</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220922105049130.png"></p>
+<p><strong>代码结构</strong></p>
+<p>muduo的头文件明确分为客户可见和客户不可见两类。以下是安装之后暴露的头文件和库文件。对于使用muduo库而言，只需要掌握5个关键类：Buffer、EventLoop、TcpConnection、TcpClient、TcpServer。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220922105401035.png"></p>
+<p>muduo的网络核心库的头文件包含关系，用户可见的为白底，用户不可见的为灰底</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220922105429605.png"></p>
+<p><strong>公开接口</strong></p>
+<ul>
+<li>Buffer仿Netty ChannelBuffer的buffer class，数据的读写通过buffer进行。用户代码不需要调用read(2)&#x2F;write(2)，只需要处理收到的数据和准备好要发送的数据（§7.4）。</li>
+<li>InetAddress封装IPv4地址（end point），注意，它不能解析域名，只认IP地址。因为直接用gethostbyname(3)解析域名会阻塞IO线程。</li>
+<li>EventLoop事件循环（反应器Reactor），每个线程只能有一个EventLoop实体，它负责IO和定时器事件的分派。它用eventfd(2)来异步唤醒，这有别于传统的用一对pipe(2)的办法。它用TimerQueue作为计时器管理，用Poller作为IO multiplexing。</li>
+<li>EventLoopThread启动一个线程，在其中运行EventLoop::loop()。</li>
+<li>TcpConnection整个网络库的核心，封装一次TCP连接，注意它不能发起连接。</li>
+<li>TcpClient用于编写网络客户端，能发起连接，并且有重试功能。·TcpServer用于编写网络服务器，接受客户的连接。</li>
+</ul>
+<blockquote>
+<p>在这些类中，TcpConnection的生命期依靠shared_ptr管理（即用户和库共同控制）。Buffer的生命期由TcpConnection控制。其余类的生命期由用户控制。Buffer和InetAddress具有值语义，可以拷贝；其他class都是对象语义，不可以拷贝。</p>
+</blockquote>
+<p><strong>内部实现</strong></p>
+<ul>
+<li>Channel是selectable IO channel，负责注册与响应IO事件，注意它不拥有file descriptor。它是Acceptor、Connector、EventLoop、TimerQueue、TcpConnection的成员，生命期由后者控制。</li>
+<li>Socket是一个RAIIhandle，封装一个filedescriptor，并在析构时关闭fd。它是Acceptor、TcpConnection的成员，生命期由后者控制。EventLoop、TimerQueue也拥有fd，但是不封装为Socket class。</li>
+<li>SocketsOps封装各种Sockets系统调用。</li>
+<li>Poller是PollPoller和EPollPoller的基类，采用“电平触发”的语意。它是EventLoop的成员，生命期由后者控制。</li>
+<li>PollPoller和EPollPoller封装poll(2)和epoll(4)两种IO multiplexing后端。poll的存在价值是便于调试，因为poll(2)调用是上下文无关的，用strace(1)很容易知道库的行为是否正确。</li>
+<li>Connector用于发起TCP连接，它是TcpClient的成员，生命期由后者控制。</li>
+<li>Acceptor用于接受TCP连接，它是TcpServer的成员，生命期由后者控制。</li>
+<li>TimerQueue用timerfd实现定时，这有别于传统的设置poll&#x2F;epoll_wait的等待时长的办法。TimerQueue用std::map来管理Timer，常用操作的复杂度是O(logN)，N为定时器数目。它是EventLoop的成员，生命期由后者控制。</li>
+<li>EventLoopThreadPool用于创建IO线程池，用于把TcpConnection分派到某个EventLoop线程上。它是TcpServer的成员，生命期由后者控制。</li>
+</ul>
+<p><strong>muduo的简化类图</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220922111701453.png"></p>
+<p><strong>线程模型</strong></p>
+<ul>
+<li><p>muduo的线程模型符合主张的one loop per thread＋thread pool模型。每个线程最多有一个EventLoop，每个TcpConnection必须归某个EventLoop管理，所有的IO会转移到这个线程。</p>
+</li>
+<li><p>TcpConnection和EventLoop是线程安全的，可以跨线程调用</p>
+</li>
+<li><p>TcpServer直接支持多线程，它有两种模式：</p>
+<ul>
+<li>单线程，accept(2)与TcpConnection用同一个线程做IO。</li>
+<li>多线程，accept(2)与EventLoop在同一个线程，另外创建一个EventLoopThreadPool，新到的连接会按round-robin方式分配到线程池中。</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-4-使用教程"><a href="#6-4-使用教程" class="headerlink" title="6.4 使用教程"></a>6.4 使用教程</h2><h3 id="6-4-1-TCP网络编程本质论"><a href="#6-4-1-TCP网络编程本质论" class="headerlink" title="6.4.1 TCP网络编程本质论"></a>6.4.1 TCP网络编程本质论</h3><p><strong>基于事件的非阻塞网络编程思路</strong>：注册一个收数据的回调，网络库收到数据会调用我，直接把数据提供给我，供我消费。注册一个接受连接的回调，网络库接受了新连接会回调我，直接把新的连接对象传给我，供我使用。需要发送数据的时候，只管往连接中写，网络库会负责无阻塞地发送</p>
+<p><strong>TCP网络编程最本质的是处理三个半事件</strong>：</p>
+<ul>
+<li>1．连接的建立，包括服务端接受（accept）新连接和客户端成功发起（connect）连接。TCP连接一旦建立，客户端和服务端是平等的，可以各自收发数据。</li>
+<li>2．连接的断开，包括主动断开（close、shutdown）和被动断开（read(2)返回0）。</li>
+<li>3．消息到达，文件描述符可读。这是最为重要的一个事件，对它的处理方式决定了网络编程的风格（阻塞还是非阻塞，如何处理分包，应用层的缓冲如何设计，等等）。</li>
+<li>3.5　消息发送完毕，这算半个。对于低流量的服务，可以不必关心这个事件；另外，这里的“发送完毕”是指将数据写入操作系统的缓冲区，将由TCP协议栈负责数据的发送与重传，不代表对方已经收到数据。</li>
+</ul>
+<p>假设应用程序需要发送40kB数据，但是操作系统的TCP发送缓冲区只有25kB剩余空间，那么剩下的15kB数据怎么办？</p>
+<blockquote>
+<p>如果等待OS缓冲区可用，会阻塞当前线程，因为不知道对方什么时候收到并读取数据。</p>
+<p>因此网络库应该把这15kB数据缓存起来，放到这个TCP链接的应用层发送缓冲区中，等socket变得可写的时候立刻发送数据，这样“发送”操作不会阻塞。</p>
+<p>如果应用程序随后又要发送50kB数据，而此时发送缓冲区中尚有未发送的数据（若干kB），那么网络库应该将这50kB数据追加到发送缓冲区的末尾，而不能立刻尝试write()，因为这样有可能打乱数据的顺序。</p>
+</blockquote>
+<p>在非阻塞网络编程中，为什么要使用应用层接收缓冲区？</p>
+<blockquote>
+<p>假如一次读到的数据不够一个完整的数据包，那么这些已经读到的数据应该先暂存在某个地方，等剩余的数据收到之后再一并处理</p>
+</blockquote>
+<p><strong>常见几种方案对比</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20220924161855858.png"></p>
+<h1 id="第7章-muduo编程示例"><a href="#第7章-muduo编程示例" class="headerlink" title="第7章 muduo编程示例"></a>第7章 muduo编程示例</h1><h2 id="7-3-Boost-Asio的聊天服务器"><a href="#7-3-Boost-Asio的聊天服务器" class="headerlink" title="7.3 Boost.Asio的聊天服务器"></a>7.3 Boost.Asio的聊天服务器</h2><h3 id="7-3-1-TCP分包"><a href="#7-3-1-TCP分包" class="headerlink" title="7.3.1 TCP分包"></a>7.3.1 TCP分包</h3><blockquote>
+<p>分包指的是在发生一个消息（message）或一帧（frame）数据时，通过一定的处理，让接收方能从字节流中识别并截取（还原）出一个个消息</p>
+</blockquote>
+<p>对于短连接的TCP服务，分包不是一个问题，只要发送方主动关闭连接，就表示一条消息发送完毕，接收方read()返回0，从而知道消息的结尾。</p>
+<p>对于长连接的TCP服务，分包有四种方法：</p>
+<ul>
+<li>1．消息长度固定，比如muduo的roundtrip示例就采用了固定的16字节消息。</li>
+<li>2．使用特殊的字符或字符串作为消息的边界，例如HTTP协议的headers以“\r\n”为字段的分隔符。</li>
+<li>3．在每条消息的头部加一个长度字段，这恐怕是最常见的做法，本文的聊天协议也采用这一办法。</li>
+<li>4．利用消息本身的格式来分包，例如XML格式的消息中<root>…</root>的配对，或者JSON格式中的{ … }的配对。解析这种消息格式通常会用到状态机（state machine）。</li>
+</ul>
+<p><strong>聊天服务</strong></p>
+<p>由服务端程序和客户端程序组成，协议如下：</p>
+<ul>
+<li>服务端程序在某个端口侦听（listen）新的连接。·客户端向服务端发起连接。</li>
+<li>连接建立之后，客户端随时准备接收服务端的消息并在屏幕上显示出来。</li>
+<li>客户端接受键盘输入，以回车为界，把消息发送给服务端。</li>
+<li>服务端接收到消息之后，依次发送给每个连接到它的客户端；原来发送消息的客户端进程也会收到这条消息。</li>
+<li>一个服务端进程可以同时服务多个客户端进程。当有消息到达服务端后，每个客户端进程都会收到同一条消息，服务端广播发送消息的顺序是任意的，不一定哪个客户端会先收到这条消息。</li>
+<li>（可选）如果消息A先于消息B到达服务端，那么每个客户端都会先收到A再收到B。</li>
+</ul>
+<p><strong>需要解决的问题</strong></p>
+<p>聊天服务的特点是“连接之间的数据有交流，从a连接收到的数据要发给b连接。这样对连接管理提出了更高的要求：</p>
+<ul>
+<li>如何用一个程序同时处理多个连接？fork()-per-connection似乎是不行的。</li>
+<li>如何防止串话？b有可能随时断开连接，而新建立的连接c可能恰好复用了b的文件描述符，那么a会不会错误地把消息发给c？”</li>
+</ul>
+<h2 id="7-4-muduo-Buffer类的设计与使用"><a href="#7-4-muduo-Buffer类的设计与使用" class="headerlink" title="7.4 muduo Buffer类的设计与使用"></a>7.4 muduo Buffer类的设计与使用</h2><h3 id="7-4-2-为什么non-blocking网络编程中应用层buffer是必需的"><a href="#7-4-2-为什么non-blocking网络编程中应用层buffer是必需的" class="headerlink" title="7.4.2　为什么non-blocking网络编程中应用层buffer是必需的"></a>7.4.2　为什么non-blocking网络编程中应用层buffer是必需的</h3><blockquote>
+<p>non-blocking IO的核心思想是避免阻塞在read()或write()或其他IO系统调用上，这样可以最大限度地复用thread-of-control，让一个线程能服务于多个socket连接。IO线程只能阻塞在IO multiplexing函数上，如select&#x2F;poll&#x2F;epoll_wait。这样一来，应用层的缓冲是必需的，每个TCP socket都要有stateful的input buffer和output buffer。</p>
+</blockquote>
+<p><strong>TcpConnection必须要有output buffer</strong></p>
+<blockquote>
+<p>程序想通过TCP连接发送100kB的数据，但是在write()调用中，操作系统只接受了80kB，你肯定不想在原地等待，因为不知道会等多久（取决于对方什么时候接收数据，然后滑动TCP窗口）。程序应该尽快交出控制权，返回event loop。在这种情况下，剩余的20kB数据只能暂时存在buffer中。</p>
+</blockquote>
+<p><strong>TcpConnection必须要有input buffer</strong></p>
+<blockquote>
+<p>TCP是一个无边界的字节流协议，接收方必须要处理“收到的数据尚不构成一条完整的消息”和“一次收到两条消息的数据”等情况。一个常见的场景是，发送方send()了两条1kB的消息（共2kB），接收方收到数据的情况可能是一次收到或分多次收到。</p>
+<p>网络库在处理“socket可读”事件的时候，必须一次性把socket里的数据读完（从操作系统buffer搬到应用层buffer），否则会反复触发POLLIN事件，造成busy-loop。那么网络库必然要应对“数据不完整”的情况，收到的数据先放到input buffer里，等构成一条完整的消息再通知程序的业务逻辑。</p>
+</blockquote>
+<h3 id="7-4-3-Buffer的功能需求"><a href="#7-4-3-Buffer的功能需求" class="headerlink" title="7.4.3　Buffer的功能需求"></a>7.4.3　Buffer的功能需求</h3><p>muduo Buffer的设计要点：</p>
+<ul>
+<li>对外表现为一块连续的内存(char* p, int len)，以方便客户代码的编写。</li>
+<li>其size()可以自动增长，以适应不同大小的消息。它不是一个fixed size array（例如char buf[8192]）。</li>
+<li>内部以std::vector<char>来保存数据，并提供相应的访问函数。</li>
+</ul>
+<p>muduo::net::Buffer的类图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014111142399.png"></p>
+<p><strong>Buffer::readFd()</strong> </p>
+<p>如果有10000个并发连接，每个连接一建立就分配各50kB的读写缓冲区的话，将占用1GB内存，而大多数时候这些缓冲区的使用率很低。muduo用readv(2)结合栈上空间巧妙地解决了这个问题。</p>
+<blockquote>
+<p>具体做法是，在栈上准备一个65536字节的extrabuf，然后利用readv()来读取数据，iovec有两块，第一块指向muduo Buffer中的writable字节，另一块指向栈上的extrabuf。这样如果读入的数据不多，那么全部都读到Buffer中去了；如果长度超过Buffer的writable字节数，就会读到栈上的extrabuf里，然后程序再把extrabuf里的数据append()到Buffer中</p>
+<p>这么做利用了临时栈上空间14，避免每个连接的初始Buffer过大造成的内存浪费，也避免反复调用read()的系统开销（由于缓冲区足够大，通常一次readv()系统调用就能读完全部数据）。由于muduo的事件触发采用level trigger，因此这个函数并不会反复调用read()直到其返回EAGAIN，从而可以降低消息处理的延迟。</p>
+<p>我的理解是如果不使用extrabuf而在read时让buffer增长的话，read时可能很耗时，降低了效率。（待验证）</p>
+</blockquote>
+<p><strong>线程安全？</strong></p>
+<p>muduo::net::Buffer不是线程安全的（其安全性跟std::vector相同）</p>
+<p>，这么设计的原因是buffer使用通常是在TcpConnection所在的IO线程中，而TcpConnection是线程安全的。</p>
+<blockquote>
+<p>如果TcpConnection::send()调用发生在该TcpConnection所属的那个IO线程，那么它会转而调用TcpConnection::sendInLoop()，sendInLoop()会在当前线程（也就是IO线程）操作output buffer</p>
+<p>如果TcpConnection::send()调用发生在别的线程，它不会在当前线程调用sendInLoop()，而是通过EventLoop::runInLoop()把sendInLoop()函数调用转移到IO线程</p>
+<ul>
+<li>跨线程的函数转移调用涉及函数参数的跨线程传递，一种简单的做法是把数据拷贝一份，绝对安全。</li>
+<li>另一种更为高效的做法是用swap()。这就是为什么TcpConnection::send()的某个重载以Buffer*为参数，而不是const Buffer&amp;，这样可以避免拷贝，而用Buffer::swap()实现高效的线程间数据转移。（作者还未实现）</li>
+</ul>
+</blockquote>
+<h3 id="7-4-4-Buffer的数据结构"><a href="#7-4-4-Buffer的数据结构" class="headerlink" title="7.4.4　Buffer的数据结构"></a>7.4.4　Buffer的数据结构</h3><p>Buffer的内部是一个std::vector<char>，它是一块连续的内存。此外，Buffer有两个data member，即readIndex和writeIndex，指向该vector中的可读的位置和可写的位置。这两个index的类型是int，不是char*，目的是应对迭代器失效。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014112018159.png"></p>
+<p>prependable是预留的空间，初始时</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014112127653.png"></p>
+<h3 id="7-4-5-Buffer的操作"><a href="#7-4-5-Buffer的操作" class="headerlink" title="7.4.5　Buffer的操作"></a>7.4.5　Buffer的操作</h3><p>如果向Buffer写入了200字节，那么其布局如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014112218728.png"></p>
+<p>如果从Buffer read() &amp; retrieve()（下称“读入”）了50字节</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014112235569.png"></p>
+<p>然后又写入了200字节</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014112303651.png"></p>
+<p>接下来，一次性读入350字节，请注意，由于全部数据读完了，readIndex和writeIndex返回原位以备新一轮使用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014112323734.png"></p>
+<p><strong>自动增长</strong></p>
+<p>假设当前的状态如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014112355413.png"></p>
+<p>客户代码一次性写入1000字节，而当前可写的字节数只有624，那么buffer会自动增长以容纳全部数据，得到的结果如图。<strong>由于vector重新分配了内存，原来指向其元素的指针会失效，这就是为什么readIndex和writeIndex是整数下标而不是指针。</strong>（注意：在目前的实现中prependable会保持58字节，留待将来修正。）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014112415262.png"></p>
+<p>注意buffer不会缩小大小，只要增长了就不会减少其size</p>
+<p><strong>为什么我们不需要调用reserve()来预先分配空间？</strong></p>
+<p>因为Buffer在构造函数里把初始size()设为1KiB，这样当size()超过1KiB的时候vector会把capacity()加倍，等于说resize()替我们做了reserve()的事。</p>
+<blockquote>
+<p>resize会有点性能浪费，因为其初始化时会将容器中的元素进行初始化</p>
+</blockquote>
+<p><strong>内部腾挪</strong></p>
+<p>有时候，经过若干次读写，readIndex移到了比较靠后的位置，留下了巨大的prependable空间，这时候，如果我们想写入300字节，而writable只有200字节，怎么办？</p>
+<blockquote>
+<p>muduo Buffer在这种情况下不会重新分配内存，而是先把已有的数据移到前面去，腾出writable空间。</p>
+<p>这么做的原因是，如果重新分配内存，反正也是要把数据拷贝到新分配的内存区域，代价只会更大。</p>
+</blockquote>
+<p><strong>前方添加（prepend）</strong></p>
+<p>muduo Buffer有个小小的创新，即提供prependable空间，让程序能以很低的代价在数据前面添加几个字节，也就是预留一段空间用于后面存储消息长度。</p>
+<h3 id="7-4-6-其他设计方案"><a href="#7-4-6-其他设计方案" class="headerlink" title="7.4.6　其他设计方案"></a>7.4.6　其他设计方案</h3><p><strong>zero copy</strong></p>
+<p>如果对性能有极高的要求，受不了copy()与resize()，那么可以考虑实现分段连续的zero copy buffer再配合gather scatter IO，数据结构如图。<strong>基本思路都是不要求数据在内存中连续，而是用链表把数据块链接到一起。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221014193804231.png"></p>
+<h2 id="7-5-一种自动反射消息类型的Google-Protobuf网络传输方案"><a href="#7-5-一种自动反射消息类型的Google-Protobuf网络传输方案" class="headerlink" title="7.5　一种自动反射消息类型的Google Protobuf网络传输方案"></a>7.5　一种自动反射消息类型的Google Protobuf网络传输方案</h2><blockquote>
+<p>1.protocol buffers 是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于通信协议、数据存储等。</p>
+<p>2.protocol buffers是一种灵活，高效，自动化机制的结构化数据序列化方法，可以类比XML，但是比XML更小、更快、更为简单。</p>
+<p>3.你可以定义数据的结构，然后使用特殊生成的源代码轻松的在各种数据流中使用各种语言进行编写和读取结构数据。你甚至可以更新数据结构，而不破坏旧数据结构编译而成并且已经部署的程序。</p>
+</blockquote>
+<p>本节要解决的问题是：通信双方在编译时就共享proto文件的情况下，接收方在收到Protobuf二进制数据流之后，如何自动创建具体类型的Protobuf Message对象，并用收到的数据填充该Message对象（即反序列化）。</p>
+<blockquote>
+<p>“自动”的意思是：当程序中新增一个Protobuf Message类型时，这部分代码不需要修改，不需要自己去注册消息类型。其实，Google Protobuf本身具有很强的反射（reflection）功能，可以根据type name创建具体类型的Message对象。</p>
+</blockquote>
+<h3 id="7-5-1-网络编程中使用Protobuf的两个先决条件"><a href="#7-5-1-网络编程中使用Protobuf的两个先决条件" class="headerlink" title="7.5.1　网络编程中使用Protobuf的两个先决条件"></a>7.5.1　网络编程中使用Protobuf的两个先决条件</h3><p>在网络编程中使用Protobuf需要解决以下两个问题：</p>
+<ul>
+<li>1．长度，Protobuf打包的数据没有自带长度信息或终结符，需要由应用程序自己在发生和接收的时候做正确的切分。</li>
+<li>2．类型，Protobuf打包的数据没有自带类型信息，需要由发送方把类型信息传给给接收方，接收方创建具体的Protobuf Message对象，再做反序列化。</li>
+</ul>
+<p>第一个问题很好解决，通常的做法是在每个消息前面加个固定长度的lengthheader</p>
+<p>第二个问题其实也很好解决，Protobuf对此有内建的支持</p>
+<h3 id="7-5-2-根据type-name反射自动创建Message对象"><a href="#7-5-2-根据type-name反射自动创建Message对象" class="headerlink" title="7.5.2　根据type name反射自动创建Message对象"></a>7.5.2　根据type name反射自动创建Message对象</h3><p><strong>原理简述</strong></p>
+<blockquote>
+<p>Protobuf Message class采用了Prototype pattern18，Message class定义了New()虚函数，用以返回本对象的一份新实体，类型与本对象的真实类型相同。也就是说，拿到Message*指针，不用知道它的具体类型，就能创建和其类型一样的具体Message type的对象。</p>
+<p>每个具体Message type都有一个default instance，可以通过ConcreteMessage::default_instance()获得，也可以通过MessageFactory::GetPrototype(const Descriptor*)来获得。所以，现在问题转变为：1．如何拿到MessageFactory；2．如何拿到Descriptor*。</p>
+<p>使用DescriptorPool，它可以根据type name查到Descriptor*，只要找到合适的DescriptorPool，再调用DescriptorPool::FindMessageTypeByName(const string&amp; type_name)即可</p>
+</blockquote>
+<p><strong>根据type name自动创建Messagee的关键代码</strong></p>
+<p>创建步骤：</p>
+<ul>
+<li>1．用DescriptorPool::generated_pool()找到一个DescriptorPool对象，它包含了程序编译的时候所链接的全部Protobuf Message types。</li>
+<li>2．根据type name用DescriptorPool::FindMessageTypeByName()查找Descriptor。</li>
+<li>3．再用MessageFactory::generated_factory()找到MessageFactory对象，它能创建程序编译的时候所链接的全部Protobuf Message types。</li>
+<li>4．然后，用MessageFactory::GetPrototype()找到具体Message type的default instance。</li>
+<li>5．最后，用prototype-&gt;New()创建对象。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221015202643723.png"></p>
+<p>注意，createMessage()返回的是动态创建的对象的指针，调用方有责任释放它，不然就会使内存泄漏。在muduo里，用shared_ptr<Message>来自动管理Message对象的生命期。</p>
+<p><strong>线程安全性</strong></p>
+<p>Google的文档说，用到的那几个MessageFactory和DescriptorPool都是线程安全的，Message::New()也是线程安全的。并且它们都是const member function。</p>
+<h3 id="7-5-3-Protobuf传输格式"><a href="#7-5-3-Protobuf传输格式" class="headerlink" title="7.5.3　Protobuf传输格式"></a>7.5.3　Protobuf传输格式</h3><p>设计了一个简单的格式，包含Protobuf data和其对应的长度与类型信息，消息的末尾还有一个check sum</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221015203509467.png"></p>
+<p>用C struct伪代码描述：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221015203533090.png"></p>
+<p><strong>例子</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221015203637476.png"></p>
+<p><strong>设计决策</strong></p>
+<ul>
+<li>signed int。消息中的长度字段只使用了signed 32-bit int，而没有使用unsigned int，这是为了跨语言移植性，因为Java语言没有unsigned类型。另外，Protobuf一般用于打包小于1MB的数据，unsigned int也没用。</li>
+<li>check sum。虽然TCP是可靠传输协议，虽然Ethernet有CRC-32校验，但是网络传输必须要考虑数据损坏的情况，对于关键的网络应用，check sum是必不可少的。对于Protobuf这种紧凑的二进制格式而言，肉眼看不出数据有没有问题，需要用check sum。</li>
+<li>adler32算法。我没有选用常见的CRC-32，而是选用了adler32，因为它的计算量小、速度比较快，强度和CRC-32差不多。另外，zlib和java.unit.zip都直接支持这个算法。</li>
+<li>type name以’\0’结束。这是为了方便troubleshooting，比如通过tcpdump抓下来的包可以用肉眼很容易看出type name，而不用根据nameLen去一个个数字节。同时，为了方便接收方处理，加入了nameLen，节省了strlen()，这是以空间换时间的做法。</li>
+<li>没有版本号。Protobuf Message的一个突出优点是用optional fields来避免协议的版本号（凡是在Protobuf Message里放版本号的人都没有理解Protobuf的设计，甚至可能没有仔细阅读Protobuf的文档），让通信双方的程序能各自升级，便于系统演化。</li>
+</ul>
+<h2 id="7-6-在muduo中实现Protobuf编解码器与消息分发器"><a href="#7-6-在muduo中实现Protobuf编解码器与消息分发器" class="headerlink" title="7.6　在muduo中实现Protobuf编解码器与消息分发器"></a>7.6　在muduo中实现Protobuf编解码器与消息分发器</h2><p><strong>为什么Protobuf的默认序列化格式没有包含消息的长度与类型</strong></p>
+<p>哪些情况下不需要在Protobuf序列化得到的字节流中包含消息的长度和（或）类型？</p>
+<blockquote>
+<ul>
+<li>如果把消息写入文件，一个文件存一个消息，那么序列化结果中不需要包含长度和类型，因为从文件名和文件长度中可以得知消息的类型与长度。</li>
+<li>如果把消息写入文件，一个文件存多个消息，那么序列化结果中不需要包含类型，因为文件名就代表了消息的类型。</li>
+<li>如果把消息存入数据库（或者NoSQL），以VARBINARY字段保存，那么序列化结果中不需要包含长度和类型，因为从字段名和字段长度中可以得知消息的类型与长度。</li>
+<li>如果把消息以UDP方式发送给对方，而且对方一个UDP port只接收一种消息类型，那么序列化结果中不需要包含长度和类型，因为从port和UDP packet长度中可以得知消息的类型与长度。</li>
+<li>如果把消息以TCP短连接方式发给对方，而且对方一个TCP port只接收一种消息类型，那么序列化结果中不需要包含长度和类型，因为从port和TCP字节流长度中可以得知消息的类型与长度。</li>
+<li>如果把消息以TCP长连接方式发给对方，但是对方一个TCP port只接收一种消息类型，那么序列化结果中不需要包含类型，因为port代表了消息的类型。</li>
+<li>如果采用RPC方式通信，那么只需要告诉对方method name，对方自然能推断出Request和Response的消息类型，这些可以由protoc生成的RPC stubs自动搞定。<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221015204519514.png"></li>
+<li>那么RPC method SudokuService.Solve对应的请求和响应分别是SudokuRequest和SudokuResponse。在发送RPC请求的时候，不需要包含SudokuRequest的类型，只需要发送method name SudokuService.Solve，对方自然知道应该按照SudokuRequest来解析（parse）请求。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>对于上述这些情况，如果Protobuf无条件地把长度和类型放到序列化的字节串中，只会浪费网络带宽和存储。</p>
+<p>只有在使用TCP长连接，且在一个连接上传递不止一种消息的情况下（比方同时发Heartbeat和Request&#x2F;Response），才需要前文提到的那种打包方案。这时候需要一个分发器dispatcher，把不同类型的消息分给各个消息处理函数。</p>
+<p><strong>7.6.1　什么是编解码器（codec）</strong></p>
+<blockquote>
+<p>编解码器（codec）是encoder和decoder的缩写</p>
+</blockquote>
+<p>codec的基本功能之一是做TCP分包：确定每条消息的长度，为消息划分界限。</p>
+<p>Protobuf codec与asio中chat的codec十分相似，只不过编解码消息类型从std::string变成了protobuf::Message。</p>
+<ul>
+<li><p>对于只接收处理Query消息的QueryServer来说，用ProtobufCodec非常方便，收到protobuf::Message之后向下转型成Query来用就行，如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221015205343127.png"></p>
+</li>
+<li><p>如果要接收处理不止一种消息，ProtobufCodec还不能单独完成工作</p>
+</li>
+</ul>
+<h3 id="7-6-2-实现ProtobufCodec"><a href="#7-6-2-实现ProtobufCodec" class="headerlink" title="7.6.2　实现ProtobufCodec"></a>7.6.2　实现ProtobufCodec</h3><p>解码算法有几个要点：</p>
+<ul>
+<li>protobuf::Message是new出来的对象，它的生命期如何管理？muduo采用shared_ptr<Message>来自动管理对象生命期，与整体风格保持一致。</li>
+<li>出错如何处理？比方说长度超出范围、check sum不正确、message type name不能识别、message parse出错等等。ProtobufCodec定义了ErrorCallback，用户代码可以注册这个回调。如果不注册，默认的处理是断开连接，让客户重连重试。codec的单元测试里模拟了各种出错情况。</li>
+<li>如何处理一次收到半条消息、一条消息、一条半消息、两条消息等等情况？这是每个non-blocking网络程序中的codec都要面对的问题。在分包处理中已经解决了这个问题。</li>
+</ul>
+<p>目前ProtobufCodec的实现非常初级，它没有充分利用ZeroCopyInputStream和ZeroCopyOutputStream，而是把收到的数据作为byte array交给Protobuf Message去解析，这给性能优化留下了空间。</p>
+<p>Protobuf Message不要求数据连续（像vector那样），只要求数据分段连续（像deque那样），这给buffer管理带来了性能上的好处（避免重新分配内存，减少内存碎片），当然也使得代码变得更为复杂。</p>
+<h3 id="7-6-3-消息分发器（dispatcher）有什么用"><a href="#7-6-3-消息分发器（dispatcher）有什么用" class="headerlink" title="7.6.3　消息分发器（dispatcher）有什么用"></a>7.6.3　消息分发器（dispatcher）有什么用</h3><p>ProtobufCodec拦截了TcpConnection的数据，把它转换为Message，ProtobufDispatcher拦截了ProtobufCodec的callback，按消息具体类型把它分派给多个callbacks</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221017191310880.png"></p>
+<h3 id="7-6-4-ProtobufCodec与ProtobufDispatcher的综合运用"><a href="#7-6-4-ProtobufCodec与ProtobufDispatcher的综合运用" class="headerlink" title="7.6.4　ProtobufCodec与ProtobufDispatcher的综合运用"></a>7.6.4　ProtobufCodec与ProtobufDispatcher的综合运用</h3><p>示例代码中client和server，把ProtobufCodec和ProtobufDispatcher串联起来使用。server响应Query消息，发送回Answer消息，如果收到未知消息类型，则断开连接。client可以选择发送Query或Empty消息，由命令行控制。</p>
+<h3 id="7-6-5-ProtobufDispatcher的两种实现"><a href="#7-6-5-ProtobufDispatcher的两种实现" class="headerlink" title="7.6.5　ProtobufDispatcher的两种实现"></a>7.6.5　ProtobufDispatcher的两种实现</h3><p><strong>要完成消息分发，其实就是对消息做type-switch</strong></p>
+<p>先定义ProtobufMessageCallback回调：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221017192112693.png"></p>
+<p>ProtobufDispatcherLite有一个map&lt;Descriptor* ,ProtobufMessageCallback&gt;成员，客户代码可以以Descriptor*为key注册回调（回想：每个具体消息类型都有一个全局的Descriptor对象，其地址是不变的，可以用来当key）。在收到Protobuf Message之后，在map中找到对应的ProtobufMessageCallback，然后调用之。如果找不到，就调用defaultCallback。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221017192123255.png"></p>
+<p>但是，这样设计有个缺陷，注册消息处理函数类型就被写死了，消息处理函数参数为Message* 指针，而在消息处理函数中还需要对Message* 指针转换类型，但却不知道转换成何种类型。</p>
+<p>解决办法是：<strong>多态与模板结合</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221017201206625.png"></p>
+<p>ProtobufDispatcher的消息注册函数改为模板成员函数，接受注册任意消息类型T的回调，然后它创建一个模板化的派生类CallbackT<T>，这样消息的类型信息就保存在了CallbackT<T>中，做down cast就简单了</p>
+<p>注册回调示例</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221017201622002.png"></p>
+<h3 id="7-6-6-ProtobufCodec和ProtobufDispatcher有何意义"><a href="#7-6-6-ProtobufCodec和ProtobufDispatcher有何意义" class="headerlink" title="7.6.6　ProtobufCodec和ProtobufDispatcher有何意义"></a>7.6.6　ProtobufCodec和ProtobufDispatcher有何意义</h3><p>ProtobufCodec和ProtobufDispatcher把每个直接收发Protobuf Message的网络程序都会用到的功能提炼出来做成了公用的utility，这样以后新写Protobuf网络程序就不必为打包分包和消息分发劳神</p>
+<h2 id="7-7-限制服务器的最大并发连接数"><a href="#7-7-限制服务器的最大并发连接数" class="headerlink" title="7.7　限制服务器的最大并发连接数"></a>7.7　限制服务器的最大并发连接数</h2><p>“并发连接数”是指一个服务端程序能同时支持的客户端连接数，连接由客户端主动发起，服务端被动接受（accept(2)）连接。</p>
+<h3 id="7-7-1-为什么要限制并发连接数"><a href="#7-7-1-为什么要限制并发连接数" class="headerlink" title="7.7.1　为什么要限制并发连接数"></a>7.7.1　为什么要限制并发连接数</h3><p>一方面，我们不希望服务程序超载；另一方面，更因为filedescriptor是稀缺资源，如果出现filedescriptor耗尽，很棘手</p>
+<blockquote>
+<p>当使用Reactor模式，epoll_wait返回EMFILE时，意味着本进程的文件描述符已经达到上限，无法为新连接创建socket文件描述符。</p>
+<p>但是，既然没有socket文件描述符来表示这个连接，我们就无法close(2)它。程序继续运行，回到L11再一次调用epoll_wait。这时候epoll_wait会立刻返回，因为新连接还等待处理，listening fd还是可读的。这样程序立刻就陷入了busy loop，CPU占用率接近100％</p>
+</blockquote>
+<p><strong>几种做法：</strong></p>
+<ul>
+<li>1．调高进程的文件描述符数目。治标不治本，因为只要有足够多的客户端，就一定能把一个服务进程的文件描述符用完。</li>
+<li>2．死等。鸵鸟算法。</li>
+<li>3．退出程序。似乎小题大做，为了这种暂时的错误而中断现有的服务似乎不值得。</li>
+<li>4．关闭listening fd。那么什么时候重新打开呢？</li>
+<li>5．改用edge trigger。如果漏掉了一次accept(2)，程序再也不会收到新连接。</li>
+<li>6．准备一个空闲的文件描述符。遇到这种情况，先关闭这个空闲文件，获得一个文件描述符的名额；再accept(2)拿到新socket连接的描述符；随后立刻close(2)它，这样就优雅地断开了客户端连接；最后重新打开一个空闲文件，把“坑”占住，以备再次出现这种情况时使用。</li>
+</ul>
+<p>muduo的Acceptor正是用第6种方案实现的，但这个做法在多线程下不能保证正确，会有race condition</p>
+<p>有另外一种比较简单的办法：file descriptor是hard limit，我们可以自己设一个稍低一点的soft limit，如果超过soft limit就主动关闭新连接，这样就可避免触及“file descriptor耗尽”这种边界条件</p>
+<h3 id="7-7-2-在muduo中限制并发连接数"><a href="#7-7-2-在muduo中限制并发连接数" class="headerlink" title="7.7.2　在muduo中限制并发连接数"></a>7.7.2　在muduo中限制并发连接数</h3><p>在muduo中限制并发连接数的做法简单得出奇。只需要为它增加一个int成员，表示当前的活动连接数。</p>
+<p>然后，在EchoServer::onConnection()中判断当前活动连接数。如果超过最大允许数，则踢掉连接。（muduo库中已经使用第6种方案解决了死等状态，因此能收到连接）</p>
+<h2 id="7-8-定时器"><a href="#7-8-定时器" class="headerlink" title="7.8　定时器"></a>7.8　定时器</h2><h3 id="7-8-1-程序中的时间"><a href="#7-8-1-程序中的时间" class="headerlink" title="7.8.1　程序中的时间"></a>7.8.1　程序中的时间</h3><blockquote>
+<p>在一般的服务端程序设计中，与时间有关的常见任务有：</p>
+<ul>
+<li>1．获取当前时间，计算时间间隔。</li>
+<li>2．时区转换与日期计算；把纽约当地时间转换为上海当地时间；2011-02-05之后第100天是几月几号星期几；等等。</li>
+<li>3．定时操作，比如在预定的时间执行任务，或者在一段延时之后执行任务。</li>
+</ul>
+</blockquote>
+<p>其中第2项看起来比较复杂，但其实最简单。日期计算用Julian Day Number30，时区转换用tz database31；唯一麻烦一点的是夏令时，但也可以用tz database解决。需要特别注意的是，用tzset&#x2F;localtime_r来做时区转换在多线程环境下可能会有问题；对此解决办法是写一个TimeZone class，以避免影响全局。</p>
+<p>真正麻烦的是第1项和第3项。一方面，Linux有一大把令人眼花缭乱的与时间相关的函数和结构体，在程序中该如何选用？另一方面，计算机中的时钟不是理想的计时器，它可能会漂移或跳变。最后，民用的UTC时间与闰秒的关系也让定时任务变得复杂和微妙。当然，与系统当前时间有关的操作也让单元测试变得困难。</p>
+<h2 id="7-8-2-Linux时间函数"><a href="#7-8-2-Linux时间函数" class="headerlink" title="7.8.2　Linux时间函数"></a>7.8.2　Linux时间函数</h2><ul>
+<li>（计时）只使用gettimeofday(2)来获取当前时间。</li>
+<li>（定时）只使用timerfd_*系列函数来处理定时任务。</li>
+</ul>
+<blockquote>
+<p>gettimeofday(2)入选原因（这也是muduo::Timestamp class的主要设计考虑）：</p>
+<ul>
+<li>1．time(2)的精度太低，ftime(3)已被废弃；clock_gettime(2)精度最高，但是其系统调用的开销比gettimeofday(2)大。</li>
+<li>2．在x86-64平台上，gettimeofday(2)不是系统调用，而是在用户态实现的，没有上下文切换和陷入内核的开销32。</li>
+<li>3．gettimeofday(2)的分辨率（resolution）是1微秒，现在的实现确实能达到这个计时精度，足以满足日常计时的需要。muduo::Timestamp用一个int64_t来表示从Unix Epoch到现在的微秒数，其范围可达上下30万年。</li>
+</ul>
+<p>timerfd_*入选的原因：</p>
+<ul>
+<li>1．sleep(3) &#x2F; alarm(2) &#x2F; usleep(3)在实现时有可能用了SIGALRM信号，在多线程程序中处理信号是个相当麻烦的事情，应当尽量避免，</li>
+<li>2．nanosleep(2)和clock_nanosleep(2)是线程安全的，但是在非阻塞网络编程中，绝对不能用让线程挂起的方式来等待一段时间，这样一来程序会失去响应。正确的做法是注册一个时间回调函数。</li>
+<li>3．getitimer(2)和timer_create(2)也是用信号来deliver超时，在多线程程序中也会有麻烦。timer_create(2)可以指定信号的接收方是进程还是线程，算是一个进步，不过信号处理函数（signal handler）能做的事情实在很受限。</li>
+<li>4．timerfd_create(2)把时间变成了一个文件描述符，该“文件”在定时器超时的那一刻变得可读，这样就能很方便地融入select(2)&#x2F;poll(2)框架中，用统一的方式来处理IO事件和超时事件，这也正是Reactor模式的长处。</li>
+<li>5．传统的Reactor利用select(2)&#x2F;poll(2)&#x2F;epoll(4)的timeout来实现定时功能，但poll(2)和epoll_wait(2)的定时精度只有毫秒，远低于timerfd_ settime(2)的定时精度。</li>
+</ul>
+</blockquote>
+<h3 id="7-8-3-muduo的定时器接口"><a href="#7-8-3-muduo的定时器接口" class="headerlink" title="7.8.3　muduo的定时器接口"></a>7.8.3　muduo的定时器接口</h3><p>muduo EventLoop有三个定时器函数：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221017205027209.png"></p>
+<h3 id="7-8-4-Boost-Asio-Timer示例"><a href="#7-8-4-Boost-Asio-Timer示例" class="headerlink" title="7.8.4　Boost.Asio Timer示例"></a>7.8.4　Boost.Asio Timer示例</h3><blockquote>
+<p>1．阻塞式的定时，muduo不支持这种用法，无代码。</p>
+<p>2．非阻塞定时。</p>
+<p>3．在TimerCallback里传递参数</p>
+<p>4．以成员函数为TimerCallback</p>
+<p>5．在多线程中回调，用mutex保护共享变量</p>
+<p>6．在多线程中回调，缩小临界区，把不需要互斥执行的代码移出来</p>
+<p>代码都在examples&#x2F;asio&#x2F;tutorial&#x2F;</p>
+</blockquote>
+<p><strong>在非阻塞服务端编程中，绝对不能用sleep()或类似的办法来让程序原地停留等待，这会让程序失去响应，因为主事件循环被挂起了，无法处理IO事件。</strong></p>
+<h3 id="7-8-5-Java-Netty示例"><a href="#7-8-5-Java-Netty示例" class="headerlink" title="7.8.5　Java Netty示例"></a>7.8.5　Java Netty示例</h3><p>Netty版的echo和discard服务端有流量统计功能，这需要用到固定间隔的定时器（EventLoop::runEvery）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221017212754487.png"></p>
+<p>构造函数注册了一个间隔为3秒的定时器，调用DiscardServer::printThroughput()打印出吞吐量</p>
+<p>消息回调统计收到的数据长度和消息次数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221017212848962.png"></p>
+<h2 id="7-9-测量两台机器的网络延迟和时间差"><a href="#7-9-测量两台机器的网络延迟和时间差" class="headerlink" title="7.9　测量两台机器的网络延迟和时间差"></a>7.9　测量两台机器的网络延迟和时间差</h2><p>测量round trip time的办法：</p>
+<ul>
+<li>host A发一条消息给host B，其中包含host A发送消息的本地时间。</li>
+<li>host B收到之后立刻把消息echo回host A。</li>
+<li>host A收到消息之后，用当前时间减去消息中的时间就得到了round trip time。</li>
+</ul>
+<p>协议如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221018110740747.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221018110816658.png"></p>
+<p>消息格式如下，T1 和T2 都是muduo::Timestamp，成员是一个int64_t，表示从Unix Epoch到现在的微秒数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221018111304630.png"></p>
+<p>实例如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221018111534885.png"></p>
+<h2 id="7-10-用timing-wheel踢掉空闲连接"><a href="#7-10-用timing-wheel踢掉空闲连接" class="headerlink" title="7.10　用timing wheel踢掉空闲连接"></a>7.10　用timing wheel踢掉空闲连接</h2><blockquote>
+<p>一个连接如果若干秒没有收到数据，就被认为是空闲连接。</p>
+<p>在严肃的网络程序中，应用层的心跳协议是必不可少的。应该用心跳消息来判断对方进程是否能正常工作，“踢掉空闲连接”只是一时的权宜之计。</p>
+</blockquote>
+<p>如果一个连接连续几秒内没有收到数据，就把它断开，为此有两种简单、粗暴的做法：</p>
+<ul>
+<li>每个连接保存“最后收到数据的时间lastReceiveTime”，然后用一个定时器，每秒遍历一遍所有连接，断开那些(now - connection.lastReceiveTime)＞8s的connection。这种做法全局只有一个repeated timer，不过每次timeout都要检查全部连接，如果连接数目比较大（几千上万），这一步可能会比较费时。</li>
+<li>每个连接设置一个one-shot timer，超时定为8s，在超时的时候就断开本连接。当然，每次收到数据要去更新timer。这种做法需要很多个one-shot timer，会频繁地更新timers。如果连接数目比较大，可能对EventLoop的TimerQueue造成压力。</li>
+</ul>
+<h3 id="7-10-1-timing-wheel原理"><a href="#7-10-1-timing-wheel原理" class="headerlink" title="7.10.1　timing wheel原理"></a>7.10.1　timing wheel原理</h3><p>使用timing wheel能避免上述两种做法的缺点。</p>
+<p>处理连接超时可用一个简单的数据结构：8个桶组成的循环队列。</p>
+<p>第1个桶放1秒之后将要超时的连接，第2个桶放2秒之后将要超时的连接。每个连接一收到数据就把自己放到第8个桶，然后在每秒的timer里把第一个桶里的连接断开，把这个空桶挪到队尾。这样大致可以做到8秒没有数据就超时断开连接。更重要的是，每次不用检查全部的连接，只要检查第一个桶里的连接，相当于把任务分散了。</p>
+<h3 id="7-10-2-代码实现与改进"><a href="#7-10-2-代码实现与改进" class="headerlink" title="7.10.2　代码实现与改进"></a>7.10.2　代码实现与改进</h3><p>在具体实现中，格子里放的不是连接，而是一个特制的Entry struct，每个Entry包含TcpConnection的weak_ptr。Entry的析构函数会判断连接是否还存在（用weak_ptr），如果还存在则断开连接。</p>
+<p><strong>数据结构</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221018161739059.png"></p>
+<p>在实现中，为了简单起见，采用引用计数的办法，用shared_ptr来管理Entry。</p>
+<ul>
+<li>如果从连接收到数据，就把对应的EntryPtr放到这个格子里，这样它的引用计数就递增了（只有每个格子中都没有对应的entryptr，才会被自动销毁）。</li>
+<li>当Entry的引用计数递减到零时，说明它没有在任何一个格子里出现，那么连接超时，Entry的析构函数会断开连接。</li>
+</ul>
+<blockquote>
+<p>直到Boost 1.47.0之前，unordered_set&lt;shared_ptr<T> &gt;虽然可以编译通过，但是其hash_value是shared_ptr隐式转换为bool的结果。也就是说，如果不自定义hash函数，那么unordered_{set&#x2F;map}会退化为链表。</p>
+</blockquote>
+<p><strong>改进</strong></p>
+<ul>
+<li>每次收到消息都会往队尾添加EntryPtr（hash set会帮我们去重（deduplication））。一个简单的改进措施是，在TcpConnection里保存“最后一次往队尾添加引用时的tail位置”，收到消息时先检查tail是否变化，若无变化则不重复添加EntryPtr，若有变化则把EntryPtr从旧的Bucket移到当前队尾Bucket。</li>
+<li>另外一个思路是“选择排序”：使用链表将TcpConnection串起来，TcpConnection每次收到消息就把自己移到链表末尾，这样链表是按接收时间先后排序的。再用一个定时器定期从链表前端查找并踢掉超时的连接。代码示例位于同一目录。</li>
+</ul>
+<h2 id="7-11-简单的消息广播服务"><a href="#7-11-简单的消息广播服务" class="headerlink" title="7.11　简单的消息广播服务"></a>7.11　简单的消息广播服务</h2><p>muduo示例中的Hub分为几个部分：</p>
+<ul>
+<li>Hub服务程序，负责一对多的消息分发。它会记住每个client订阅了哪些topic，只把消息发给特定的订阅者。</li>
+<li>pubsub库，为了方便编写使用Hub服务的应用程序，我写了一个简单的client library，用来和Hub打交道。这个library可以订阅topic、退订topic、往指定的topic发布消息。</li>
+<li>sub示例程序，这个命令行程序订阅一个或多个topic，然后等待Hub的数据。</li>
+<li>pub示例程序，这个命令行程序往某个topic发布一条消息，消息内容由命令行参数指定</li>
+</ul>
+<p><strong>多线程的高效广播</strong></p>
+<p>假如有一条消息要广播给1000个订阅者，那么只能一个一个地发，第1个订阅者收到消息和第1000个订阅者收到消息的时差可以长达若干毫秒。那么，有没有办法提高速度、降低延迟呢？</p>
+<blockquote>
+<p>但是简单的办法并不一定能奏效，因为一个全局锁就把多线程程序退化为单线程执行（为啥需要加全局锁，是发送消息时必须加锁？？）。为了真正提速，我想到了用thread local（设置的订阅者变量？？）的办法，比如把1000个订阅者分给4个线程，每个线程的操作基本都是无锁的，这样可以做到并行地发送消息。</p>
+</blockquote>
+<h2 id="7-12-“串并转换”连接服务器及其自动化测试"><a href="#7-12-“串并转换”连接服务器及其自动化测试" class="headerlink" title="7.12　“串并转换”连接服务器及其自动化测试"></a>7.12　“串并转换”连接服务器及其自动化测试</h2><p><strong>功能需求</strong></p>
+<p>连接服务器把多个客户连接汇聚为一个内部TCP连接，起到“数据串并转换”的作用，让backend的逻辑服务器专心处理业务，而无须顾及多连接的并发性。系统的框图如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221018195046299.png"></p>
+<p><strong>实现</strong></p>
+<p>对每个新client connection分配一个新的整数id，如果id用完了，则断开新连接（这样通过控制id的数目就能控制最大连接数）。另外，<strong>为了避免id过快地被复用（有可能造成backend串话），multiplexer采用queue来管理free id，每次从队列的头部取id，用完之后放回queue的尾部</strong></p>
+<p>主要是处理四种事件：</p>
+<ul>
+<li>当client connection到达或断开时，向backend发出通知。</li>
+<li>当从client connection收到数据时，把数据连同connection id一同发给backend。</li>
+<li>当从backend connection收到数据时，辨别数据是发给哪个client connection，并执行相应的转发操作。</li>
+<li>如果backend connection断开连接，则断开所有client connections（假设client会自动重试）</li>
+</ul>
+<p><strong>TcpConnection的id如何存放？</strong></p>
+<p>当从backend收到数据，如何根据id找到对应的client connection？当从client connection收到数据，如何得知其id？</p>
+<blockquote>
+<p>第一个问题比较好解决，用std::map&lt;int, TcpConnectionPtr&gt; clientConns_保存从id到client connection的映射就行。</p>
+<p>第二个问题固然可以用类似的办法解决，借此介绍一下muduo::net:: TcpConnection的context功能。每个TcpConnection都有一个boost::any成员，可由客户代码自由支配（get&#x2F;set）。这个boost::any是TcpConnection的context，可以用于保存与connection绑定的任意数据（比方说connectionid、connection的最后数据到达时间、connection所代表的用户的名字等等）。这样客户代码不必继承TcpConnection就能attach自己的状态，而且也用不着TcpConnectionFactory了（如果允许继承，那么必然要向TcpServer注入此factory）。</p>
+</blockquote>
+<h2 id="7-13-socks4a代理服务器"><a href="#7-13-socks4a代理服务器" class="headerlink" title="7.13　socks4a代理服务器"></a>7.13　socks4a代理服务器</h2><h3 id="7-13-1-TCP中继器"><a href="#7-13-1-TCP中继器" class="headerlink" title="7.13.1　TCP中继器"></a>7.13.1　TCP中继器</h3><blockquote>
+<p>有时候，我们想在client和server之间放一个中继器（relay），把client与server之间的通信内容记录下来。这时用tcpdump是最方便省事的，但是tcpdump需要root权限，万一拿不到权限呢？穷人有穷人的办法，自己写一个TcpRelay，让client连接TcpRelay，再让TcpRelay连接server</p>
+</blockquote>
+<p>TcpRelay需要考虑以下问题：</p>
+<ul>
+<li>1．建立连接。为了真实模拟client，TcpRelay在accept连接C之后才向server发起连接S，那么在S建立起来之前，从C收到数据怎么办？要不要暂存起来？</li>
+<li>2．并发连接的管理。图7-54中只画出了一个client，实际上TcpRelay可以服务多个client，左右两边这些并发连接如何管理，如何防止串话（cross talk）？</li>
+<li>3．连接断开。client和server都可能主动断开连接。当client主动断开连接C时，TcpRelay应该立刻断开S。当server主动断开连接S时，TcpRelay应立刻断开C。这样才能比较精确地模拟client和server的行为。在关闭连接的一刹那，又有新的client连接进来，复用了刚刚close的fd号码，会不会造成串话？万一client和server几乎同时主动断开连接，TcpRelay如何应对？</li>
+<li>4．速度不匹配。如果连接C的带宽是100kB&#x2F;s，而连接S的带宽是10MB&#x2F;s，不巧server是个chargen服务，会全速发送数据，那么会不会撑爆TcpRelay的buffer？如何限速？特别是在使用non-blocking IO和level-trigger polling的时候如何限制读取数据的速度？</li>
+</ul>
+<p>前三个问题的解决见示例代码，第四个问题的解法比较粗暴，用的是HighWaterMarkCallback，如果发送缓冲区堆积的数据大于10MiB就断开连接（更好的办法见§8.9.3）</p>
+<h3 id="7-13-2-socks4a代理服务器"><a href="#7-13-2-socks4a代理服务器" class="headerlink" title="7.13.2　socks4a代理服务器"></a>7.13.2　socks4a代理服务器</h3><p>socks4a的功能与TcpRelay非常相似，它与TcpRelay的区别在于，TcpRelay固定连到某个server地址，而socks4a允许client指定要连哪个server。在accept连接C之后，socks4a server会读几个字节，以了解server的地址，再发起连接S。</p>
+<h3 id="7-13-3-N∶1与1∶N连接转发"><a href="#7-13-3-N∶1与1∶N连接转发" class="headerlink" title="7.13.3　N∶1与1∶N连接转发"></a>7.13.3　N∶1与1∶N连接转发</h3><p>云风在《写了一个proxy用途你懂的》41中写了一个TCP隧道tunnel，程序由三部分组成：N∶1连接转发服务，1∶N连接转发服务，socks代理服务。</p>
+<h2 id="7-14-短址服务"><a href="#7-14-短址服务" class="headerlink" title="7.14　短址服务"></a>7.14　短址服务</h2><p>muduo内置了一个简陋的HTTP服务器，可以处理简单的HTTP请求。这个HTTP服务器是面向内网的暴露进程状态的监控端口，不是面向公网的功能完善且健壮的httpd</p>
+<p>使用方法</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20221018202416051.png"></p>
+<h2 id="7-15-与其他库集成"><a href="#7-15-与其他库集成" class="headerlink" title="7.15　与其他库集成"></a>7.15　与其他库集成</h2><blockquote>
+<p>Channel class是IO事件回调的分发器（dispatcher），它在handleEvent()中根据事件的具体类型分别回调ReadCallback、WriteCallback等，代码见§8.1.1。每个Channel对象服务于一个文件描述符，但并不拥有fd，在析构函数中也不会close(fd)。Channel也使用muduo一贯的boost::function来表示函数回调，它不是基类43。这样用户代码不必继承Channel，也无须override虚函数。</p>
+</blockquote>
+<p>通过Channel class可以把其他一些现成的网络库融入muduo的event loop中。</p>
+<h3 id="7-15-1-UDNS"><a href="#7-15-1-UDNS" class="headerlink" title="7.15.1　UDNS"></a>7.15.1　UDNS</h3><p>UDNS44是一个stub45DNS解析器，它能够异步地发起DNS查询，再通过回调函数通知结果。</p>
+<h3 id="7-15-2-c-ares-DNS"><a href="#7-15-2-c-ares-DNS" class="headerlink" title="7.15.2　c-ares DNS"></a>7.15.2　c-ares DNS</h3><p>c-ares DNS48是一款常用的异步DNS解析库</p>
+<h3 id="7-15-3-curl"><a href="#7-15-3-curl" class="headerlink" title="7.15.3　curl"></a>7.15.3　curl</h3><p>libcurl是一个常用的HTTP客户端库53，可以方便地下载HTTP和HTTPS数据。libcurl有两套接口，easy和multi，本节介绍的是使用其multi接口54以达到单线程并发访问多个URL的效果。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">mujiubai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://mujiubai.github.io/2023/02/15/%E9%A1%B9%E7%9B%AE/muduo%E7%BD%91%E7%BB%9C%E5%BA%93-Linux%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B/">https://mujiubai.github.io/2023/02/15/%E9%A1%B9%E7%9B%AE/muduo%E7%BD%91%E7%BB%9C%E5%BA%93-Linux%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">mujiubai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
+                                </a>
+                            
+                                <a href="/tags/muduo/">
+                                    <span class="chip bg-color">muduo</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-middle/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="236. 二叉树的最近公共祖先">
+                        
+                        <span class="card-title">236. 二叉树的最近公共祖先</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                        <span class="chip bg-color">Alg-二叉树</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91-simple/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="617. 合并二叉树">
+                        
+                        <span class="card-title">617. 合并二叉树</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                        <span class="chip bg-color">Alg-二叉树</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">mujiubai</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">300k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/mujiubai" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1057378931@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1057378931" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1057378931" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

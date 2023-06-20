@@ -1,0 +1,1904 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="C++知识点总结, w">
+    <meta name="description" content="C++八股总结。参考1、2
+
+
+C++与C的不同点：C++基本兼容C的语法，但相比C多了：
+
+支持面向对象的编程思想
+支持运算符重载
+支持泛型编程、模板
+支持异常处理
+类型检查严格
+
+名字空间使用名字空间是为了避免独立开发时造成的命名冲突。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>C++知识点总结 | w</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">w</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/categories/C/">
+          
+          <span>C++</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/LeetCode/">
+          
+          <span>LeetCode</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+          
+          <span>计算机基础知识</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">w</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/categories/C/ " style="margin-left:75px">
+				  
+		          <span>C++</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/LeetCode/ " style="margin-left:75px">
+				  
+		          <span>LeetCode</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/ " style="margin-left:75px">
+				  
+		          <span>计算机基础知识</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">C++知识点总结</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/C/" class="post-category">
+                                C++
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-02-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2023-06-20
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    10.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    37 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>C++八股总结。参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/92901691?utm_id=0">1</a>、<a target="_blank" rel="noopener" href="https://github.com/imarvinle/interview-1#newdelete">2</a></p>
+<hr>
+<hr>
+<h1 id="C-与C的不同点："><a href="#C-与C的不同点：" class="headerlink" title="C++与C的不同点："></a>C++与C的不同点：</h1><p>C++基本兼容C的语法，但相比C多了：</p>
+<ul>
+<li>支持面向对象的编程思想</li>
+<li>支持运算符重载</li>
+<li>支持泛型编程、模板</li>
+<li>支持异常处理</li>
+<li>类型检查严格</li>
+</ul>
+<h1 id="名字空间"><a href="#名字空间" class="headerlink" title="名字空间"></a>名字空间</h1><p>使用名字空间是为了避免独立开发时造成的命名冲突。</p>
+<p>名字空间内部可以再定义名字空间，内层的名字空间与外层的名字空间的成员，可以重名，内层会屏蔽外层的同名标识符。</p>
+<p>可以给名字空间取别名</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">空间名<span class="token double-colon punctuation">::</span>标识符 <span class="token comment">// 有名名字空间中的成员</span>
+<span class="token double-colon punctuation">::</span>标识符 <span class="token comment">//无名名字空间中的成员，且通过此访问被屏蔽的全局变量</span>
+<span class="token keyword">namespace</span> n123 <span class="token operator">=</span> n1<span class="token double-colon punctuation">::</span>n2<span class="token double-colon punctuation">::</span>n3<span class="token punctuation">;</span> <span class="token comment">//名字空间取别名</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="struct和class区别"><a href="#struct和class区别" class="headerlink" title="struct和class区别"></a>struct和class区别</h1><p>使用struct和class定义一个类的区别是：</p>
+<ul>
+<li>默认的继承访问权限。struct 是 public 的，class 是 private 的。</li>
+<li>struct成员默认为public；class成员默认为private。</li>
+</ul>
+<p>class可以用于template定义类型，而struct不行</p>
+<p>在C++中，class就是利用struct实现的。</p>
+<blockquote>
+<p>在C++中定义一个类后，如果定义同名函数，则此同名函数会隐藏同名类，而C中则不会，因为其定义一个变量是<code>struct T a</code></p>
+</blockquote>
+<h1 id="union-联合"><a href="#union-联合" class="headerlink" title="union 联合"></a>union 联合</h1><p>联合（union）是一种节省空间的特殊的类，一个 union 可以有多个数据成员，但是在任意时刻只有一个数据成员可以有值。当某个成员被赋值后其他成员变为未定义状态。联合有如下特点：</p>
+<ul>
+<li>默认访问控制符为 public</li>
+<li>可以含有构造函数、析构函数</li>
+<li>不能含有引用类型的成员</li>
+<li>不能继承自其他类，不能作为基类</li>
+<li>不能含有虚函数</li>
+<li>匿名 union 在定义所在作用域可直接访问 union 成员(像访问普通变量一样)</li>
+<li>匿名 union 不能包含 protected 成员或 private 成员</li>
+<li>全局匿名联合必须是静态（static）的</li>
+</ul>
+<h1 id="void"><a href="#void" class="headerlink" title="void*"></a>void*</h1><p>C语言中void* 可以与任意类型指针 自动转换。<br>C++中void* 不能给其他类型的指针直接赋值，必须强制类型转换，但其他类型的指针可以自动给void*赋值(为了类型检查，更加安全）。</p>
+<h1 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h1><p>assert断言，是宏，而非函数。其作用是如果它的条件返回错误，则终止程序执行。</p>
+<p>断言assert 是仅在Debug 版本起作用的宏，它用于检查”不应该”发生的情况。</p>
+<h1 id="sizeof"><a href="#sizeof" class="headerlink" title="sizeof()"></a>sizeof()</h1><ul>
+<li>sizeof 对数组，得到整个数组所占空间大小。</li>
+<li>sizeof 对指针，得到指针本身所占空间大小。</li>
+</ul>
+<h1 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h1><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">volatile</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>volatile 关键字是一种类型修饰符，用它声明的类型变量表示可能会被某些编译器未知的因素（操作系统、硬件、其它线程等）更改。所以使用 volatile 告诉编译器不应对这样的对象进行优化（如多次连续赋值不能优化为一次赋值）。</li>
+<li>volatile 关键字声明的变量，每次访问时都必须从内存中取出值（没有被 volatile 修饰的变量，可能由于编译器的优化，从 CPU 寄存器中取值）</li>
+<li>const 可以是 volatile （如只读的状态寄存器）</li>
+<li>指针可以是 volatile</li>
+</ul>
+<h1 id="const"><a href="#const" class="headerlink" title="const"></a>const</h1><p>const有两重语义：变量只读(如修饰形参），修饰常量（定义变量），因此会导致优化不彻底，C++11提出了constexpr。</p>
+<p>const可分为顶层const（变量本身是个常量）和底层const（指针所指对象是个常量）：</p>
+<ul>
+<li>当执行对象的拷贝操作时：<ul>
+<li>拷入和拷出的对象必须具有相同的底层 const 资格，或者两个对象的数据类型必须能够转换（一般来说，非常量可以转化为常量，反之不行）。</li>
+<li>如果拷出对象是一个变量且是顶层const，那么拷入对象（引用或指针）必须有底层const</li>
+</ul>
+</li>
+<li>重载时：<ul>
+<li>顶层 const 不影响传入函数的对象，一个拥有顶层 const 的形参无法和另一个没有顶层 const 的形参区分开</li>
+<li>底层const会影响重载，如果形参是某种类型的指针或引用，则通过区分其是否指向的是常量对象还是非常量对象可以实现函数重载。</li>
+</ul>
+</li>
+</ul>
+<p>const作用：</p>
+<ul>
+<li>修饰变量，说明该变量不可以被改变（顶层const）；</li>
+<li>修饰指针，分为指向常量的指针（底层const）和指针常量（顶层const）；</li>
+<li>常量引用，经常用于形参类型，即避免了拷贝，又避免了函数对值的修改（底层const，注意引用本身已经是一个顶层const，其底层实现是一个指针常量）；</li>
+<li>修饰成员函数，说明该成员函数内不能修改成员变量。</li>
+</ul>
+<h1 id="static"><a href="#static" class="headerlink" title="static"></a>static</h1><ul>
+<li><p>修饰普通变量，修改变量的存储区域和生命周期，使变量存储在静态区，在 main 函数运行前就分配了空间，如果有初始值就用初始值初始化它，如果没有初始值系统用默认值初始化它。</p>
+</li>
+<li><p>修饰普通函数，表明函数的作用范围，仅在定义该函数的文件内才能使用。在多人开发项目时，为了防止与他人命令函数重名，可以将函数定位为 static。</p>
+</li>
+<li><p>修饰成员变量，修饰成员变量使所有的对象只保存一个该变量，而且不需要生成对象就可以访问该成员。</p>
+<ul>
+<li>经过static修饰的类成员会变成静态成员，其单独存储在data内存段中，所有的类对象共享</li>
+<li>静态成员在类内声明，但必须在类外定义、初始化。初始化时需要加“类名::”限定符表示它属于哪个类，但无需增加 static</li>
+</ul>
+</li>
+<li><p>修饰成员函数，修饰成员函数使得不需要生成对象就可以访问该函数，这种成员没有this指针,因此在 static 函数内不能访问非静态成员。但可以直接访问静态成员变量、静态成员函数</p>
+<blockquote>
+<p>静态成员变量、函数依然受访问控制限定符的影响</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="using"><a href="#using" class="headerlink" title="using"></a>using</h1><p><strong>using作用</strong>：</p>
+<ul>
+<li><p>引入命名空间成员</p>
+ <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">using</span> namespace_name<span class="token double-colon punctuation">::</span>name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>使得某个特定命名空间中所有名字都可见</p>
+ <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">using</span> namespace_name name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>派生类中使用using，对于基类的每个构造函数，编译器都生成一个与之对应（形参列表完全相同）的派生类构造函数</p>
+ <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Derived</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token class-name">Base</span></span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">using</span> Base<span class="token double-colon punctuation">::</span>Base<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p><strong>using和typedef区别</strong></p>
+<ul>
+<li><p>声明函数指针时using更易理解</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">typedef</span> <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>FP<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">//typedef</span>
+<span class="token keyword">using</span> FP <span class="token operator">=</span> <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">//别名声明</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>using相比typedef最大一个特点是可以被模板化，而typedef定义模板别名只能嵌套进模板化的struct（其如果用来定义对象时又使用了模板形参，则定义对象时需要加typename）</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">T</span><span class="token operator">></span>                            <span class="token comment">//MyAllocList&lt;T>是</span>
+<span class="token keyword">using</span> MyAllocList <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>list<span class="token operator">&lt;</span>T<span class="token punctuation">,</span> MyAlloc<span class="token operator">&lt;</span>T<span class="token operator">>></span><span class="token punctuation">;</span>   <span class="token comment">//std::list&lt;T, MyAlloc&lt;T>>的同义词</span>
+MyAllocList<span class="token operator">&lt;</span>Widget<span class="token operator">></span> lw<span class="token punctuation">;</span>                         <span class="token comment">//用户代码</span>
+
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">T</span><span class="token operator">></span>                            <span class="token comment">//MyAllocList&lt;T>是</span>
+<span class="token keyword">struct</span> <span class="token class-name">MyAllocList</span> <span class="token punctuation">&#123;</span>                            <span class="token comment">//std::list&lt;T, MyAlloc&lt;T>></span>
+    <span class="token keyword">typedef</span> std<span class="token double-colon punctuation">::</span>list<span class="token operator">&lt;</span>T<span class="token punctuation">,</span> MyAlloc<span class="token operator">&lt;</span>T<span class="token operator">>></span> type<span class="token punctuation">;</span>      <span class="token comment">//的同义词  </span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+MyAllocList<span class="token operator">&lt;</span>Widget<span class="token operator">></span><span class="token double-colon punctuation">::</span>type lw<span class="token punctuation">;</span>                   <span class="token comment">//用户代码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h1 id="C-实现-C-类"><a href="#C-实现-C-类" class="headerlink" title="C 实现 C++ 类"></a>C 实现 C++ 类</h1><p>需要实现三大特性：封装、继承、多态，<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/352015650">参考</a></p>
+<p><strong>实现封装</strong>：</p>
+<ul>
+<li>封装就是类将属性和属性操作封装在一个不可分割的独立实体，只提供对外访问属性的操作方法。用户无需知道对象的内部实现细节，但能通过对外提供的接口访问内部属性数据。</li>
+<li>用C的函数指针模仿C++实现简单的封装。C++中调用成员变量都是通过this指针，因此定义函数时需要多加一个当前类变量指针来模拟this指针，然后调用变量时使用此指针来访问成员变量。</li>
+<li>模拟构造和析构：C的结果体变量创建和销毁时不会自动调用函数，因此需要手动定义用于构造和析构的连个函数，然后在结构体变量定义后调用函数进行初始化和销毁</li>
+</ul>
+<p><strong>实现继承</strong>：</p>
+<ul>
+<li>直接在子类首部定义一个父类变量，并在构造和析构时调用父类的构造析构函数（只能实现共有继承）。</li>
+</ul>
+<p><strong>实现多态</strong>：</p>
+<ul>
+<li>C++实现多态是使用一个虚函数表和一直指向其的指针</li>
+<li>由于实现封装时使用的函数指针实现，因此定义子类时将父类的函数指针指向新函数即可。</li>
+</ul>
+<h1 id="内存对齐和pragma-pack-n"><a href="#内存对齐和pragma-pack-n" class="headerlink" title="内存对齐和pragma pack(n)"></a>内存对齐和pragma pack(n)</h1><p>现在计算机内存空间都是按照byte字节划分的，理论上讲对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址上访问，这就需要各种数据类型按照一定的规则在空间上排列，而不是一个接一个的排放，这就是<strong>内存对齐</strong>。</p>
+<ul>
+<li>cpu对内存的读取不是连续的而是分块读取的，块的大小只能是2^i^个字节数，从cpu的读取性能和效率来考虑，若读取的数据未对齐，则需要两次总线周期来访问内存，因而效率会大打折扣</li>
+</ul>
+<p><strong>内存对齐规则</strong></p>
+<ul>
+<li>结构体第一个变量的地址（起始地址）能够被其最宽的成员大小整除</li>
+<li>结构体每个成员相对于起始地址的偏移能够被其自身大小和对齐系数的较小值整除，如果不能则在前一个成员后面补充字节</li>
+<li>结构体总体大小能够被最宽的成员的大小整除，如不能则在后面补充字节</li>
+</ul>
+<p>在32位系统中，默认对齐系数是4，而64位默认对齐系数是8。</p>
+<p>可通过**pragma pack(n)**来修改对齐系数</p>
+<blockquote>
+<p>变量顺序也会影响对齐大小</p>
+</blockquote>
+<h1 id="位域"><a href="#位域" class="headerlink" title="位域"></a>位域</h1><p><strong>位域</strong>：在结构体定义时，可以指定某个（非静态）成员变量所占用的二进制位数（Bit）</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">bs</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">unsigned</span> n<span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><code>:</code>后面的数字用来限定成员变量占用的位数。</li>
+</ul>
+<p>语言标准规定：</p>
+<ul>
+<li>位域的宽度不能超过它所依附的数据类型的长度。通俗地讲，成员变量都是有类型的，这个类型限制了成员变量的最大长度，<code>:</code>后面的数字不能超过这个长度。</li>
+<li>只有有限的几种数据类型可以用于位域，即整型（<code>char</code>、<code>short</code>、<code>int</code>、<code>long</code>、<code>long long</code>）和枚举型</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>位域在内存中的布局是与机器有关的</li>
+<li>带符号类型中的位域的行为将因具体实现而定</li>
+<li>取地址运算符（&amp;）不能作用于位域，任何指针都无法指向类的位域（因为地址最小单位是字节）</li>
+</ul>
+<h1 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h1><p>重载规则：</p>
+<ul>
+<li>函数名必须相同</li>
+<li>参数列表不同(个数不同、类型不同、参数排列顺序不同等)</li>
+<li>函数的返回类型可以相同也可以不相同</li>
+<li>若两个函数只有返回类型不同，而参数列表完全相同，则不能称为重载函数</li>
+</ul>
+<p>重载实现的机制：</p>
+<ul>
+<li>C++代码在编译时会把函数的参数类型添加到参数名中，借助这个方式来实现函数重载。因此，C++代码不能调用C函数（C语言编译器编译出的函数）</li>
+</ul>
+<p><code>extern &quot;C&quot;</code>:</p>
+<ul>
+<li>告诉C++编译器按照C语言的方式声明函数，这样就可以实现C和C++混合编程</li>
+</ul>
+<p>重载解析：</p>
+<ul>
+<li>实参的类型和形参的匹配情况有三种：<ol>
+<li>编译器找到与实参最佳的匹配函数，编译器将生成调用代码。</li>
+<li>编译找不到匹配函数，编译器将给出错误信息。</li>
+<li>编译器找到多个匹配函数，但没有一个最佳的，这种错误叫二义性（如果编译器没有找到一个最佳调用版本，则会进行类型提升，就可能产生二义性错误）。</li>
+</ol>
+</li>
+<li>选择匹配函数规则：<ul>
+<li>优先每个参数都完全匹配的方案，其次参数完全匹配的个数，再其次是浪费内存的字节数</li>
+</ul>
+</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>函数的重载关系发生在同一作用域下，不同作用域下的同名函数，构成隐藏关系</li>
+<li>C++函数的形参如果是指针类型，编译时函数名中会追加Px</li>
+</ul>
+<h1 id="默认形参"><a href="#默认形参" class="headerlink" title="默认形参"></a>默认形参</h1><ul>
+<li>C++中函数的形参可以设置默认值，调用函数时如果没有提供实参数，则使用默认形参。</li>
+<li>若某个参数设置了默认值，则其后面所有参数必须设置默认值</li>
+<li>函数的默认形参是在编译阶段确定的，因此只能使用常量、常量表达式、全局变量数据作为默认值。</li>
+<li>默认形参可能会对函数重载造成二义性问题，需慎重</li>
+<li>如果函数的声明和定义需要分开，那么只需要在声明中定义，实现中不定义否则编译器可能报错</li>
+</ul>
+<h1 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a>内联函数</h1><p>内联函数就把函数编译好的二进制指令直接复制到函数的调用位置，相当于不用执行进入函数的步骤，直接执行函数体。</p>
+<p><strong>编译器对 inline 函数的处理步骤</strong>：</p>
+<ol>
+<li>将 inline 函数体复制到 inline 函数调用点处；</li>
+<li>为所用 inline 函数中的局部变量分配内存空间；</li>
+<li>将 inline 函数的的输入参数和返回值映射到调用方法的局部变量空间中；</li>
+<li>如果 inline 函数有多个返回点，将其转变为 inline 函数代码块末尾的分支（使用 GOTO）。</li>
+</ol>
+<p><strong>优缺点</strong>：</p>
+<ul>
+<li><p>优点：</p>
+<ul>
+<li>无需函数跳转，因此可以提高运行速度</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>可执行文件增大，本质是牺牲空间来换取时间</li>
+</ul>
+</li>
+</ul>
+<p><strong>宏函数和内联函数区别</strong>：</p>
+<ul>
+<li>宏函数在预处理阶段进行代码替换，而内联函数是在编译阶段插入代码</li>
+<li>宏定义没有类型检查，而内联函数有类型检查</li>
+<li>宏函数不是真正的函数，只是代码替换，不会有参数压栈、出栈以及返回值，也不会检查参数类型，因此所有类型都能使用，但会有安全隐患。</li>
+<li>内联函数是真正的函数，被调用时会进行传参，省去了参数压栈、栈帧开辟与回收，可以有返回值，并会严格检查参数类型</li>
+</ul>
+<p><strong>内联适用的条件</strong>：</p>
+<ul>
+<li>由于内联会造成可执行文件变大，并增加内存开销，因此只有频繁调用的简单函数适合作为内联。</li>
+<li>带有递归特性和动态绑定特性的函数，无法实施内联，因此编译器会忽略声明部分的inline关键字。</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li>“inline”只是对编译器的建议：被”inline”修饰的函数不一定被内联</li>
+<li>不能包含循环、递归、switch 等复杂操作</li>
+<li>虚函数（virtual）可以是内联函数（inline）吗？<ul>
+<li>虚函数可以是内联函数，内联是可以修饰虚函数的，但是当虚函数表现多态性的时候不能内联。</li>
+<li>内联是在编译器建议编译器内联，而虚函数的多态性在运行期，编译器无法知道运行期调用哪个代码，因此虚函数表现为多态性时（运行期）不可以内联。</li>
+<li><code>inline virtual</code> 唯一可以内联的时候是：编译器知道所调用的对象是哪个类（如 <code>Base::who()</code>），这只有在编译器具有实际对象而不是对象的指针或引用时才会发生。</li>
+</ul>
+</li>
+</ul>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p>引用就是取别名，声明一个标识符为引用，就表示该标识符是另一个对象的外号。</p>
+<p>在C++中引用底层是使用一个指针常量来实现的</p>
+<p>引用特性：</p>
+<ul>
+<li>引用必须初始化，不存在空引用，但有悬空引用（变量死了，名还留着）</li>
+<li>可以引用无名对象（临时对象），但必须定义为常引用</li>
+<li>引用不能更换目标</li>
+<li>引用目标如果具有const属性，引用也需要具有const属性</li>
+</ul>
+<p>指针和引用的相同点和不同点：</p>
+<ul>
+<li>相同点：跨函数共享变量，优化传参效率，避免传参的时候调用拷贝构造</li>
+<li>不同点：<ul>
+<li>引用时一种取别名的机制，而C语言中的指针是一种数据类型（代表内存编号的无符号整数），但由于引用底层是指针实现，因此占用内存大小相同</li>
+<li>指针可以为空，引用不可以为空</li>
+<li>指针可以不初始化，引用必须初始化</li>
+<li>指针可以改变指向，引用不能引用其他对象（可以定义指针的指针，不能定义引用的引用。可以定义指针的引用，不能定义引用的指针。可以定义指针的数组，但不能定义引用的数组。可以定义数组的引用）</li>
+</ul>
+</li>
+</ul>
+<h1 id="范围解析运算符"><a href="#范围解析运算符" class="headerlink" title=":: 范围解析运算符"></a>:: 范围解析运算符</h1><ul>
+<li><p>全局作用域符（<code>::name</code>）：用于类型名称（类、类成员、成员函数、变量等）前，表示作用域为全局命名空间</p>
+</li>
+<li><p>类作用域符（<code>class::name</code>）：用于表示指定类型的作用域范围是具体某个类的</p>
+</li>
+<li><p>命名空间作用域符（<code>namespace::name</code>）:用于表示指定类型的作用域范围是具体某个命名空间的</p>
+</li>
+</ul>
+<h1 id="enum-枚举类型"><a href="#enum-枚举类型" class="headerlink" title="enum 枚举类型"></a>enum 枚举类型</h1><p>enum可分为限域和非限域：</p>
+<ul>
+<li><p>未限域<code>enum</code>，枚举名的名字属于包含这个<code>enum</code>的作用域，这意味着作用域内不能含有相同名字的其他东西</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">enum</span> <span class="token class-name">Color</span> <span class="token punctuation">&#123;</span> black<span class="token punctuation">,</span> white<span class="token punctuation">,</span> red <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>   <span class="token comment">//black, white, red在Color所在的作用域</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>限域<code>enum</code>，枚举名的名字属于<code>enum</code>作用域</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">Color</span> <span class="token punctuation">&#123;</span> black<span class="token punctuation">,</span> white<span class="token punctuation">,</span> red <span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token comment">//black, white, red//限制在Color域内</span>
+<span class="token comment">//默认情况下，限域枚举的底层类型是int</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+<p>限域<code>enum</code>优点：</p>
+<ul>
+<li><p>减少命名空间污染</p>
+</li>
+<li><p>在作用域中，枚举名是强类型。未限域<code>enum</code>中的枚举名会隐式转换为整型</p>
+</li>
+<li><p>可以被前置声明，而非限域不行（除非指定底层类型，但编译器实现时需要知道所有枚举值从而选择一个最小的底层类型）</p>
+</li>
+</ul>
+<h1 id="C-的内存管理"><a href="#C-的内存管理" class="headerlink" title="C++的内存管理"></a>C++的内存管理</h1><p><strong>new、delete</strong></p>
+<ul>
+<li><p>new &#x2F; new[]：完成两件事，先底层调用 malloc 分了配内存，然后调用构造函数（创建对象）。</p>
+</li>
+<li><p>delete&#x2F;delete[]：也完成两件事，先调用析构函数（清理资源），然后底层调用 free 释放空间。</p>
+</li>
+<li><p>new 在申请内存时会自动计算所需字节数，而 malloc 则需我们自己输入申请内存空间的字节数。</p>
+</li>
+</ul>
+<p><strong>new&#x2F;delete和malloc&#x2F;free的相同点和不同点</strong>：</p>
+<ul>
+<li><p>相同点：都能管理堆内存，都不能重复释放内存</p>
+</li>
+<li><p>不同点：</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">new&#x2F;delete</th>
+<th align="center"><strong>malloc&#x2F;free</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>身份</strong></td>
+<td align="center">运算符</td>
+<td align="center">标准库函数</td>
+</tr>
+<tr>
+<td align="center"><strong>计算类型大小</strong></td>
+<td align="center">自动计算</td>
+<td align="center">需手动计算申请字节数</td>
+</tr>
+<tr>
+<td align="center"><strong>返回值</strong></td>
+<td align="center">带类型的地址</td>
+<td align="center">void*地址</td>
+</tr>
+<tr>
+<td align="center"><strong>构造析构函数</strong></td>
+<td align="center">自动调用</td>
+<td align="center">不会自动调用</td>
+</tr>
+<tr>
+<td align="center"><strong>出错处理</strong></td>
+<td align="center">抛出异常</td>
+<td align="center">返回nULL</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>new&#x2F;delete与malloc&#x2F;free不能混用，因为new和delete会自动调用类、结构的构造函数、析构函数。</li>
+<li>delete&#x2F;delete[]不能重复释放同一块内存</li>
+<li>delete&#x2F;delete[]释放野指针的后果不确定，但释放空指针是安全的</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>malloc、calloc、realloc、alloca区别</p>
+</li>
+<li><p>定位 new(placement new)：在用户指定的内存位置上（这个内存是已经预先分配好的）构建新的对象，因此这个构建过程不需要额外分配内存，只需要调用对象的构造函数在该内存位置上构造对象即可</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">Object <span class="token operator">*</span> p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token punctuation">(</span>address<span class="token punctuation">)</span> <span class="token function">ClassConstruct</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//address：placement new所指定的内存地址</span>
+<span class="token comment">//ClassConstruct：对象的构造函数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>delete this 合法吗？合法，但：</p>
+<ul>
+<li>必须保证 this 对象是通过 <code>new</code>（不是 <code>new[]</code>、不是 placement new、不是栈上、不是全局、不是其他对象成员）分配的</li>
+<li>必须保证 <code>delete this</code> 后没有人使用了</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="类的访问控制"><a href="#类的访问控制" class="headerlink" title="类的访问控制"></a>类的访问控制</h1><ul>
+<li>private：声明为 private 的类成员只能由类的成员函数和友元（类或函数）使用。</li>
+<li>protected：声明为 protected 的类成员可由类的成员函数和友元（类或函数）使用。 此外，它们还可由派生自该类的类使用。</li>
+<li>public：声明为 public 的类成员可由任意函数使用。</li>
+</ul>
+<p>类继承时，遵循private&gt;protected&gt;public将父类成员权限转换。</p>
+<h1 id="类的创建过程"><a href="#类的创建过程" class="headerlink" title="类的创建过程"></a>类的创建过程</h1><ol>
+<li>分配类型所需要空间，无论栈还是堆。</li>
+<li>根据继承表依次调用父类的构造函数</li>
+<li>根据定义成员变量的顺序依次调用成员变量的构造函数。</li>
+<li>执行构造函数体中的代码。</li>
+</ol>
+<h1 id="构造函数与初始化列表"><a href="#构造函数与初始化列表" class="headerlink" title="构造函数与初始化列表"></a>构造函数与初始化列表</h1><p><strong>构造函数</strong></p>
+<ul>
+<li>构造函数可以被重载</li>
+<li>缺省构造是编译器自动生成的一个什么都不做的构造函数（其实不是真正语法意义上的函数，而是功能意义上的函数，编译器作为可执行指令的生成者，它会直接生成具有某项功能的二进制指令，不需要借助高级语言语义上的函数完成此任务）</li>
+<li>无参构造未必无参，当给有参构造的所有参数设置默认形参，调用这种构造函数就不需要传参。</li>
+<li>如果一个类是其他类的成员变量，那么一定要保证它有一个无参构造</li>
+<li>如果构造函数的参数只有一个，那么Test t &#x3D; n语句就不会出错，它会自动调用单参构造来达到类型转换的效果。如果想禁止这种类型转换需要在单参构造前加 explicit。</li>
+<li>构造函数不能是虚函数（因为在调用构造函数时，虚表指针并没有在对象的内存空间中，必须要构造函数调用完成后才会形成虚表指针）</li>
+</ul>
+<p><strong>初始化列表</strong></p>
+<ul>
+<li><p>更高效：少了一次调用默认构造函数的过程。</p>
+</li>
+<li><p>有些场合必须要用初始化列表：</p>
+<ol>
+<li>常量成员，因为常量只能初始化不能赋值，所以必须放在初始化列表里面</li>
+<li>引用类型，引用必须在定义的时候初始化，并且不能重新赋值，所以也要写在初始化列表里面</li>
+<li>没有默认构造函数的类类型，因为使用初始化列表可以不必调用默认构造函数来初始化，而是直接调用拷贝构造函数初始化。</li>
+</ol>
+</li>
+<li><p>用花括号初始化器列表列表初始化一个对象，其中对应构造函数接受一个 <code>std::initializer_list</code> 参数。</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">S</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>initializer_list<span class="token operator">&lt;</span>T<span class="token operator">></span> l<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">v</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+         std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"constructed with a "</span> <span class="token operator">&lt;&lt;</span> l<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">"-element list\n"</span><span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+<blockquote>
+<p>explicit 修饰的构造函数可用来防止隐式转换</p>
+</blockquote>
+<h1 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h1><ul>
+<li>析构函数没有参数、没有返回值、不能重载</li>
+<li>析构函数会在销毁对象时自动调用，在对象的整个生命周期内最多被调用一次</li>
+<li>析构函数执行过程：<ol>
+<li>先执行析构函数本身代码</li>
+<li>调用成员类的析构函数</li>
+<li>调用父类的析构函数</li>
+</ol>
+</li>
+<li>如果类中没有动态资源，也不需要做善后工作，缺省析构就完全共用了，不需要再实现新析构函数</li>
+<li>类对象的创建过程与释放对比：<ul>
+<li>创建：分配内存（对象）-&gt; 父类构造-&gt; 成员构造-&gt; 自己构造<ul>
+<li>父类构造：按照继承表从左到右依次构造。</li>
+<li>成员构造：按照声明顺序从上至下依次构造。</li>
+</ul>
+</li>
+<li>释放：自己析构-&gt; 成员析构-&gt; 父类析构-&gt; 释放内存（对象）<ul>
+<li>成员析构：按照声明顺序从下到上依次构造。</li>
+<li>父类析构：按照继承表从右到左依次构造。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>虚析构函数</strong>：虚析构函数是为了解决基类的指针指向派生类对象，并用基类的指针删除派生类对象。</p>
+<h1 id="拷贝构造和赋值构造"><a href="#拷贝构造和赋值构造" class="headerlink" title="拷贝构造和赋值构造"></a>拷贝构造和赋值构造</h1><p>拷贝构造：</p>
+<ul>
+<li><p>拷贝构造的参数应该加 const 保护，但编译器并没有强行限制。</p>
+<pre class="line-numbers language-none"><code class="language-none">类名(类&amp; )&#123;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+<p>赋值构造：</p>
+<ul>
+<li><p>当一类对象给另一个类对象赋值时，就会调用赋值构造</p>
+</li>
+<li><p>定义一个类时使用&#x3D;操作符是调用拷贝构造，并非赋值构造</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> opeator <span class="token operator">=</span> <span class="token punctuation">(</span>类<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+T a<span class="token operator">=</span>b<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+<p>什么情况下需要实现拷贝构造和赋值构造？</p>
+<ul>
+<li>当类成员中有指针成员，需要深拷贝时</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>一旦为一个类实现了拷贝构造，那么也一定要实现赋值构造。</li>
+<li>缺省的拷贝构造、赋值构造函数不光会拷贝本类的数据，也会调用成员类对象和父类的拷贝构造和赋值构造</li>
+</ul>
+<h1 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h1><p><code>this</code> 指针是一个隐含于每一个非静态成员函数中的特殊指针。它指向正在被该成员函数操作的那个对象。</p>
+<ul>
+<li><p><code>this</code> 指针被隐含地声明为: <code>ClassName *const this</code>，这意味着不能给 <code>this</code> 指针赋值</p>
+<ul>
+<li>在函数的参数列表与函数体之间有const修饰的函数，这个const其实就是在修饰this指针,<code>this</code> 指针的类型为：<code>const ClassName* const</code>，因此不能修改成员变量（mutable修饰的变量能被修改），但能修改传入的参数（<strong>普通函数不能声明为常函数</strong>）。</li>
+</ul>
+</li>
+<li><p>当一个成员函数被调用时，自动向它传递一个隐含的参数，该参数是一个指向这个成员函数所在的对象的指针。</p>
+</li>
+<li><p>成员函数是如何区别调用它的是哪个类对象的？</p>
+<ul>
+<li>借助了this指针，类的每个成员函数都有一个隐藏的参数this指针，它指向类对象。</li>
+</ul>
+</li>
+<li><p>类的构造函数中也同样有this指针，指向的就是正在构造的这个对象。</p>
+</li>
+<li><p><code>this</code> 并不是一个常规变量，而是个右值，所以不能取得 <code>this</code> 的地址</p>
+</li>
+</ul>
+<h1 id="友元类和友元函数"><a href="#友元类和友元函数" class="headerlink" title="友元类和友元函数"></a>友元类和友元函数</h1><p><strong>友元函数</strong>：在定义一个类的时候，可以把一些函数（包括全局函数和其他类的成员函数）声明为“友元”，这样那些函数就成为该类的友元函数，在友元函数内部就可以访问该类对象的私有成员</p>
+ <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">friend</span>  返回值类型  函数名<span class="token punctuation">(</span>参数表<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">friend</span>  返回值类型  其他类的类名<span class="token double-colon punctuation">::</span>成员函数名<span class="token punctuation">(</span>参数表<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>不能把其他类的私有成员函数声明为友元</li>
+</ul>
+<p><strong>友元类</strong>：一个类 A 可以将另一个类 B 声明为自己的友元，类 B 的所有成员函数就都可以访问类 A 对象的私有成员</p>
+ <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">friend  class  类名;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>注意：</p>
+<ul>
+<li>友元关系在类之间不能传递，即类 A 是类 B 的友元，类 B 是类 C 的友元，并不能导出类 A 是类 C 的友元</li>
+<li>友元关系是单向性的</li>
+<li>友元声明数量不受限制</li>
+</ul>
+<h1 id="操作符函数重载"><a href="#操作符函数重载" class="headerlink" title="操作符函数重载"></a>操作符函数重载</h1><p>不能修改操作符的参数个数，不能发明新的操作符。不能重载的操作符有：</p>
+<ul>
+<li>域限定符 ::</li>
+<li>直接成员访问操作符 .</li>
+<li>三目操作符 ?:</li>
+<li>字节长度操作符 sizeof</li>
+<li>类型信息操作符 typeid</li>
+</ul>
+<p>重载操作符不能修改操作符的优先级，且无法重载所有基本类型的操作符运算</p>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><ul>
+<li>子类的指针或引用可以隐式转换成父类的指针或引用，这是一种缩小类型的转换；父类的指针或引用不可以转换成子类的指针或引用，这是一种扩大类型的转换。</li>
+<li>子类会隐藏父类的同名成员，可以通过域限定符 父类::隐藏成员 进行访问父类中的隐藏成员（或使用父类的指针或引用来指向子类对象，然后访问父类中的隐藏成员）</li>
+<li>子类以私有或保护方式继承父类，会禁止向上造型（子类的指针或引用不能隐式转换成父类的指针或引用，<strong>要想实现多态只能以公开方式继承父类</strong>）。</li>
+<li>在C++中一个子类可以有多个父类，在继承表中按照顺序继承多个父类中的属性和行为，并按照顺序表，调用父类的构造函数（当子类指针转换成父类的隐式指针时候，编译器会自动计算父类中的内容在子类中的位置，地址会自动进行偏移计算）。</li>
+</ul>
+<p><strong>砖石继承</strong>：一个子类继承多个父类，这些父类有一个共同的祖先</p>
+<ul>
+<li>钻石继承不会导致继承错误，但访问祖先类中的成员时每次需要使用 类名::成员名 ，重点是这种继承会造成冗余</li>
+</ul>
+<p><strong>虚继承</strong>：当进行钻石继承时，祖先类中的内容会有冗余，而进行虚继承后，在子类中的内容只会保留一份</p>
+<ul>
+<li>一旦进行了虚继承祖先类的构造函数只执行一次，由孙子类直接调用，祖先类的有参构造也需要在孙子类中显示调用</li>
+<li>在虚拟继承（钻石）中祖先类拷贝构造也由孙子类直接调用</li>
+</ul>
+<blockquote>
+<p>虚继承和虚函数异同：</p>
+<ul>
+<li>相同之处：都利用了虚指针（均占用类的存储空间）和虚表（均不占用类的存储空间）</li>
+<li>不同之处：<ul>
+<li>虚继承<ul>
+<li>虚基类依旧存在继承类中，只占用存储空间</li>
+<li>虚基类表存储的是虚基类相对直接继承类的偏移</li>
+</ul>
+</li>
+<li>虚函数<ul>
+<li>虚函数不占用存储空间</li>
+<li>虚函数表存储的是虚函数地址</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="覆盖和多态"><a href="#覆盖和多态" class="headerlink" title="覆盖和多态"></a>覆盖和多态</h1><p>重载（静态多态）、隐藏、覆盖（重写）的区别：</p>
+<ul>
+<li><p>重载：同一作用域下的同名函数，函数签名不同（类型、个数、顺序、常函数等），构成重载关系。</p>
+</li>
+<li><p>覆盖的条件：</p>
+<ul>
+<li><p>必须是虚函数</p>
+</li>
+<li><p>必须是父子类之间</p>
+</li>
+<li><p>函数签名必须相同（参数列表完全一致，const属性也会影响覆盖的结果）</p>
+</li>
+<li><p>返回值必须是同类型或父子类（子类的返回值要能向父类隐式转换）</p>
+</li>
+<li><p>访问属性不会影响覆盖</p>
+</li>
+<li><p>常函数属性也会影响覆盖</p>
+</li>
+</ul>
+</li>
+<li><p>隐藏：父子类之间的同名成员如果没有形成覆盖，且能通过编译，必定构成隐藏。</p>
+</li>
+</ul>
+<p><strong>动态多态</strong>：当子类覆盖了父类的虚函数时，通过父类指针指向子类对象时，调用虚函数，会根据具体的对象是谁来决定执行谁的函数</p>
+<p>动态多态的条件</p>
+<ul>
+<li>父子类之间有的函数是覆盖关系。</li>
+<li>父类的指针或引用指向子类的对象。</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>在父类的构造函数中调用虚函数，此时子类还没有创建完成，因此只能调用父类的虚函数，而不是覆盖版本的虚函数。</li>
+<li>在父类的析构函数中调用虚函数，此时子类已经释放完成，因此只能调用父类的虚函数，而不是覆盖版本的虚函数。</li>
+</ul>
+<h1 id="纯虚函数和抽象类"><a href="#纯虚函数和抽象类" class="headerlink" title="纯虚函数和抽象类"></a>纯虚函数和抽象类</h1><p>纯虚函数：在虚函数的声明的后面添加&#x3D;0，无需实现。</p>
+<ul>
+<li>定义纯虚函数是为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。</li>
+</ul>
+<p>抽象类：成员函数中有纯虚函数，这种类叫抽象类，抽象类不能实例化</p>
+<ul>
+<li>抽象类必须被继承且纯虚函数被覆盖后，由子类实例化对象</li>
+<li>如果继承抽象类，但没有覆盖纯虚函数，那么子类也将成为抽象类，不能实例化</li>
+</ul>
+<p>纯抽象类：所有成员函数都是纯虚函数，这种只能被继承的类叫纯抽象类。</p>
+<h1 id="虚函数表和虚析构"><a href="#虚函数表和虚析构" class="headerlink" title="虚函数表和虚析构"></a>虚函数表和虚析构</h1><p>虚函数表：</p>
+<ul>
+<li>在C++的类中，一旦成员函数中有虚函数，这个类中就会多一个虚函数表指针，这个指针指向一个虚函数表，表里面记录了<br>这个类中所有的虚函数，</li>
+<li>当这个类被继承，它的子类中也会有一个虚函数表（不管子类中有没有虚函数），如果子类的成员函数中有函数签名与父<br>类的虚函数一样，就会用子类中的函数替换它在虚函数表中的位置，这样就达到了覆盖的效果。</li>
+<li>当通过类指针或引用调用函数时，会根据对象中实际的虚函数表记录来调用函数，这样就达到了多态的效果。</li>
+<li>多态类中的虚函数表建立在编译阶段。</li>
+</ul>
+<p>虚析构：</p>
+<ul>
+<li>当使用delete释放一个父类指针时，不管实际指向的对象是子类还是父类都只会调用父类的析构函数（多态肯定会出现的问题）。如果子类的析构函数有需要负责释放的内存，就会造成内存泄漏</li>
+<li>为了解决这个问题，可以把父类的析构函数设置为虚函数，<em>析构函数进行覆盖时不会比较函数名</em>。</li>
+<li>当父类的析构函数为虚函数时，通过父类指针或引用释放子类对象时，会自动调用子类的析构函数，子类的析构函数执行完成后也会调用父类的析构函数。</li>
+</ul>
+<h1 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h1><p>C++中为了兼容C语言，<code>(目标类型)源类型</code> 依然可以继续使用，但C语言的强制类型转换安全性差，因此建议使用C++中的强制类型转换。</p>
+<p>数据类型转换的本质：数据类型转换，就是对数据所占用的二进制位做出重新解释。</p>
+<p>C++提供四种强制类型转换，且没有很大安全隐患：</p>
+<ul>
+<li><p>static_cast&lt;目标类型&gt;(data)   </p>
+<ul>
+<li>静态转换的意思，也就是在编译期间转换，转换失败的话会抛出一个编译错误。</li>
+<li>用于具体类型之间的转换，也可以用于具体类型指针和void指针之间的转换</li>
+<li>但不能在两个具体类型的指针之间进行转换,不能将整数转换为指针类型</li>
+</ul>
+</li>
+<li><p>dynamic_cast&lt;目标类型&gt;(data)  </p>
+<ul>
+<li>用于将多态基类的<strong>指针或引用</strong>强制转换为派生类的指针或引用，而且能够检查转换的安全性。对于不安全的指针转换，转换结果返回 NULL 指针。</li>
+<li>既允许向上转型（派生类到基类），也允许向下转型（基类到派生类）。向上转型是无条件的，不会进行任何检测，所以都能成功；向下转型的前提必须是安全的，要借助 RTTI 进行检测，所有只有一部分能成功。</li>
+<li>dynamic_cast 会在程序运行期间借助 RTTI 进行类型转换，这就要求基类必须包含虚函数；static_cast 在编译期间完成类型转换，能够更加及时地发现错误。</li>
+<li>dynamic_cast 不能用于将非多态基类的指针或引用强制转换为派生类的指针或引用</li>
+<li>reinterpret_cast也能用于转换为派生类的指针，但不检查安全性，即不检查转换后的指针是否确实指向一个派生类对象。</li>
+</ul>
+</li>
+<li><p>const_cast&lt;目标类型&gt;(data)    </p>
+<ul>
+<li><p>仅用于进行去除 const 属性和volatile 属性，它也是四个强制类型转换运算符中唯一能够去除 const 属性的运算符。</p>
+</li>
+<li><p>注意，<strong>变量本身的const属性是不能去除的</strong>，要想修改变量的值，一般是去除指针（或引用）的const属性，再进行间接修改（这里使用了编译时的常量折叠）。</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">const</span> string s <span class="token operator">=</span> <span class="token string">"Inception"</span><span class="token punctuation">;</span>
+string<span class="token operator">&amp;</span> p <span class="token operator">=</span> <span class="token generic-function"><span class="token function">const_cast</span> <span class="token generic class-name"><span class="token operator">&lt;</span>string<span class="token operator">&amp;</span><span class="token operator">></span></span></span> <span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+string<span class="token operator">*</span> ps <span class="token operator">=</span> <span class="token generic-function"><span class="token function">const_cast</span> <span class="token generic class-name"><span class="token operator">&lt;</span>string<span class="token operator">*</span><span class="token operator">></span></span></span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// &amp;s 的类型是 const string*</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p>reinterpret_cast&lt;目标类型&gt;(data)  </p>
+<ul>
+<li>用于进行各种不同类型的指针之间、不同类型的引用之间以及指针和能容纳指针的整数类型之间的转换。转换时，执行的是逐个比特复制的操作。</li>
+<li>高度危险的转换，这种转换仅仅是对二进制位的重新解释，不会借助已有的转换规则对数据进行调整，但是可以实现最灵活的 C++ 类型转换</li>
+</ul>
+</li>
+</ul>
+<h1 id="如何定义一个只能在堆上（栈上）生成对象的类？"><a href="#如何定义一个只能在堆上（栈上）生成对象的类？" class="headerlink" title="如何定义一个只能在堆上（栈上）生成对象的类？"></a>如何定义一个只能在堆上（栈上）生成对象的类？</h1><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/questionTerminal/0a584aa13f804f3ea72b442a065a7618">参考</a></p>
+<p><strong>只能在堆上</strong>:</p>
+<ul>
+<li>方法：将析构函数设置为私有</li>
+<li>原因：C++ 是静态绑定语言，编译器管理栈上对象的生命周期，编译器在为类对象分配栈空间时，会先检查类的析构函数的访问性。若析构函数不可访问，则不能在栈上创建对象。</li>
+<li>为啥不将构造函数设为私有？因为会导致栈上也无法建立对象</li>
+</ul>
+<p><strong>只能在栈上</strong>:</p>
+<ul>
+<li>方法：将 new 和 delete 重载为私有</li>
+<li>原因：在堆上生成对象，使用 new 关键词操作，其过程分为两阶段：第一阶段，使用 new 在堆上寻找可用内存，分配给对象；第二阶段，调用构造函数生成对象。将 new 操作设置为私有，那么第一阶段就无法完成，就不能够在堆上生成对象。</li>
+</ul>
+<h1 id="I-x2F-O流"><a href="#I-x2F-O流" class="headerlink" title="I&#x2F;O流"></a>I&#x2F;O流</h1><p>I&#x2F;O流的打开模式：</p>
+<ul>
+<li>ios::in     以读权限打开文件，不存在则失败，存在不清空</li>
+<li>ios::out    以写权限打开文件，不存在则创建，存在则清空</li>
+<li>ios::app    打开文件用于追加，不存在则创建，存在不清空</li>
+<li>ios::binary 以二进制模式进行读写 </li>
+<li>ios::ate    打开时定位到文件末尾</li>
+<li>ios::trunc  打开文件时清空</li>
+</ul>
+<p>fstream&#x2F;ifstream&#x2F;ofstream 类用于进行文件操作，其函数：</p>
+<ul>
+<li>构造函数或成员函数 open 用于打开文件</li>
+<li>good成员函数检查流是否可用</li>
+<li>eof成员函数用于输入流是否结束</li>
+</ul>
+<p>二进制读写：read&#x2F;write：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">read</span> <span class="token punctuation">(</span>char_type <span class="token operator">*</span>__s<span class="token punctuation">,</span>streamsize __n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">write</span> <span class="token punctuation">(</span>char_type <span class="token operator">*</span>__s<span class="token punctuation">,</span>streamsize __n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h1 id="运行时类型信息-RTTI"><a href="#运行时类型信息-RTTI" class="headerlink" title="运行时类型信息 (RTTI)"></a>运行时类型信息 (RTTI)</h1><p><strong>dynamic_cast</strong>：用于多态类型的转换</p>
+<p><strong>类型信息typeid</strong>：用于获取数据的类型信息，返回一个 type_info 对象的引用</p>
+<ul>
+<li>其name成员函数，可以获取类型的名字，内建类型名字使用缩写</li>
+<li>同时还支持 &#x3D;&#x3D; !&#x3D; 用来比较是否是同一种类型</li>
+<li>如果用于判断父子类的指针或引用，它不能准确判断出实际的对象类型。但可以判断出具有多态继承关系的父子类的指针或引用的实际对象</li>
+<li>如果想通过基类的指针获得派生类的数据类型，基类必须带有虚函数</li>
+</ul>
+<p><strong>type_info</strong>：类描述编译器在程序中生成的类型信息。 </p>
+<ul>
+<li>此类的对象可以有效存储指向类型的名称的指针。 </li>
+<li>type_info 类还可存储适合比较两个类型是否相等或比较其排列顺序的编码值。</li>
+</ul>
+<h1 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h1><p>示例：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+  可以抛出异常的代码
+  <span class="token keyword">throw</span> 数据
+<span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>类型 变量名<span class="token punctuation">)</span>  <span class="token comment">// 根据数据类型进行捕获</span>
+<span class="token punctuation">&#123;</span>
+  处理异常，如果无法处理可以继续抛出异常
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意:</p>
+<ul>
+<li>不能抛出局部对象的指针或引用（构造函数和析构函数不能抛出异常）</li>
+<li>如果异常没有被捕获处理，程序就会停止。</li>
+<li>捕获异常的顺序是自上而下的，而不是最精准的匹配，针对子类异常捕获时要放在父类的前面。</li>
+<li>函数的异常声明： 返回值类型 函数名(参数列表)throw(类型1,类型2,…)<ul>
+<li>如果不写异常声明表示什么类型的异常都可能抛出。</li>
+<li>如果写了异常声明表示只抛出某些类型的异常，一旦超出异常声明的范围，程序会直接停止，无法捕获。</li>
+<li>throw() 表示什么类型都不会抛出</li>
+</ul>
+</li>
+</ul>
+<h1 id="迭代器失效情况"><a href="#迭代器失效情况" class="headerlink" title="迭代器失效情况"></a>迭代器失效情况</h1><p>参考<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6438086/iterator-invalidation-rules-for-c-containers">1</a>、<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhchoutai/p/8449786.html">2</a></p>
+<p><strong>失效情况：</strong></p>
+<ul>
+<li><code>erase()</code><ul>
+<li>当序列容器调用<code>erase()</code>方法后，当前位置到容器末尾元素的所有迭代器全部失效。<ul>
+<li>C++03: deque在头尾删除，只会使得被删除迭代器和引用无效。而在其他位置删除会使得所有迭代器和引用都失效。c++11中有一点改变，见参考2.</li>
+</ul>
+</li>
+<li>当关联容器调用<code>erase()</code>方法后，只会使当前迭代器失效，不会造成其他迭代器失效</li>
+</ul>
+</li>
+<li><code>insert()</code><ul>
+<li>当序列容器调用<code>insert()</code>方法后，当前位置到容器末尾元素的所有迭代器全部失效。<ul>
+<li>C++11: deque在头尾插入，会使得所有迭代器无效但引用不受影响。而在其他位置插入会使得所有迭代器和引用都失效。</li>
+</ul>
+</li>
+<li>当关联容器调用<code>insert()</code>方法后，，不会造成其他迭代器失效</li>
+</ul>
+</li>
+<li>如果容器扩容，在其他地方重新又开辟了一块内存。原来容器底层的内存上所保存的迭代器全都失效了。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/qgST0.png"></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">mujiubai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://mujiubai.github.io/2023/02/20/c++/c++%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">https://mujiubai.github.io/2023/02/20/c++/c++%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">mujiubai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/02/22/leetcode/%E6%95%B0%E7%BB%84/leetcode-1498-%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97%E6%95%B0%E7%9B%AE/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="1498. 满足条件的子序列数目">
+                        
+                        <span class="card-title">1498. 满足条件的子序列数目</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                        <span class="chip bg-color">Alg-双指针</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                        <span class="chip bg-color">Alg-数组</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/02/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%80%A7%E8%83%BDMySQL/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="高性能MySQL-第三版笔记">
+                        
+                        <span class="card-title">高性能MySQL-第三版笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-category">
+                                    计算机基础知识
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">mujiubai</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">300k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/mujiubai" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1057378931@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1057378931" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1057378931" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
