@@ -562,31 +562,24 @@
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-213-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DII-middle/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-46-%E5%85%A8%E6%8E%92%E5%88%97-middle/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="213. 打家劫舍 II">
+                                <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="46. 全排列">
                                 
-                                <span class="card-title">213. 打家劫舍 II</span>
+                                <span class="card-title">46. 全排列</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    213. 打家劫舍 IIFirst：没做出来，一直想着直接用dp来做，而不是转化为两次dp
+                                    46. 全排列First：挺简单，使用一个数组来标记已经使用过的数即可
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-
-方法1
+方法1：回溯
+使用一个数组used来标记当前已经添加进temp中的数。
+中止条件：当index等于数组长度时，结束
+遍历过程：每次回溯都从0开始遍历，若当前值并未使用
                                 
                             </div>
                             <div class="publish-info">
@@ -609,7 +602,7 @@ dp数组如何初始化
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         
@@ -633,32 +626,22 @@ dp数组如何初始化
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-middle/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-491-%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-middle/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="300. 最长递增子序列">
+                                <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="491. 递增子序列">
                                 
-                                <span class="card-title">300. 最长递增子序列</span>
+                                <span class="card-title">491. 递增子序列</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    300. 最长递增子序列First：以前做过，不难，就按动态规划思想来即可
+                                    491. 递增子序列First：折腾了挺久，想着整体只用一个数组来去重，感觉始终只差一步，解析十分简单，每次遍历都用一个数组来去重
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-
-方法1：动态规划
-使用
+方法1：回溯
+此题不能先进行排序，因此会导致相同的数分布在不同位置，因此对于每个遍历，都定义一个数组来去重
                                 
                             </div>
                             <div class="publish-info">
@@ -681,9 +664,7 @@ dp数组如何初始化
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/"><span class="chip bg-color">Alg-贪心</span></a>
-                            
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         
@@ -707,27 +688,23 @@ dp数组如何初始化
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0-middle/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-47-%E5%85%A8%E6%8E%92%E5%88%97II-middle/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="279. 完全平方数">
+                                <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="47. 全排列 II">
                                 
-                                <span class="card-title">279. 完全平方数</span>
+                                <span class="card-title">47. 全排列 II</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    279. 完全平方数First：也是一道完全背包中求目标和所需最小数量类型题，和322一样，只是稍有变化
+                                    47. 全排列 IIFirst：和46题的唯一不同之处是需要去重
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
+方法1：回溯
+先对数组进行排序，使得相同值位于一处，以便于遍历的时候进行去重。使用一个数组used来标记当前已经添加进temp中的数。
+中止条件：当index等于数组长度时
                                 
                             </div>
                             <div class="publish-info">
@@ -750,7 +727,7 @@ dp数组如何初始化
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         
@@ -774,25 +751,23 @@ dp数组如何初始化
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-322-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2-middle/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-51-N%E7%9A%87%E5%90%8E-difficult/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="322. 零钱兑换">
+                                <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="51. N 皇后">
                                 
-                                <span class="card-title">322. 零钱兑换</span>
+                                <span class="card-title">51. N 皇后</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    322. 零钱兑换First：这次没做出来，但以前做过，是动态规划中又出现的一种类型题，主要是这道题的初始化没搞对，再加上遍历顺序也理解不深刻。
+                                    51. N 皇后First：思想不难，但比较麻烦
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如
+方法1：回溯
+显然，每行必须也只能放一个皇后。使用一个矩阵来表示当前哪些位置不能放，使用temp来记录目前结果，使用num表示当前应该在第几行放置皇后。
+中止条件：当放置皇后数量num等于
                                 
                             </div>
                             <div class="publish-info">
@@ -815,7 +790,7 @@ dp数组如
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         
@@ -839,27 +814,22 @@ dp数组如
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-337-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DIII-middle/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-679-24%E7%82%B9%E6%B8%B8%E6%88%8F-difficult/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="213. 打家劫舍 II">
+                                <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="679. 24 点游戏">
                                 
-                                <span class="card-title">213. 打家劫舍 II</span>
+                                <span class="card-title">679. 24 点游戏</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    213. 打家劫舍 IIFirst：没想出咋记录选与不选状态，感觉用数组来记录又消耗太大，这是到树形动态规划的基本题
+                                    679. 24 点游戏First：开始使用的深度遍历来做，先取得所有树的排列组合，然后对每个组合都使用四个运算符进行回溯，按理说这样没问题，不过还是报错，以后有机会再检查吧（感觉是有些减法排列取不到）。
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例
+方法1：回溯
+直接穷举，不断从数组
                                 
                             </div>
                             <div class="publish-info">
@@ -882,7 +852,7 @@ dp数组如何初始化
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         
@@ -906,24 +876,24 @@ dp数组如何初始化
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-343-%E6%95%B4%E6%95%B0%E6%8B%86%E5%88%86-middle/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-77-%E7%BB%84%E5%90%88-middle/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="343. 整数拆分">
+                                <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="77. 组合">
                                 
-                                <span class="card-title">343. 整数拆分</span>
+                                <span class="card-title">77. 组合</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    343. 整数拆分First：用数学方法做出来的，虽然逻辑想清楚了，但最底层的原理大于4的数拆分成两项后的乘积大于原数没理出来，只是理出了只能用2和3进行拆分。
+                                    77. 组合First：基础的回溯算法再加上一点剪枝
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推
+方法1：回溯
+不断递归重复找，按顺序遍历（只添加当前值后面的数）使得不存在重复值
+中止条件：当k值小于等于0时，将收集到的数组添加到结果种
+遍历过程：从小到大遍历，将当前值添加进临时数
                                 
                             </div>
                             <div class="publish-info">
@@ -946,7 +916,7 @@ dp数组如何初始化
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         
@@ -970,23 +940,24 @@ dp数组如何初始化
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-377-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%E2%85%A3-middle/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-78-%E5%AD%90%E9%9B%86-middle/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="377. 组合总和 Ⅳ">
+                                <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="78. 子集">
                                 
-                                <span class="card-title">377. 组合总和 Ⅳ</span>
+                                <span class="card-title">78. 子集</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    377. 组合总和 ⅣFirst：这是一道完全背包中求排列方法数量类型的题，此时需要注意必须容量在外层循环否则只是求得组合方法数量，注意求排列和组合两种类型遍历顺序的差别
+                                    78. 子集First：很简单，注意添加空就可
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
+方法1：回溯
+按回溯递归进行遍历，记录每次路径即可，需要在开头添加一个空容器。
+中止条件：当index等于数组长度时，结束
+遍历过程：从index遍历，每当添加一个数字到temp中后，就将t
                                 
                             </div>
                             <div class="publish-info">
@@ -1009,7 +980,7 @@ dp数组如何初始化
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         
@@ -1033,31 +1004,24 @@ dp数组如何初始化
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-474-%E4%B8%80%E5%92%8C%E9%9B%B6-middle/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-90-%E5%AD%90%E9%9B%86%20II-middle/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="474. 一和零">
+                                <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="90. 子集 II">
                                 
-                                <span class="card-title">474. 一和零</span>
+                                <span class="card-title">90. 子集 II</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    474. 一和零First：想了下，相比常规01背包只是变成了两个维度，dp多一维就行了。
+                                    90. 子集 IIFirst：注意不遍历同层相同值即可
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-
-方法1
+方法1：回溯
+和78题差不多，只是本题关键是避免重复值，先对数组进行排序，使得避免重复。
+中止条件：当index与数组大小相同时，结束
+遍历过程：从小到大遍历，假设遍历到i，如果nu
                                 
                             </div>
                             <div class="publish-info">
@@ -1080,7 +1044,7 @@ dp数组如何初始化
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         
@@ -1104,26 +1068,22 @@ dp数组如何初始化
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-392-%E5%88%A4%E6%96%AD%E5%AD%90%E5%BA%8F%E5%88%97-simple/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-93-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80-middle/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="392. 判断子序列">
+                                <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="93. 复原 IP 地址">
                                 
-                                <span class="card-title">392. 判断子序列</span>
+                                <span class="card-title">93. 复原 IP 地址</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    392. 判断子序列First：开始使用动态规划找最长公共子序列来做的，虽然也能通过但比较耗时，后来一想这简单题也应该这么复杂。
+                                    93. 复原 IP 地址First：在细节处折腾了好久，虽然最后还是做出来了
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍
+方法1：回溯
+题目中规定了逗号只能有三个，因此使用k来记录现有逗号数量（不包括最后一个，因为是要删除的），index来记录从哪开始遍历。不断递归重复找，按顺序遍
                                 
                             </div>
                             <div class="publish-info">
@@ -1146,9 +1106,7 @@ dp数组如何初始化
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
-                            
-                            <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/"><span class="chip bg-color">Alg-双指针</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         
@@ -1172,19 +1130,24 @@ dp数组如何初始化
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-416-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86-middle/">
+                        <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="416. 分割等和子集">
+                                <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="回溯算法理论总结">
                                 
-                                <span class="card-title">416. 分割等和子集</span>
+                                <span class="card-title">回溯算法理论总结</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    416. 分割等和子集First：从代码备忘录中做到这题，考虑用动态规划方法，但开始想的是找n-1以下个数字，如果找到和的一半则返回true，但是忽略了找几个数字之和都是找到的最大和，但和的一般可能不是由几个数字的最大和组成，这种思路应该用
+                                    回溯法解决的问题回溯法，一般可以解决如下几种问题：
+
+组合问题：N个数里面按一定规则找出k个数的集合
+切割问题：一个字符串按一定规则有几种切割方式
+子集问题：一个N个数的集合里有多少符合条件的子集
+排列问题：N个数按一定规则全排列，有几种排
                                 
                             </div>
                             <div class="publish-info">
@@ -1207,7 +1170,7 @@ dp数组如何初始化
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="chip bg-color">Alg-动态规划</span></a>
+                            <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/"><span class="chip bg-color">Alg-回溯</span></a>
                             
                         </div>
                         

@@ -513,8 +513,8 @@
 <h1 id="第1章-关于对象"><a href="#第1章-关于对象" class="headerlink" title="第1章 关于对象"></a>第1章 关于对象</h1><p>每一个non-inline member func tion 只会诞生一个函数实例。至于每一个“拥有零个或一个定义”的inline function则会在其每一个使用者（模块）身上产生一个函数实例</p>
 <p>C++在布局以及存取时间上主要的额外负担是由virtual引起的，包括：</p>
 <ul>
-<li>virtual function 机制 用以支持一个有效率的“执行期绑定”（runtime binding）。</li>
-<li>virtual base class 用以实现“多次出现在继承体系中的 base class，有一个单一而被共享的实例”。</li>
+<li>virtual function 机制 用以支持一个有效率的“执行期绑定”（runtime binding）</li>
+<li>virtual base class 用以实现“多次出现在继承体系中的 base class，有一个单一而被共享的实例”</li>
 </ul>
 <h2 id="1-1-C-对象模式"><a href="#1-1-C-对象模式" class="headerlink" title="1.1 C++对象模式"></a>1.1 C++对象模式</h2><p>在C++中，有两种class data members：static和nonstatic，以及三种class member functions：static、nonstatic和virtual。</p>
 <p><strong>C++对象模型</strong></p>
