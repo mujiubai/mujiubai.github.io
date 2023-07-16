@@ -123,6 +123,13 @@
         </a>
       </li>
       
+      <li>
+        <a href="/categories/%E9%A1%B9%E7%9B%AE/">
+          
+          <span>项目</span>
+        </a>
+      </li>
+      
     </ul>
     
   </li>
@@ -254,6 +261,14 @@
                   <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/ " style="margin-left:75px">
 				  
 		          <span>计算机基础知识</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/ " style="margin-left:75px">
+				  
+		          <span>项目</span>
                   </a>
                 </li>
               
@@ -443,25 +458,23 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-714-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9-middle/">
+                    <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-160-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="714. 买卖股票的最佳时机含手续费">
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="160. 相交链表">
                             
-                            <span class="card-title">714. 买卖股票的最佳时机含手续费</span>
+                            <span class="card-title">160. 相交链表</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                714. 买卖股票的最佳时机含手续费First：动态规划还挺还做，用贪心是没想出来，看了解析之后发现这技巧很nice
+                                160. 相交链表First：先想到的是使用长度差来计算，但看了解析后一种很简约的思想，写起来代码也很简单，虽然两者效率是差不多的。
 
-方法1：贪心
-在做收获利润操作的时候其实有三种情况：
-
-情况一：收获利润的这一天并不是收获利润区间里的最后一天（不是真正
+方法1：双指针+距离差
+分别遍历链表AB的长度，求出链表长度差n，然后使长的指针先走n个节点，然后同时向
                             
                         </div>
                         <div class="publish-info">
@@ -484,12 +497,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
                         </a>
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-链表</span>
                         </a>
                         
                     </div>
@@ -501,23 +514,23 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-738-%E5%8D%95%E8%B0%83%E9%80%92%E5%A2%9E%E7%9A%84%E6%95%B0%E5%AD%97-middle/">
+                    <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-19-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="738. 单调递增的数字">
+                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="19. 删除链表的倒数第 N 个结点">
                             
-                            <span class="card-title">738. 单调递增的数字</span>
+                            <span class="card-title">19. 删除链表的倒数第 N 个结点</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                738. 单调递增的数字First：昨天没做出来，尝试了从后向前遍历但无法解决100这种情况，也尝试了从前向后遍历。其实没观察到只要一个数字变了后面的数字都要变为9这个特点
+                                19. 删除链表的倒数第 N 个结点First：看错题了，以为是顺数第n个节点。找两个指针间隔n个结点移动到末尾即可。
 
-方法1：贪心
-可以观察到一个特点：一个数字变小之后，其后面的数字
+方法1：双指针
+使用一个表头节点来避免头节点的单独处理。使用两个指针p、q，p先移动n个节点，此时p和q指针再一起移动
                             
                         </div>
                         <div class="publish-info">
@@ -540,8 +553,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-链表</span>
                         </a>
                         
                     </div>
@@ -553,27 +570,130 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-763-%E5%88%92%E5%88%86%E5%AD%97%E6%AF%8D%E5%8C%BA%E9%97%B4-middle/">
+                    <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-203-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="763. 划分字母区间">
+                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="203. 移除链表元素">
                             
-                            <span class="card-title">763. 划分字母区间</span>
+                            <span class="card-title">203. 移除链表元素</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                763. 划分字母区间First：转换下成求不相交区间个数
+                                203. 移除链表元素First：就很简单的移除元素即可，不过注意下需要移除的元素和不需要移除的处理细节上会有差别
 
-方法1：贪心
-先求每一个字母出现的区间，只要相交的区间合并成一个（合并后取区间最大），最后计算剩余区间个数。
-局部最优：
+方法1：迭代
+依次遍历每个元素判断是否需要移除即可，可以使用一个链表头来避免处理空表情况。需注意当遇见需要移除的元素时，移
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-时间复杂度：O(n) 
-空间复杂度：O(n)
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-链表</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-206-simple/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="206. 反转链表">
+                            
+                            <span class="card-title">206. 反转链表</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                206. 反转链表First：设置三个指针指向前中后三个位置
+
+方法1：原地反转
+设置三个指针p、q、last指向三个连续位置，每次将q-&gt;next指向p，再将三个指针依次向后移一个位置即可，注意此链表也是有头节点的。除此外还需排除h
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-链表</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-24-middle/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="24. 两两交换链表中的节点">
+                            
+                            <span class="card-title">24. 两两交换链表中的节点</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                24. 两两交换链表中的节点First：依次遍历交换节点
+
+方法1：非递归
+使用一个表头节点来避免头节点的单独处理，使用三个指针分别指向需要交换的两个节点和这两个节点之前那个节点即可。
+
+时间复杂度：O(n)
+空间复杂度：O(1)
 
 cla
                             
@@ -598,8 +718,8 @@ cla
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-链表</span>
                         </a>
                         
                     </div>
@@ -611,23 +731,29 @@ cla
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-860-%E6%9F%A0%E6%AA%AC%E6%B0%B4%E6%89%BE%E9%9B%B6-simple/">
+                    <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-707-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="860. 柠檬水找零">
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="707. 设计链表">
                             
-                            <span class="card-title">860. 柠檬水找零</span>
+                            <span class="card-title">707. 设计链表</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                860. 柠檬水找零First：看着复杂，但逻辑固定
+                                707. 设计链表First：常规编写链表即可
 
-方法1：贪心
-只会存在三种收款情况：收到5元、10元和20元，收到5元不用找零，收到10元只能找5元，而收到20元就有两种情况，一个是找3张5元，一个是找1张5元和1张10元，但是应该
+方法1：单链表
+就普通的设计链表，注意下题目里是有一个空节点作为链表头。
+
+时间复杂度：O(n)
+空间复杂度：O(1)
+
+class MyLinkedList &#123;
+    int 
                             
                         </div>
                         <div class="publish-info">
@@ -650,65 +776,8 @@ cla
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-968-%E7%9B%91%E6%8E%A7%E4%BA%8C%E5%8F%89%E6%A0%91-difficult/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="968. 监控二叉树">
-                            
-                            <span class="card-title">968. 监控二叉树</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                968. 监控二叉树First：贪心没做出来，现在连二叉树的动态规划也搞忘了
-
-方法1：贪心
-假设每个节点有三种状态： 0（无覆盖），1（有覆盖），2（有摄像头）
-从底部向上考虑，可以使得总摄像头数量最少，因为低层节点数一定大于等于当前上层
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-链表</span>
                         </a>
                         
                     </div>
@@ -735,184 +804,6 @@ cla
                             
                                 42. 接雨水First：以前做过，还是没做出来，不知道为啥想到的是只找左右两边第一个大于的值，受了单调栈影响（这种方法其实能做出来，但没解决重复算得那部分）。。。但又没用单调栈做出来。
 Second：想用找左右第一个大于的柱高度，但会多很
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
-                            <span class="chip bg-color">Alg-单调栈</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-739-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="739. 每日温度">
-                            
-                            <span class="card-title">739. 每日温度</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                739. 每日温度
-什么时候用单调栈呢？
-通常是一维数组，要寻找任一个元素的右边或者左边第一个比自己大或者小的元素的位置，此时我们就要想到可以用单调栈了。
-
-First：22-10-14，
-
-方法1：单调栈
-使用栈来记录暂时还没有在右边找到
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
-                            <span class="chip bg-color">Alg-单调栈</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-456-132%E6%A8%A1%E5%BC%8F-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="456. 132 模式">
-                            
-                            <span class="card-title">456. 132 模式</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                456. 132 模式
-什么时候用单调栈呢？
-通常是一维数组，要寻找任一个元素的右边或者左边第一个比自己大或者小的元素的位置，此时我们就要想到可以用单调栈了。
-同理，如果要找一个大于（或小于）且最接近的数，也使用单调栈
-
-First：22-
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
-                            <span class="chip bg-color">Alg-单调栈</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2-diffcult/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="84. 柱状图中最大的矩形">
-                            
-                            <span class="card-title">84. 柱状图中最大的矩形</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                84. 柱状图中最大的矩形First：没发现是要找左右两边第一个小于的柱子
-
-方法1：单调栈
-可以通过遍历每一个柱子，以当前柱子为基础向左右两边扩散，其左右两边的柱子高度不能小于当前柱子高度，这样就保证了矩形面积由于扩散肯定是增大的。会存在
                             
                         </div>
                         <div class="publish-info">
@@ -1019,6 +910,64 @@ First：相比793，这题明显要复杂点，但难度还比那低。。
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-456-132%E6%A8%A1%E5%BC%8F-middle/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="456. 132 模式">
+                            
+                            <span class="card-title">456. 132 模式</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                456. 132 模式
+什么时候用单调栈呢？
+通常是一维数组，要寻找任一个元素的右边或者左边第一个比自己大或者小的元素的位置，此时我们就要想到可以用单调栈了。
+同理，如果要找一个大于（或小于）且最接近的数，也使用单调栈
+
+First：22-
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
+                            <span class="chip bg-color">Alg-单调栈</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+                            <span class="chip bg-color">Alg-栈与队列</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-503%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0II-middle/">
                         <div class="card-image">
                             
@@ -1063,6 +1012,126 @@ First：循环数组，也就是要找其前面的数，多便利一次即可。
                         
                         <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
                             <span class="chip bg-color">Alg-单调栈</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+                            <span class="chip bg-color">Alg-栈与队列</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-739-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6-middle/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="739. 每日温度">
+                            
+                            <span class="card-title">739. 每日温度</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                739. 每日温度
+什么时候用单调栈呢？
+通常是一维数组，要寻找任一个元素的右边或者左边第一个比自己大或者小的元素的位置，此时我们就要想到可以用单调栈了。
+
+First：22-10-14，
+
+方法1：单调栈
+使用栈来记录暂时还没有在右边找到
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
+                            <span class="chip bg-color">Alg-单调栈</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+                            <span class="chip bg-color">Alg-栈与队列</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2-diffcult/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="84. 柱状图中最大的矩形">
+                            
+                            <span class="card-title">84. 柱状图中最大的矩形</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                84. 柱状图中最大的矩形First：没发现是要找左右两边第一个小于的柱子
+
+方法1：单调栈
+可以通过遍历每一个柱子，以当前柱子为基础向左右两边扩散，其左右两边的柱子高度不能小于当前柱子高度，这样就保证了矩形面积由于扩散肯定是增大的。会存在
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
+                            <span class="chip bg-color">Alg-单调栈</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
                         </a>
                         
                         <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
@@ -1178,7 +1247,7 @@ First：循环数组，也就是要找其前面的数，多便利一次即可。
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">300k</span>
+                        class="white-color">316.3k</span>
             
             
             

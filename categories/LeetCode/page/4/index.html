@@ -125,6 +125,13 @@
         </a>
       </li>
       
+      <li>
+        <a href="/categories/%E9%A1%B9%E7%9B%AE/">
+          
+          <span>项目</span>
+        </a>
+      </li>
+      
     </ul>
     
   </li>
@@ -256,6 +263,14 @@
                   <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/ " style="margin-left:75px">
 				  
 		          <span>计算机基础知识</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/ " style="margin-left:75px">
+				  
+		          <span>项目</span>
                   </a>
                 </li>
               
@@ -444,11 +459,11 @@
                 
                 
                 
-                <a href="/categories/C/" title="C++: 8">
+                <a href="/categories/C/" title="C++: 9">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             style="background-color: #F9EBEA;">C++
-                        <span class="tag-length">8</span>
+                        <span class="tag-length">9</span>
                     </span>
                 </a>
                 
@@ -493,28 +508,72 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-%E5%89%91%E6%8C%87Offer07-%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91-middle/">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/%E5%9F%BA%E7%A1%80%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="剑指 Offer 07. 重建二叉树">
+                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="二叉树的递归遍历理论笔记">
                             
-                            <span class="card-title">剑指 Offer 07. 重建二叉树</span>
+                            <span class="card-title">二叉树的递归遍历理论笔记</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                剑指 Offer 07. 重建二叉树First：自己递归写的效率太低
-
-方法1：递归
-每次找到新的preorder和inorder，不断递归遍历
-
-时间复杂度：O(n) 
-空间复杂度：O(n)
-
+                                二叉树的递归遍历对于前中后序的递归遍历，有统一的框架，只是读节点所处位置不同
+前序遍历
 class Solution &#123;
+public:
+    void traversal(TreeNode* cur, vector&lt;in
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="98. 验证二叉搜索树">
+                            
+                            <span class="card-title">98. 验证二叉搜索树</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                98. 验证二叉搜索树First：不难，使用中序遍历来验证即可，记录下技巧
+
+方法1：中序遍历
+使用中序遍历，每次比较当前节点和前一个节点的大小，如果小于或等于前一个节点，则将flag置为false。使用TreeNode* last来记录上
                             
                         </div>
                         <div class="publish-info">
@@ -650,104 +709,6 @@ class Solution &#123;
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-middle/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="98. 验证二叉搜索树">
-                            
-                            <span class="card-title">98. 验证二叉搜索树</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                98. 验证二叉搜索树First：不难，使用中序遍历来验证即可，记录下技巧
-
-方法1：中序遍历
-使用中序遍历，每次比较当前节点和前一个节点的大小，如果小于或等于前一个节点，则将flag置为false。使用TreeNode* last来记录上
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                            <span class="chip bg-color">Alg-二叉树</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-450-%E5%88%A0%E9%99%A4%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-middle/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="450. 删除二叉搜索树中的节点">
-                            
-                            <span class="card-title">450. 删除二叉搜索树中的节点</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                450. 删除二叉搜索树中的节点First：方法不难，记一下细节
-
-方法1：递归遍历
-由于当前被删节点是可能有父节点，父节点要删除此子节点，因此遍历时返回TreeNode*指针。先找到被删节点，如果被删节点左右孩子有一个不为空，返回不为空的
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                            <span class="chip bg-color">Alg-二叉树</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
                     <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91-simple/">
                         <div class="card-image tag-image">
                             
@@ -770,6 +731,58 @@ class Solution &#123;
 
 class Solution &#123;
 publ
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="116. 填充每个节点的下一个右侧节点指针">
+                            
+                            <span class="card-title">116. 填充每个节点的下一个右侧节点指针</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                116. 填充每个节点的下一个右侧节点指针First：普通解法挺简单，进阶要求要复杂些。此题和117题解法一模一样，没任何差别。
+
+方法1：层序遍历
+使用层序遍历，每次将前一个节点指向后一个节点即可
+
+时间复杂度：O(n) 
+空间复杂度：O
                             
                         </div>
                         <div class="publish-info">
@@ -858,25 +871,71 @@ pu
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88-middle/">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-450-%E5%88%A0%E9%99%A4%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="116. 填充每个节点的下一个右侧节点指针">
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="450. 删除二叉搜索树中的节点">
                             
-                            <span class="card-title">116. 填充每个节点的下一个右侧节点指针</span>
+                            <span class="card-title">450. 删除二叉搜索树中的节点</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                116. 填充每个节点的下一个右侧节点指针First：普通解法挺简单，进阶要求要复杂些。此题和117题解法一模一样，没任何差别。
+                                450. 删除二叉搜索树中的节点First：方法不难，记一下细节
 
-方法1：层序遍历
-使用层序遍历，每次将前一个节点指向后一个节点即可
+方法1：递归遍历
+由于当前被删节点是可能有父节点，父节点要删除此子节点，因此遍历时返回TreeNode*指针。先找到被删节点，如果被删节点左右孩子有一个不为空，返回不为空的
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-时间复杂度：O(n) 
-空间复杂度：O
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-106-%E4%BB%8E%E4%B8%AD%E5%BA%8F%E4%B8%8E%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="106. 从中序与后序遍历序列构造二叉树">
+                            
+                            <span class="card-title">106. 从中序与后序遍历序列构造二叉树</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                106. 从中序与后序遍历序列构造二叉树First：没想到可以利用pos1求出的长度来求出pos2所在位置
+
+方法1：递归
+postorder的最后一个数k可以将inorder分为两部分，这两部分分别是k的左右两个子树构成。而这两部分也可以
                             
                         </div>
                         <div class="publish-info">
@@ -950,55 +1009,6 @@ pu
                         
                         <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
                             <span class="chip bg-color">Alg-贪心</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-106-%E4%BB%8E%E4%B8%AD%E5%BA%8F%E4%B8%8E%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91-middle/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="106. 从中序与后序遍历序列构造二叉树">
-                            
-                            <span class="card-title">106. 从中序与后序遍历序列构造二叉树</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                106. 从中序与后序遍历序列构造二叉树First：没想到可以利用pos1求出的长度来求出pos2所在位置
-
-方法1：递归
-postorder的最后一个数k可以将inorder分为两部分，这两部分分别是k的左右两个子树构成。而这两部分也可以
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                            <span class="chip bg-color">Alg-二叉树</span>
                         </a>
                         
                     </div>
@@ -1109,7 +1119,7 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">300k</span>
+                        class="white-color">316.3k</span>
             
             
             

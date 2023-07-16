@@ -125,6 +125,13 @@
         </a>
       </li>
       
+      <li>
+        <a href="/categories/%E9%A1%B9%E7%9B%AE/">
+          
+          <span>项目</span>
+        </a>
+      </li>
+      
     </ul>
     
   </li>
@@ -256,6 +263,14 @@
                   <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/ " style="margin-left:75px">
 				  
 		          <span>计算机基础知识</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/ " style="margin-left:75px">
+				  
+		          <span>项目</span>
                   </a>
                 </li>
               
@@ -444,11 +459,11 @@
                 
                 
                 
-                <a href="/categories/C/" title="C++: 8">
+                <a href="/categories/C/" title="C++: 9">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             style="background-color: #F9EBEA;">C++
-                        <span class="tag-length">8</span>
+                        <span class="tag-length">9</span>
                     </span>
                 </a>
                 
@@ -493,22 +508,24 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-160-simple/">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-714-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="160. 相交链表">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="714. 买卖股票的最佳时机含手续费">
                             
-                            <span class="card-title">160. 相交链表</span>
+                            <span class="card-title">714. 买卖股票的最佳时机含手续费</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                160. 相交链表First：先想到的是使用长度差来计算，但看了解析后一种很简约的思想，写起来代码也很简单，虽然两者效率是差不多的。
+                                714. 买卖股票的最佳时机含手续费First：动态规划还挺还做，用贪心是没想出来，看了解析之后发现这技巧很nice
 
-方法1：双指针+距离差
-分别遍历链表AB的长度，求出链表长度差n，然后使长的指针先走n个节点，然后同时向
+方法1：贪心
+在做收获利润操作的时候其实有三种情况：
+
+情况一：收获利润的这一天并不是收获利润区间里的最后一天（不是真正
                             
                         </div>
                         <div class="publish-info">
@@ -531,12 +548,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
                         </a>
                         
-                        <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
-                            <span class="chip bg-color">Alg-链表</span>
+                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                            <span class="chip bg-color">Alg-动态规划</span>
                         </a>
                         
                     </div>
@@ -546,23 +563,23 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E9%93%BE%E8%A1%A8/leetcode-142-middle/">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-55-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="142. 环形链表 II">
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="55. 跳跃游戏">
                             
-                            <span class="card-title">142. 环形链表 II</span>
+                            <span class="card-title">55. 跳跃游戏</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                142. 环形链表 IIFirst：以前做过，但这次卡住了，以为要算出距离来，但求了半天都算不出，还是理解不到位啊
+                                55. 跳跃游戏First：没使用贪心最初来，没想到可以用最大范围覆盖来考虑，其实用动态规划来理解贪心解析会更简单。
 
-方法1：双指针
-先使用快慢指针判断是否有环，即快指针每次走两步，慢指针每次走一步
-当有环，即快慢指针相遇时，假设头节点到环
+方法1：贪心
+局部最优：找到每个位置所能到的最远位置
+全局最优：找到每个局部最优值中的最大值，以此最大值来判断是否能达到
                             
                         </div>
                         <div class="publish-info">
@@ -585,16 +602,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                            <span class="chip bg-color">Alg-哈希表</span>
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
                         </a>
                         
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E9%93%BE%E8%A1%A8/">
-                            <span class="chip bg-color">Alg-链表</span>
+                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                            <span class="chip bg-color">Alg-动态规划</span>
                         </a>
                         
                     </div>
@@ -604,190 +617,27 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/%E5%89%91%E6%8C%87-58-simple/">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="剑指 Offer 58 - II. 左旋转字符串">
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="56. 合并区间">
                             
-                            <span class="card-title">剑指 Offer 58 - II. 左旋转字符串</span>
+                            <span class="card-title">56. 合并区间</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                剑指 Offer 58 - II. 左旋转字符串First：就直接遍历即可，但没想到可以用取余来简化操作，使用反转三次效率更高
+                                56. 合并区间First：和763题一样合并所有区间
 
-方法1：遍历
-依次遍历字符串即可，但是可以用取余操作来简化代码，不用写两个循环
-或直接用substr函数
+方法1：贪心
+先对数组进行排序，依次遍历，如果当前区间与前一个区间有交叉则将其合并，否则则将上一个区间加入结果中。
 
-时
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                            <span class="chip bg-color">Alg-字符串</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/%E5%89%91%E6%8C%87-05-simple/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="剑指 Offer 05. 替换空格">
-                            
-                            <span class="card-title">剑指 Offer 05. 替换空格</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                剑指 Offer 05. 替换空格First：先数空格，然后替换。但看到答案发现可以直接在原来数组上进行替换，只是要倒序遍历，空间效率更高。
-
-方法1：遍历
-先数空格数量，再申请一个string，依次遍历替换即可
-
-时间复杂度：O(n)
-空
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                            <span class="chip bg-color">Alg-字符串</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-792-%E5%8C%B9%E9%85%8D%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E5%8D%95%E8%AF%8D%E6%95%B0-middle/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="792. 匹配子序列的单词数">
-                            
-                            <span class="card-title">792. 匹配子序列的单词数</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                792. 匹配子序列的单词数First：用双指针和哈希map虽然过了，但效率不够高。看了解析使用了方法二，虽然时间复杂度低了，但最后打败比例差不多。
-
-方法1：双指针+哈希map
-对于words中的每个字符串，使用双指针方法来判断是否是子串
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                            <span class="chip bg-color">Alg-哈希表</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                            <span class="chip bg-color">Alg-字符串</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-541-simple/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="541. 反转字符串 II">
-                            
-                            <span class="card-title">541. 反转字符串 II</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                541. 反转字符串 IIFirst：直接交换
-
-方法1：模拟
-每次跳过k个数，将其反转即可，只是处理下末尾数不够2k个情况
-
-时间复杂度：O(n)
+时间复杂度：O(n) 
 空间复杂度：O(1)
 
-class Solution &#123;
-public:
-   
+class So
                             
                         </div>
                         <div class="publish-info">
@@ -810,8 +660,8 @@ public:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                            <span class="chip bg-color">Alg-字符串</span>
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
                         </a>
                         
                     </div>
@@ -821,22 +671,23 @@ public:
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-459-simple/">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-455-%E5%88%86%E5%8F%91%E9%A5%BC%E5%B9%B2-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="459. 重复的子字符串">
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="455. 分发饼干">
                             
-                            <span class="card-title">459. 重复的子字符串</span>
+                            <span class="card-title">455. 分发饼干</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                459. 重复的子字符串First：不知道开始咋想的，想通过判断是否2个子串重复和3个子串重复来判断是否重复。看了下答案，通过移位来判断是没想到。
+                                455. 分发饼干First：做久了动态规划，一下转到贪心还是不适合，遗憾，此题没做出来，总感觉有层膜没被捅破
 
-方法1：KMP
-如果字符串 S 包含一个重复的子字符串，那么这意味着您可以多次 “移位” 
+方法1：贪心
+先对两个数组进行从小到大排序，每个饼干都找到小于饼干值的最小孩子，然后剔除此孩子，继续遍历下一个饼干
+局部最优：
                             
                         </div>
                         <div class="publish-info">
@@ -859,12 +710,8 @@ public:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                            <span class="chip bg-color">Alg-字符串</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-KMP/">
-                            <span class="chip bg-color">Alg-KMP</span>
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
                         </a>
                         
                     </div>
@@ -874,29 +721,25 @@ public:
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-344-simple/">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-53-%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="344. 反转字符串">
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="53. 最大子数组和">
                             
-                            <span class="card-title">344. 反转字符串</span>
+                            <span class="card-title">53. 最大子数组和</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                344. 反转字符串First：直接交换即可
+                                53. 最大子数组和First：没做出来，定义不好dp含义，用两重循环超时了
+Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪心做出来，对这题理解得不够透彻
 
-方法1：双指针
-双指针指向前部和尾部，再交换即可
+动态规划五部法：
 
-时间复杂度：O(n)
-空间复杂度：O(1)
+确定dp数组（dp table）以及下标的含义
 
-class Solution &#123;
-public:
-    void reverseS
                             
                         </div>
                         <div class="publish-info">
@@ -919,12 +762,12 @@ public:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
                         </a>
                         
-                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                            <span class="chip bg-color">Alg-字符串</span>
+                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                            <span class="chip bg-color">Alg-动态规划</span>
                         </a>
                         
                     </div>
@@ -934,24 +777,22 @@ public:
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-28-middle/">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-452-%E7%94%A8%E6%9C%80%E5%B0%91%E6%95%B0%E9%87%8F%E7%9A%84%E7%AE%AD%E5%BC%95%E7%88%86%E6%B0%94%E7%90%83-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="28. 找出字符串中第一个匹配项的下标">
+                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="452. 用最少数量的箭引爆气球">
                             
-                            <span class="card-title">28. 找出字符串中第一个匹配项的下标</span>
+                            <span class="card-title">452. 用最少数量的箭引爆气球</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                28. 找出字符串中第一个匹配项的下标First：使用KMP算法查找
+                                452. 用最少数量的箭引爆气球First：ac了
 
-方法1：KMP算法
-使用暴力算法做了许多不必要的对比，而KMP算法减少对比的方法就是使用前缀表来记录下一次应该从子串的哪个位置开始对比。
-
-前缀表：记录下标i之前（包括
+方法1：贪心
+当气球出现重叠时，就使用一只箭，注意一个重叠区域必须所有气球都有重叠。使用start和end记录当前区域，如果下一个区域和当前区域有交叉，则将当前区域区间更新为交叉区域，否
                             
                         </div>
                         <div class="publish-info">
@@ -974,12 +815,8 @@ public:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                            <span class="chip bg-color">Alg-字符串</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-KMP/">
-                            <span class="chip bg-color">Alg-KMP</span>
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
                         </a>
                         
                     </div>
@@ -989,22 +826,23 @@ public:
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-151-middle/">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-435-%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="151. 反转字符串中的单词">
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="435. 无重叠区间">
                             
-                            <span class="card-title">151. 反转字符串中的单词</span>
+                            <span class="card-title">435. 无重叠区间</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                151. 反转字符串中的单词First：先找出每个单词再拼一起。写到后面发现可以从尾部遍历，那么就不需要额外空间了。
+                                435. 无重叠区间First：没做出来，不知道咋处理一个区间覆盖多个区间，但被覆盖的这些区间并不交叉这种特俗情况。
 
-方法1：顺序遍历+双指针
-从首部开始，使用两个指针来找到单词的首尾从而找到每个单词，使用一个容器存储这些单词，再将每个单
+方法1：贪心
+可以使用以左边界排序或右边界排序，但遍历方向不一样。
+以右边界进行排序（右边界一样时左边界小的在前），从左
                             
                         </div>
                         <div class="publish-info">
@@ -1027,12 +865,165 @@ public:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
                         </a>
                         
-                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                            <span class="chip bg-color">Alg-字符串</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8FII-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="45. 跳跃游戏 II">
+                            
+                            <span class="card-title">45. 跳跃游戏 II</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                45. 跳跃游戏 IIFirst：没做出来。
+
+方法1：贪心
+局部最优：找到走每一步所能到的最远距离
+全局最优：当第一次当前步数的最远距离覆盖末尾时，即为最小步数
+走一步会有一个距离覆盖，走2步同样有一个距离覆盖，求出每一步的距离覆盖，当第
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-376-%E6%91%86%E5%8A%A8%E5%BA%8F%E5%88%97-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="376. 摆动序列">
+                            
+                            <span class="card-title">376. 摆动序列</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                376. 摆动序列First：这道题我动荡了好久，上次写到写到都不想写了，始终觉得解析有点难理解，整的都有点心魔了，随想录得答案虽然能过，但始终觉得不舒服，最后写出了自己得特殊情况处理方法。
+
+方法1：贪心
+
+如图，整个序列可以画成这种曲线
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                            <span class="chip bg-color">Alg-动态规划</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-406-%E6%A0%B9%E6%8D%AE%E8%BA%AB%E9%AB%98%E9%87%8D%E5%BB%BA%E9%98%9F%E5%88%97-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="406. 根据身高重建队列">
+                            
+                            <span class="card-title">406. 根据身高重建队列</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                406. 根据身高重建队列First：以前做过，今天脑袋昏昏沉沉，知道了应该先排序，但后面没做出来
+
+当有多个维度的数据时，需要先确定一个维度，再来做另一个维度，一起考虑的话会很繁琐
+
+
+方法1：贪心
+遇到两个维度权衡的时候，一定要先确定一
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
                         </a>
                         
                     </div>
@@ -1143,7 +1134,7 @@ public:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">300k</span>
+                        class="white-color">316.3k</span>
             
             
             
