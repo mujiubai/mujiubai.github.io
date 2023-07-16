@@ -508,23 +508,22 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/%E5%9F%BA%E7%A1%80%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-450-%E5%88%A0%E9%99%A4%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="二叉树的递归遍历理论笔记">
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="450. 删除二叉搜索树中的节点">
                             
-                            <span class="card-title">二叉树的递归遍历理论笔记</span>
+                            <span class="card-title">450. 删除二叉搜索树中的节点</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                二叉树的递归遍历对于前中后序的递归遍历，有统一的框架，只是读节点所处位置不同
-前序遍历
-class Solution &#123;
-public:
-    void traversal(TreeNode* cur, vector&lt;in
+                                450. 删除二叉搜索树中的节点First：方法不难，记一下细节
+
+方法1：递归遍历
+由于当前被删节点是可能有父节点，父节点要删除此子节点，因此遍历时返回TreeNode*指针。先找到被删节点，如果被删节点左右孩子有一个不为空，返回不为空的
                             
                         </div>
                         <div class="publish-info">
@@ -598,59 +597,6 @@ public:
                         
                         <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
                             <span class="chip bg-color">Alg-二叉树</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-%E5%89%91%E6%8C%87Offer33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97-middle/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="剑指 Offer 33. 二叉搜索树的后序遍历序列">
-                            
-                            <span class="card-title">剑指 Offer 33. 二叉搜索树的后序遍历序列</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                剑指 Offer 33. 二叉搜索树的后序遍历序列First：没写出来，还是没深刻理解到后序遍历的规律。题解中的单调栈后面还需要看懂。
-
-方法1：递归分治
-后序遍历是[ 左子树 | 右子树 | 根节点 ]形式，而最后一个点是根节点，左子树中
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                            <span class="chip bg-color">Alg-二叉树</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
-                            <span class="chip bg-color">Alg-单调栈</span>
                         </a>
                         
                     </div>
@@ -816,6 +762,55 @@ publ
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-106-%E4%BB%8E%E4%B8%AD%E5%BA%8F%E4%B8%8E%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91-middle/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="106. 从中序与后序遍历序列构造二叉树">
+                            
+                            <span class="card-title">106. 从中序与后序遍历序列构造二叉树</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                106. 从中序与后序遍历序列构造二叉树First：没想到可以利用pos1求出的长度来求出pos2所在位置
+
+方法1：递归
+postorder的最后一个数k可以将inorder分为两部分，这两部分分别是k的左右两个子树构成。而这两部分也可以
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-middle/">
                         <div class="card-image tag-image">
                             
@@ -871,22 +866,24 @@ pu
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-450-%E5%88%A0%E9%99%A4%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-middle/">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-475-%E4%BE%9B%E6%9A%96%E5%99%A8-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="450. 删除二叉搜索树中的节点">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="475. 供暖器">
                             
-                            <span class="card-title">450. 删除二叉搜索树中的节点</span>
+                            <span class="card-title">475. 供暖器</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                450. 删除二叉搜索树中的节点First：方法不难，记一下细节
+                                475. 供暖器First：使用二分查找时，找上边界泽腾了挺久
 
-方法1：递归遍历
-由于当前被删节点是可能有父节点，父节点要删除此子节点，因此遍历时返回TreeNode*指针。先找到被删节点，如果被删节点左右孩子有一个不为空，返回不为空的
+方法1：对供暖器位置二分查找
+对于每间屋子，找到离它最近的供暖器，然后取所有最近值中的最大值即为供暖器半径。注意二分查找时，需要比较左右两个供暖器。
+
+时间复杂度：O((n+
                             
                         </div>
                         <div class="publish-info">
@@ -909,8 +906,8 @@ pu
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                            <span class="chip bg-color">Alg-二叉树</span>
+                        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                            <span class="chip bg-color">二分查找</span>
                         </a>
                         
                     </div>
@@ -920,22 +917,22 @@ pu
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-106-%E4%BB%8E%E4%B8%AD%E5%BA%8F%E4%B8%8E%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91-middle/">
+                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-29-%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="106. 从中序与后序遍历序列构造二叉树">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="475. 供暖器">
                             
-                            <span class="card-title">106. 从中序与后序遍历序列构造二叉树</span>
+                            <span class="card-title">475. 供暖器</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                106. 从中序与后序遍历序列构造二叉树First：没想到可以利用pos1求出的长度来求出pos2所在位置
+                                475. 供暖器First：这道题折腾了老久，方法上虽然知道了，但在边界处理上一直不行，最后看了一个评论说将所有数转为负数处理会更方便，真走进思维误区了。
 
-方法1：递归
-postorder的最后一个数k可以将inorder分为两部分，这两部分分别是k的左右两个子树构成。而这两部分也可以
+方法1：二分查找
+由于不能用除法，那么先假设其商cur为1，此时divisorL&
                             
                         </div>
                         <div class="publish-info">
@@ -958,8 +955,8 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                            <span class="chip bg-color">Alg-二叉树</span>
+                        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                            <span class="chip bg-color">二分查找</span>
                         </a>
                         
                     </div>
