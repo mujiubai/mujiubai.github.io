@@ -465,21 +465,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-07-16
+                    2023-07-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    16.3k
+                    17.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    59 分
+                    62 分
                 </div>
                 
 
@@ -513,8 +513,8 @@
 <h1 id="第1章-关于对象"><a href="#第1章-关于对象" class="headerlink" title="第1章 关于对象"></a>第1章 关于对象</h1><p>每一个non-inline member func tion 只会诞生一个函数实例。至于每一个“拥有零个或一个定义”的inline function则会在其每一个使用者（模块）身上产生一个函数实例</p>
 <p>C++在布局以及存取时间上主要的额外负担是由virtual引起的，包括：</p>
 <ul>
-<li>virtual function 机制 用以支持一个有效率的“执行期绑定”（runtime binding）</li>
-<li>virtual base class 用以实现“多次出现在继承体系中的 base class，有一个单一而被共享的实例”</li>
+<li>virtual function 机制 用以支持一个有效率的“执行期绑定”（runtime binding）。</li>
+<li>virtual base class 用以实现“多次出现在继承体系中的 base class，有一个单一而被共享的实例”。</li>
 </ul>
 <h2 id="1-1-C-对象模式"><a href="#1-1-C-对象模式" class="headerlink" title="1.1 C++对象模式"></a>1.1 C++对象模式</h2><p>在C++中，有两种class data members：static和nonstatic，以及三种class member functions：static、nonstatic和virtual。</p>
 <p><strong>C++对象模型</strong></p>
@@ -633,8 +633,7 @@
 <li>object被当做参数交给某个函数时</li>
 <li>当函数传回一个class object时</li>
 </ul>
-<p><strong>Default Memberwise Initialization</strong></p>
-<ul>
+<h3 id="Default-Memberwise-Initialization"><a href="#Default-Memberwise-Initialization" class="headerlink" title="Default Memberwise Initialization"></a><strong>Default Memberwise Initialization</strong></h3><ul>
 <li><p>当class object 以“相同 class 的另一个 object”作为初值，其内部是以所谓的 default memberwise initialization手法完成的：</p>
 </li>
 <li><p>即把每一个内建的或派生的data member（例如一个指针或一个数组）的值，从某个object拷贝一份到另一个object身上。不过它不会拷贝其中的 member class object，而是以递归的方式施行memberwise initialization。</p>
@@ -666,6 +665,7 @@
 </blockquote>
 </li>
 </ol>
+<p><strong>不要随意提供 copy constructor</strong>， 对于满足 bitwise copy semantics 的类来说，编译器自 动生成的拷贝构造函数自动地使用了位拷贝（这是效率最高的），如果你自己随意提供 copy constructor 就会压抑掉编译器的这个行为，画蛇添足还影响了效率。</p>
 <h2 id="2-3-程序转化语意学"><a href="#2-3-程序转化语意学" class="headerlink" title="2.3 程序转化语意学"></a>2.3 程序转化语意学</h2><p>编译器通常会对代码进行转化，其操作可能和直观的并不同</p>
 <p><strong>显式的初始化操作</strong></p>
 <ul>
@@ -733,12 +733,18 @@
 <p>C++对象模型把数据直接存放在每一个class object 之中。对于继承而来的nonstatic data members （不管是virtual还是nonvirtual）也是如此。不过并没有强制定义其间的排列顺序。</p>
 <p>静态成员变量被放置在程序的一个global data segment 中，不会影响个别的class object的大小。在程序之中，不管该class被产生出多少个objects，静态成员变量永远只存在一份实例</p>
 <h2 id="3-1-Data-Member的绑定"><a href="#3-1-Data-Member的绑定" class="headerlink" title="3.1 Data Member的绑定"></a>3.1 Data Member的绑定</h2><p><strong>应尽量将class成员变量定义在函数出现之前，即把变量定义在class起始处</strong></p>
-<p>如下图所示，两个函数的length都会被判断为int，只有当length成员变量出现后，才会认为length变量是一个变量而非类型。</p>
+<p>如下图所示，两个函数的length都会被判断为int，只有当length成员定义出现后，才会认为length是float类型</p>
 <ul>
-<li>远古时期如果定义一个全局变量和成员变量同名，那么成员变量没出现之前，class中的函数会使用全局变量。但这种情况已经得到修正。</li>
+<li><p>注意，只有函数参数才会出现这种情况，函数内部不会（因为函数内部对类型进行分析是在整个class声明出现之后才进行）。</p>
+</li>
+<li><p>在下图中，如果打印val类型，经测试会输出int</p>
+</li>
+<li><p>远古时期如果定义一个全局变量和成员变量同名，那么成员变量没出现之前，class中的函数会使用全局变量。但这种情况已经得到修正。</p>
+</li>
 </ul>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230711162911644.png" alt="" style="zoom:50%;" />
 
+<p><strong>对 member functions 本身的分析会直到整个 class 的声明都出现了才开始（函数参数会一出现就进行分析）</strong>。所以 class 的 member functions 可以引用声明在后面的成员，C 语言就做不到。</p>
 <h2 id="3-2-Data-Member的布局"><a href="#3-2-Data-Member的布局" class="headerlink" title="3.2 Data Member的布局"></a>3.2 Data Member的布局</h2><p>非静态成员在class object中的排列顺序将和其被声明的顺序一样，任何中间介入的静态都不会被放进对象布局之中。</p>
 <ul>
 <li>在同一个access section（也就是private、public、protected等区段）中，members的排列只需符合“较晚出现的members在class object 中有较高的地址”这一条件即可，即各个members并不一定得连续排列。例如可能中间进行对齐。</li>
@@ -766,6 +772,8 @@
 <ul>
 <li><p>例如如下将Concrete类分裂</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230711194303670.png" alt="" style="zoom:50%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230717163719889.png" alt="" style="zoom:50%;" />
 </li>
 <li><p>分裂后的concrete3对象会占据16字节，而原来的concrete只需要8个字节，其原因是不会将bit2和bit3成员变量填充到concrete1的填充上。内存布局如下图所示。</p>
 <ul>
@@ -773,8 +781,11 @@
 </ul>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230711194546570.png" alt="" style="zoom:50%;" /></li>
 </ul>
-<p><strong>加上多态</strong></p>
+<p><strong>C++ Standard 保证：“出现在派生类中的 base class subobject 有其完整原样性！”</strong> </p>
 <ul>
+<li>子类会被放在父类的对齐空白字节之后，因为父类的完整性必须得以保证，父类的对齐空白字节 也是父类的一部分，也是不可分割的。</li>
+</ul>
+<h3 id="加上多态"><a href="#加上多态" class="headerlink" title="加上多态"></a><strong>加上多态</strong></h3><ul>
 <li>使用虚函数会给类带来空间和存取时间上的额外负担：<ul>
 <li>导入一个virtual table，用来存放它所声明的每一个virtual functions 的地址。这个table 的元素个数一般而言是被声明的virtual functions的个数，再加上一个或两个 slots（用以支持 runtime type identification）。</li>
 <li>在每一个class object中导入一个vptr，提供执行期的链接，使每一个object能够找到相应的 virtual table。</li>
@@ -784,27 +795,31 @@
 </li>
 <li>在早期vptr通常放在尾端，这保留了C的兼容性，允许在C程序代码中也能使用。后来是把vptr放在首段，是的不需要计算vptr的偏移，代价就是丧失了C语言兼容性。</li>
 </ul>
-<p><strong>多重继承</strong></p>
-<ul>
+<h3 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a><strong>多重继承</strong></h3><ul>
 <li>把一个派生类指定给一个基类，在实现上会按照基类在派生类中的内存布局加上偏移进行赋值</li>
 <li>c++标准并未规定各基类的布局</li>
+<li>多重继承中，可能会有多个 vptr 指针，视其继承体系而定：<strong>派生类中 vptr 的数目最等于所有基 类的 vptr 数目的总和</strong>。</li>
 </ul>
-<p><strong>虚拟继承</strong></p>
-<ul>
-<li><p>iostream是最常见的虚拟继承例子，实现虚拟继承要找到一个足够有效的方法，将istream和ostream各自维护的一个ios subobject，折叠成为一个由iostream维护的单一 ios subobject，并且还可以保存 base clas s 和 derived class 的指针之间的多态指定操作</p>
+<h3 id="虚拟继承"><a href="#虚拟继承" class="headerlink" title="虚拟继承"></a><strong>虚拟继承</strong></h3><ul>
+<li><p>iostream是最常见的虚拟继承例子，实现虚拟继承要找到一个足够有效的方法，将istream和ostream各自维护的一个ios subobject，折叠成为一个由iostream维护的单一 ios subobject，并且还可以保存 base class 和 derived class 的指针之间的多态指定操作</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230711200602246.png" alt="" style="zoom:50%;" />
 </li>
-<li><p><em>一般的实现方法</em>：Class 如果内含一个或多个 virtual base class subobjects，像istream那样，将被分割为两部分：一个不变区域和一个共享区域。不变区域中的数据，不管后继如何衍化，总是拥有固定的offset（从object的开头算起），所以这一部分数据可以被直接存取。至于共享区域，所表现的就是virtual base class subobject。这一部分的数据，其位置会因为每次的派生操作而有变化，所以它们只可以被间接存取。各家编译器实现技术之间的差异就在于间接存取的方法不同，以下说明三种主流策略：</p>
+<li><p><em>一般的实现方法</em>：Class 如果内含一个或多个 virtual base class subobjects，例如istream将被分割为两部分：一个不变区域和一个共享区域。不变区域中的数据，不管后继如何衍化，总是拥有固定的offset（从object的开头算起），所以这一部分数据可以被直接存取。至于共享区域，所表现的就是virtual base class subobject。这一部分的数据，其位置会因为每次的派生操作而有变化，所以它们只可以被间接存取。各家编译器实现技术之间的差异就在于间接存取的方法不同，以下两种主流策略：</p>
 <ol>
-<li>先安排好derived class的不变部分，然后再建立其共享部分。在每一个derived class object中安插一些指针，每个指针指向一个virtual base class，以此存取共享部分。<ul>
+<li><strong>一种做法是直接使用一个指针指向虚基类</strong>。先安排好derived class的不变部分，然后再建立其共享部分。在每一个derived class object中安插一些指针，每个指针指向一个virtual base class，以此存取共享部分。<ul>
 <li>缺点：每一个对象必须针对其每一个 virtual base class 背负一个额外的指针；由于虚拟继承串链的加长，导致间接存取层次的增加。</li>
 <li>缺点解决方法：通过设置一个virtual base class table或在virtual function table中放置virtual base class的offset（而不是地址）;第二个问题通过将不断嵌套的虚拟基类指针拷贝到派生类中，从而得到固定时间存取。</li>
 </ul>
 </li>
-<li>额，没看见写另外两种策略</li>
+<li><strong>另一种做法是在 vtable 中放置 virtual base class 的 offset</strong><ul>
+<li>这种方式好处在于： vptr 是已经存在的成本，而 vtable 是 class 的所有 objects 所共享的成本。对于每一个 class object 没有引入任何的额外成本，仅仅在 vtable 多 存储了一个 slot 布局，而前一种方式却对每一个 object 都引了两个指针的巨大成本。</li>
+</ul>
+</li>
 </ol>
 </li>
-<li><p>一个例子内存布局如下：</p>
+<li><p>这两种虚基类方式都是把虚基类放在内存中模型中的最后面，然后借由一层间接性（指针或 offset）来 访问。</p>
+</li>
+<li><p>一个使用指针指向虚基类的例子内存布局如下：</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230711202559012.png" alt="" style="zoom:50%;" />
 
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230711202609004.png" alt="" style="zoom:67%;" /></li>
@@ -845,7 +860,7 @@
 <blockquote>
 <p><strong>名称的特殊处理</strong></p>
 <ul>
-<li>member的名称前面会被加上class名称，形成独一无二的命名（为了派生时出现同名变量）</li>
+<li>member的名称前面会被加上class名称，形成独一无二的命名（避免派生时出现同名变量）</li>
 <li>member functions 可以被重载化，所以将参数类型添加到函数名中</li>
 </ul>
 </blockquote>
@@ -854,6 +869,7 @@
 <li><p>如果normalize（）是一个virtual member function，那么以下的调用会被如下转化：</p>
 <ul>
 <li>vptr表示由编译器产生的指针，指向 virtual table。1是 virtual table slot的索引值，关联到 normalize（）函数。 第二个 ptr表示 this指针。</li>
+<li>事实上，vptr 的名称会被加上 mangled，因为对于一个复杂的派生体系，可能会有多个 vptr</li>
 <li>但使用对象进行调用时，由于已经确定调用哪个类的函数，因此没必要再使用虚函数表来间接访问</li>
 </ul>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230711221328144.png" alt="" style="zoom:67%;" />
@@ -878,7 +894,7 @@
 <h2 id="4-2-Virtual-Member-Functions（虚拟成员函数）"><a href="#4-2-Virtual-Member-Functions（虚拟成员函数）" class="headerlink" title="4.2 Virtual Member Functions（虚拟成员函数）"></a>4.2 Virtual Member Functions（虚拟成员函数）</h2><p>这节主要是将虚函数表的必要以及作用</p>
 <p>多态时，使用指针调用函数，无法知道指向的是哪个函数，需要额外信息才能正确调用相应函数。因此，在每个具有虚函数的类前添加一个虚函数表指针，其指向的虚函数表存储的是函数地址。</p>
 <ul>
-<li><p>一个class只会有一个virtual table。每一个table内含其对应之class object 中所有active virtual functions函数实例的地址，包括：</p>
+<li><p>每一个virtual table内含其对应之class object 中所有active virtual functions函数实例的地址，包括：</p>
 <ol>
 <li><p>这一 class 所定义的函数实例。它会改写一个可能存在的base class virtual function函数实例。</p>
 </li>
@@ -890,15 +906,17 @@
 </li>
 <li><p>每一个virtual function都被指派一个固定的索引值，这个索引在整个继承体系中保持与特定的virtual function的关系。</p>
 </li>
-<li><p>虚函数表编号0的位置存储的是对应类的信息</p>
+<li><p>虚函数表编号0的位置存储的是对应类的信息（type_info，RTTI）</p>
 </li>
 <li><p>因此，对于指针调用函数可以被转化如下，vptr表示编译器所安插的指针，指向virtual table；4表示z（）被指派的slot编号</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712103348842.png" alt="" style="zoom:80%;" />
 
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712103402268.png" alt="" style="zoom:80%;" /></li>
 </ul>
-<p><strong>多重继承下的 Virtual Functions</strong></p>
-<p>单继承下对于基类指针指向派生类时，无需移动指针。而多继承下，第二个基类之后的指针指向的派生类时，无论是调用虚函数，还是销毁对象（其实也是虚函数）都需要移动指针（加上或减去一个offset）</p>
+<h3 id="多重继承下的-Virtual-Functions"><a href="#多重继承下的-Virtual-Functions" class="headerlink" title="多重继承下的 Virtual Functions"></a><strong>多重继承下的 Virtual Functions</strong></h3><p>单继承下对于基类指针指向派生类时，无需移动指针。而多继承下，第二个基类及之后的指针指向的派生类时，无论是调用虚函数，还是delete对象（其实也是虚函数）都需要移动指针（加上或减去一个offset）</p>
+<ul>
+<li>比如对于简单的 delete 操作： deleta base2;由于 base2 可能没有指向对象的起始地址，这样简单的删除操作会引发灾难，所以需要对 base2 做执行期 的调整才能正确的 delete 对象。</li>
+</ul>
 <p>上述移动offset需要记录，使用了一种名叫thunk的技术，一个示例如下（其实就是预置了一个offset）。虚函数表中存储的既可以是虚函数地址，也可以存储一个thunk地址。</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712112033531.png" alt="" style="zoom:67%;" />
 
@@ -910,16 +928,21 @@
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712112503789.png" alt="" style="zoom:67%;" /></li>
 </ul>
 <blockquote>
-<p>多个vptr应该不是放置一起的，应该是放置在各subclass首部</p>
+<p>多个vptr不是放置一起的，应该是放置在各subclass首部或末尾</p>
 </blockquote>
-<p><strong>虚拟继承下的 Virtual Functions</strong></p>
-<ul>
+<h3 id="虚拟继承下的-Virtual-Functions"><a href="#虚拟继承下的-Virtual-Functions" class="headerlink" title="虚拟继承下的 Virtual Functions"></a><strong>虚拟继承下的 Virtual Functions</strong></h3><ul>
 <li><p>在虚拟继承下，即使只继承一个class，也会存在两个虚函数表，也需要调整this指针位置</p>
+</li>
+<li><p>下面内存布局应该就是虚继承下的基于offset指向基类的布局（另一种是基于指针指向基类）</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712113201347.png" alt="" style="zoom:80%;" /></li>
 </ul>
+<blockquote>
+<p>Lippman 建议：<strong>不要在一个 virtual base class 中声明 nonstatic data members</strong>。如果一 定要这么做，那么你会距离复杂的深渊愈来愈近，终不可拔。</p>
+</blockquote>
 <h2 id="4-3-函数的效能"><a href="#4-3-函数的效能" class="headerlink" title="4.3 函数的效能"></a>4.3 函数的效能</h2><h2 id="4-4-指向Member-Function的指针Pointer-to-Member-Functions"><a href="#4-4-指向Member-Function的指针Pointer-to-Member-Functions" class="headerlink" title="4.4 指向Member Function的指针Pointer-to-Member Functions"></a>4.4 指向Member Function的指针Pointer-to-Member Functions</h2><p>取一个nonstatic member function的地址，如果该函数是nonvirtual，得到的结果是它在内存中真正的地址。但是仍然需要this指针才能调用该函数。</p>
-<p><strong>支持“指向 Virtual Member Functions”的指针</strong></p>
-<ul>
+<h3 id="支持“指向-Virtual-Member-Functions”的指针"><a href="#支持“指向-Virtual-Member-Functions”的指针" class="headerlink" title="支持“指向 Virtual Member Functions”的指针"></a><strong>支持“指向 Virtual Member Functions”的指针</strong></h3><ul>
+<li><p><strong>对一个 virtual member function 取其地址，所能获得的只是一个 vtable 中的索引值。</strong></p>
+</li>
 <li><p>对于虚函数取地址得到的指针，也可以通过调用执行该函数，其在编译时期会被转化</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712161836240.png" alt="" style="zoom:67%;" />
 
@@ -936,13 +959,11 @@
 </ul>
 </li>
 </ul>
-<p><strong>在多重继承之下，指向 Member Functions的指针</strong></p>
-<ul>
+<h3 id="在多重继承之下，指向-Member-Functions的指针"><a href="#在多重继承之下，指向-Member-Functions的指针" class="headerlink" title="在多重继承之下，指向 Member Functions的指针"></a><strong>在多重继承之下，指向 Member Functions的指针</strong></h3><ul>
 <li><p>设置了一个单独结构体来存储信息，但这会使得每个指针调用开销变大，微软使用了一个vcall thunk来解决</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712163152150.png" alt="" style="zoom:67%;" /></li>
 </ul>
-<p><strong>“指向 Member Functions之指针”的效率</strong></p>
-<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712163331440.png" alt="" style="zoom:50%;" />
+<h3 id="“指向-Member-Functions之指针”的效率"><a href="#“指向-Member-Functions之指针”的效率" class="headerlink" title="“指向 Member Functions之指针”的效率"></a><strong>“指向 Member Functions之指针”的效率</strong></h3><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712163331440.png" alt="" style="zoom:50%;" />
 
 <h2 id="4-5-Inline-Functions"><a href="#4-5-Inline-Functions" class="headerlink" title="4.5 Inline Functions"></a>4.5 Inline Functions</h2><p>处理一个inline函数，有两个阶段：</p>
 <ol>
@@ -956,6 +977,8 @@
 <li>如果既不是个常量表达式，也不是个带有副作用的表达式，那么就直接代换之。</li>
 <li>如果是一个会带来副作用的实际参数（例如函数），通常都需要引入临时性对象。</li>
 </ul>
+</li>
+<li><p>inline 函数扩展时的实际参数取代形式参数的过程，会聪明地引入临时变量来避免重复求值。</p>
 </li>
 <li><p>例子如下：</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712164704158.png" alt="" style="zoom:50%;" />
@@ -974,6 +997,9 @@
 <li><p>如果inline函数在同一位置被扩展多次，则每次扩展都需要自己的一组局部变量。如果inline函数不同地方被扩展多次，那么只需一组局部变量，就可以重复使用（这里翻译有点迷）</p>
 <img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230712165142950.png" alt="" style="zoom:50%;" /></li>
 </ul>
+<blockquote>
+<p>inline 中再调用 inline 函数，可能使得表面上一个看起来很平凡的 inline 却因连锁的复杂性而 没有办法扩展开来。</p>
+</blockquote>
 <h1 id="第5章-构造、析构、拷贝语意学"><a href="#第5章-构造、析构、拷贝语意学" class="headerlink" title="第5章 构造、析构、拷贝语意学"></a>第5章 构造、析构、拷贝语意学</h1><p><strong>C++隐式生成的 4 大成员函数，在不是真正需要的情况下都不要自己去声明</strong>。 </p>
 <ul>
 <li>因为如果是 trivial 的，这些函数不会被真正的合成出来（只存在于概念上），当然也就没有调 用的成本了，去提供一个 trivial 的成员反而是不符合效率的。</li>
@@ -983,7 +1009,7 @@
 <li>基类的纯虚函数的默认实现必须由派生类显式的要求调用；</li>
 <li>派生类不会自动继承这个纯虚函数的定义，如果派生类未实现纯虚函数，那么其依然是一个抽 象类型； </li>
 <li>这种 pure virtual 函数还提供实现的方案比较好的应用场景为：基类提供了一个默认的实现， 但是不希望自动的继承给派生类使用，除非派生类明确的要求。</li>
-<li>还需要注意这个纯虚函数为析构函数的情况。C++语言保证继承体系中的每一个 class object 的 destructors 都会被调用。所以编译器一定会扩展派生类的析构函数去显式地调 用基类的析构函数。 </li>
+<li>还需要注意这个纯虚函数为析构函数的情况。C++语言保证继承体系中的每一个 class object 的 destructors 都会被调用。所以<strong>编译器一定会扩展派生类的析构函数去显式地调 用基类的析构函数</strong>。 </li>
 <li>另外一个重要的应用场景：有些情况下会把析构函数声明为纯虚。这时，必须为纯虚析构函 数提供一个默认的实现。否则，派生类的析构函数由于编译器的扩展而显式的调用基类的析 构函数时会找不到定义。同时编译器也无法为已经声明为纯虚的析构函数生成一个默认的实 现。</li>
 </ul>
 <h3 id="虚函数中的-const-哲学："><a href="#虚函数中的-const-哲学：" class="headerlink" title="虚函数中的 const 哲学："></a><strong>虚函数中的 const 哲学</strong>：</h3><p><strong>一个虚函数该不该被定义为 const 呢？</strong></p>
@@ -1005,7 +1031,7 @@
 <li>记录在 member initialization list中的 data members初始化操作会被放进constructor的函数本体，并以members的声明顺序为顺序。</li>
 <li>如果有一个 member并没有出现在 member initialization list之中，但它有一个 default constructor，那么该 default constructor必须被调用。</li>
 <li>在那之前，如果 class object 有vptr，必须被设定初值，指向适当的virtual table。</li>
-<li>在那之前，所有上一层的 base class constructors必须被调用，以 base class的声明顺序为顺序。使用 member initialization list 或者调用默认构造函数，同时如果 base class 是多重继承下的非第 1 基类，还需要调整 this 指针（？）；</li>
+<li>在那之前，所有上一层的 base class constructors必须被调用，以 base class的声明顺序为顺序。使用 member initialization list 或者调用默认构造函数，同时如果 base class 是多重继承下的非第 1 基类，还需要调整 this 指针（需要调用this指针进行构造，因此需要调整到相应位置）；</li>
 <li>在那之前，所有的 virtual base class constructors 必须被调用，从左到右，从深到浅。class中的每一个virtual base class subobject的偏移位置（offset）必须在执行期可被存取， 并同时设置好 virtual base class 所需要使用的各种机制；<ul>
 <li>“virtual base class constructors的被调用”有着明确的定义：只有当一个完整的 class object 被定义出来（例如origin）时，它才会被调用；如果object只是某个完整object的subobject，它就不会被调用</li>
 </ul>
@@ -1014,6 +1040,9 @@
 </ol>
 <p>赋值运算符中切记要记得进行自我检查。</p>
 <p><strong>虚拟继承时，共享基类必须由最底层的 class 负责初始化操作</strong>： 这是虚拟继承时非常重要的一点，共享基类的初始化操作必须由最底层的类来负责，中层层次的类调用这个共享基类初始化的操作会被编译器所压抑掉。</p>
+<ul>
+<li>其通过对中层层次类的构造安插一个额外的参数__most_derived 来解决的。</li>
+</ul>
 <h3 id="vptr初始化语意学"><a href="#vptr初始化语意学" class="headerlink" title="vptr初始化语意学"></a>vptr初始化语意学</h3><p>在一个 class的constructor（和destructor）中，经由构造中的对象来调用一个virtual function，其函数实例应该是在此class中有作用的那个</p>
 <ul>
 <li>即使是派生类调用基类的构造有使用虚函数，也还是会调用基类相应的函数，因为此时派生类对象并未构造完成，其成员可能并未初始化</li>
@@ -1053,7 +1082,7 @@
 </ol>
 <p>不表示bitwise copy semantics则是nontrivial</p>
 </blockquote>
-<p><strong>注意，应尽可能提供一个 copy constructor，为的是把 name return value （NRV）优化打开。copy constructor的出现不应该让我们以为也一定要提供一个copy assignment operator。</strong></p>
+<p><strong>注意，应尽可能提供一个 copy constructor，为的是把 name return value （NRV）优化打开。copy constructor的出现并不意味着也一定要提供一个copy assignment operator。</strong></p>
 <p><strong>C++语言中的虚继承时 copy assignment operator 弱点</strong>： </p>
 <ul>
 <li>C++ 标准没有规定在虚继承时 copy assignment operator 中是否会多次调用共享基类的 copy assignment operator。这样就有可能造成共享基类被赋值多次，造成一些错误，所以 程序员应该在使用了 virtual base class 时小心检验 copy assignment operator 里的代码 （以确保这样的多次赋值没有问题或者查看编译器是否已经提供了解决方案）。<ul>
@@ -1081,7 +1110,7 @@
 <p>由于析构函数中的重设 vptr 会在任何代码之前被执行，这样就保证了在析构函数中也不具有多 态性，从而不会调用子类的函数。因为此时派生类已经不完整了，派生类中的成员已经不存在了，而 派生类的函数有可能需要使用这些成员。</p>
 </blockquote>
 <p><strong>构造函数和析构函数中都不具有多态性</strong>：这并不是语言的弱点，而是正确的语意所要求的（因 为那个时候的对象不完整）。</p>
-<h1 id="第6章-执行期语意学"><a href="#第6章-执行期语意学" class="headerlink" title="第6章 执行期语意学"></a>第6章 执行期语意学</h1><h2 id="6-1-对象的构造和析构"><a href="#6-1-对象的构造和析构" class="headerlink" title="6.1 对象的构造和析构"></a>6.1 对象的构造和析构</h2><p>一般而言我们会把object尽可能放置在使用它的那个程序区段附近，这么做可以节省非必要的对象产生操作和摧毁操作。</p>
+<h1 id="第6章-执行期语意学"><a href="#第6章-执行期语意学" class="headerlink" title="第6章 执行期语意学"></a>第6章 执行期语意学</h1><h2 id="6-1-对象的构造和析构"><a href="#6-1-对象的构造和析构" class="headerlink" title="6.1 对象的构造和析构"></a>6.1 对象的构造和析构</h2><p>一般而言会把object尽可能放置在使用它的那个程序区段附近，这么做可以节省非必要的对象产生操作和摧毁操作。</p>
 <ul>
 <li>因为如果都在开始处定义变量，那么在使用该变量前，如果中间代码有return之类操作，那么又会销毁该变量，造成不必要的消耗。</li>
 </ul>
@@ -1097,9 +1126,9 @@
 <li>当需要构造时，如果指针为0，则调用构造函数，并将指针指向对象地址，不为0则不调用构造函数</li>
 <li>而在析构时，同样也会判断该指针决定是否调用析构函数</li>
 </ul>
-<h3 id="对象数组"><a href="#对象数组" class="headerlink" title="对象数组"></a>对象数组</h3><p>对象的数组初始化和析构都是通过编译器安插一个函数调用的代码来实现的：</p>
+<h3 id="对象数组"><a href="#对象数组" class="headerlink" title="对象数组"></a>对象数组</h3><p>对象的数组初始化和析构都是通过编译器安插一个vec_new函数调用的代码来实现的：</p>
 <ul>
-<li>vec_new之所以传进了析构函数的指针，是为了在构造函数抛出异常时，把已经构造好的对象给析构 掉</li>
+<li>vec_new之所以传进了析构函数的指针，是为了在构造函数抛出异常时，把已经构造好的对象给析构掉</li>
 </ul>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">Point knots<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">vec_new</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>array<span class="token punctuation">,</span> <span class="token comment">// address of start of array</span>
@@ -1114,10 +1143,10 @@
  <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>destructor<span class="token punctuation">)</span><span class="token punctuation">(</span> <span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>如果knots提供一个或多个初值给数组，那么对于提供初值的元素会调用相应构造函数初始化，而未提供的元素则仍然通过vec_new初始化，只需要将array地址正价，元素个数减小即可。</p>
+<p>如果knots提供一个或多个初值给数组，那么对于提供初值的元素会调用相应构造函数初始化，而未提供的元素则仍然通过vec_new初始化，只需要将array地址增加，元素个数减小即可。</p>
 <h3 id="Default-Constructors和数组"><a href="#Default-Constructors和数组" class="headerlink" title="Default Constructors和数组"></a>Default Constructors和数组</h3><p>由于经由一个指针来启动 constructor，将无法（不被允许）存取default argument values。因此</p>
 <ul>
-<li>对于那些声明了默认参数从而实际上拥有无参构造函数的类，编译器会产生一个绝对无参的构造 函数，再从这个构造函数里调用这个默认参数的构造函数。</li>
+<li>对于那些声明了默认参数从而实际上拥有无参构造函数的类，编译器会产生一个绝对无参的构造函数，再从这个构造函数里调用这个默认参数的构造函数。</li>
 <li>这样，编译器实际上违反了语言的 规定，拥有了 2 个没有参数的构造函数，但是这样的特例只能由编译器自己来违反</li>
 </ul>
 <h2 id="6-2-new-和delete运算符"><a href="#6-2-new-和delete运算符" class="headerlink" title="6.2 new 和delete运算符"></a>6.2 new 和delete运算符</h2><p><strong>new运算符</strong>由两个步骤完成的：</p>
@@ -1130,7 +1159,7 @@
 <li>调用析构函数</li>
 <li>释放内存（使用__delete函数）</li>
 </ul>
-<p>一般的 library 对 new 运算符的实现如下，有两个精妙之处：</p>
+<p><strong>一般的 library 对 new 运算符的实现</strong>如下，有两个精妙之处：</p>
 <ul>
 <li>new 操作符至少会返回 1 个字节的内存（语言要求每一次对 new 的调用都必须传回一个独一无二的指针，即使写出new T[0]这样的代码）</li>
 <li>允许用户提供_new_handler ，会给内存分配不足时以补救的机会。</li>
@@ -1233,7 +1262,7 @@
 <p>template在定义处和实例化处如果有相同函数名该怎么调用？</p>
 <ul>
 <li>Template 中，对于一个 nonmember name 的决议结果是根据这个 name 的使用是否与“用以具现出该 template 的参数类型 有关而决定的。<ul>
-<li>例如决议使用哪个函数，则判断调用此函数需要的参数是否与实例化类相关。</li>
+<li>例如决议使用哪个函数，则判断此函数使用的变量是否与实例化类相关。</li>
 </ul>
 </li>
 <li>情况 1：如果其使用互不相关，那就在scope of template declaration 中来决议 name； </li>
@@ -1354,11 +1383,18 @@ ScopeRules<span class="token operator">&lt;</span> <span class="token keyword">i
 <li>指针版本会返回 0，使用者需要进行检查； </li>
 <li>引用的版本会抛出一个 bad_cast exception（因为没有空引用）</li>
 </ul>
-<h3 id="Typeid运算符"><a href="#Typeid运算符" class="headerlink" title="Typeid运算符"></a>Typeid运算符</h3><p>typeid运算符返回对象的type_info，其传回一个const reference，类型为type_info。</p>
-<p>type_info 类型的 copy 构造函数和 operator&#x3D;操作符都被声明为私有，禁止了赋值和拷贝操作。 而且只提供了一个受保护的带有一个 const char *参数的构造函数，因为不能直接得到 type_info 对象，只能通过 typeid()运算符来得到这类对象。</p>
-<p>RTTI 只适用于多态类型（RTTI 信息存于 vtable 的原因），事实上 type_info object 也适用 于非多态类型。</p>
+<h3 id="Typeid运算符"><a href="#Typeid运算符" class="headerlink" title="Typeid运算符"></a>Typeid运算符</h3><ul>
+<li><p>typeid运算符返回对象的type_info，其传回一个const reference，类型为type_info。</p>
+</li>
+<li><p>type_info 类型的 copy 构造函数和 operator&#x3D;操作符都被声明为私有，禁止了赋值和拷贝操作。 而且只提供了一个受保护的带有一个 const char *参数的构造函数，因为不能直接得到 type_info 对象，只能通过 typeid()运算符来得到这类对象。</p>
+</li>
+<li><p>可以使用typeid运算符先判断引用的类型，从而使得dynamic_cast引用时不抛出异常</p>
+</li>
+<li><p>RTTI 只适用于多态类型（RTTI 信息存于 vtable 的原因），事实上 type_info object 也适用 于非多态类型。</p>
 <ul>
 <li>typeid()使用于非多态类型时的差异在于，这时候的 type_info object 是<strong>静态</strong> 取得的（编译器直接给扩展了），而非像多态类型一样在执行期通过 vtable 动态取得。</li>
+</ul>
+</li>
 </ul>
 <h2 id="7-4-效率有了，弹性呢？"><a href="#7-4-效率有了，弹性呢？" class="headerlink" title="7.4 效率有了，弹性呢？"></a>7.4 效率有了，弹性呢？</h2><p>class的大小及其每一个直接（或继承而来）的members的偏移位置（offset）都在编译时期就已经固定（虚拟继承的members除外）。这虽然带来了效率，却在二进制层面（binary level）阻碍了弹性。如果 object 布局改变，应用程序就必须重新编译。</p>
 <p>当一个shared library 被加载时，它在内存中的位置由runtime linker 决定。然而，在C++对象模型中，当一个动态的shared library支持一个class object，其中含有virtual functions（被放在shared memory中）时，想要经由这个shared object附着并调用一个virtual function”的第二个或更后继的进程，就会导致错误（没看太懂）</p>
@@ -1528,13 +1564,13 @@ ScopeRules<span class="token operator">&lt;</span> <span class="token keyword">i
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/06/20/c++/%E9%9D%A2%E8%AF%95%E9%81%87%E8%A7%81%E9%97%AE%E9%A2%98/">
+                <a href="/2023/06/20/c++/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="面试问题">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">面试问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1549,11 +1585,23 @@ ScopeRules<span class="token operator">&lt;</span> <span class="token keyword">i
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            mujiubai
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Other/" class="post-category">
+                                    Other
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">面试</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1749,7 +1797,7 @@ ScopeRules<span class="token operator">&lt;</span> <span class="token keyword">i
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">316.3k</span>
+                        class="white-color">317.1k</span>
             
             
             

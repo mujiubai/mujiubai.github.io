@@ -459,20 +459,20 @@
                 
                 
                 
-                <a href="/categories/%E9%A1%B9%E7%9B%AE/" title="项目: 4">
+                <a href="/categories/C/" title="C++: 9">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F9EBEA;">项目
-                        <span class="tag-length">4</span>
+                            style="background-color: #F9EBEA;">C++
+                        <span class="tag-length">9</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/C/" title="C++: 9">
+                <a href="/categories/Other/" title="Other: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">C++
-                        <span class="tag-length">9</span>
+                            style="background-color: #F5EEF8;">Other
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
@@ -486,10 +486,19 @@
                 </a>
                 
                 
+                <a href="/categories/%E9%A1%B9%E7%9B%AE/" title="项目: 4">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #E8F8F5;">项目
+                        <span class="tag-length">4</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/categories/LeetCode/" title="LeetCode: 160">
                     <span class="chip center-align waves-effect waves-light
                              chip-active "
-                            style="background-color: #E8F8F5;">LeetCode
+                            style="background-color: #FEF9E7;">LeetCode
                         <span class="tag-length">160</span>
                     </span>
                 </a>
@@ -933,24 +942,27 @@ class NestedIterat
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-475-%E4%BE%9B%E6%9A%96%E5%99%A8-middle/">
+                    <a href="/2023/02/15/leetcode/other/leetcode-1619-simple/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="475. 供暖器">
+                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="1619. 删除某些元素后的数组均值">
                             
-                            <span class="card-title">475. 供暖器</span>
+                            <span class="card-title">1619. 删除某些元素后的数组均值</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                475. 供暖器First：使用二分查找时，找上边界泽腾了挺久
+                                1619. 删除某些元素后的数组均值FIrst：排序，再去掉前后数相加求平均
 
-方法1：对供暖器位置二分查找
-对于每间屋子，找到离它最近的供暖器，然后取所有最近值中的最大值即为供暖器半径。注意二分查找时，需要比较左右两个供暖器。
+方法1：排序
+先排序，然后去掉前后各5%的数，将剩下的数相加求和即可
 
-时间复杂度：O((n+
+时间复杂度：O(nlogn)
+空间复杂度：O(logn)
+
+class Solution
                             
                         </div>
                         <div class="publish-info">
@@ -973,8 +985,8 @@ class NestedIterat
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                            <span class="chip bg-color">二分查找</span>
+                        <a href="/tags/Alg-%E6%8E%92%E5%BA%8F/">
+                            <span class="chip bg-color">Alg-排序</span>
                         </a>
                         
                     </div>
@@ -984,22 +996,27 @@ class NestedIterat
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-29-%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4-middle/">
+                    <a href="/2023/02/15/leetcode/other/leetcode-179-%E6%9C%80%E5%A4%A7%E6%95%B0-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="475. 供暖器">
+                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="179. 最大数">
                             
-                            <span class="card-title">475. 供暖器</span>
+                            <span class="card-title">179. 最大数</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                475. 供暖器First：这道题折腾了老久，方法上虽然知道了，但在边界处理上一直不行，最后看了一个评论说将所有数转为负数处理会更方便，真走进思维误区了。
+                                179. 最大数FIrst：开始折腾比较规则，后来想到为啥不直接拼好再比较。。。
 
-方法1：二分查找
-由于不能用除法，那么先假设其商cur为1，此时divisorL&
+方法1：排序
+将所有值进行比较排序，每两个值比较时看谁拼接起来大（也可以使用数字算加和）
+
+时间复杂度：O(nlogn)
+空间复杂度：O(n)
+
+class
                             
                         </div>
                         <div class="publish-info">
@@ -1022,8 +1039,8 @@ class NestedIterat
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                            <span class="chip bg-color">二分查找</span>
+                        <a href="/tags/Alg-%E6%8E%92%E5%BA%8F/">
+                            <span class="chip bg-color">Alg-排序</span>
                         </a>
                         
                     </div>
@@ -1134,7 +1151,7 @@ class NestedIterat
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">316.3k</span>
+                        class="white-color">317.1k</span>
             
             
             
