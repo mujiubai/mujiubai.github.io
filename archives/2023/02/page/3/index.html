@@ -562,27 +562,89 @@
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/other/leetcode-1619-simple/">
+                        <a href="/2023/02/15/leetcode/other/leetcode-670-middle/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="1619. 删除某些元素后的数组均值">
+                                <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="670. 最大交换">
                                 
-                                <span class="card-title">1619. 删除某些元素后的数组均值</span>
+                                <span class="card-title">670. 最大交换</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    1619. 删除某些元素后的数组均值FIrst：排序，再去掉前后数相加求平均
+                                    670. 最大交换FIrst：看着数也不大，直接每两两交换也会很快，但复杂度较高。想着是找到最大的可交换的数，但逻辑还是没理清
+
+方法1：贪心
+要想找到最大交换值，那么应该找到最大数字，但这数字必须能与前面数字交换才有用，能交换的要求是其前
+                                
+                            </div>
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-action article-tags">
+                            
+                            <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/"><span class="chip bg-color">Alg-贪心</span></a>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="cd-timeline-block">
+
+            
+            
+
+            
+            
+
+            
+            <div class="cd-timeline-img day" data-aos="zoom-in-up">
+                <span>15</span>
+            </div>
+            <article class="cd-timeline-content" data-aos="fade-up">
+                <div class="article col s12 m6">
+                    <div class="card">
+                        <a href="/2023/02/15/leetcode/other/leetcode-179-%E6%9C%80%E5%A4%A7%E6%95%B0-middle/">
+                            <div class="card-image">
+                                
+                                
+                                <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="179. 最大数">
+                                
+                                <span class="card-title">179. 最大数</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="summary block-with-text">
+                                
+                                    179. 最大数FIrst：开始折腾比较规则，后来想到为啥不直接拼好再比较。。。
 
 方法1：排序
-先排序，然后去掉前后各5%的数，将剩下的数相加求和即可
+将所有值进行比较排序，每两个值比较时看谁拼接起来大（也可以使用数字算加和）
 
 时间复杂度：O(nlogn)
-空间复杂度：O(logn)
+空间复杂度：O(n)
 
-class Solution
+class
                                 
                             </div>
                             <div class="publish-info">
@@ -696,22 +758,25 @@ class NestedIterat
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/leetcode/other/leetcode-670-middle/">
+                        <a href="/2023/02/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%B0%8F%E6%9E%97coding-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%AC%94%E8%AE%B0/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="670. 最大交换">
+                                <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="小林coding-操作系统-笔记">
                                 
-                                <span class="card-title">670. 最大交换</span>
+                                <span class="card-title">小林coding-操作系统-笔记</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    670. 最大交换FIrst：看着数也不大，直接每两两交换也会很快，但复杂度较高。想着是找到最大的可交换的数，但逻辑还是没理清
+                                    总结知识点，以便以后快速复习。
+参考小林coding操作系统, 地址
+一、硬件结构1.1 CPU 是如何执行程序的？1.2 磁盘比内存慢几万倍？
 
-方法1：贪心
-要想找到最大交换值，那么应该找到最大数字，但这数字必须能与前面数字交换才有用，能交换的要求是其前
+
+存储器级别划分
+寄存器：寄存器的访问速度非常快，一般要求在半个 CPU 时钟周期内完成读写
                                 
                             </div>
                             <div class="publish-info">
@@ -722,8 +787,8 @@ class NestedIterat
                                     
                                     <i class="fas fa-bookmark fa-fw icon-category"></i>
                                     
-                                    <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
+                                    <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-category">
+                                    计算机基础知识
                                     </a>
                                     
                                     
@@ -734,7 +799,7 @@ class NestedIterat
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/"><span class="chip bg-color">Alg-贪心</span></a>
+                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="chip bg-color">操作系统</span></a>
                             
                         </div>
                         
@@ -758,23 +823,22 @@ class NestedIterat
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/%E9%A1%B9%E7%9B%AE/muduo%E7%BD%91%E7%BB%9C%E5%BA%93-Linux%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B/">
+                        <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-29-%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4-middle/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Linux多线程服务器编程：使用muduo C++网络库 笔记">
+                                <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="475. 供暖器">
                                 
-                                <span class="card-title">Linux多线程服务器编程：使用muduo C++网络库 笔记</span>
+                                <span class="card-title">475. 供暖器</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    阅读《Linux多线程服务器编程：使用muduo C++网络库》笔记
+                                    475. 供暖器First：这道题折腾了老久，方法上虽然知道了，但在边界处理上一直不行，最后看了一个评论说将所有数转为负数处理会更方便，真走进思维误区了。
 
-
-第1章 线程安全的对象生命期管理1.1 当析构函数遇到多线程
-当一个对象能被多个线程同时看到时，那么对象的销毁时机就会变得模糊不清，可能出现多种竞态条件（race c
+方法1：二分查找
+由于不能用除法，那么先假设其商cur为1，此时divisorL&
                                 
                             </div>
                             <div class="publish-info">
@@ -785,8 +849,8 @@ class NestedIterat
                                     
                                     <i class="fas fa-bookmark fa-fw icon-category"></i>
                                     
-                                    <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
-                                    项目
+                                    <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
                                     </a>
                                     
                                     
@@ -797,9 +861,135 @@ class NestedIterat
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/C/"><span class="chip bg-color">C++</span></a>
+                            <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"><span class="chip bg-color">二分查找</span></a>
                             
-                            <a href="/tags/muduo/"><span class="chip bg-color">muduo</span></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="cd-timeline-block">
+
+            
+            
+
+            
+            
+
+            
+            <div class="cd-timeline-img day" data-aos="zoom-in-up">
+                <span>15</span>
+            </div>
+            <article class="cd-timeline-content" data-aos="fade-up">
+                <div class="article col s12 m6">
+                    <div class="card">
+                        <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-475-%E4%BE%9B%E6%9A%96%E5%99%A8-middle/">
+                            <div class="card-image">
+                                
+                                
+                                <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="475. 供暖器">
+                                
+                                <span class="card-title">475. 供暖器</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="summary block-with-text">
+                                
+                                    475. 供暖器First：使用二分查找时，找上边界泽腾了挺久
+
+方法1：对供暖器位置二分查找
+对于每间屋子，找到离它最近的供暖器，然后取所有最近值中的最大值即为供暖器半径。注意二分查找时，需要比较左右两个供暖器。
+
+时间复杂度：O((n+
+                                
+                            </div>
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-action article-tags">
+                            
+                            <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"><span class="chip bg-color">二分查找</span></a>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="cd-timeline-block">
+
+            
+            
+
+            
+            
+
+            
+            <div class="cd-timeline-img day" data-aos="zoom-in-up">
+                <span>15</span>
+            </div>
+            <article class="cd-timeline-content" data-aos="fade-up">
+                <div class="article col s12 m6">
+                    <div class="card">
+                        <a href="/2023/02/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%B0%8F%E6%9E%97coding-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%AC%94%E8%AE%B0/">
+                            <div class="card-image">
+                                
+                                
+                                <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="小林coding-计算机网络-笔记">
+                                
+                                <span class="card-title">小林coding-计算机网络-笔记</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="summary block-with-text">
+                                
+                                    总结知识点，以便以后快速复习。
+参考小林coding网络图解, 地址
+一、基础篇1.1 TCP&#x2F;IP 网络模型有哪几层？应用层
+
+应用层只需要专注于为用户提供应用功能，不用去关心数据是如何传输的
+应用层是工作在操作系统中的用户态，
+                                
+                            </div>
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-category">
+                                    计算机基础知识
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-action article-tags">
+                            
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="chip bg-color">计算机网络</span></a>
                             
                         </div>
                         
@@ -950,75 +1140,6 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/02/15/%E9%A1%B9%E7%9B%AE/%E9%87%8D%E5%86%99muduo%E5%BA%93/">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="重写Muduo库笔记">
-                                
-                                <span class="card-title">重写Muduo库笔记</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    根据施磊剖析muduo网络库核心代码项目所写, 视频地址
-
-
-1. 基础知识储备
-
-1、TCP协议和UDP协议
-2、TCP编程和UDP编程步骤
-3、IO复用接口编程select、poll、epoll编程
-4、Linux的多线程编程pthre
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                    
-                                    <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
-                                    项目
-                                    </a>
-                                    
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                        <div class="card-action article-tags">
-                            
-                            <a href="/tags/C/"><span class="chip bg-color">C++</span></a>
-                            
-                            <a href="/tags/muduo/"><span class="chip bg-color">muduo</span></a>
-                            
-                        </div>
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>15</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
                         <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-middle/">
                             <div class="card-image">
                                 
@@ -1041,136 +1162,6 @@ postorder的最后一个数k可以将inorder分为两部分，这两部分分别
 
 class Solution &#123;
 pu
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                    
-                                    <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                    </a>
-                                    
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                        <div class="card-action article-tags">
-                            
-                            <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/"><span class="chip bg-color">Alg-二叉树</span></a>
-                            
-                        </div>
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>15</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
-                        <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-450-%E5%88%A0%E9%99%A4%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-middle/">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="450. 删除二叉搜索树中的节点">
-                                
-                                <span class="card-title">450. 删除二叉搜索树中的节点</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    450. 删除二叉搜索树中的节点First：方法不难，记一下细节
-
-方法1：递归遍历
-由于当前被删节点是可能有父节点，父节点要删除此子节点，因此遍历时返回TreeNode*指针。先找到被删节点，如果被删节点左右孩子有一个不为空，返回不为空的
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                    
-                                    <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                    </a>
-                                    
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                        <div class="card-action article-tags">
-                            
-                            <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/"><span class="chip bg-color">Alg-二叉树</span></a>
-                            
-                        </div>
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>15</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
-                        <a href="/2023/02/15/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91-simple/">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="617. 合并二叉树">
-                                
-                                <span class="card-title">617. 合并二叉树</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    617. 合并二叉树First：比较简单，只是解析答案有些巧妙，记录下
-
-方法1：递归
-开始使用的创建新树来做，代码随想录的解法巧妙些。
-
-时间复杂度：O(n) 
-空间复杂度：O(n)
-
-class Solution &#123;
-publ
                                 
                             </div>
                             <div class="publish-info">
