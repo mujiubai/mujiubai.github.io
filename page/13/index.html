@@ -458,25 +458,25 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-239-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC-difficult/">
+                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-977-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="239. 滑动窗口最大值">
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="977. 有序数组的平方">
                             
-                            <span class="card-title">239. 滑动窗口最大值</span>
+                            <span class="card-title">977. 有序数组的平方</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                239. 滑动窗口最大值First：傻了，没想到使用单调队列来找最大数
+                                977. 有序数组的平方FIrst：原数组有序，因此只需要处理正负数平凡带来的影响即可。见到这题的第一想法便是方法1。
 
-方法1：单调队列
-关键在于如何滑动窗口中快速找到最大值
-使用一个deque来维持从大到小的单调队列，队首元素为最大值。
-每当滑动窗口向右移动，将新添加的值与队尾元素不
+方法1：分界值+双指针
+先找到正负数的分界位置，从分界处开始向左右两边遍历，依次选择最小的即可。
+
+时间复杂度：O(n
                             
                         </div>
                         <div class="publish-info">
@@ -499,8 +499,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
                         </a>
                         
                     </div>
@@ -512,23 +516,25 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-155-%E6%9C%80%E5%B0%8F%E6%A0%88-middle/">
+                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-239-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC-difficult/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="155. 最小栈">
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="239. 滑动窗口最大值">
                             
-                            <span class="card-title">155. 最小栈</span>
+                            <span class="card-title">239. 滑动窗口最大值</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                155. 最小栈First：没想到咋做，看了答案才知道直接存储每次的最小值。。。不过有个解法是存储差值很有意思。
+                                239. 滑动窗口最大值First：傻了，没想到使用单调队列来找最大数
 
-方法1：双栈
-使用两个栈，栈s存储元素，一个栈ms存最小值。当push一个元素时，ms的栈顶元素与压入栈元素比较得到最小值。
+方法1：单调队列
+关键在于如何滑动窗口中快速找到最大值
+使用一个deque来维持从大到小的单调队列，队首元素为最大值。
+每当滑动窗口向右移动，将新添加的值与队尾元素不
                             
                         </div>
                         <div class="publish-info">
@@ -731,6 +737,58 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-1029-%E4%B8%A4%E5%9C%B0%E8%B0%83%E5%BA%A6-middle/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="1029. 两地调度">
+                            
+                            <span class="card-title">1029. 两地调度</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                1029. 两地调度First：快20天没刷题了，没做出来，想的是确定一个维度在来做，看了解析发现思想是真简洁
+
+方法1：贪心
+先将所有都派往A公司，然后从其中选出N个人改变行程前往B公司，那么应该选priceB-priceA最小的N个人才
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
+                            <span class="chip bg-color">Alg-贪心</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-122-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII-middle/">
                         <div class="card-image">
                             
@@ -782,58 +840,6 @@ dp数组如何初始化
                         
                         <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
                             <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-1029-%E4%B8%A4%E5%9C%B0%E8%B0%83%E5%BA%A6-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="1029. 两地调度">
-                            
-                            <span class="card-title">1029. 两地调度</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                1029. 两地调度First：快20天没刷题了，没做出来，想的是确定一个维度在来做，看了解析发现思想是真简洁
-
-方法1：贪心
-先将所有都派往A公司，然后从其中选出N个人改变行程前往B公司，那么应该选priceB-priceA最小的N个人才
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
                         </a>
                         
                     </div>
@@ -1006,24 +1012,26 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-435-%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4-middle/">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-406-%E6%A0%B9%E6%8D%AE%E8%BA%AB%E9%AB%98%E9%87%8D%E5%BB%BA%E9%98%9F%E5%88%97-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="435. 无重叠区间">
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="406. 根据身高重建队列">
                             
-                            <span class="card-title">435. 无重叠区间</span>
+                            <span class="card-title">406. 根据身高重建队列</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                435. 无重叠区间First：没做出来，不知道咋处理一个区间覆盖多个区间，但被覆盖的这些区间并不交叉这种特俗情况。
+                                406. 根据身高重建队列First：以前做过，今天脑袋昏昏沉沉，知道了应该先排序，但后面没做出来
+
+当有多个维度的数据时，需要先确定一个维度，再来做另一个维度，一起考虑的话会很繁琐
+
 
 方法1：贪心
-可以使用以左边界排序或右边界排序，但遍历方向不一样。
-以右边界进行排序（右边界一样时左边界小的在前），从左
+遇到两个维度权衡的时候，一定要先确定一
                             
                         </div>
                         <div class="publish-info">
@@ -1059,26 +1067,24 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-406-%E6%A0%B9%E6%8D%AE%E8%BA%AB%E9%AB%98%E9%87%8D%E5%BB%BA%E9%98%9F%E5%88%97-middle/">
+                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-435-%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="406. 根据身高重建队列">
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="435. 无重叠区间">
                             
-                            <span class="card-title">406. 根据身高重建队列</span>
+                            <span class="card-title">435. 无重叠区间</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                406. 根据身高重建队列First：以前做过，今天脑袋昏昏沉沉，知道了应该先排序，但后面没做出来
-
-当有多个维度的数据时，需要先确定一个维度，再来做另一个维度，一起考虑的话会很繁琐
-
+                                435. 无重叠区间First：没做出来，不知道咋处理一个区间覆盖多个区间，但被覆盖的这些区间并不交叉这种特俗情况。
 
 方法1：贪心
-遇到两个维度权衡的时候，一定要先确定一
+可以使用以左边界排序或右边界排序，但遍历方向不一样。
+以右边界进行排序（右边界一样时左边界小的在前），从左
                             
                         </div>
                         <div class="publish-info">
