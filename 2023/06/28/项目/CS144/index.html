@@ -1,0 +1,1481 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="CS144, w">
+    <meta name="description" content="cs144官网地址：https://cs144.github.io/
+整体难度不大，花了三四天，没看视频直接做的，有点面对测试用例编程的样子，但做了后对TCP细节有了更详细的了解
+各lab所做功能如下图所示
+
+
+
+
+Lab0 network">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>CS144 | w</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">w</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/categories/C/">
+          
+          <span>C++</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/LeetCode/">
+          
+          <span>LeetCode</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+          
+          <span>计算机基础知识</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/%E9%A1%B9%E7%9B%AE/">
+          
+          <span>项目</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">w</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/categories/C/ " style="margin-left:75px">
+				  
+		          <span>C++</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/LeetCode/ " style="margin-left:75px">
+				  
+		          <span>LeetCode</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/ " style="margin-left:75px">
+				  
+		          <span>计算机基础知识</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/ " style="margin-left:75px">
+				  
+		          <span>项目</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">CS144</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                                <span class="chip bg-color">计算机网络</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                项目
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-06-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2023-06-28
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    15 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>cs144官网地址：<a target="_blank" rel="noopener" href="https://cs144.github.io/">https://cs144.github.io/</a></p>
+<p>整体难度不大，花了三四天，没看视频直接做的，有点面对测试用例编程的样子，但做了后对TCP细节有了更详细的了解</p>
+<p>各lab所做功能如下图所示</p>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230626195904323.png" alt="" style="zoom:50%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230628150828498.png" alt="" style="zoom: 50%;" />
+
+<h1 id="Lab0-networking-warmup"><a href="#Lab0-networking-warmup" class="headerlink" title="Lab0 networking warmup"></a>Lab0 networking warmup</h1><p>此lab主要是调用提供的接口来模仿telnet发送信息并接受回答，实现webget.cc中的get_URL函数。以及在内存中实现一个字节流，因此字节流是可靠的，其使用的接口会在后来被使用。相比TCP，只是底层字节通道不同，而接口是通用的。</p>
+<p>get_URL函数：向服务端发起连接，并发送信息获取回答。</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">get_URL</span><span class="token punctuation">(</span> <span class="token keyword">const</span> string<span class="token operator">&amp;</span> host<span class="token punctuation">,</span> <span class="token keyword">const</span> string<span class="token operator">&amp;</span> path <span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token comment">// cerr &lt;&lt; "Function called: get_URL(" &lt;&lt; host &lt;&lt; ", " &lt;&lt; path &lt;&lt; ")\n";</span>
+  <span class="token comment">// cerr &lt;&lt; "Warning: get_URL() has not been implemented yet.\n";</span>
+  clog <span class="token operator">&lt;&lt;</span> <span class="token string">"Function called: get_URL("</span> <span class="token operator">&lt;&lt;</span> host <span class="token operator">&lt;&lt;</span> <span class="token string">", "</span> <span class="token operator">&lt;&lt;</span> path <span class="token operator">&lt;&lt;</span> <span class="token string">")\n"</span><span class="token punctuation">;</span>
+  Address <span class="token function">server</span><span class="token punctuation">(</span>host<span class="token punctuation">,</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  TCPSocket sk<span class="token punctuation">;</span>
+  sk<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span>server<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  string get_info<span class="token operator">=</span><span class="token string">"GET "</span><span class="token operator">+</span>path<span class="token operator">+</span><span class="token string">" HTTP/1.1\r\n"</span><span class="token operator">+</span><span class="token string">"Host:"</span><span class="token operator">+</span>host<span class="token operator">+</span><span class="token string">"\r\n"</span><span class="token operator">+</span><span class="token string">"Connection:close\r\n\r\n"</span><span class="token punctuation">;</span>
+  <span class="token comment">// cout&lt;&lt;get_info&lt;&lt;endl;</span>
+  sk<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>get_info<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  string response<span class="token punctuation">;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>sk<span class="token punctuation">.</span><span class="token function">eof</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       sk<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> response<span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+  sk<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span>SHUT_WR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>字节流实现如下，为了简单，直接使用了一个deque作为缓冲区，但效率不太行。</p>
+<p><strong><em>ByteStream</em>成员变量</strong></p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">ByteStream</span>
+<span class="token punctuation">&#123;</span>
+<span class="token keyword">protected</span><span class="token operator">:</span>
+  <span class="token keyword">uint64_t</span> capacity_<span class="token punctuation">;</span> <span class="token comment">// 缓冲区容量限制</span>
+  <span class="token comment">// Please add any additional state to the ByteStream here, and not to the Writer and Reader interfaces.</span>
+  std<span class="token double-colon punctuation">::</span>deque<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">></span> buffer_<span class="token punctuation">;</span> <span class="token comment">// 缓冲区</span>
+  <span class="token keyword">bool</span> close_<span class="token punctuation">;</span>              <span class="token comment">// 关闭标志</span>
+  <span class="token keyword">bool</span> err_<span class="token punctuation">;</span>                <span class="token comment">// 错误标志</span>
+  <span class="token keyword">uint64_t</span> totalPushBytes_<span class="token punctuation">;</span> <span class="token comment">// 总共放入字节数</span>
+  <span class="token keyword">uint64_t</span> totalPopBytes_<span class="token punctuation">;</span>  <span class="token comment">// 总共弹出字节数</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><em>ByteStream</em>成员函数</strong></p>
+<ul>
+<li>push函数：取data长度和当前可push长度的最小值即可，并记录到totalPushBytes_中</li>
+<li>pop函数：取需弹出的len长度和现有buffer容量最小值，弹出即可，并记录到totalPopBytes_中</li>
+<li>其余函数皆是简单的标志容量设置或返回标志容量</li>
+</ul>
+<h1 id="Lab1-stitching-substrings-into-a-byte-stream"><a href="#Lab1-stitching-substrings-into-a-byte-stream" class="headerlink" title="Lab1 stitching substrings into a byte stream"></a>Lab1 stitching substrings into a byte stream</h1><p>此lab是将收到的许多字符串归整为一个字符串，期间可能需要等到前面尚未收到的字符串。</p>
+<p><strong>设计思路</strong>：</p>
+<ul>
+<li>使用一个红黑树map来记录尚未被归整的字符串开始位置和结束位置（因为前面还有未收到的字符串所以无法归整）</li>
+<li>每次收到一个字符串，就将其插入，并向前和向后进行查询是否有相连的字符串，如果有则合并，最后合并的字符串如果开始位置等于首个未整理好的字符位置，则视为此段之前无未收到字符串。</li>
+<li>此方法在字符串较大时，效率较高，不用去扫描哪些位置收到数据，但如果字符串较小时则效率较低。</li>
+</ul>
+<p><strong><em>Reassembler</em>成员变量</strong></p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Reassembler</span>
+<span class="token punctuation">&#123;</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token keyword">uint64_t</span> unassem_index_<span class="token punctuation">;</span>           <span class="token comment">// 未整理好的窗口位置</span>
+  <span class="token keyword">uint64_t</span> unaccept_index_<span class="token punctuation">;</span>          <span class="token comment">// 不能接收的窗口位置</span>
+  std<span class="token double-colon punctuation">::</span>string buffers_<span class="token punctuation">;</span>              <span class="token comment">//</span>
+  std<span class="token double-colon punctuation">::</span>map<span class="token operator">&lt;</span><span class="token keyword">uint64_t</span><span class="token punctuation">,</span> <span class="token keyword">uint64_t</span><span class="token operator">></span> map_<span class="token punctuation">;</span> <span class="token comment">// 存储的是尚未被整理的字符串的开始序列号和结束序列号</span>
+  <span class="token keyword">bool</span> is_last_flag_<span class="token punctuation">;</span>                <span class="token comment">// 是否为最后一个字符串</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><em>Reassembler</em>成员函数</strong></p>
+<ul>
+<li>insert函数：将收到的字符串进行插入，如设计思路中所说，需要现合并已有字符串。每次都会将收到字符串插入到buffer中（因为会收到重复的），只有当合并后的字符串满足要求才会移动指针。</li>
+<li>bytes_pending函数：记录当前有多少字符串还未归整，直接遍历map，将所有长度相加即可。</li>
+</ul>
+<p><strong>注意点</strong></p>
+<ul>
+<li>带有关闭标志的字符串可能会最后收到，但此时并不一定能关闭，且可能收到空字符串却拥有关闭标志的信息</li>
+<li>收到的字符串可能会超出当前窗口或是确认以前的字符串，此时应该丢弃</li>
+<li>收到的字符串可能一部分已经被确认，而剩余部分尚未确认，因为插入map时需注意首位</li>
+<li>合并字符串后并不一定能全部push，因为reciever大小有限，因此需要将不能push的部分重新插入到map中</li>
+<li>每次函数末尾都需要判断是否应当关闭输出</li>
+</ul>
+<h1 id="Lab2-the-TCP-receiver"><a href="#Lab2-the-TCP-receiver" class="headerlink" title="Lab2 the TCP receiver"></a>Lab2 the TCP receiver</h1><p>此lab主要实现接受底层传来的字节流，并处理回绕问题。</p>
+<p>为处理IP报文的回绕问题，此实验在内部使用64bit字节序（几乎不可能发生回绕），通过抽象一个<em>Wrap32</em>来解决其与32bit字节序互转问题，使得整体逻辑更加简单清晰。</p>
+<p>因而在整个实验中，共有三种序号：</p>
+<ul>
+<li>绝对字节序和流序号的区别为是否包括SYN&#x2F;FIN标志</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230628153046354.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230628153138023.png"></p>
+<p><strong><em>Wrap32</em>成员函数</strong></p>
+<ul>
+<li><p>wrap函数：用于将64位序号转为32位序号，其通过对比初始字节序来进行转化</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">Wrap32 <span class="token class-name">Wrap32</span><span class="token double-colon punctuation">::</span><span class="token function">wrap</span><span class="token punctuation">(</span> <span class="token keyword">uint64_t</span> n<span class="token punctuation">,</span> Wrap32 zero_point <span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> Wrap32 <span class="token punctuation">&#123;</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">uint32_t</span><span class="token operator">></span></span></span><span class="token punctuation">(</span> n <span class="token punctuation">)</span> <span class="token operator">+</span> zero_point<span class="token punctuation">.</span>raw_value_ <span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token comment">// 直接利用溢出来计算</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>unwrap函数：通过对比最近接受到的一个64位字节序checkpoint，从而将其转成64位，注意转成的数应当离checkpoint最近</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">uint64_t</span> <span class="token class-name">Wrap32</span><span class="token double-colon punctuation">::</span><span class="token function">unwrap</span><span class="token punctuation">(</span> Wrap32 zero_point<span class="token punctuation">,</span> <span class="token keyword">uint64_t</span> checkpoint <span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">&#123;</span>
+  <span class="token comment">// 参考：https://www.cnblogs.com/kangyupl/p/stanford_cs144_labs.html</span>
+  <span class="token comment">// 计算当前值到checkpoint对应的wrap32值的距离，</span>
+  <span class="token comment">// 还没搞懂为啥反着走ret会小于0，后面待调试</span>
+  <span class="token comment">// 这两个值相减，如果最高位是0，那么此值一定更接近checkpoint，是到checkpoint的最近步数</span>
+  <span class="token comment">// 但如果最高位是1，那么应该加上uint32_len（此时min_step为负数）此值才是到checkpoint的最小步数；而如果</span>
+  <span class="token keyword">int32_t</span> min_step <span class="token operator">=</span> raw_value_ <span class="token operator">-</span> <span class="token function">wrap</span><span class="token punctuation">(</span> checkpoint<span class="token punctuation">,</span> zero_point <span class="token punctuation">)</span><span class="token punctuation">.</span>raw_value_<span class="token punctuation">;</span>
+  <span class="token comment">// 将步数加到checkpoint上</span>
+  <span class="token comment">// int32_t转uint64时会将左边第一位复制到其左边第1~32位上。</span>
+  <span class="token comment">// 上面两值相减，如果最高位为0，此时会正常相加；而如果最高位为1，转换时在其高32为都会为1，那么ret最高位必定为1，也就必为负数(不一定为1，还是没弄明白咋回事)</span>
+  <span class="token keyword">int64_t</span> ret <span class="token operator">=</span> checkpoint <span class="token operator">+</span> min_step<span class="token punctuation">;</span>
+  <span class="token comment">// 如果反着走的话要加2^32</span>
+  <span class="token comment">// 如果为ret为负，则说明在高位多加了32位1，再加2^32则可以通过溢出来减去</span>
+  <span class="token keyword">return</span> ret <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">uint64_t</span><span class="token operator">></span></span></span><span class="token punctuation">(</span> ret <span class="token punctuation">)</span> <span class="token operator">:</span> ret <span class="token operator">+</span> <span class="token punctuation">(</span> <span class="token number">1ul</span> <span class="token operator">&lt;&lt;</span> <span class="token number">32</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p><strong><em>TCPReceiver</em>成员变量</strong></p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">TCPReceiver</span>
+<span class="token punctuation">&#123;</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+  Wrap32 zero_point_<span class="token punctuation">;</span>    <span class="token comment">// 初始sequence number</span>
+  <span class="token keyword">uint64_t</span> check_point_<span class="token punctuation">;</span> <span class="token comment">// 下一个待发送的stream index，初始为UINT64_MAX代表SYN未收到过</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><em>TCPReceiver</em>成员函数</strong></p>
+<ul>
+<li>receive函数：处理接受到的报文段，需要注意一些特别情况，在注意点阐述。<ul>
+<li>SYN可能会被多次发送，且可能和数据或FIN一起发送，当和数据或FIN一起发送时，需要注意送入到reassembler中的数据长度，以及check_pint应该加上多少</li>
+<li>当FIN和数据一起发送的时候，需要处理check_point大小</li>
+<li>需要注意处理从未收到过SYN而收到数据或FIN的情况，此时check_point不应当增加</li>
+</ul>
+</li>
+<li>send函数：需要向发送方发回当前确认号和当前窗口大小，窗口大小最大为65535, 需要注意此确认号应当包括SYN和FIN，为sequence number。</li>
+</ul>
+<h1 id="Lab3-the-TCP-sender"><a href="#Lab3-the-TCP-sender" class="headerlink" title="Lab3 the TCP sender"></a>Lab3 the TCP sender</h1><p>此lab算是难度最大的，需要注意的细节特别多。其需要实现TCP的发送，包括重传等。整体关于发送和接收的还好处理，重传部分是整个lab最关键部分。</p>
+<p><strong>重传规则</strong>：</p>
+<ul>
+<li>重传无需监控每个报文（耗费资源），每次只需要监控一个报文即可。</li>
+<li>当一个定时器被关闭时，如果还有等待确认的报文段，则需要重新打开定时器</li>
+<li>当一个定时器超时，只需要重传序号最小的报文</li>
+<li>当接收方发来的窗口大小大于0时，如果定时器超时则会执行指数避退，而窗口为0则不执行指数避退，使用原来的超时时间。注意此窗口大小和发送方的窗口大小不同，发送方的窗口大小最小为1。</li>
+</ul>
+<p><strong>设计</strong>：</p>
+<ul>
+<li>使用一个deque存储等待发送的报文段（其实应当使用queue），使用一个deque存储已经发送但等待确认的报文（使用双向是因为超时重传报文应该置为首部，避免遍历所有来找到最小序号报文）</li>
+<li>需要标记SYN和FIN是否已经发送</li>
+</ul>
+<p><strong><em>TCPSender</em>成员变量</strong></p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">TCPSender</span>
+<span class="token punctuation">&#123;</span>
+  Wrap32 isn_<span class="token punctuation">;</span>              <span class="token comment">// 初始序列号</span>
+  <span class="token keyword">uint64_t</span> initial_RTO_ms_<span class="token punctuation">;</span> <span class="token comment">// 初始超时时间</span>
+  <span class="token keyword">uint64_t</span> unack_idx_<span class="token punctuation">;</span>      <span class="token comment">// 尚未收到确认的第一个stream index，注意这不是absolute sequence number</span>
+  <span class="token keyword">uint64_t</span> next_send_idx_<span class="token punctuation">;</span>  <span class="token comment">// 下一个待发送的stream index</span>
+  <span class="token keyword">uint16_t</span> win_size_<span class="token punctuation">;</span>       <span class="token comment">// 真实的发送窗口大小，最小为1，初始为1</span>
+  <span class="token keyword">uint16_t</span>
+    recv_win_size_<span class="token punctuation">;</span> <span class="token comment">// 从接收方接受到的发送窗口大小，最小为0，初始为1，主要用于RTO是否翻倍判断:大于0，则不翻倍，否则翻倍</span>
+  std<span class="token double-colon punctuation">::</span>deque<span class="token operator">&lt;</span>TCPSenderMessage<span class="token operator">></span> messages_out_<span class="token punctuation">;</span>         <span class="token comment">// 等待发送的报文段</span>
+  std<span class="token double-colon punctuation">::</span>deque<span class="token operator">&lt;</span>TCPSenderMessage<span class="token operator">></span> messages_outstanding_<span class="token punctuation">;</span> <span class="token comment">// 已经发送但等待确认的报文</span>
+  size_t timer_<span class="token punctuation">;</span>                                      <span class="token comment">// 当前定时器时间</span>
+  <span class="token keyword">bool</span> timer_runing_<span class="token punctuation">;</span>                                 <span class="token comment">// 当前定时器是否在运行</span>
+  <span class="token keyword">uint64_t</span> outstanding_count_<span class="token punctuation">;</span> <span class="token comment">// 当前待确认的sequence number数量，注意不是stream index，因此包括SYN和FIN</span>
+  <span class="token keyword">bool</span> is_SYN_<span class="token punctuation">;</span>                <span class="token comment">// 是否成功发送SYN初始报文</span>
+  <span class="token keyword">bool</span> is_SYN_sending_<span class="token punctuation">;</span> <span class="token comment">// SYN是否正在发送中，此时会占据一个窗口大小</span>
+  <span class="token keyword">bool</span> is_FIN_<span class="token punctuation">;</span>         <span class="token comment">// 是否成功发送FIN报文</span>
+  <span class="token keyword">uint16_t</span> retrans_times_<span class="token punctuation">;</span> <span class="token comment">// 当前重传次数，主要用于指数避退和当前连接是否在重传过多后进行关闭</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><em>TCPSender</em>成员函数</strong></p>
+<ul>
+<li>maybe_send函数：弹出需要发送的报文。<ul>
+<li>从messages_out_中弹出报文，并将其插入到messages_outstanding ，如果是重传报文则插入队首，否则插入队尾。</li>
+<li>没有开启定时器则应当开启。</li>
+</ul>
+</li>
+<li>push函数：插入需要发送的报文。<ul>
+<li>如果SYN尚未发送，则先添加一个SYN报文，此时也需要检查输出流是否已关闭，若已经关闭则应当和SYN同时发出FIN。然后不断冲输出流中取出需要发送的数据形成报文添加到messages_out中。</li>
+<li>第一次发送SYN时需要检查应当置FIN。</li>
+<li>发送SYN也需要占用窗口大小，可以设置一个标志记录SYN正在发送</li>
+<li>outstanding_count_需要在添加进messages_out时就开始计数，在messages_out弹出时计数测试会不通过（其实这有点怪异）</li>
+<li>在每次发送数据时，需要判断FIN是否应当一起发送，且如果可发送大小无法装下FIN，那么FIN应当单独发送</li>
+<li>在每次函数末尾处，都需要判断FIN是否需要发送</li>
+<li>send_empty_message函数发送的空消息序号应当加上is_FIN标志</li>
+</ul>
+</li>
+<li>receive函数：需要处理接受方发送的消息，包括更新已确认号和窗口大小。<ul>
+<li>即使此窗口大小为0，发送窗口大小最小为1。需要拒绝收到的确认号小于当前确认号或大于待发送序号，这里特别需要注意三种index的处理。</li>
+<li>如果收到的确认号不足以确认整个报文，那么对整个报文都不进行确认（确认部分测试反而无法通过）。</li>
+<li>最后如果定时器未开启则开启。</li>
+</ul>
+</li>
+<li>tick函数：管理定时器<ul>
+<li>如果待确认报文队列为空，则不做处理</li>
+<li>如果定时器未运行，则开启定时器</li>
+<li>如果定时器超时则将序号最小报文重新发送，并且此时需要通过窗口大小来判断是否需要执行指数避退。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Lab4-the-network-interface"><a href="#Lab4-the-network-interface" class="headerlink" title="Lab4 the network interface"></a>Lab4 <strong>the network interface</strong></h1><p>此lab较简单，容易实现。</p>
+<p>此lab主要实现一个介于网络层到以太链路层的中间操作，其目的是将IP数据报打包成以太帧进行发送，打包过程中需要查询以太网地址，因而需要实现ARP协议请求及回复等处理。</p>
+<p>此lab通过实现网络接口层，最后通过调用Linux提供的TAP接口，将以太帧发送出去，即文档提到的<strong>TCP-in-IP-in-Ethernet</strong>方式。</p>
+<p><strong><em>NetworkInterface</em>类成员</strong></p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">NetworkInterface</span>
+<span class="token punctuation">&#123;</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+  EthernetAddress ethernet_address_<span class="token punctuation">;</span> <span class="token comment">// 主机以太网地址</span>
+  Address ip_address_<span class="token punctuation">;</span> <span class="token comment">// 主机IP地址</span>
+  <span class="token comment">//添加成员</span>
+  std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span>Address<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>pair<span class="token operator">&lt;</span>EthernetAddress<span class="token punctuation">,</span> size_t<span class="token operator">>></span>
+    ip2eth_map_<span class="token punctuation">;</span> <span class="token comment">// IP:(eth,time_to_expired), 记录IP到以太网的映射及当前还有多久过期</span>
+  std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span>Address<span class="token punctuation">,</span> size_t<span class="token operator">></span> arp_req_sending_<span class="token punctuation">;</span> <span class="token comment">// 记录当前正在请求的arp及请求过去时间</span>
+  std<span class="token double-colon punctuation">::</span>queue<span class="token operator">&lt;</span>EthernetFrame<span class="token operator">></span> eth_frame_out_<span class="token punctuation">;</span>             <span class="token comment">// 需要从以太网接口输出的帧</span>
+  std<span class="token double-colon punctuation">::</span>queue<span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>pair<span class="token operator">&lt;</span>InternetDatagram<span class="token punctuation">,</span> Address<span class="token operator">>></span> datagram_out_<span class="token punctuation">;</span> <span class="token comment">// 待处理的数据报，例如因等待arp请求而等待的数据报</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">// Address哈希值</span>
+<span class="token keyword">namespace</span> std <span class="token punctuation">&#123;</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">hash</span><span class="token operator">&lt;</span>Address<span class="token operator">></span>
+<span class="token punctuation">&#123;</span>
+  size_t <span class="token keyword">operator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">(</span> <span class="token keyword">const</span> Address<span class="token operator">&amp;</span> addr <span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> hash<span class="token operator">&lt;</span>string<span class="token operator">></span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">(</span> addr<span class="token punctuation">.</span><span class="token function">ip</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><em>NetworkInterface</em>类函数</strong></p>
+<ul>
+<li>send_datagram：发送数据报，若能得到以太网地址则直接发送，否则发送ARP请求，一定时间内不发送重复地址的ARP请求<ul>
+<li>逻辑如上，lab中已经提供了序列化类用以将IP消息或ARP消息序列化</li>
+</ul>
+</li>
+<li>recv_frame：接受到以太网帧应该进行的处理，包括处理IP消息，ARP请求、回复消息，以及对等待ARP回复的数据报进行发送<ul>
+<li>需要注意的是，如果为ARP request消息，需要对比其目的IP地址是否为本机IP，如果合法需要将此条记录加入映射中；在收到ARP reply消息时，需要将等待ARP消息的数据报进行发送。</li>
+</ul>
+</li>
+<li>tick：主要是对arp记录过期的处理，及重复ARP请求记录的处理<ul>
+<li>删除过期的ARP请求，将超时的正在发送的arp请求删除，以便可以再发送相同地址的的arp请求</li>
+</ul>
+</li>
+<li>maybe_send：不断从以太帧队列eth_frame_out_拿出队头元素即可。</li>
+</ul>
+<p><strong>注意点</strong></p>
+<ul>
+<li>ARP请求消息需对比本机IP地址，且需要添加此条映射</li>
+<li>arp_req_sending_中的时间记录的是已经过去时间， ip2eth_map记录的是还剩多久过期</li>
+<li>填充以太帧数据部分直接将IP消息或ARP消息调用serialize方法即可</li>
+</ul>
+<h1 id="Lab5"><a href="#Lab5" class="headerlink" title="Lab5"></a>Lab5</h1><p>此lab实现路由管理，包括插入路由信息以及将数据报转发到对应窗口。</p>
+<p>数据报在转发时，其目的IP地址不会变，而下一条IP地址会通过查询路由表得到，当下一跳地址为空时，则下一跳为终点。而发送以太帧的目的地址则是通过查询下一跳地址得到。</p>
+<p><strong>设计</strong>：</p>
+<ul>
+<li>为了处理路由表更新情况，使用了一个哈希表进行存储路由信息（测试用例中没有更新路由信息，直接使用一个vector即可），key值为route_prefix和prefix_length，value则为剩下数据</li>
+</ul>
+<p><strong><em>Router</em>成员变量</strong></p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Router</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token comment">// The router's collection of network interfaces</span>
+  std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>AsyncNetworkInterface<span class="token operator">></span> interfaces_ <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token comment">// 以太网接口</span>
+  std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span>SubNetAddr<span class="token punctuation">,</span> SubNetInfo<span class="token operator">></span> route_map_<span class="token punctuation">;</span> <span class="token comment">// 路由表</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">struct</span> <span class="token class-name">SubNetAddr</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">uint32_t</span> route_prefix<span class="token punctuation">;</span>
+  <span class="token keyword">uint8_t</span> prefix_length<span class="token punctuation">;</span>
+  <span class="token keyword">bool</span> <span class="token keyword">operator</span><span class="token operator">==</span><span class="token punctuation">(</span> <span class="token keyword">const</span> SubNetAddr<span class="token operator">&amp;</span> other <span class="token punctuation">)</span> <span class="token keyword">const</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token operator">-></span>route_prefix <span class="token operator">==</span> other<span class="token punctuation">.</span>route_prefix <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token operator">-></span>prefix_length <span class="token operator">==</span> other<span class="token punctuation">.</span>prefix_length<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token keyword">struct</span> <span class="token class-name">SubNetInfo</span>
+<span class="token punctuation">&#123;</span>
+  std<span class="token double-colon punctuation">::</span>optional<span class="token operator">&lt;</span>Address<span class="token operator">></span> next_hop<span class="token punctuation">;</span>
+  size_t interface_num<span class="token punctuation">;</span>
+  <span class="token function">SubNetInfo</span><span class="token punctuation">(</span> std<span class="token double-colon punctuation">::</span>optional<span class="token operator">&lt;</span>Address<span class="token operator">></span> next_hop1<span class="token punctuation">,</span> size_t interface_num1 <span class="token punctuation">)</span>
+    <span class="token operator">:</span> <span class="token function">next_hop</span><span class="token punctuation">(</span> next_hop1 <span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">interface_num</span><span class="token punctuation">(</span> interface_num1 <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><em>Router</em>成员函数</strong></p>
+<ul>
+<li>add_route函数：将路由信息添加到map中即可</li>
+<li>route函数：遍历所有接口，如果接口有数据报待处理则处理，没有则遍历下一个接口，注意此函数不能一直循环（最开始看到这函数不知道咋用。。而且还写成了一直循环。。）<ul>
+<li>当数据报的ttl小于等于1时，则直接进行丢弃</li>
+<li>从路由表中找最佳匹配（直接通过比对当前地址和路由地址的前缀是否相同即可，可通过移位操作，相同则匹配），找到最长匹配即可。没找到匹配则需丢弃。</li>
+<li>注意如果找最佳匹配时使用移位操作，则需要特别判断前缀长度为0情况，此时移32位会发生错误。</li>
+<li>如果路由信息中无下一跳地址，则应当使用数据报中的目的地址作为下一跳地址</li>
+<li>特别注意！！发送前应当重新计算校验和。</li>
+</ul>
+</li>
+</ul>
+<p>出现问题：</p>
+<ul>
+<li>payload: bad IPv4 datagram。即数据报解析失败，最开始以为是没数据之类原因，调了一个多小时，后来在网上看见才知道应该重新计算校验和。</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">mujiubai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://mujiubai.github.io/2023/06/28/%E9%A1%B9%E7%9B%AE/CS144/">https://mujiubai.github.io/2023/06/28/%E9%A1%B9%E7%9B%AE/CS144/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">mujiubai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                                    <span class="chip bg-color">计算机网络</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/07/11/c++/%E6%B7%B1%E5%BA%A6%E6%8E%A2%E7%B4%A2C++%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="深度探索C++对象模型">
+                        
+                        <span class="card-title">深度探索C++对象模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-11
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/06/20/c++/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="面试问题">
+                        
+                        <span class="card-title">面试问题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Other/" class="post-category">
+                                    Other
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">面试</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">mujiubai</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">321.2k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/mujiubai" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1057378931@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1057378931" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1057378931" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -458,6 +458,60 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88-middle/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="17. 电话号码的字母组合">
+                            
+                            <span class="card-title">17. 电话号码的字母组合</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                17. 电话号码的字母组合First：回溯遍历即可
+
+方法1：回溯
+使用一个map记录下每个数字对应哪些字母，然后回溯遍历每个数字对应的字母即可
+中止条件：遍历下标值和digits大小相等时
+遍历过程：从小到大遍历digits每个数字对应的
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-216-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CIII-middle/">
                         <div class="card-image">
                             
@@ -563,23 +617,25 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-37-%E8%A7%A3%E6%95%B0%E7%8B%AC-difficult/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="37. 解数独">
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="39. 组合总和">
                             
-                            <span class="card-title">37. 解数独</span>
+                            <span class="card-title">39. 组合总和</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                37. 解数独First：思想不难，但细节较多
+                                39. 组合总和First：基础的回溯算法再加上一点剪枝
 
 方法1：回溯
-使用used1矩阵来记录每一个3*3宫格内数字使用情况，使用used2来记录每行数字使用情况，使用used3矩阵来记录每列数字使用情况。计算出所有需要填充的空格数dianNum
+先对数组进行排序，使得可以进行剪枝优化。再使用常规的回溯方法不断递归重复找即可。
+中止条件：当需要找的target为0时，将其添加进结果中
+遍历过程：从小到大遍历，将
                             
                         </div>
                         <div class="publish-info">
@@ -615,25 +671,23 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-37-%E8%A7%A3%E6%95%B0%E7%8B%AC-difficult/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="39. 组合总和">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="37. 解数独">
                             
-                            <span class="card-title">39. 组合总和</span>
+                            <span class="card-title">37. 解数独</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                39. 组合总和First：基础的回溯算法再加上一点剪枝
+                                37. 解数独First：思想不难，但细节较多
 
 方法1：回溯
-先对数组进行排序，使得可以进行剪枝优化。再使用常规的回溯方法不断递归重复找即可。
-中止条件：当需要找的target为0时，将其添加进结果中
-遍历过程：从小到大遍历，将
+使用used1矩阵来记录每一个3*3宫格内数字使用情况，使用used2来记录每行数字使用情况，使用used3矩阵来记录每列数字使用情况。计算出所有需要填充的空格数dianNum
                             
                         </div>
                         <div class="publish-info">
@@ -1038,60 +1092,6 @@
             </div>
               <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-78-%E5%AD%90%E9%9B%86-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="78. 子集">
-                            
-                            <span class="card-title">78. 子集</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                78. 子集First：很简单，注意添加空就可
-
-方法1：回溯
-按回溯递归进行遍历，记录每次路径即可，需要在开头添加一个空容器。
-中止条件：当index等于数组长度时，结束
-遍历过程：从index遍历，每当添加一个数字到temp中后，就将t
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
-                            <span class="chip bg-color">Alg-回溯</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
         </div>
     </article>
 
@@ -1109,7 +1109,7 @@
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">10 / 15</div>
+            <div class="center-align b-text-gray">10 / 16</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -1196,7 +1196,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">317.1k</span>
+                        class="white-color">321.2k</span>
             
             
             
