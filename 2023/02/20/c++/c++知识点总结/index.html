@@ -473,21 +473,21 @@ C++与C的不同点：C++基本兼容C的语法，但相比C多了：
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-06-20
+                    2023-09-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    10.6k
+                    11.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    37 分
+                    38 分
                 </div>
                 
 
@@ -662,7 +662,7 @@ MyAllocList<span class="token operator">&lt;</span>Widget<span class="token oper
 <ul>
 <li>结构体第一个变量的地址（起始地址）能够被其最宽的成员大小整除</li>
 <li>结构体每个成员相对于起始地址的偏移能够被其自身大小和对齐系数的较小值整除，如果不能则在前一个成员后面补充字节</li>
-<li>结构体总体大小能够被最宽的成员的大小整除，如不能则在后面补充字节</li>
+<li>结构体总体大小能够被最宽的成员的大小和对齐系数中的较小值整除，如不能则在后面补充字节</li>
 </ul>
 <p>在32位系统中，默认对齐系数是4，而64位默认对齐系数是8。</p>
 <p>可通过**pragma pack(n)**来修改对齐系数</p>
@@ -899,7 +899,9 @@ MyAllocList<span class="token operator">&lt;</span>Widget<span class="token oper
 <p>类继承时，遵循private&gt;protected&gt;public将父类成员权限转换。</p>
 <h1 id="类的创建过程"><a href="#类的创建过程" class="headerlink" title="类的创建过程"></a>类的创建过程</h1><ol>
 <li>分配类型所需要空间，无论栈还是堆。</li>
+<li>先调用虚基类的构造函数</li>
 <li>根据继承表依次调用父类的构造函数</li>
+<li>设置虚指针指定的虚表</li>
 <li>根据定义成员变量的顺序依次调用成员变量的构造函数。</li>
 <li>执行构造函数体中的代码。</li>
 </ol>
@@ -934,9 +936,11 @@ MyAllocList<span class="token operator">&lt;</span>Widget<span class="token oper
 <li>析构函数没有参数、没有返回值、不能重载</li>
 <li>析构函数会在销毁对象时自动调用，在对象的整个生命周期内最多被调用一次</li>
 <li>析构函数执行过程：<ol>
+<li>先更改虚指针的指向（使得析构函数中不再有多态）</li>
 <li>先执行析构函数本身代码</li>
 <li>调用成员类的析构函数</li>
 <li>调用父类的析构函数</li>
+<li>调用虚基类的析构函数</li>
 </ol>
 </li>
 <li>如果类中没有动态资源，也不需要做善后工作，缺省析构就完全共用了，不需要再实现新析构函数</li>
@@ -965,7 +969,7 @@ MyAllocList<span class="token operator">&lt;</span>Widget<span class="token oper
 <li><p>当一类对象给另一个类对象赋值时，就会调用赋值构造</p>
 </li>
 <li><p>定义一个类时使用&#x3D;操作符是调用拷贝构造，并非赋值构造</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> opeator <span class="token operator">=</span> <span class="token punctuation">(</span>类<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">类<span class="token operator">&amp;</span> opeator <span class="token operator">=</span> <span class="token punctuation">(</span>类<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 T a<span class="token operator">=</span>b<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 </ul>
 <p>什么情况下需要实现拷贝构造和赋值构造？</p>
@@ -974,7 +978,7 @@ T a<span class="token operator">=</span>b<span class="token punctuation">;</span
 </ul>
 <p>注意：</p>
 <ul>
-<li>一旦为一个类实现了拷贝构造，那么也一定要实现赋值构造。</li>
+<li>一旦为一个类实现了拷贝构造，那么也一定要实现赋值构造和析构函数。</li>
 <li>缺省的拷贝构造、赋值构造函数不光会拷贝本类的数据，也会调用成员类对象和父类的拷贝构造和赋值构造</li>
 </ul>
 <h1 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h1><p><code>this</code> 指针是一个隐含于每一个非静态成员函数中的特殊指针。它指向正在被该成员函数操作的那个对象。</p>
@@ -1008,9 +1012,14 @@ T a<span class="token operator">=</span>b<span class="token punctuation">;</span
 
 <p>注意：</p>
 <ul>
-<li>友元关系在类之间不能传递，即类 A 是类 B 的友元，类 B 是类 C 的友元，并不能导出类 A 是类 C 的友元</li>
-<li>友元关系是单向性的</li>
-<li>友元声明数量不受限制</li>
+<li><p>友元关系在类之间不能传递，即类 A 是类 B 的友元，类 B 是类 C 的友元，并不能导出类 A 是类 C 的友元</p>
+</li>
+<li><p>友元关系是单向性的</p>
+</li>
+<li><p>友元声明数量不受限制</p>
+</li>
+<li><p>友元类不可用在类中定义，友元函数可以在类中定义。两者皆可在三种权限范围内进行定义。</p>
+</li>
 </ul>
 <h1 id="操作符函数重载"><a href="#操作符函数重载" class="headerlink" title="操作符函数重载"></a>操作符函数重载</h1><p>不能修改操作符的参数个数，不能发明新的操作符。不能重载的操作符有：</p>
 <ul>
@@ -1075,7 +1084,11 @@ T a<span class="token operator">=</span>b<span class="token punctuation">;</span
 </li>
 </ul>
 </li>
-<li><p>隐藏：父子类之间的同名成员如果没有形成覆盖，且能通过编译，必定构成隐藏。</p>
+<li><p>隐藏：</p>
+<ul>
+<li>父子类之间的同名成员如果没有形成覆盖，且能通过编译，必定构成隐藏。</li>
+<li><strong>两个函数，函数名相同参数不同，无论基类函数是不是虚函数，都会被隐藏。</strong></li>
+</ul>
 </li>
 </ul>
 <p><strong>动态多态</strong>：当子类覆盖了父类的虚函数时，通过父类指针指向子类对象时，调用虚函数，会根据具体的对象是谁来决定执行谁的函数</p>
@@ -1101,16 +1114,22 @@ T a<span class="token operator">=</span>b<span class="token punctuation">;</span
 <p>纯抽象类：所有成员函数都是纯虚函数，这种只能被继承的类叫纯抽象类。</p>
 <h1 id="虚函数表和虚析构"><a href="#虚函数表和虚析构" class="headerlink" title="虚函数表和虚析构"></a>虚函数表和虚析构</h1><p>虚函数表：</p>
 <ul>
-<li>在C++的类中，一旦成员函数中有虚函数，这个类中就会多一个虚函数表指针，这个指针指向一个虚函数表，表里面记录了<br>这个类中所有的虚函数，</li>
-<li>当这个类被继承，它的子类中也会有一个虚函数表（不管子类中有没有虚函数），如果子类的成员函数中有函数签名与父<br>类的虚函数一样，就会用子类中的函数替换它在虚函数表中的位置，这样就达到了覆盖的效果。</li>
+<li>在C++的类中，一旦成员函数中有虚函数，这个类中就会多一个虚函数表指针，这个指针指向一个虚函数表，表里面记录了这个类中所有的虚函数，</li>
+<li>当这个类被继承，它的子类中也会有一个虚函数表（不管子类中有没有虚函数），如果子类的成员函数中有函数签名与父类的虚函数一样，就会用子类中的函数替换它在虚函数表中的位置，这样就达到了覆盖的效果。如果新增虚函数，也会被添加到该虚表中。</li>
 <li>当通过类指针或引用调用函数时，会根据对象中实际的虚函数表记录来调用函数，这样就达到了多态的效果。</li>
 <li>多态类中的虚函数表建立在编译阶段。</li>
 </ul>
 <p>虚析构：</p>
 <ul>
-<li>当使用delete释放一个父类指针时，不管实际指向的对象是子类还是父类都只会调用父类的析构函数（多态肯定会出现的问题）。如果子类的析构函数有需要负责释放的内存，就会造成内存泄漏</li>
-<li>为了解决这个问题，可以把父类的析构函数设置为虚函数，<em>析构函数进行覆盖时不会比较函数名</em>。</li>
-<li>当父类的析构函数为虚函数时，通过父类指针或引用释放子类对象时，会自动调用子类的析构函数，子类的析构函数执行完成后也会调用父类的析构函数。</li>
+<li><p>当使用delete释放一个父类指针时，不管实际指向的对象是子类还是父类都只会调用父类的析构函数（多态肯定会出现的问题）。如果子类的析构函数有需要负责释放的内存，就会造成内存泄漏</p>
+<ul>
+<li>注意，如果是多继承，使用第二个基类的指针指向派生类，且没有将析构定义为虚函数，delete该指针时会报错，因为this指针位置不对，是偏移后的地址。</li>
+</ul>
+</li>
+<li><p>为了解决这个问题，可以把父类的析构函数设置为虚函数，<em>析构函数进行覆盖时不会比较函数名</em>。</p>
+</li>
+<li><p>当父类的析构函数为虚函数时，通过父类指针或引用释放子类对象时，会自动调用子类的析构函数，子类的析构函数执行完成后也会调用父类的析构函数。</p>
+</li>
 </ul>
 <h1 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h1><p>C++中为了兼容C语言，<code>(目标类型)源类型</code> 依然可以继续使用，但C语言的强制类型转换安全性差，因此建议使用C++中的强制类型转换。</p>
 <p>数据类型转换的本质：数据类型转换，就是对数据所占用的二进制位做出重新解释。</p>
@@ -1134,9 +1153,20 @@ T a<span class="token operator">=</span>b<span class="token punctuation">;</span
 </li>
 <li><p>const_cast&lt;目标类型&gt;(data)    </p>
 <ul>
-<li><p>仅用于进行去除 const 属性和volatile 属性，它也是四个强制类型转换运算符中唯一能够去除 const 属性的运算符。</p>
+<li><p>功能：为值类型加上const（只是经常不用，因为存在默认转换）或为指针或引用去除 const 属性和volatile 属性（根据声明决定去除属性），它也是四个强制类型转换运算符中唯一能够去除 const 属性的运算符。</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//去掉const：</span>
+type <span class="token operator">*</span> variable <span class="token operator">=</span><span class="token generic-function"><span class="token function">const_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span> <span class="token keyword">typename</span><span class="token operator">*</span> <span class="token operator">></span></span></span> <span class="token punctuation">(</span>expression）
+<span class="token comment">//加上const：</span>
+<span class="token keyword">const</span> type <span class="token operator">*</span> variable <span class="token operator">=</span><span class="token generic-function"><span class="token function">const_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span> <span class="token keyword">typename</span> <span class="token operator">></span></span></span> <span class="token punctuation">(</span>expression<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>如果去掉 const的操作不唯一的话，例如常量指针或指针常量，目标指针的声明就是 确定采用哪一种方式</p>
 </li>
 <li><p>注意，<strong>变量本身的const属性是不能去除的</strong>，要想修改变量的值，一般是去除指针（或引用）的const属性，再进行间接修改（这里使用了编译时的常量折叠）。</p>
+<ul>
+<li>注意，这种行为在C++中属于未定义行为。</li>
+<li>例如下面代码，使用ps指针进行修改，变量会被修改，但打印s和ps会发现s仍然是原来字符串，而ps则发生了改变，但两个地址确实一样的。这是因为编译器会对常量进行优化，编译时就修改了打印的值。</li>
+<li>相应的，因为编译器进行了替换，例如函数调用也看不见被修改后的值</li>
+</ul>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">const</span> string s <span class="token operator">=</span> <span class="token string">"Inception"</span><span class="token punctuation">;</span>
 string<span class="token operator">&amp;</span> p <span class="token operator">=</span> <span class="token generic-function"><span class="token function">const_cast</span> <span class="token generic class-name"><span class="token operator">&lt;</span>string<span class="token operator">&amp;</span><span class="token operator">></span></span></span> <span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
 string<span class="token operator">*</span> ps <span class="token operator">=</span> <span class="token generic-function"><span class="token function">const_cast</span> <span class="token generic class-name"><span class="token operator">&lt;</span>string<span class="token operator">*</span><span class="token operator">></span></span></span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// &amp;s 的类型是 const string*</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
@@ -1219,7 +1249,7 @@ string<span class="token operator">*</span> ps <span class="token operator">=</s
 <ul>
 <li><code>erase()</code><ul>
 <li>当序列容器调用<code>erase()</code>方法后，当前位置到容器末尾元素的所有迭代器全部失效。<ul>
-<li>C++03: deque在头尾删除，只会使得被删除迭代器和引用无效。而在其他位置删除会使得所有迭代器和引用都失效。c++11中有一点改变，见参考2.</li>
+<li>C++03: deque在头尾删除，只会使得被删除迭代器和引用无效。而在其他位置删除会使得所有迭代器和引用都失效。c++11中有一点改变，见参考2.（应该是可能失效）</li>
 </ul>
 </li>
 <li>当关联容器调用<code>erase()</code>方法后，只会使当前迭代器失效，不会造成其他迭代器失效</li>
@@ -1236,7 +1266,7 @@ string<span class="token operator">*</span> ps <span class="token operator">=</s
 <li>如果容器扩容，在其他地方重新又开辟了一块内存。原来容器底层的内存上所保存的迭代器全都失效了。</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/qgST0.png"></p>
-
+<h1 id="函数调用过程？被调用函数参数怎么压栈的"><a href="#函数调用过程？被调用函数参数怎么压栈的" class="headerlink" title="函数调用过程？被调用函数参数怎么压栈的"></a>函数调用过程？被调用函数参数怎么压栈的</h1><h1 id="编译过程，linux二进制格式"><a href="#编译过程，linux二进制格式" class="headerlink" title="编译过程，linux二进制格式"></a>编译过程，linux二进制格式</h1>
                 
             </div>
             <hr/>
@@ -1404,13 +1434,13 @@ string<span class="token operator">*</span> ps <span class="token operator">=</s
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%80%A7%E8%83%BDMySQL/">
+                <a href="/2023/02/15/c++/Effective_Modern_C++/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="高性能MySQL-第三版笔记">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Effective Modern C++">
                         
-                        <span class="card-title">高性能MySQL-第三版笔记</span>
+                        <span class="card-title">Effective Modern C++</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1421,14 +1451,14 @@ string<span class="token operator">*</span> ps <span class="token operator">=</s
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-category">
-                                    计算机基础知识
+                            <a href="/categories/C/" class="post-category">
+                                    C++
                                 </a>
                             
                             
@@ -1440,10 +1470,6 @@ string<span class="token operator">*</span> ps <span class="token operator">=</s
                     
                     <a href="/tags/C/">
                         <span class="chip bg-color">C++</span>
-                    </a>
-                    
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
                     </a>
                     
                 </div>
@@ -1641,7 +1667,7 @@ string<span class="token operator">*</span> ps <span class="token operator">=</s
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">321.2k</span>
+                        class="white-color">378.1k</span>
             
             
             

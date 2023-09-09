@@ -468,20 +468,20 @@
                 </a>
                 
                 
-                <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="计算机基础知识: 6">
+                <a href="/categories/Other/" title="Other: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">计算机基础知识
-                        <span class="tag-length">6</span>
+                            style="background-color: #F5EEF8;">Other
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/Other/" title="Other: 1">
+                <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="计算机基础知识: 7">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D5F5E3;">Other
-                        <span class="tag-length">1</span>
+                            style="background-color: #D5F5E3;">计算机基础知识
+                        <span class="tag-length">7</span>
                     </span>
                 </a>
                 
@@ -495,11 +495,11 @@
                 </a>
                 
                 
-                <a href="/categories/LeetCode/" title="LeetCode: 160">
+                <a href="/categories/LeetCode/" title="LeetCode: 189">
                     <span class="chip center-align waves-effect waves-light
                              chip-active "
                             style="background-color: #FEF9E7;">LeetCode
-                        <span class="tag-length">160</span>
+                        <span class="tag-length">189</span>
                     </span>
                 </a>
                 
@@ -517,22 +517,22 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-1029-%E4%B8%A4%E5%9C%B0%E8%B0%83%E5%BA%A6-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-93-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="1029. 两地调度">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="93. 复原 IP 地址">
                             
-                            <span class="card-title">1029. 两地调度</span>
+                            <span class="card-title">93. 复原 IP 地址</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                1029. 两地调度First：快20天没刷题了，没做出来，想的是确定一个维度在来做，看了解析发现思想是真简洁
+                                93. 复原 IP 地址First：在细节处折腾了好久，虽然最后还是做出来了
 
-方法1：贪心
-先将所有都派往A公司，然后从其中选出N个人改变行程前往B公司，那么应该选priceB-priceA最小的N个人才
+方法1：回溯
+题目中规定了逗号只能有三个，因此使用k来记录现有逗号数量（不包括最后一个，因为是要删除的），index来记录从哪开始遍历。不断递归重复找，按顺序遍
                             
                         </div>
                         <div class="publish-info">
@@ -555,8 +555,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -566,22 +566,24 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-636-%E5%87%BD%E6%95%B0%E7%9A%84%E7%8B%AC%E5%8D%A0%E6%97%B6%E9%97%B4-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="636. 函数的独占时间">
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="回溯算法理论总结">
                             
-                            <span class="card-title">636. 函数的独占时间</span>
+                            <span class="card-title">回溯算法理论总结</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                636. 函数的独占时间First：比较难处理的是遇到先end后start且中间有空格的情况，这就会导致必须使用栈来存储信息。目前方法效率较低
+                                回溯法解决的问题回溯法，一般可以解决如下几种问题：
 
-方法1：栈
-每次取相邻两组数据进行分析，如果第一组数据是start则将其压入栈中，然后分析第二
+组合问题：N个数里面按一定规则找出k个数的集合
+切割问题：一个字符串按一定规则有几种切割方式
+子集问题：一个N个数的集合里有多少符合条件的子集
+排列问题：N个数按一定规则全排列，有几种排
                             
                         </div>
                         <div class="publish-info">
@@ -604,8 +606,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -615,24 +617,24 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-1005-K%E6%AC%A1%E5%8F%96%E5%8F%8D%E5%90%8E%E6%9C%80%E5%A4%A7%E5%8C%96%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C-simple/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-90-%E5%AD%90%E9%9B%86%20II-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="45. 跳跃游戏 II">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="90. 子集 II">
                             
-                            <span class="card-title">45. 跳跃游戏 II</span>
+                            <span class="card-title">90. 子集 II</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                45. 跳跃游戏 IIFirst：折腾了半天，细节一直没搞好，总想着用最高效率，但这样又会太抠细节
+                                90. 子集 IIFirst：注意不遍历同层相同值即可
 
-方法1：贪心
-局部最优：将每个负数变为正数
-全局最优：尽量将所有负数都变为正数
-先对数组进行排序，将所有负数变为正数，如果负数数量为大于等
+方法1：回溯
+和78题差不多，只是本题关键是避免重复值，先对数组进行排序，使得避免重复。
+中止条件：当index与数组大小相同时，结束
+遍历过程：从小到大遍历，假设遍历到i，如果nu
                             
                         </div>
                         <div class="publish-info">
@@ -655,8 +657,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -666,27 +668,24 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-347-%E5%89%8DK%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-78-%E5%AD%90%E9%9B%86-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="347. 前 K 个高频元素">
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="78. 子集">
                             
-                            <span class="card-title">347. 前 K 个高频元素</span>
+                            <span class="card-title">78. 子集</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                347. 前 K 个高频元素First：使用的两次比较来做，没想到用优先级队列
+                                78. 子集First：很简单，注意添加空就可
 
-方法1：排序
-先使用unordered_map统计每个数的频率，再对频率进行排序，最后取前K个值。
-
-时间复杂度：O(nlogn) 
-空间复杂度：O(n)
-
-
+方法1：回溯
+按回溯递归进行遍历，记录每次路径即可，需要在开头添加一个空容器。
+中止条件：当index等于数组长度时，结束
+遍历过程：从index遍历，每当添加一个数字到temp中后，就将t
                             
                         </div>
                         <div class="publish-info">
@@ -709,12 +708,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E6%8E%92%E5%BA%8F/">
-                            <span class="chip bg-color">Alg-排序</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -724,22 +719,24 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-155-%E6%9C%80%E5%B0%8F%E6%A0%88-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-77-%E7%BB%84%E5%90%88-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="155. 最小栈">
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="77. 组合">
                             
-                            <span class="card-title">155. 最小栈</span>
+                            <span class="card-title">77. 组合</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                155. 最小栈First：没想到咋做，看了答案才知道直接存储每次的最小值。。。不过有个解法是存储差值很有意思。
+                                77. 组合First：基础的回溯算法再加上一点剪枝
 
-方法1：双栈
-使用两个栈，栈s存储元素，一个栈ms存最小值。当push一个元素时，ms的栈顶元素与压入栈元素比较得到最小值。
+方法1：回溯
+不断递归重复找，按顺序遍历（只添加当前值后面的数）使得不存在重复值
+中止条件：当k值小于等于0时，将收集到的数组添加到结果种
+遍历过程：从小到大遍历，将当前值添加进临时数
                             
                         </div>
                         <div class="publish-info">
@@ -762,8 +759,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -773,24 +770,22 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-239-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC-difficult/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-679-24%E7%82%B9%E6%B8%B8%E6%88%8F-difficult/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="239. 滑动窗口最大值">
+                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="679. 24 点游戏">
                             
-                            <span class="card-title">239. 滑动窗口最大值</span>
+                            <span class="card-title">679. 24 点游戏</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                239. 滑动窗口最大值First：傻了，没想到使用单调队列来找最大数
+                                679. 24 点游戏First：开始使用的深度遍历来做，先取得所有树的排列组合，然后对每个组合都使用四个运算符进行回溯，按理说这样没问题，不过还是报错，以后有机会再检查吧（感觉是有些减法排列取不到）。
 
-方法1：单调队列
-关键在于如何滑动窗口中快速找到最大值
-使用一个deque来维持从大到小的单调队列，队首元素为最大值。
-每当滑动窗口向右移动，将新添加的值与队尾元素不
+方法1：回溯
+直接穷举，不断从数组
                             
                         </div>
                         <div class="publish-info">
@@ -813,8 +808,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -824,24 +819,23 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-977-simple/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-51-N%E7%9A%87%E5%90%8E-difficult/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="977. 有序数组的平方">
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="51. N 皇后">
                             
-                            <span class="card-title">977. 有序数组的平方</span>
+                            <span class="card-title">51. N 皇后</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                977. 有序数组的平方FIrst：原数组有序，因此只需要处理正负数平凡带来的影响即可。见到这题的第一想法便是方法1。
+                                51. N 皇后First：思想不难，但比较麻烦
 
-方法1：分界值+双指针
-先找到正负数的分界位置，从分界处开始向左右两边遍历，依次选择最小的即可。
-
-时间复杂度：O(n
+方法1：回溯
+显然，每行必须也只能放一个皇后。使用一个矩阵来表示当前哪些位置不能放，使用temp来记录目前结果，使用num表示当前应该在第几行放置皇后。
+中止条件：当放置皇后数量num等于
                             
                         </div>
                         <div class="publish-info">
@@ -864,12 +858,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
-                            <span class="chip bg-color">Alg-数组</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -879,27 +869,22 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-491-%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="75. 颜色分类">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="491. 递增子序列">
                             
-                            <span class="card-title">75. 颜色分类</span>
+                            <span class="card-title">491. 递增子序列</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                75. 颜色分类FIrst：记得以前考研时做过，这次没有一遍遍历做出来
+                                491. 递增子序列First：折腾了挺久，想着整体只用一个数组来去重，感觉始终只差一步，解析十分简单，每次遍历都用一个数组来去重
 
-方法1：双指针
-采用双指针分别遍历两次，第一次先将0调换到数组前部分，第二次再将1调换到数组中部。
-
-时间复杂度：O(n)
-空间复杂度：O(1)
-
-class Sol
+方法1：回溯
+此题不能先进行排序，因此会导致相同的数分布在不同位置，因此对于每个遍历，都定义一个数组来去重
                             
                         </div>
                         <div class="publish-info">
@@ -922,12 +907,8 @@ class Sol
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
-                            <span class="chip bg-color">Alg-数组</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -937,22 +918,23 @@ class Sol
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-775-%E5%85%A8%E5%B1%80%E5%80%92%E7%BD%AE%E4%B8%8E%E5%B1%80%E9%83%A8%E5%80%92%E7%BD%AE/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-47-%E5%85%A8%E6%8E%92%E5%88%97II-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="775. 全局倒置与局部倒置">
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="47. 全排列 II">
                             
-                            <span class="card-title">775. 全局倒置与局部倒置</span>
+                            <span class="card-title">47. 全排列 II</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                775. 全局倒置与局部倒置FIrst：开始打算分别计算两个值来比较，尝试了下错了，后来想到只要找到错误就可以判断了
+                                47. 全排列 IIFirst：和46题的唯一不同之处是需要去重
 
-方法1：维护最大值
-由定义得知全局倒置数量一定大于等于局部倒置数量，而只有当一个数nums[i]在大于i+1后还有比nu
+方法1：回溯
+先对数组进行排序，使得相同值位于一处，以便于遍历的时候进行去重。使用一个数组used来标记当前已经添加进temp中的数。
+中止条件：当index等于数组长度时
                             
                         </div>
                         <div class="publish-info">
@@ -975,8 +957,8 @@ class Sol
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
-                            <span class="chip bg-color">Alg-数组</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -986,22 +968,24 @@ class Sol
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-724-%E5%AF%BB%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E5%BF%83%E4%B8%8B%E6%A0%87-simple/">
+                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-46-%E5%85%A8%E6%8E%92%E5%88%97-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="724. 寻找数组的中心下标">
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="46. 全排列">
                             
-                            <span class="card-title">724. 寻找数组的中心下标</span>
+                            <span class="card-title">46. 全排列</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                724. 寻找数组的中心下标FIrst：傻了，从两边遍历，但遇见负数或正数就需要单独处理，麻烦且还不一定对
+                                46. 全排列First：挺简单，使用一个数组来标记已经使用过的数即可
 
-方法1：前缀和
-先求得数组总和total，然后从左开始遍历，如果左边以左的数相加和lsum&#x3D;&#x3D;total-ls
+方法1：回溯
+使用一个数组used来标记当前已经添加进temp中的数。
+中止条件：当index等于数组长度时，结束
+遍历过程：每次回溯都从0开始遍历，若当前值并未使用
                             
                         </div>
                         <div class="publish-info">
@@ -1024,12 +1008,8 @@ class Sol
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
-                            <span class="chip bg-color">Alg-数组</span>
+                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
+                            <span class="chip bg-color">Alg-回溯</span>
                         </a>
                         
                     </div>
@@ -1053,7 +1033,7 @@ class Sol
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">13 / 16</div>
+            <div class="center-align b-text-gray">13 / 19</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -1140,7 +1120,7 @@ class Sol
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">321.2k</span>
+                        class="white-color">378.1k</span>
             
             
             

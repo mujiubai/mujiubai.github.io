@@ -458,24 +458,23 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-435-%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-204-%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="435. 无重叠区间">
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="204. 计数质数">
                             
-                            <span class="card-title">435. 无重叠区间</span>
+                            <span class="card-title">204. 计数质数</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                435. 无重叠区间First：没做出来，不知道咋处理一个区间覆盖多个区间，但被覆盖的这些区间并不交叉这种特俗情况。
+                                204. 计数质数First：刚开始的时候还判断了下是否属于质数，但细节问题导致超时了，后来想到直接每个质数倍乘，最后找出质数即可
 
-方法1：贪心
-可以使用以左边界排序或右边界排序，但遍历方向不一样。
-以右边界进行排序（右边界一样时左边界小的在前），从左
+方法1：埃氏筛
+如果x是质数，那么2x、3x一定不是质数，那么从2开始，不断将倍乘置为非质数，统计所有质数
                             
                         </div>
                         <div class="publish-info">
@@ -498,8 +497,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -511,25 +510,23 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8FII-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-242-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="45. 跳跃游戏 II">
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="242. 有效的字母异位词">
                             
-                            <span class="card-title">45. 跳跃游戏 II</span>
+                            <span class="card-title">242. 有效的字母异位词</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                45. 跳跃游戏 IIFirst：没做出来。
+                                242. 有效的字母异位词First：直接定义一个数组来存储字母出现频率
 
-方法1：贪心
-局部最优：找到走每一步所能到的最远距离
-全局最优：当第一次当前步数的最远距离覆盖末尾时，即为最小步数
-走一步会有一个距离覆盖，走2步同样有一个距离覆盖，求出每一步的距离覆盖，当第
+方法1：哈希表
+定义两个数组来分别存储两个字符串中各自字符出现频率（官方解答中还有点优化空间，只定义一个数组来存储s频率，在遍历t时依次将s中对应字母个数减一，如减
                             
                         </div>
                         <div class="publish-info">
@@ -552,8 +549,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -565,23 +562,25 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-452-%E7%94%A8%E6%9C%80%E5%B0%91%E6%95%B0%E9%87%8F%E7%9A%84%E7%AE%AD%E5%BC%95%E7%88%86%E6%B0%94%E7%90%83-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-349-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="452. 用最少数量的箭引爆气球">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="349. 两个数组的交集">
                             
-                            <span class="card-title">452. 用最少数量的箭引爆气球</span>
+                            <span class="card-title">349. 两个数组的交集</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                452. 用最少数量的箭引爆气球First：ac了
+                                349. 两个数组的交集First：使用一个1001大小的数组来存储是否出现过
 
-方法1：贪心
-当气球出现重叠时，就使用一只箭，注意一个重叠区域必须所有气球都有重叠。使用start和end记录当前区域，如果下一个区域和当前区域有交叉，则将当前区域区间更新为交叉区域，否
+方法1：哈希表
+定义一个1001大小的数组来存储字符串s的频率，但这是已知值范围的情况下才可这么做。然后，直接遍历t中每个字符是否出现在频率数组中即可。
+
+时
                             
                         </div>
                         <div class="publish-info">
@@ -604,8 +603,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -617,197 +616,28 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-455-%E5%88%86%E5%8F%91%E9%A5%BC%E5%B9%B2-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-383-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="455. 分发饼干">
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="383. 赎金信">
                             
-                            <span class="card-title">455. 分发饼干</span>
+                            <span class="card-title">383. 赎金信</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                455. 分发饼干First：做久了动态规划，一下转到贪心还是不适合，遗憾，此题没做出来，总感觉有层膜没被捅破
+                                383. 赎金信First：直接使用哈希表
 
-方法1：贪心
-先对两个数组进行从小到大排序，每个饼干都找到小于饼干值的最小孩子，然后剔除此孩子，继续遍历下一个饼干
-局部最优：
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-53-%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="53. 最大子数组和">
-                            
-                            <span class="card-title">53. 最大子数组和</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                53. 最大子数组和First：没做出来，定义不好dp含义，用两重循环超时了
-Second：才做几天，刷贪心算法系列题又遇见了，不过没用贪心做出来，对这题理解得不够透彻
-
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-55-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="55. 跳跃游戏">
-                            
-                            <span class="card-title">55. 跳跃游戏</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                55. 跳跃游戏First：没使用贪心最初来，没想到可以用最大范围覆盖来考虑，其实用动态规划来理解贪心解析会更简单。
-
-方法1：贪心
-局部最优：找到每个位置所能到的最远位置
-全局最优：找到每个局部最优值中的最大值，以此最大值来判断是否能达到
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="56. 合并区间">
-                            
-                            <span class="card-title">56. 合并区间</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                56. 合并区间First：和763题一样合并所有区间
-
-方法1：贪心
-先对数组进行排序，依次遍历，如果当前区间与前一个区间有交叉则将其合并，否则则将上一个区间加入结果中。
+方法1：哈希表
+直接使用哈希表或自己使用一个数组记录第二个字符串的字母出现次数，再遍历第一个字符串即可
 
 时间复杂度：O(n) 
 空间复杂度：O(1)
 
-class So
+class Solution &#123
                             
                         </div>
                         <div class="publish-info">
@@ -830,8 +660,8 @@ class So
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -843,23 +673,23 @@ class So
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-738-%E5%8D%95%E8%B0%83%E9%80%92%E5%A2%9E%E7%9A%84%E6%95%B0%E5%AD%97-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-454-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="738. 单调递增的数字">
+                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="454. 四数相加 II">
                             
-                            <span class="card-title">738. 单调递增的数字</span>
+                            <span class="card-title">454. 四数相加 II</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                738. 单调递增的数字First：昨天没做出来，尝试了从后向前遍历但无法解决100这种情况，也尝试了从前向后遍历。其实没观察到只要一个数字变了后面的数字都要变为9这个特点
+                                454. 四数相加 IIFirst：开始尝试了下三重循环做，但超时了。想过是否可以排除一些特殊分支，减少循环。想将两两分组来做，但感觉太麻烦了。
 
-方法1：贪心
-可以观察到一个特点：一个数字变小之后，其后面的数字
+方法1：哈希表+两两分组
+将四组数据两两分组，将ab两组先加起来存储到哈希表中，再遍历cd两
                             
                         </div>
                         <div class="publish-info">
@@ -882,8 +712,8 @@ class So
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -895,25 +725,23 @@ class So
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-714-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-532-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%20k-diff%20%E6%95%B0%E5%AF%B9-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="714. 买卖股票的最佳时机含手续费">
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="532. 数组中的 k-diff 数对">
                             
-                            <span class="card-title">714. 买卖股票的最佳时机含手续费</span>
+                            <span class="card-title">532. 数组中的 k-diff 数对</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                714. 买卖股票的最佳时机含手续费First：动态规划还挺还做，用贪心是没想出来，看了解析之后发现这技巧很nice
+                                532. 数组中的 k-diff 数对FIrst：使用的方法1做出来，但效率不高，关键是去重的同时k&#x3D;0时也要能找到
 
-方法1：贪心
-在做收获利润操作的时候其实有三种情况：
-
-情况一：收获利润的这一天并不是收获利润区间里的最后一天（不是真正
+方法1：排序+set
+先对数组进行从小到大排序，使用map存储已经出现的数字，再依次遍历数组，如果nums[i
                             
                         </div>
                         <div class="publish-info">
@@ -936,12 +764,8 @@ class So
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -953,29 +777,23 @@ class So
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-763-%E5%88%92%E5%88%86%E5%AD%97%E6%AF%8D%E5%8C%BA%E9%97%B4-middle/">
+                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-1004-%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD1%E7%9A%84%E4%B8%AA%E6%95%B0III-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="763. 划分字母区间">
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="1004. 最大连续1的个数 III">
                             
-                            <span class="card-title">763. 划分字母区间</span>
+                            <span class="card-title">1004. 最大连续1的个数 III</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                763. 划分字母区间First：转换下成求不相交区间个数
+                                1004. 最大连续1的个数 IIIFIrst：比较顺利，使用双指针法即可
 
-方法1：贪心
-先求每一个字母出现的区间，只要相交的区间合并成一个（合并后取区间最大），最后计算剩余区间个数。
-局部最优：
-
-时间复杂度：O(n) 
-空间复杂度：O(n)
-
-cla
+方法1：双指针
+使用两个指针left和right分别指向区间的左右，依次遍历数组，如果当前值为1则将right+1；如果为0，则判断当前区间中已有的0个数是否超过
                             
                         </div>
                         <div class="publish-info">
@@ -998,8 +816,12 @@ cla
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
                         </a>
                         
                     </div>
@@ -1011,23 +833,23 @@ cla
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-860-%E6%9F%A0%E6%AA%AC%E6%B0%B4%E6%89%BE%E9%9B%B6-simple/">
+                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-162-%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="860. 柠檬水找零">
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="162. 寻找峰值">
                             
-                            <span class="card-title">860. 柠檬水找零</span>
+                            <span class="card-title">162. 寻找峰值</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                860. 柠檬水找零First：看着复杂，但逻辑固定
+                                162. 寻找峰值FIrst：没做出来，这二分比较巧妙
 
-方法1：贪心
-只会存在三种收款情况：收到5元、10元和20元，收到5元不用找零，收到10元只能找5元，而收到20元就有两种情况，一个是找3张5元，一个是找1张5元和1张10元，但是应该
+方法1：二分法
+由于 nums[-1] = nums[n] = -∞，那么只要数组中存在一个元素比相邻元素大，那么沿着它一定可以找到一个峰值（比如nums[a]&lt;nums[a+
                             
                         </div>
                         <div class="publish-info">
@@ -1050,8 +872,12 @@ cla
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
                         </a>
                         
                     </div>
@@ -1063,24 +889,23 @@ cla
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/leetcode-968-%E7%9B%91%E6%8E%A7%E4%BA%8C%E5%8F%89%E6%A0%91-difficult/">
+                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-209-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="968. 监控二叉树">
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="209. 长度最小的子数组">
                             
-                            <span class="card-title">968. 监控二叉树</span>
+                            <span class="card-title">209. 长度最小的子数组</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                968. 监控二叉树First：贪心没做出来，现在连二叉树的动态规划也搞忘了
+                                209. 长度最小的子数组First：第一次见到这题想的还是用双重for循环或动态规划来做，但复杂度都超过O(n)
 
-方法1：贪心
-假设每个节点有三种状态： 0（无覆盖），1（有覆盖），2（有摄像头）
-从底部向上考虑，可以使得总摄像头数量最少，因为低层节点数一定大于等于当前上层
+方法1：滑动窗口 
+使用一个窗口来表示选择了哪些数，循环遍历过程中，每次向滑动窗口中添加一个数，如果窗口总和小于targe
                             
                         </div>
                         <div class="publish-info">
@@ -1103,12 +928,187 @@ cla
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
                         </a>
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+                            <span class="chip bg-color">Alg-滑动窗口</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-27-simple/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="27. 移除元素">
+                            
+                            <span class="card-title">27. 移除元素</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                27. 移除元素First：看见这题直觉想的是使用双指针来做，但是我想到的是使用前后指针，即左边找到一个需要去除的，再从右边找到一个无需去除的，将右边找到的数填充的左边即可，这种方法会导致一些特俗用例通不过，如只有一个值。最后，看了解析发现
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-287-%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0-middle/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="287. 寻找重复数">
+                            
+                            <span class="card-title">287. 寻找重复数</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                287. 寻找重复数FIrst：这映射思想值得学习
+
+方法1：双指针+回环
+假设数组中是每个节点，可以为每个节点连接一个箭头指向下一个节点，连接规则即若节点值为k，则指向nums[k]。
+由以上连接规则可知，由于数组中存在重复值，则一定会有
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                            <span class="chip bg-color">Alg-二分查找</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-414-%E7%AC%AC%E4%B8%89%E5%A4%A7%E7%9A%84%E6%95%B0-simple/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="414. 第三大的数">
+                            
+                            <span class="card-title">414. 第三大的数</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                414. 第三大的数First：忘记set自带排序了，但最后实测两种方法打败比例差不多
+
+方法1：排序
+先排序，然后找到是否有第三大的数，如果没有则返回第一个数。
+
+时间复杂度：O(nlogn)
+空间复杂度：O(1)
+
+class Solu
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E6%8E%92%E5%BA%8F/">
+                            <span class="chip bg-color">Alg-排序</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
                         </a>
                         
                     </div>
@@ -1134,7 +1134,7 @@ cla
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">14 / 16</div>
+            <div class="center-align b-text-gray">14 / 18</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -1221,7 +1221,7 @@ cla
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">321.2k</span>
+                        class="white-color">378.1k</span>
             
             
             

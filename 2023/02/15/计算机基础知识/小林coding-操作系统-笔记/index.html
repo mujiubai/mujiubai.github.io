@@ -468,21 +468,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-06-20
+                    2023-08-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    28.2k
+                    31.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    98 分
+                    108 分
                 </div>
                 
 
@@ -1029,7 +1029,127 @@
 <li><strong>MySQL Innodb</strong>：在内存页被访问<strong>第二次</strong>的时候，并不会马上将该页从 old 区域升级到 young 区域，还需要判断与第一次访问时间间隔是否超过1秒，如超过则提升。</li>
 </ul>
 </blockquote>
-<h2 id="3-6-深入理解-Linux-虚拟内存管理"><a href="#3-6-深入理解-Linux-虚拟内存管理" class="headerlink" title="3.6 深入理解 Linux 虚拟内存管理"></a>3.6 深入理解 Linux 虚拟内存管理</h2><h2 id="3-7-深入理解-Linux-物理内存管理"><a href="#3-7-深入理解-Linux-物理内存管理" class="headerlink" title="3.7 深入理解 Linux 物理内存管理"></a>3.7 深入理解 Linux 物理内存管理</h2><h1 id="四、进程管理"><a href="#四、进程管理" class="headerlink" title="四、进程管理"></a>四、进程管理</h1><hr>
+<h2 id="3-6-深入理解-Linux-虚拟内存管理"><a href="#3-6-深入理解-Linux-虚拟内存管理" class="headerlink" title="3.6 深入理解 Linux 虚拟内存管理"></a>3.6 深入理解 Linux 虚拟内存管理</h2><h3 id="虚拟内存格式"><a href="#虚拟内存格式" class="headerlink" title="虚拟内存格式"></a>虚拟内存格式</h3><p><strong>64 位虚拟地址</strong>的格式为：全局页目录项（9位）+ 上层页目录项（9位）+ 中间页目录项（9位）+ 页表项（9位）+ 页内偏移（12位）。共 48 位组成的虚拟内存地址。<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230825201752362.png" alt="image-20230825201752362"></p>
+<p><strong>32 位虚拟地址</strong>的格式为：页目录项（10位）+ 页表项（10位） + 页内偏移（12位）。共 32 位组成的虚拟内存地址。<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230825201816768.png" alt="image-20230825201816768"></p>
+<hr>
+<h3 id="为什么要使用虚拟地址访问内存"><a href="#为什么要使用虚拟地址访问内存" class="headerlink" title="为什么要使用虚拟地址访问内存"></a>为什么要使用虚拟地址访问内存</h3><ol>
+<li>如果直接使用物理内存，程序员就需要知道每一个变量在内存中的具体位置，手动对物理内存进行布局，还需要考虑为每个进程究竟要分配多少内存？内存紧张的时候该怎么办？如何避免进程与进程之间的地址冲突（例如多进程执行同一个函数，变量地址就会一样，造成错误）</li>
+<li>虚拟内存引入之后，每个进程都拥有自己独立的虚拟地址空间，进程与进程之间的虚拟内存地址空间是相互隔离，互不干扰的</li>
+</ol>
+<hr>
+<h3 id="进程虚拟内存空间"><a href="#进程虚拟内存空间" class="headerlink" title="进程虚拟内存空间"></a>进程虚拟内存空间</h3><p>内核根据进程运行的过程中所需要不同种类的数据而为其开辟了对应的地址空间。分别为：</p>
+<ul>
+<li>用于存放进程程序二进制文件中的机器指令的<strong>代码段</strong></li>
+<li>用于存放程序二进制文件中定义的全局变量和静态变量的<strong>数据段和 BSS 段</strong>。<ul>
+<li>代码中全局变量或静态变量设置了初值的放在数据段；未设置初值的放在BSS段，BSS段会被初始化为0，因此会直接加载一段值为0的内存</li>
+</ul>
+</li>
+<li>用于在程序运行过程中动态申请内存的<strong>堆</strong>。</li>
+<li>用于存放动态链接库以及内存映射区域的<strong>文件映射与匿名映射区</strong>。</li>
+<li>用于存放函数调用过程中的局部变量和函数参数的<strong>栈</strong>。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230825202435264.png" alt="image-20230825202435264" style="zoom: 33%;" />
+
+<hr>
+<h3 id="Linux-进程虚拟内存空间"><a href="#Linux-进程虚拟内存空间" class="headerlink" title="Linux 进程虚拟内存空间"></a>Linux 进程虚拟内存空间</h3><p><strong>32 位机器上进程虚拟内存空间分布</strong></p>
+<ul>
+<li>用户态虚拟内存空间为 3 GB，虚拟内存地址范围为：0x0000 0000 - 0xC000 000；内核态虚拟内存空间为 1 GB，虚拟内存地址范围为：0xC000 000 - 0xFFFF FFFF</li>
+<li><strong>保留区</strong>：在代码段前是一段不可访问的保留区，因为在大多数操作系统中，数值比较小的地址通是不允许访问的。比如在 C 语言中将一些无效的指针设置为 NULL。</li>
+<li><strong>代码段和数据段</strong>：从程序的二进制文件中直接加载进内存中的，因为BSS段数据是没有初值的，所以在二进制文件中只会记录 BSS 段的大小，在加载进内存时会生成一段 0 填充的内存空间。</li>
+<li><strong>堆</strong>： start_brk 标识堆的起始位置，brk 标识堆当前的结束位置。当堆申请新的内存空间时，只需要将 brk 指针增加对应的大小，回收地址时减少对应的大小即可。（碎片如何处理？）</li>
+<li><strong>文件映射与匿名映射区域</strong>：进程运行时所依赖的动态链接库中的代码段，数据段，BSS 段就加载在这里。还有我们调用 mmap 映射出来的一段虚拟内存空间也保存在这个区域。注意地址增长方向是从高地址向低地址增长。</li>
+<li><strong>栈</strong>：保存函数运行过程所需要的局部变量以及函数参数等函数调用信息。地址增长方向是从高地址向低地址增长。在内核中使用 start_stack 标识栈的起始位置，RSP 寄存器中保存栈顶指针 stack pointer，RBP 寄存器中保存的是栈基地址。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230825203513675.png" alt="image-20230825203513675" style="zoom:33%;" />
+
+<p><strong>64 位机器上进程虚拟内存空间分布</strong></p>
+<ul>
+<li>目前的 64 位系统下只使用了 48 位来描述虚拟内存空间，所能表达的虚拟内存空间为 256TB。</li>
+<li>低 128 T 表示用户态虚拟内存空间，虚拟内存地址范围为：0x0000 0000 0000 0000 - 0x0000 7FFF FFFF F000，注意其前16位皆为0。</li>
+<li>高 128 T 表示内核态虚拟内存空间，虚拟内存地址范围为：0xFFFF 8000 0000 0000 - 0xFFFF FFFF FFFF FFFF ，注意其前16位皆为1。</li>
+<li>这个高 16 位的空闲地址被称为 canonical 。如果虚拟内存地址中的高 16 位全部为 0 （表示用户空间虚拟内存地址）或者全部为 1 （表示内核空间虚拟内存地址）。不全为 0 也不全为 1 则为空洞地址，非法。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230825204033081.png" alt="image-20230825204033081" style="zoom:33%;" />
+
+<blockquote>
+<p><strong>64位地址空间与32位地址空间主要不同</strong>：</p>
+<ul>
+<li>64位空间存在canonical address 空洞，用户态虚拟内存空间与内核态虚拟内存空间分别占用 128T</li>
+<li>64位空间在代码段跟数据段的中间还有一段不可以读写的保护段，它的作用是防止程序在读写数据段的时候越界访问到代码段，这个保护段可以让越界访问行为直接崩溃</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="进程虚拟内存空间的管理"><a href="#进程虚拟内存空间的管理" class="headerlink" title="进程虚拟内存空间的管理"></a>进程虚拟内存空间的管理</h3><p>在进程描述符 task_struct 结构中，有一个专门描述进程虚拟地址空间的内存描述符 <strong>mm_struct 结构</strong>，这个结构体中包含了进程虚拟内存空间的全部信息。</p>
+<ul>
+<li>通过 fork() 函数创建出的子进程，它的虚拟内存空间以及相关页表相当于父进程虚拟内存空间的一份拷贝，直接从父进程中拷贝到子进程中。</li>
+<li>通过 vfork 或者 clone 系统调用创建出的子进程，会将父进程的虚拟内存空间以及相关页表直接赋值给子进程。这样一来父进程和子进程的虚拟内存空间就变成共享的了<ul>
+<li>子进程共享了父进程的虚拟内存空间，这样子进程就变成了我们熟悉的线程，<strong>是否共享地址空间几乎是进程和线程之间的本质区别。Linux 内核并不区别对待它们，线程对于内核来说仅仅是一个共享特定资源的进程而已</strong>。</li>
+</ul>
+</li>
+<li>内核态线程和用户态线程的区别就是内核线程没有相关的内存描述符 mm_struct ，内核线程对应的 task_struct 结构中的 mm 域指向 Null，所以内核线程之间调度是不涉及地址空间切换的。<ul>
+<li>当一个内核线程被调度时，内核会将上一个用户态进程的mm_struct 直接赋值给该内核线程。因为内核线程仅仅只会访问内核空间的内存，所以直接复用上一个用户态进程的虚拟地址空间就可以避免为内核线程分配 mm_struct 和相关页表的开销，以及避免内核线程之间调度时地址空间的切换开销。</li>
+</ul>
+</li>
+</ul>
+<p><strong>内核如何划分用户态和内核态虚拟内存空间</strong></p>
+<p>太多了，待看</p>
+<hr>
+<h3 id="程序编译后的二进制文件如何映射到虚拟内存空间中"><a href="#程序编译后的二进制文件如何映射到虚拟内存空间中" class="headerlink" title="程序编译后的二进制文件如何映射到虚拟内存空间中"></a>程序编译后的二进制文件如何映射到虚拟内存空间中</h3><blockquote>
+<p>程序代码编译之后会生成一个 ELF 格式的二进制文件，这个二进制文件中包含了程序运行时所需要的元信息，比如程序的机器码，程序中的全局变量以及静态变量等。</p>
+<p>磁盘文件中的段我们叫做 Section，内存中的段我们叫做 Segment，也就是内存区域。</p>
+</blockquote>
+<p>磁盘文件中的这些 Section 会在进程运行之前加载到内存中并映射到内存中的 Segment。通常是多个 Section 映射到一个 Segment。</p>
+<ul>
+<li>如磁盘文件中的 .text，.rodata 等一些只读的 Section，会被映射到内存的一个只读可执行的 Segment 里（代码段）</li>
+<li>而 .data，.bss 等一些可读写的 Section，则会被映射到内存的一个具有读写权限的 Segment 里（数据段，BSS 段）</li>
+</ul>
+<p>内核中完成这个映射过程的函数是 load_elf_binary </p>
+<hr>
+<h3 id="内核虚拟内存空间"><a href="#内核虚拟内存空间" class="headerlink" title="内核虚拟内存空间"></a>内核虚拟内存空间</h3><p>内核态虚拟内存空间是所有进程共享的，不同进程进入内核态之后看到的虚拟内存空间全部是一样的。</p>
+<ul>
+<li>不同进程在各自的用户态虚拟内存空间中访问虚拟地址 x，看到的内容是不一样的</li>
+<li>由于内核虚拟内存空间是各个进程共享的，所以它们在内核空间中看到的内容全部是一样的</li>
+</ul>
+<blockquote>
+<p><strong>程进入内核态之后使用的仍然是虚拟内存地址，只不过在内核中使用的虚拟内存地址被限制在了内核态虚拟内存空间范围中，而不是直接使用物理地址</strong></p>
+</blockquote>
+<h4 id="32-位体系内核虚拟内存空间布局"><a href="#32-位体系内核虚拟内存空间布局" class="headerlink" title="32 位体系内核虚拟内存空间布局"></a><strong>32 位体系内核虚拟内存空间布局</strong></h4><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230826201505737.png" alt="image-20230826201505737" style="zoom:80%;" />
+
+<p><strong>直接映射区</strong>：在 1G 的内核虚拟内存空间中，位于最前边有一块 896M 大小的区域，称之为直接映射区或者线性映射区，地址范围为 3G – 3G + 896m 。这块连续的虚拟内存地址会映射到 0 - 896M 这块连续的物理内存上，因此虚拟内存地址直接减去 0xC000 0000 (3G) 就得到了物理内存地址。</p>
+<ul>
+<li>虽然这块区域中的虚拟地址是直接映射到物理地址上，但是内核在访问这段区域的时候还是走的虚拟内存地址，内核也会为这块空间建立映射页表。</li>
+<li>在这段 896M 大小的物理内存中，前 1M 已经在系统启动的时候被系统占用，1M 之后的物理内存存放的是内核代码段，数据段，BSS 段</li>
+<li><em><strong>ZONE_DMA</strong></em>：直接映射区的前 16M 专门让内核用来为 DMA 分配内存。用于 DMA 的内存必须从 ZONE_DMA 区域中分配。</li>
+<li><em><strong>ZONE_NORMAL</strong></em>：直接映射区中剩下的部分也就是从 16M 到 896M（不包含 896M）这段区域</li>
+</ul>
+<blockquote>
+<p><strong>ZONE_HIGHMEM 高端内存</strong>：物理内存 896M 以上的区域被内核划分为 ZONE_HIGHMEM 区域</p>
+<ul>
+<li>只能动态的一部分一部分的分批映射，先映射正在使用的这部分，使用完毕解除映射，接着映射其他部分</li>
+</ul>
+</blockquote>
+<p><strong>vmalloc 动态映射区</strong>：采用动态映射的方式映射物理内存中的高端内存。</p>
+<ul>
+<li>在这块动态映射区内核是使用 vmalloc 进行内存分配，vmalloc 分配的内存在虚拟内存上是连续的，但是物理内存是不连续的。通过页表来建立物理内存与虚拟内存之间的映射关系。</li>
+</ul>
+<p><strong>永久映射区</strong>：在内核的这段虚拟地址空间中允许建立与物理高端内存的长期映射关系。</p>
+<ul>
+<li>比如内核通过 alloc_pages() 函数在物理内存的高端内存中申请获取到的物理内存页，这些物理内存页可以通过调用 kmap 映射到永久映射区中。</li>
+</ul>
+<p><strong>固定映射区</strong>：在固定映射区中的虚拟内存地址可以自由映射到物理内存的高端地址上</p>
+<ul>
+<li>与动态映射区以及永久映射区不同的是，在固定映射区中虚拟地址是固定的，而被映射的物理地址是可以改变的。</li>
+<li>采用固定虚拟地址的好处是它相当于一个指针常量（常量的值在编译时确定），指向物理地址，如果虚拟地址不固定，则相当于一个指针变量。</li>
+</ul>
+<p><strong>临时映射区</strong>：用于临时映射</p>
+<ul>
+<li>例如将文件从用户态拷贝到缓冲区，需要先将缓存页映射到临时映射区，然后进行拷贝。</li>
+</ul>
+<p><strong>32位体系结构下 Linux 虚拟内存空间整体布局</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230826202514504.png" alt="image-20230826202514504" style="zoom:50%;" />
+
+<h4 id="64-位体系内核虚拟内存空间布局"><a href="#64-位体系内核虚拟内存空间布局" class="headerlink" title="64 位体系内核虚拟内存空间布局"></a>64 位体系内核虚拟内存空间布局</h4><p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230826202728014.png" alt="image-20230826202728014"></p>
+<h2 id="3-7-深入理解-Linux-物理内存管理"><a href="#3-7-深入理解-Linux-物理内存管理" class="headerlink" title="3.7 深入理解 Linux 物理内存管理"></a>3.7 深入理解 Linux 物理内存管理</h2><h1 id="四、进程管理"><a href="#四、进程管理" class="headerlink" title="四、进程管理"></a>四、进程管理</h1><hr>
 <h2 id="4-1-进程、线程基础知识"><a href="#4-1-进程、线程基础知识" class="headerlink" title="4.1 进程、线程基础知识"></a>4.1 进程、线程基础知识</h2><h3 id="进程的状态"><a href="#进程的状态" class="headerlink" title="进程的状态"></a>进程的状态</h3><ul>
 <li><p>运行状态（<em>Running</em>）：该时刻进程占用 CPU；</p>
 </li>
@@ -2129,13 +2249,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/other/leetcode-1619-simple/">
+                <a href="/2023/02/15/%E9%A1%B9%E7%9B%AE/mprpc/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="1619. 删除某些元素后的数组均值">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="mprpc">
                         
-                        <span class="card-title">1619. 删除某些元素后的数组均值</span>
+                        <span class="card-title">mprpc</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -2152,8 +2272,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                    项目
                                 </a>
                             
                             
@@ -2163,8 +2283,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E6%8E%92%E5%BA%8F/">
-                        <span class="chip bg-color">Alg-排序</span>
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/RPC/">
+                        <span class="chip bg-color">RPC</span>
                     </a>
                     
                 </div>
@@ -2362,7 +2486,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">321.2k</span>
+                        class="white-color">378.1k</span>
             
             
             

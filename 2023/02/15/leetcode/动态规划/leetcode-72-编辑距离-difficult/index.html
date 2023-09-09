@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="72. 编辑距离, w">
     <meta name="description" content="72. 编辑距离First：虽然做出来了，但不透
+帆软提前批笔试：一样的题目，只是删除插入替换需要消耗不同的操作
 
 动态规划五部法：
 
@@ -13,12 +14,7 @@
 确定递推公式
 dp数组如何初始化
 确定遍历顺序
-举例推导dp数组
-
-
-
-方法1：动态规划
-对于两个字符串A、B，若AB相">
+举例推导">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -475,21 +471,21 @@ dp数组如何初始化
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-03-15
+                    2023-08-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    613
+                    714
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 
@@ -518,6 +514,7 @@ dp数组如何初始化
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="72-编辑距离"><a href="#72-编辑距离" class="headerlink" title="72. 编辑距离"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/edit-distance/">72. 编辑距离</a></h1><p>First：虽然做出来了，但不透</p>
+<p>帆软提前批笔试：一样的题目，只是删除插入替换需要消耗不同的操作</p>
 <blockquote>
 <p>动态规划五部法：</p>
 <ul>
@@ -536,7 +533,7 @@ dp数组如何初始化
 <ul>
 <li><p>当word1[i-1]&#x3D;&#x3D;word2[j-1]时，此时无需修改操作，所以dp[i] [j]&#x3D;dp[i-1] [j-1]；</p>
 </li>
-<li><p>当word1[i-1]!&#x3D;word2[j-1]时，此时有三种操作可以使得字符相等，要么在dp[i-1] [j]情况下对word1添加一个字符；要么在dp[i] [j-1]情况下对word2添加一个字符；要么在dp[i-1] [j-1]情况下将word1[i-1]替换为word2[j-1]。因此，dp[i] [j]&#x3D;min(dp[i-1] [j],min(dp[i-1] [j-1],dp[i] [j-1]))+1;</p>
+<li><p>当word1[i-1]!&#x3D;word2[j-1]时，此时有三种操作可以使得字符相等，要么在dp[i-1] [j]情况下对word1添加一个字符（其实应该是删去，多了第i个字符）；要么在dp[i] [j-1]情况下对word2添加一个字符；要么在dp[i-1] [j-1]情况下将word1[i-1]替换为word2[j-1]。因此，dp[i] [j]&#x3D;min(dp[i-1] [j],min(dp[i-1] [j-1],dp[i] [j-1]))+1;</p>
 </li>
 </ul>
 <p>由dp定义可知，dp[i] [0]&#x3D;i（word2的0个字符要变成word1前i个字符需要添加i次），dp[0] [j]&#x3D;j（原因同理）</p>
@@ -564,6 +561,16 @@ public:
 
 
 
+<p><strong>帆软笔试</strong></p>
+<p>插入消耗x，删除消耗y，替换消耗z</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">if</span><span class="token punctuation">(</span>str1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span>str2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>dp<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">+</span>y<span class="token punctuation">,</span><span class="token function">min</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>x<span class="token punctuation">,</span>dp<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230809170723330.png" alt="image-20230809170723330"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230809170759620.png" alt="image-20230809170759620"></p>
 
                 
             </div>
@@ -961,7 +968,7 @@ public:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">321.2k</span>
+                        class="white-color">378.1k</span>
             
             
             

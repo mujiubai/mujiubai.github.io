@@ -1,0 +1,2397 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="设计模式的艺术-笔记, w">
+    <meta name="description" content="学习《设计模式的艺术》笔记
+
+
+第一部分 基础知识软件模式是指在软件开发过程中某些可重现问题的有效解决方法，其基础结构主要由四部分构成，包括问题描述（待解决的问题是什么）、前提条件（在何种环境或约束条件下使用）、解法（如何解决）和效果（有哪">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>设计模式的艺术-笔记 | w</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">w</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/categories/C/">
+          
+          <span>C++</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/LeetCode/">
+          
+          <span>LeetCode</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+          
+          <span>计算机基础知识</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories/%E9%A1%B9%E7%9B%AE/">
+          
+          <span>项目</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">w</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/categories/C/ " style="margin-left:75px">
+				  
+		          <span>C++</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/LeetCode/ " style="margin-left:75px">
+				  
+		          <span>LeetCode</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/ " style="margin-left:75px">
+				  
+		          <span>计算机基础知识</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/ " style="margin-left:75px">
+				  
+		          <span>项目</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">设计模式的艺术-笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                                <span class="chip bg-color">设计模式</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-category">
+                                计算机基础知识
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-03
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2023-09-09
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    29.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    100 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>学习《设计模式的艺术》笔记</p>
+<hr>
+<hr>
+<h1 id="第一部分-基础知识"><a href="#第一部分-基础知识" class="headerlink" title="第一部分 基础知识"></a>第一部分 基础知识</h1><p><strong>软件模式</strong>是指在软件开发过程中某些可重现问题的有效解决方法，其基础结构主要由四部分构成，包括问题描述（待解决的问题是什么）、前提条件（在何种环境或约束条件下使用）、解法（如何解决）和效果（有哪些优缺点）</p>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903143337565.png" alt="" style="zoom:50%;" />
+
+<p><strong>设计模式</strong>（Design Pattern）是一套被反复使用的、多数人知晓的、经过分类编目的代码设计经验的总结，使用设计模式是为了可以重用代码，让代码更容易被他人理解并且提高代码的可靠性。</p>
+<p><strong>设计模式优点</strong>：</p>
+<ul>
+<li>设计模式是从许多优秀的软件系统中总结出的成功的、能够实现可维护性复用的设计方案，使用这些方案可以避免做一些重复性的工作，有助于提高设计和开发效率。</li>
+<li>设计模式提供了一套通用的设计词汇和一种通用的形式来方便开发人员之间进行沟通和交流，使得设计方案更加通俗易懂。</li>
+<li>大部分设计模式都兼顾了系统的可重用性和可扩展性，这使得开发人员可以更好地重用一些已有的设计方案、功能模块甚至一个完整的软件系统，避免经常做一些重复的设计、编写一些重复的代码</li>
+<li>合理使用设计模式并对设计模式的使用情况进行文档化，将有助于别人更快地理解系统</li>
+</ul>
+<h2 id="1-1-UML基础"><a href="#1-1-UML基础" class="headerlink" title="1.1 UML基础"></a>1.1 UML基础</h2><h3 id="UML简介"><a href="#UML简介" class="headerlink" title="UML简介"></a>UML简介</h3><p><strong>UML特性</strong>：</p>
+<ul>
+<li>融合了多种优秀的面向对象建模方法以及多种得到认可的软件工程方法，消除了因方法林立且相互独立而带来的种种不便</li>
+<li>是一种通用的可视化建模（Modeling）语言，通过一些标准的图形符号和文字来对系统进行建模</li>
+<li>是一种语言（Language），也就意味着它有属于自己的标准表达规则</li>
+</ul>
+<p>UML主要包括以下部分：</p>
+<ol>
+<li>视图（View）：UML视图用于从不同的角度来表示待建模系统。<ul>
+<li>包括用户视图、结构视图、行为视图、实现视图和环境视图。</li>
+<li>用户视图以用户的观点表示系统的目标，它是所有视图的核心，用于描述系统的需求；结构视图表示系统的静态行为，描述系统的静态元素，如包、类与对象，以及它们之间的关系；行为视图表示系统的动态行为，描述系统的组成元素（如对象）在系统运行时的交互关系；实现视图表示系统中逻辑元素的分布，描述系统中物理文件以及它们之间的关系；环境视图表示系统中物理元素的分布，描述系统中硬件设备以及它们之间的关系。</li>
+</ul>
+</li>
+<li>图（Diagram）：UML图是描述UML视图内容的图形。<ul>
+<li>提供了13种图，分别是用例图、类图、对象图、包图、组合结构图、状态图、活动图、顺序图（、通信图、定时图、交互概览图、组件图和部署图</li>
+</ul>
+</li>
+<li>模型元素（Model Element）：指UML图中所使用的一些概念，如关联关系、依赖关系、泛化关系等。</li>
+<li>通用机制（General Mechanism）：为模型元素提供额外的注释、信息和语义，允许用户对UML进行扩展，如定义新的建模元素、扩展原有元素的语义、添加新的特殊信息来扩展模型元素的规则说明等</li>
+</ol>
+<hr>
+<h3 id="类与类的UML图示"><a href="#类与类的UML图示" class="headerlink" title="类与类的UML图示"></a>类与类的UML图示</h3><p><strong>类图</strong>（Class Diagram）是用出现在系统中的不同类来描述系统的静态结构，主要用来描述不同的类以及它们之间的关系。一般由三部分组成：</p>
+<ol>
+<li>类名：每个类都必须有一个名字，类名是一个字符串。</li>
+<li>类的属性（Attributes）：属性是指类的性质，即类的成员变量。一个类可以有任意多个属性，也可以没有属性。<ul>
+<li>表示方法：<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903144751996.png" alt="" style="zoom:50%;" /></li>
+<li>可见性：public、private和protected，分别用符号+、-和＃表示</li>
+</ul>
+</li>
+<li>类的操作（Operations）：操作是类的任意一个实例对象都可以使用的行为，是类的成员方法<ul>
+<li>表示方法：<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903144941570.png" alt="" style="zoom:50%;" /></li>
+</ul>
+</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903145023139.png" alt="" style="zoom:67%;" />
+
+<hr>
+<h3 id="类之间的关系"><a href="#类之间的关系" class="headerlink" title="类之间的关系"></a>类之间的关系</h3><h4 id="关联关系"><a href="#关联关系" class="headerlink" title="关联关系"></a><strong>关联关系</strong></h4><p>用于表示一类对象与另一类对象之间有联系。用实线连接有关联关系的对象所对应的类，通常将一个类的对象作为另一个类的成员变量。</p>
+<ul>
+<li><strong>双向关联</strong>：默认情况下，关联是双向的。实现无箭头。<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903145534238.png" alt="" style="zoom: 50%;" /></li>
+</ul>
+</li>
+<li><strong>单向关联</strong>：在UML中单向关联用带箭头的实线表示<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903145629656.png" alt="" style="zoom:50%;" /></li>
+</ul>
+</li>
+<li><strong>自关联</strong>：可能会存在一些类的属性对象类型为该类本身，这种特殊的关联关系称为自关联。<ul>
+<li>例如，一个节点类（Node）的成员又是节点Node类型的对象</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903145716030.png" alt="" style="zoom:50%;" /></li>
+</ul>
+</li>
+<li><strong>多重性关联</strong>：又称为重数性关联关系，表示两个关联对象在数量上的对应关系。对象之间的多重性可以直接在关联直线上用一个数字或一个数字范围表示。<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903145918222.png" alt="" style="zoom:50%;" /></li>
+<li>例如，一个界面（Form）可以拥有零个或多个按钮（Button），但是一个按钮只能属于一个界面</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903145946367.png" alt="" style="zoom:50%;" /></li>
+</ul>
+</li>
+<li><strong>聚合关系</strong>：表示整体与部分的关系。成员对象是整体对象的一部分，但是成员对象可以脱离整体对象独立存在。用带空心菱形的直线表示。<ul>
+<li>在代码实现聚合关系时，成员对象通常作为构造方法、Setter方法或业务方法的参数注入整体对象中</li>
+<li>相比于几种关联，多了构造注入等方法，但都是定义一个变量</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903150123496.png" alt="" style="zoom:50%;" /></li>
+</ul>
+</li>
+<li><strong>组合关系</strong>：也表示类之间整体和部分的关系，但是在组合关系中整体对象可以控制成员对象的生命周期。一旦整体对象不存在，成员对象也将不存在，成员对象与整体对象之间具有同生共死的关系。组合关系用带实心菱形的直线表示。<ul>
+<li>例如，人的头与嘴巴，嘴巴是头的组成部分之一，而且如果头没了，嘴巴也就没了，因此头和嘴巴是组合关系</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903150526971.png" alt="" style="zoom:50%;" /></li>
+</ul>
+</li>
+</ul>
+<h4 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h4><ul>
+<li>依赖关系是一种使用关系，特定事物的改变有可能会影响到使用该事物的其他事物，在需要表示一个事物使用另一个事物时使用依赖关系。</li>
+<li><strong>依赖关系体现在某个类的方法使用另一个类的对象作为参数</strong></li>
+<li>依赖关系用带箭头的虚线表示，由依赖的一方指向被依赖的一方。</li>
+<li>依赖关系通常通过3种方式来实现：<ol>
+<li>将一个类的对象作为另一个类中方法的参数</li>
+<li>在一个类的方法中将另一个类的对象作为其局部变量</li>
+<li>一个类的方法中调用另一个类的静态方法</li>
+</ol>
+</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903150950831.png" alt="" style="zoom:50%;" /></li>
+</ul>
+<h4 id="泛化关系"><a href="#泛化关系" class="headerlink" title="泛化关系"></a>泛化关系</h4><ul>
+<li>也称继承关系，用于描述父类与子类之间的关系。用带空心三角形的直线来表示。</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903151112717.png" alt="" style="zoom: 33%;" /></li>
+</ul>
+<h4 id="接口与实现关系"><a href="#接口与实现关系" class="headerlink" title="接口与实现关系"></a>接口与实现关系</h4><ul>
+<li>接口之间也可以有与类之间关系类似的继承关系和依赖关系，但是接口和类之间还存在一种实现（Realization）关系。在这种关系中，类实现了接口，类中的操作实现了接口中所声明的操作。</li>
+<li>类与接口之间的实现关系用带空心三角形的虚线来表示</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903151257815.png" alt="" style="zoom: 33%;" /></li>
+</ul>
+<h2 id="1-2-面向对象设计原则概述"><a href="#1-2-面向对象设计原则概述" class="headerlink" title="1.2 面向对象设计原则概述"></a>1.2 面向对象设计原则概述</h2><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903151356604.png" alt="" style="zoom:50%;" />
+
+<h3 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h3><ul>
+<li>一个类只负责一个功能领域中的相应职责。或者可以定义为：就一个类而言，应该只有一个引起它变化的原因。</li>
+<li>将不同的职责封装在不同的类中，即将不同的变化原因封装在不同的类中；如果多个职责总是同时发生改变，则可将它们封装在同一类中。</li>
+</ul>
+<h3 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h3><ul>
+<li>一个软件实体应当对扩展开放，对修改关闭。即软件实体应尽量在不修改原有代码的情况下进行扩展。</li>
+<li>为了满足开闭原则，需要对系统进行抽象化设计，抽象化是开闭原则的关键。为系统定义一个相对稳定的抽象层，而将不同的实现行为移至具体的实现层中完成。</li>
+</ul>
+<h3 id="里氏代换原则"><a href="#里氏代换原则" class="headerlink" title="里氏代换原则"></a>里氏代换原则</h3><ul>
+<li>所有引用基类（父类）的地方必须能透明地使用其子类的对象。</li>
+<li>里氏代换原则是实现开闭原则的重要方式之一。由于使用基类对象的地方都可以使用子类对象，因此在程序中尽量使用基类类型来对对象进行定义，而在运行时再确定其子类类型，用子类对象来替换父类对象。</li>
+<li>在运用里氏代换原则时，应该将父类设计为抽象类或者接口，让子类继承父类或实现父接口，并实现在父类中声明的方法。程序运行时，子类实例替换父类实例，可以很方便地扩展系统的功能，无须修改原有子类的代码，增加新的功能可以通过增加一个新的子类来实现。</li>
+</ul>
+<h3 id="依赖倒转原则"><a href="#依赖倒转原则" class="headerlink" title="依赖倒转原则"></a>依赖倒转原则</h3><ul>
+<li>抽象不应该依赖于细节，细节应该依赖于抽象。换言之，要针对接口编程，而不是针对实现编程。</li>
+<li>要求在程序代码中传递参数时或在关联关系中，尽量引用层次高的抽象层类，即使用接口和抽象类进行变量类型声明、参数类型声明、方法返回类型声明，以及数据类型的转换等，而不要用具体类来做这些事情。</li>
+</ul>
+<h3 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h3><ul>
+<li>使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口。</li>
+<li>每个接口应该承担一种相对独立的角色。这里的“接口”有两种不同的含义：<ul>
+<li>一种是指一个类型所具有的方法特征的集合，仅仅是一种逻辑上的抽象</li>
+<li>另一种是指某种语言具体的“接口”定义，有严格的定义和结构</li>
+</ul>
+</li>
+</ul>
+<h3 id="合成复用原则"><a href="#合成复用原则" class="headerlink" title="合成复用原则"></a>合成复用原则</h3><ul>
+<li>尽量使用对象组合，而不是继承来达到复用的目的。原因如下：<ul>
+<li>通过继承来进行复用的主要问题在于继承复用会破坏系统的封装性，因为继承会将基类的实现细节暴露给子类，由于基类的内部细节通常对子类来说是可见的，所以这种复用又称“白箱”复用。如果基类发生改变，那么子类的实现也不得不发生改变。</li>
+<li>由于组合或聚合关系可以将已有的对象（也可称为成员对象）纳入新对象中，使之成为新对象的一部分，因此新对象可以调用已有对象的功能，这样做可以使得成员对象的内部实现细节对于新对象不可见，所以这种复用又称为“黑箱”复用。</li>
+</ul>
+</li>
+<li>如果两个类之间是“Has-A”的关系，应使用组合或聚合；如果是“Is-A”关系，可使用继承。<ul>
+<li>“Is-A”是严格的分类学意义上的定义，意思是一个类是另一个类的“一种”；而“Has-A”则不同，它表示某一个角色具有某一项责任。</li>
+</ul>
+</li>
+</ul>
+<h3 id="迪米特法则"><a href="#迪米特法则" class="headerlink" title="迪米特法则"></a>迪米特法则</h3><ul>
+<li>一个软件实体应当尽可能少地与其他实体发生相互作用</li>
+<li>如果一个系统符合迪米特法则，那么当其中某一个模块发生修改时，就会尽量少地影响其他模块，扩展会相对容易。</li>
+<li>迪米特法则还有几种定义形式：不要和“陌生人”说话，只与你的直接朋友通信等对于一个对象，其“朋友”包括以下几类：<ol>
+<li>当前对象本身（this）。</li>
+<li>以参数形式传入到当前对象方法中的对象。</li>
+<li>当前对象的成员对象。</li>
+<li>如果当前对象的成员对象是一个集合，那么集合中的元素也都是朋友。</li>
+<li>当前对象所创建的对象。</li>
+</ol>
+</li>
+</ul>
+<h1 id="第2部分-创建的艺术——创建型模式"><a href="#第2部分-创建的艺术——创建型模式" class="headerlink" title="第2部分　创建的艺术——创建型模式"></a>第2部分　创建的艺术——创建型模式</h1><p><strong>创建型模式</strong>将对象的创建和使用分离，在使用对象时无须关心对象的创建细节，从而降低系统的耦合度，让设计方案更易于修改和扩展。</p>
+<ul>
+<li>每个创建型模式都通过采用不同的解决方案来回答3个问题：创建什么（What），由谁创建（Who）和何时创建（When）。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903154751903.png" alt="" style="zoom: 67%;" />
+
+<h2 id="2-1-单例模式——确保对象的唯一性"><a href="#2-1-单例模式——确保对象的唯一性" class="headerlink" title="2.1 单例模式——确保对象的唯一性"></a>2.1 单例模式——确保对象的唯一性</h2><p><strong>单例模式</strong>：确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例，这个类称为单例类，它提供全局访问的方法。单例模式是一种对象创建型模式。</p>
+<p><strong>单例模式的动机</strong>：确保对象的唯一性，避免资源浪费或对象状态的唯一性</p>
+<p>单例模式实现步骤：</p>
+<ol>
+<li>禁止类的外部直接创建对象</li>
+<li>在类中定义一个静态类型的私有成员变量</li>
+<li>增加一个公有的静态方法提供对私有变量的访问</li>
+</ol>
+<p><strong>单例模式实现方法</strong>：</p>
+<ol>
+<li>饿汉式单例<ul>
+<li>直接定义好静态示例的初始值</li>
+<li>当类被加载时，静态变量instance会被初始化，此时类的私有构造函数会被调用，单例类的唯一实例将被创建。</li>
+<li>优缺点：<ul>
+<li>优点：无须考虑多线程访问问题，调用速度和反应时间更优</li>
+<li>缺点：无论系统在运行时是否需要使用该单例对象都会进行加载，导致资源浪费</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>懒汉式单例<ul>
+<li>在第一次调用时进行实例化，通常使用互斥来避免创建多个实例</li>
+<li>优缺点：<ul>
+<li>优点：在第一次使用时创建，无须一直占用系统资源，实现了延迟加载</li>
+<li>缺点：需要处理多线程同时访问问题，资源初始化很有可能耗费大量时间</li>
+</ul>
+</li>
+<li>双重检查锁定：第一次判断时不进行互斥（减少竟态消耗），再临界区再判断一次（避免重复进入临界区导致创建多个实例）</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903162045948.png" alt="" style="zoom:50%;" /></li>
+</ul>
+</li>
+<li>IoDH (Initialization on Demand Holder)<ul>
+<li>在单例类中增加一个静态（static）内部类，在该内部类中创建单例对象，再将该单例对象通过getInstance（）方法返回给外部使用<ul>
+<li>由于静态单例对象没有作为Singleton的成员变量直接实例化，因此类加载时不会实例化Singleton。第一次调用getInstance（）时将加载内部类HolderClass，在该内部类中定义了一个static类型的变量instance，此时会首先初始化这个成员变量，由Java虚拟机来保证其线程安全性，确保该成员变量只能初始化一次。</li>
+<li>java支持，C++不支持</li>
+</ul>
+</li>
+<li>结合了懒汉模式和饿汉模式优点，既可以实现延迟加载，又可以保证线程安全，不影响系统性能</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903162822393.png" alt="" style="zoom:50%;" /></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>单例模式优总结：</strong></p>
+<ul>
+<li>优点：<ul>
+<li>提供了对唯一实例的受控访问，所以它可以严格控制客户怎样以及何时访问它。</li>
+<li>可以节约系统资源。</li>
+<li>允许可变数目的实例。基于单例模式，开发人员可以进行扩展，使用与控制单例对象相似的方法来获得指定个数的实例对象，既节省系统资源，又解决了由于单例对象共享过多有损性能的问题。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>单例模式中没有抽象层，因此单例类的扩展有很大的困难。</li>
+<li>职责过重，在一定程度上违背了单一职责原则。因为单例类既提供了业务方法，又提供了创建对象的方法（工厂方法），将对象的创建和对象本身的功能耦合在一起。</li>
+<li>对于提供gc的语言，如果实例化的共享对象长时间不被利用，系统会认为它是垃圾，会自动销毁并回收资源，下次利用时又将重新实例化</li>
+</ul>
+</li>
+<li>适用场景：<ul>
+<li>系统只需要一个实例对象。例如，系统要求提供一个唯一的序列号生成器或资源管理器，或者需要考虑资源消耗太大而只允许创建一个对象。</li>
+<li>客户调用类的单个实例只允许使用一个公共访问点。除了该公共访问点，不能通过其他途径访问该实例。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="2-2-简单工厂模式——集中式工厂的实现"><a href="#2-2-简单工厂模式——集中式工厂的实现" class="headerlink" title="2.2 简单工厂模式——集中式工厂的实现"></a>2.2 简单工厂模式——集中式工厂的实现</h2><p><strong>简单工厂模式</strong>：定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。</p>
+<ul>
+<li>因为在简单工厂模式中用于创建实例的方法是静态方法，因此简单工厂模式又被称为静态工厂方法模式，它属于类创建型模式。</li>
+<li>简单工厂模式的要点在于：当你需要什么，只需要传入一个正确的参数，就可以获取你所需要的对象，而无须知道其创建细节。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903171409955.png" alt="" style="zoom:50%;" />
+
+<p>简单工厂模式结构图中包含以下3个角色：</p>
+<ul>
+<li>Factory（工厂角色）：即工厂类，它是简单工厂模式的核心，负责实现创建所有产品实例的内部逻辑。工厂类可以被外界直接调用，创建所需的产品对象。在工厂类中提供了静态的工厂方法factoryMethod（），它的返回类型为抽象产品类型Product。</li>
+<li>Product（抽象产品角色）：它是工厂类所创建的所有对象的父类，封装了各种产品对象的公有方法。抽象产品的引入将提高系统的灵活性，使得在工厂类中只需定义一个通用的工厂方法，因为所有创建的具体产品对象都是其子类对象。</li>
+<li>eProduct（具体产品角色）：它是简单工厂模式的创建目标，所有被创建的对象都充当这个角色的某个具体类的实例。每个具体产品角色都继承了抽象产品角色，需要实现在抽象产品中声明的抽象方法</li>
+</ul>
+<p><strong>简单工厂模式的简化</strong></p>
+<ul>
+<li>有时候，为了简化简单工厂模式，可以将抽象产品类和工厂类合并，将静态工厂方法移至抽象产品类中</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903171634243.png" alt="" style="zoom:50%;" /></li>
+</ul>
+<blockquote>
+<p><strong>简单工厂模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>实现了对象创建和使用的分离。工厂类可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责。</li>
+<li>客户端无须知道所创建的具体产品类的类名，只需要知道具体产品类所对应的参数即可。</li>
+<li>通过引入配置文件，可以在不修改任何客户端代码的情况下更换和增加新的具体产品类，在一定程度上提高了系统的灵活性。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常工作，整个系统都要受到影响</li>
+<li>使用简单工厂模式势必会增加系统中类的个数（引入了新的工厂类），增加了系统的复杂度和理解难度。</li>
+<li>系统扩展困难。一旦添加新产品就不得不修改工厂逻辑，不利于系统的扩展和维护。</li>
+<li>简单工厂模式由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>工厂类负责创建的对象比较少。由于创建的对象较少，不会造成工厂方法中的业务逻辑太过复杂。</li>
+<li>客户端只知道传入工厂类的参数，对于如何创建对象并不关心。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="2-3-工厂方法模式——多态工厂的实现"><a href="#2-3-工厂方法模式——多态工厂的实现" class="headerlink" title="2.3 工厂方法模式——多态工厂的实现"></a>2.3 工厂方法模式——多态工厂的实现</h2><p>简单工厂模式如何实现增加新产品而不影响已有代码？工厂方法模式为此应运而生</p>
+<p><strong>工厂方法模式</strong>：定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。其又简称为工厂模式或虚拟构造器模式或多态工厂模式。</p>
+<ul>
+<li>提供一个抽象工厂接口来声明抽象工厂方法，而由其子类来具体实现工厂方法，创建具体的产品对象。</li>
+<li>在抽象工厂中声明了工厂方法但并未实现工厂方法，具体产品对象的创建由其子类负责。客户端针对抽象工厂编程，可在运行时再指定具体工厂类。具体工厂类实现了工厂方法，不同的具体工厂可以创建不同的具体产品</li>
+<li>具体工厂类在实现工厂方法时除了创建具体产品对象之外，还可以负责产品对象的初始化工作以及一些资源和环境配置工作，例如连接数据库、创建文件等。</li>
+<li>可以通过配置文件来存储具体工厂类ConcreteFactory的类名，更换新的具体工厂时无须修改源代码，系统扩展更为方便。</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230903205956666.png" alt="" style="zoom: 33%;" /></li>
+</ul>
+<p>工厂方法模式结构图中包含以下4个角色</p>
+<ul>
+<li>Product（抽象产品）：它是定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。</li>
+<li>ConcreteProduct（具体产品）：它实现了抽象产品接口，某种类型的具体产品由专门的具体工厂创建，具体工厂和具体产品之间一一对应。</li>
+<li>Factory（抽象工厂）：在抽象工厂类中，声明了工厂方法，用于返回一个产品。抽象工厂是工厂方法模式的核心，所有创建对象的工厂类都必须实现该接口。</li>
+<li>ConcreteFactory（具体工厂）：它是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户端调用，返回一个具体产品类的实例。</li>
+</ul>
+<blockquote>
+<p>与简单工厂模式相比，工厂方法模式最重要的区别是引入了抽象工厂角色。抽象工厂可以是接口，也可以是抽象类或者具体类</p>
+</blockquote>
+<blockquote>
+<p><strong>为啥不直接通过反射机制来生成产品对象。在定义产品对象时使用抽象类型，同样可以确保系统的灵活性和可扩展性？</strong></p>
+<ul>
+<li>基于职责分离来说不可行，因为工厂模式就是将创建的逻辑、初始化等独立出来。</li>
+</ul>
+</blockquote>
+<p><strong>工厂方法的隐藏</strong>：在工厂类中将直接调用产品类的业务方法，客户端无须调用工厂方法创建产品，直接通过工厂即可使用所创建的对象中的业务方法。</p>
+<blockquote>
+<p><strong>工厂方法模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>基于工厂角色和产品角色的多态性设计是工厂方法模式的关键。它能够让工厂可以自主确定创建何种产品对象，而如何创建这个对象的细节则完全封装在具体工厂内部。</li>
+<li>加入新产品时，无须修改抽象工厂和抽象产品提供的接口，无须修改客户端，也无须修改其他的具体工厂和具体产品，而只要添加一个具体工厂和具体产品就可以</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>在添加新产品时，需要编写新的具体产品类，而且还要提供与之对应的具体工厂类，系统中类的个数将成对增加</li>
+<li>由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>客户端不知道其所需要的对象的类。在工厂方法模式中，客户端不需要知道具体产品类的类名，只需要知道所对应的工厂即可，具体的产品对象由具体工厂类创建，可将具体工厂类的类名存储在配置文件或数据库中。</li>
+<li>抽象工厂类通过其子类来指定创建哪个对象。在工厂方法模式中，抽象工厂类只需要提供一个创建产品的接口，而由其子类来确定具体要创建的对象，利用面向对象的多态性和里氏代换原则，在程序运行时，子类对象将覆盖父类对象，从而使得系统更容易扩展。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="2-4-抽象工厂模式——产品族的创建"><a href="#2-4-抽象工厂模式——产品族的创建" class="headerlink" title="2.4 抽象工厂模式——产品族的创建"></a>2.4 抽象工厂模式——产品族的创建</h2><blockquote>
+<p>工厂模式每新建一个产品，都需要建立一个与之对应的工厂，会导致工厂数据剧增。那如果几类产品具有相同的性质，例如同一套颜色皮肤下的按键、文本框等，那就可以将这几类产品划分为一个产品族，而具体工厂类则基于产品族来创建。</p>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230904111939905.png" alt="" style="zoom: 33%;" />
+</blockquote>
+<p><strong>抽象工厂模式</strong>：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。抽象工厂模式又称为Kit模式，它是一种对象创建型模式。</p>
+<ul>
+<li>工厂模式只有一个创建接口，而抽象工厂模式则是多个依赖的接口</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230904112826197.png" alt="" style="zoom:50%;" />
+
+<p>抽象工厂模式结构图中包含以下4个角色：</p>
+<ul>
+<li>AbstractFactory（抽象工厂）：它声明了一组用于创建一族产品的方法，每个方法对应一种产品。</li>
+<li>ConcreteFactory（具体工厂）：它实现了在抽象工厂中声明的创建产品的方法，生成一组具体产品，这些产品构成了一个产品族，每种产品都位于某个产品等级结构中。</li>
+<li>AbstractProduct（抽象产品）：它为每种产品声明接口，在抽象产品中声明了产品所具有的业务方法。</li>
+<li>ConcreteProduct（具体产品）：它定义具体工厂生产的具体产品对象，实现在抽象产品接口中声明的业务方法。</li>
+</ul>
+<blockquote>
+<p><strong>抽象工厂模式是否符合开闭原则？</strong></p>
+<ul>
+<li>从增加新的产品等级结构来看不符合，需要改动源代码</li>
+<li>增加新的产品族来看符合，因为已经定义了抽象接口</li>
+</ul>
+<p><strong>抽象工厂模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>抽象工厂模式隔离了具体类的生成，使得客户并不需要知道什么被创建。</li>
+<li>当一个产品族中的多个对象被设计成一起工作时，它能够保证客户端始终只使用同一个产品族中的对象。</li>
+<li>增加新的产品族很方便，无须修改已有系统，符合开闭原则。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>增加新的产品等级结构麻烦，需要对原有系统进行较大的修改，甚至需要修改抽象层代码，这显然会带来较大的不便，违背了开闭原则。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>一个系统不应当依赖于产品类实例如何被创建、组合和表达的细节</li>
+<li>系统中有多于一个的产品族，而每次只使用其中某一个产品族。可以通过配置文件等方式来使得用户可以动态改变产品族，也可以很方便地增加新的产品族。</li>
+<li>属于同一个产品族的产品将在一起使用，这一约束必须在系统的设计中体现出来。同一个产品族中的产品可以是没有任何关系的对象，但是它们都具有一些共同的约束。</li>
+<li>产品等级结构稳定，设计完成之后，不会向系统中增加新的产品等级结构或者删除已有的产品等级结构。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="2-5-原型模式——对象的克隆"><a href="#2-5-原型模式——对象的克隆" class="headerlink" title="2.5 原型模式——对象的克隆"></a>2.5 原型模式——对象的克隆</h2><p><strong>原型模式</strong>：使用原型实例指定创建对象的种类，并且通过克隆这些原型创建新的对象。原型模式是一种对象创建型模式。</p>
+<ul>
+<li>工作原理：将一个原型对象传给要发动创建的对象，这个要发动创建的对象通过请求原型对象克隆自己来实现创建过程。</li>
+<li>通用实现方法：在具体原型类的克隆方法中实例化一个与自身类型相同的对象并将其返回</li>
+<li>注意克隆时存在深拷贝和浅拷贝之分</li>
+</ul>
+<p><strong>原型管理器</strong>（Prototype Manager）：是将多个原型对象存储在一个集合中供客户端使用，它是一个专门负责克隆对象的工厂，其中定义了一个集合用于存储原型对象，如果需要某个原型对象的一个克隆，可以通过复制集合中对应的原型对象来获得</p>
+<ul>
+<li>其实现使用一个哈希表记录名字与对应的实例对象（new一个），获取时则使用名字获取对象，然后调用其clone方法</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230904114427867.png" alt="" style="zoom:50%;" />
+
+<blockquote>
+<p><strong>原型模式总结</strong></p>
+<ul>
+<li>优点：<ul>
+<li>当创建新的对象实例较为复杂时，使用原型模式可以简化对象的创建过程，通过复制一个已有实例可以提高新实例的创建效率。</li>
+<li>性较好。由于在原型模式中提供了抽象原型类，在客户端可以针对抽象原型类进行编程，而将具体原型类写在配置文件中，增加或减少具体原型类对原有系统都没有任何影响。</li>
+<li>原型模式提供了简化的创建结构，无须专门的工厂类来创建产品。</li>
+<li>可以使用深克隆的方式保存对象的状态。使用原型模式将对象复制一份并将其状态保存起来，以便在需要的时候使用，例如恢复到某一历史状态，可辅助实现撤销操作。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>需要为每一个类配备一个克隆方法，而且该克隆方法位于一个类的内部。当对已有的类进行改造时，需要修改源代码，违背了开闭原则。</li>
+<li>在实现深克隆时需要编写较为复杂的代码，而且当对象之间存在多重的嵌套引用时，为了实现深克隆，每一层对象对应的类都必须支持深克隆，实现起来可能会比较麻烦。</li>
+</ul>
+</li>
+<li>适用场景：<ul>
+<li>创建新对象成本较大（例如初始化需要占用较长的时间，占用太多的CPU资源或网络资源）。新的对象可以通过原型模式对已有对象进行复制来获得，如果是相似对象，则可以对其成员变量稍作修改。</li>
+<li>如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占用内存较少时，可以使用原型模式配合备忘录模式来实现。</li>
+<li>需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态。通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="2-6-建造者模式——复杂对象的组装与创建"><a href="#2-6-建造者模式——复杂对象的组装与创建" class="headerlink" title="2.6 建造者模式——复杂对象的组装与创建"></a>2.6 建造者模式——复杂对象的组装与创建</h2><p><strong>建造者模式</strong>（Builder Pattern）：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式。</p>
+<ul>
+<li>将客户端与包含多个组成部分（或部件）的复杂对象的创建过程分离。客户端无须知道复杂对象的内部组成部分与装配方式，只需要知道所需的建造者类型即可</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230904115359021.png" alt="" style="zoom:50%;" />
+
+<p><strong>建造者模式结构中包含以下4个角色</strong>：</p>
+<ul>
+<li>Builder（抽象建造者）：它为创建一个产品Product对象的各个部件指定抽象接口。在该接口中一般声明两类方法：一类方法是buildPartX（），用于创建复杂对象的各个部件；另一类方法是getResult（），用于返回复杂对象。Builder既可以是抽象类，也可以是接口。</li>
+<li>ConcreteBuilder（具体建造者）：它实现了Builder接口，实现各个部件的具体构造和装配方法，定义并明确其所创建的复杂对象，也可以提供一个方法返回创建好的复杂产品对象。</li>
+<li>Product（产品角色）：它是被构建的复杂对象，包含多个组成部件。具体建造者创建该产品的内部表示并定义其装配过程。</li>
+<li>Director（指挥者）：指挥者又称为导演类，它负责安排复杂对象的建造次序。指挥者与抽象建造者之间存在关联关系，可以在其construct（）建造方法中调用建造者对象的部件构造与装配方法，完成复杂对象的建造。客户端一般只需要与指挥者进行交互，在客户端确定具体建造者的类型，并实例化具体建造者对象（也可以通过配置文件和反射机制），然后通过指挥者类的构造函数或者Setter方法将该对象传入指挥者类中。</li>
+</ul>
+<p><strong>省略Director</strong>：为了简化系统结构，可以将Director和抽象建造者Builder进行合并，在Builder中提供逐步构建复杂产品对象的construct（）方法。由于Builder类通常为抽象类，因此可以将construct（）方法定义为静态（static）方法。</p>
+<p><strong>钩子方法的引入</strong>：增加一类称之为钩子方法（Hook Method）的特殊方法来控制是否调用某个buildPartX（）方法</p>
+<ul>
+<li>钩子方法的返回类型通常为boolean类型，方法名一般为is×××（）。钩子方法定义在抽象建造者类中。例如，可以在游戏角色的抽象建造者类ActorBuilder中定义一个方法isBareheaded（），用于判断某个角色是否为“光头（Bareheaded）”</li>
+</ul>
+<blockquote>
+<p><strong>建造者模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>在建造者模式中，客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象。</li>
+<li>每个具体建造者都相对独立，而与其他具体建造者无关。因此，可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。由于指挥者类针对抽象建造者编程，增加新的具体建造者无须修改原有类库的代码，系统扩展方便，符合开闭原则。</li>
+<li>可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>建造者模式所创建的产品一般具有较多的共同点，其组成部分相似。如果产品之间的差异性很大，例如很多组成部分都不相同，就不适合使用建造者模式，因此其使用范围受到一定的限制。</li>
+<li>如果产品的内部结构复杂且多变，可能会需要定义很多具体建造者类来实现这种变化，这就导致系统变得很庞大，增加系统的理解难度和运行成本。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员变量。</li>
+<li>需要生成的产品对象的属性相互依赖，需要指定其生成顺序。</li>
+<li>对象的创建过程独立于创建该对象的类。在建造者模式中通过引入指挥者类，将创建过程封装在指挥者类中，而不在建造者类和客户类中。</li>
+<li>隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="第3部分-组合的艺术——结构型模式"><a href="#第3部分-组合的艺术——结构型模式" class="headerlink" title="第3部分　组合的艺术——结构型模式"></a>第3部分　组合的艺术——结构型模式</h1><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230904120027083.png" alt="" style="zoom:67%;" />
+
+<h2 id="3-1-适配器模式——不兼容结构的协调"><a href="#3-1-适配器模式——不兼容结构的协调" class="headerlink" title="3.1 适配器模式——不兼容结构的协调"></a>3.1 适配器模式——不兼容结构的协调</h2><p><strong>适配器模式</strong>（Adapter Pattern）：将一个接口转换成客户希望的另一个接口，使接口不兼容的那些类可以一起工作，其别名为包装器（Wrapper）。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。</p>
+<ul>
+<li>在适配器模式定义中所提及的接口是指广义的接口，它可以表示一个方法或者一组方法的集合</li>
+<li>根据适配器类与适配者类的关系不同，适配器模式可分为对象适配器模式和类适配器模式两种。<ul>
+<li>在对象适配器模式中，适配器与适配者之间是关联关系；在类适配器模式中，适配器与适配者之间是继承（或实现）关系。</li>
+</ul>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230904120355910.png" alt="" style="zoom:50%;" />
+
+<p><strong>对象适配器模式结构图中包含以下3个角色</strong></p>
+<ul>
+<li>Target（目标抽象类）：目标抽象类定义客户所需接口，可以是一个抽象类或接口，也可以是具体类。</li>
+<li>Adapter（适配器类）：适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配。适配器类是适配器模式的核心，在对象适配器模式中，它通过继承Target并关联一个Adaptee对象使二者产生联系。</li>
+<li>Adaptee（适配者类）：适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配。适配者类一般是一个具体类，包含了客户希望使用的业务方法，在某些情况下可能没有适配者类的源代码。</li>
+</ul>
+<blockquote>
+<p><strong>在对象适配器模式中，一个适配器能否适配多个适配者？</strong></p>
+<ul>
+<li>个人认为可以，定义多个适配者的对象即可</li>
+</ul>
+</blockquote>
+<p><strong>类适配器模式</strong>：其适配器和适配者之间的关系是继承关系</p>
+<ul>
+<li>由于Java、C＃等语言不支持多重类继承，因此类适配器模式的使用受到很多限制。例如，如果目标抽象类Target不是接口，而是一个类，就无法使用类适配器模式。此外，如果适配者Adaptee为最终（Final）类，也无法使用类适配器模式。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230904120733109.png" alt="" style="zoom:50%;" />
+
+<p><strong>双向适配器模式</strong></p>
+<ul>
+<li>在对象适配器模式的使用过程中，如果在适配器中同时包含对目标类和适配者类的引用，适配者可以通过它调用目标类中的方法，目标类也可以通过它调用适配者类中的方法，那么该适配器就是一个双向适配器。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230904192323935.png" alt="" style="zoom:50%;" />
+
+<p><strong>缺省适配器模式</strong>（Default Adapter Pattern）：当不需要实现一个接口所提供的所有方法时，可先设计一个抽象类实现该接口，并为接口中每个方法提供一个默认实现（空方法），那么该抽象类的子类可以选择性地覆盖父类的某些方法来实现需求。它适用于不想使用一个接口中的所有方法的情况，又称为单接口适配器模式</p>
+<ul>
+<li>ServiceInterface（适配者接口）：它是一个接口，通常在该接口中声明了大量的方法。</li>
+<li>AbstractServiceClass（缺省适配器类）：它是缺省适配器模式的核心类，使用空方法的形式实现了在ServiceInterface接口中声明的方法。通常将它定义为抽象类，因为对它进行实例化没有任何意义。</li>
+<li>ConcreteServiceClass（具体业务类）：它是缺省适配器类的子类，在没有引入适配器之前，它需要实现适配者接口，因此需要实现在适配者接口中定义的所有方法，而对于一些无须使用的方法也不得不提供空实现。在有了缺省适配器模式之后，可以直接继承该适配器类，根据需要有选择性地覆盖在适配器类中定义的方法。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230904193040538.png" alt="" style="zoom:33%;" />
+
+<blockquote>
+<p><strong>适配器模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>将目标类和适配者类解耦。通过引入一个适配器类来重用现有的适配者类，无须修改原有结构。</li>
+<li>增加了类的透明性和复用性。将具体的业务实现过程封装在适配者类中，对于客户端类而言是透明的，而且提高了适配者类的复用性，同一个适配者类可以在多个不同的系统中复用。</li>
+<li>灵活性和扩展性都非常好。通过使用配置文件，可以很方便地更换适配器，也可以在不修改原有代码的基础上增加新的适配器类，完全符合开闭原则。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>对于Java、C＃等不支持多重类继承的语言，一次最多只能适配一个适配者类，不能同时适配多个适配者。</li>
+<li>适配者类不能为最终类，例如在Java中不能为final类，C＃中不能为sealed类。</li>
+<li>在Java、C＃等语言中，类适配器模式中的目标抽象类只能为接口，不能为类，其使用有一定的局限性。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>系统需要使用一些现有的类，而这些类的接口（例如方法名）不符合系统的需要，甚至没有这些类的源代码。</li>
+<li>想创建一个可以重复使用的类，用于与一些彼此之间没有太大关联的类，包括一些可能在将来引进的类一起工作。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="3-2-处理多维度变化——桥接模式"><a href="#3-2-处理多维度变化——桥接模式" class="headerlink" title="3.2 处理多维度变化——桥接模式"></a>3.2 处理多维度变化——桥接模式</h2><p><strong>桥接模式</strong>（Bridge Pattern）：将抽象部分与其实现部分分离，使它们都可以独立地变化。它是一种对象结构型模式，又称为柄体模式或接口（Interface）模式。</p>
+<ul>
+<li>如果软件系统中某个类存在两个独立变化的维度，通过该模式可以将这两个维度分离出来，使两者可以独立扩展，让系统更加符合单一职责原则。</li>
+<li>与多层继承方案不同，它将两个独立变化的维度设计为两个独立的继承等级结构，并且在抽象层建立一个抽象关联，该关联关系类似一条连接两个独立继承结构的桥，故名桥接模式。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907163211009.png" alt="" style="zoom:50%;" />
+
+<p><strong>桥接模式结构图中包含以下4个角色：</strong></p>
+<ul>
+<li>Abstraction（抽象类）：用于定义抽象类的接口，它一般是抽象类而不是接口，其中定义了一个Implementor（实现类接口）类型的对象并可以维护该对象。抽象类与Implementor之间具有关联关系，它既可以包含抽象业务方法，也可以包含具体业务方法。</li>
+<li>RefinedAbstraction（扩充抽象类）：扩充由Abstraction定义的接口，通常情况下它不再是抽象类而是具体类。扩充抽象类实现了在Abstraction中声明的抽象业务方法，在RefinedAbstraction中可以调用在Implementor中定义的业务方法。</li>
+<li>Implementor（实现类接口）：定义实现类的接口，这个接口不一定要与Abstraction的接口完全一致，事实上这两个接口可以完全不同。一般而言，Implementor接口仅提供基本操作，而Abstraction定义的接口可能会做更多、更复杂的操作。Implementor接口对这些基本操作进行了声明，而具体实现交给其子类。通过关联关系，在Abstraction中不仅拥有自己的方法，还可以调用到Implementor中定义的方法，使用关联关系来替代继承关系。</li>
+<li>ConcreteImplementor（具体实现类）：具体实现Implementor接口，在不同的ConcreteImplementor中提供基本操作的不同实现。在程序运行时，ConcreteImplementor对象将替换其父类对象，提供给抽象类具体的业务操作方法。</li>
+</ul>
+<p><strong>适配器模式与桥接模式的联用</strong></p>
+<ul>
+<li>桥接模式和适配器模式用于设计的不同阶段。桥接模式用于系统的初步设计，对于存在两个独立变化维度的类可以将其分为抽象类和实现类两个角色，使它们可以分别进行变化；</li>
+<li>而在初步设计完成之后，当发现系统与已有类无法协同工作时，可以采用适配器模式。但有时候在设计初期也需要考虑适配器模式，特别是那些涉及大量第三方应用接口的情况。</li>
+<li>示例如下：<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907163535953.png" alt="" style="zoom: 33%;" /></li>
+</ul>
+<blockquote>
+<p><strong>桥接模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>分离抽象接口及其实现部分，使得抽象和实现可以沿着各自的维度来变化（即抽象和实现不再在同一个继承层次结构中，而是“子类化”它们，使它们各自都具有自己的子类，以便任意组合子类，从而获得多维度组合对象）。</li>
+<li>在很多情况下，桥接模式可以取代多层继承方案。多层继承方案违背了单一职责原则，复用性较差，且类的个数非常多。桥接模式是比多层继承方案更好的解决方法，它极大地减少了子类的个数。</li>
+<li>桥接模式提高了系统的可扩展性。在两个变化维度中任意扩展一个维度，都不需要修改原有系统，符合开闭原则。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>桥接模式的使用会增加系统的理解与设计难度，要求开发者一开始就针对抽象层进行设计与编程。</li>
+<li>桥接模式要求正确识别出系统中两个独立变化的维度，因此其使用范围具有一定的局限性，如何正确识别两个独立维度也需要一定的经验积累。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>如果一个系统需要在抽象类和具体类之间增加更多的灵活性，避免在两个层次之间建立静态的继承关系，通过桥接模式可以使它们在抽象层建立一个关联关系。</li>
+<li>抽象部分和实现部分可以以继承的方式独立扩展而互不影响，在程序运行时可以动态地将一个抽象类子类的对象和一个实现类子类的对象进行组合，即系统需要对抽象类角色和实现类角色进行动态耦合。</li>
+<li>一个类存在两个（或多个）独立变化的维度，且这两个（或多个）维度都需要独立进行扩展。</li>
+<li>对于那些不希望使用继承或因为多层继承导致系统类的个数急剧增加的系统，桥接模式尤为适用。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="3-3-组合模式——树形结构的处理"><a href="#3-3-组合模式——树形结构的处理" class="headerlink" title="3.3 组合模式——树形结构的处理"></a>3.3 组合模式——树形结构的处理</h2><p><strong>组合模式</strong>（Composite Pattern）：组合多个对象形成树形结构以表示具有“部分—整体”关系的层次结构。组合模式对单个对象（即叶子对象）和组合对象（即容器对象）的使用具有一致性，又可以称为“部分—整体”（Part-Whole）模式，它是一种对象结构型模式。</p>
+<ul>
+<li>组合模式通过定义一个共有的抽象父类，使得对所有子类对象的使用具有一致性</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907164123740.png" alt="" style="zoom:50%;" />
+
+<p><strong>组合模式结构图中包含以下3个角色</strong>：</p>
+<ul>
+<li>Component（抽象构件）：它可以是接口或抽象类，为叶子构件和容器构件对象声明接口，在该角色中可以包含所有子类共有行为的声明和实现。在抽象构件中定义了访问及管理它的子构件的方法。</li>
+<li>Leaf（叶子构件）：它在组合模式结构中表示叶子节点对象。叶子节点没有子节点，它实现了在抽象构件中定义的行为。对于那些访问及管理子构件的方法，可以通过捕获异常等方式进行处理。</li>
+<li>Composite（容器构件）：它在组合模式结构中表示容器节点对象。容器节点包含子节点，其子节点可以是叶子节点，也可以是容器节点。它提供一个集合用于存储子节点，实现了在抽象构件中定义的行为，包括那些访问及管理子构件的方法，在其业务方法中可以递归调用其子节点的业务方法。</li>
+</ul>
+<p><strong>透明组合模式与安全组合模式</strong></p>
+<ul>
+<li>透明组合模式中，抽象构件Component中声明了所有用于管理成员对象的方法，这样做的好处是确保所有的构件类都有相同的接口。<ul>
+<li>缺点是不够安全，因为叶子对象和容器对象在本质上是有区别的。</li>
+</ul>
+</li>
+<li>安全组合模式中，在抽象构件Component中没有声明任何用于管理成员对象的方法，而是在Composite类中声明并实现这些方法。<ul>
+<li>缺点是不够透明。因为叶子构件和容器构件具有不同的方法，且容器构件中那些用于管理成员对象的方法没有在抽象构件类中定义，因此客户端不能完全针对抽象编程，必须有区别地对待叶子构件和容器构件。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>组合模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>可以清楚地定义分层次的复杂对象，表示对象的全部或部分层次。让客户端忽略层次的差异，方便对整个层次结构进行控制。</li>
+<li>客户端可以一致地使用一个组合结构或其中单个对象，不必关心处理的是单个对象还是整个组合结构，简化了客户端代码。</li>
+<li>在组合模式中增加新的容器构件和叶子构件都很方便，无须对现有类库进行任何修改，符合开闭原则。</li>
+<li>组合模式为树形结构的面向对象实现提供了一种灵活的解决方案。通过叶子对象和容器对象的递归组合，可以形成复杂的树形结构，但对树形结构的控制却非常简单。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>在增加新构件时很难对容器中的构件类型进行限制。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>在具有整体和部分的层次结构中，希望通过一种方式忽略整体与部分的差异，客户端可以一致性地对待它们。</li>
+<li>在一个使用面向对象语言开发的系统中需要处理一个树形结构。</li>
+<li>在一个系统中能够分离出叶子对象和容器对象，而且它们的类型不固定，将来需要增加一些新的类型。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="3-4-装饰模式——扩展系统功能"><a href="#3-4-装饰模式——扩展系统功能" class="headerlink" title="3.4 装饰模式——扩展系统功能"></a>3.4 装饰模式——扩展系统功能</h2><p><strong>装饰模式</strong>（Decorator Pattern）：动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。</p>
+<ul>
+<li>在装饰模式中引入了装饰类，在装饰类中既可以调用待装饰的原有类的方法，还可以增加新的方法，以扩充原有类的功能。</li>
+<li>具体构件类和装饰类都实现了相同的抽象构件接口，因此装饰模式以对客户透明的方式动态地给一个对象附加上更多的责任。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907164930720.png" alt="" style="zoom: 67%;" />
+
+<p><strong>装饰模式结构图中包含以下4个角色</strong></p>
+<ul>
+<li>Component（抽象构件）：它是具体构件和抽象装饰类的共同父类，声明了在具体构件中实现的业务方法。它的引入可以使客户端以一致的方式处理未被装饰的对象以及装饰之后的对象，实现客户端的透明操作。</li>
+<li>ConcreteComponent（具体构件）：它是抽象构件类的子类，用于定义具体的构件对象，实现了在抽象构件中声明的方法，装饰器可以给它增加额外的职责（方法）。</li>
+<li>Decorator（抽象装饰类）：它也是抽象构件类的子类，用于给具体构件增加职责，但是具体职责在其子类中实现。它<strong>维护一个指向抽象构件对象的引用</strong>，通过该引用可以调用装饰之前构件对象的方法，并通过其子类扩展该方法，以达到装饰的目的。</li>
+<li>ConcreteDecorator（具体装饰类）：它是抽象装饰类的子类，负责向构件添加新的职责。每一个具体装饰类都定义了一些新的行为，可以调用在抽象装饰类中定义的方法，并可以增加新的方法用以扩充对象的行为。</li>
+</ul>
+<blockquote>
+<p><strong>装饰模式和桥接模式的相同之处和不同之处</strong></p>
+<ul>
+<li>相同：两个模式都是为了解决子类过多问题，都具有两个维度，装饰模式中具体构件类与具体装饰类可以独立变化</li>
+<li>不同<ul>
+<li>桥接模式对象自身有沿着多个维度变化的趋势 , 本身不稳定;</li>
+<li>装饰者模式对象自身非常稳定, 只是为了增加新功能&#x2F;增强原功能。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>透明装饰模式与半透明装饰模式</strong></p>
+<ul>
+<li><p>透明装饰模式中，要求客户端<strong>完全针对抽象编程</strong>。装饰模式的透明性要求客户端程序不应该将对象声明为具体构件类型或具体装饰类型，而应该全部声明为抽象构件类型。对于客户端而言，具体构件对象和具体装饰对象没有任何区别。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Component</span> c，c1<span class="token punctuation">;</span>       <span class="token comment">//使用抽象构件类型定义对象</span>
+c <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcreteComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+c1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcreteDecorator</span> <span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>为了能够调用到新增方法，不得不用具体装饰类型来定义装饰之后的对象，而具体构件类型还是可以使用抽象构件类型来定义，这种装饰模式即为半透明装饰模式。</p>
+<ul>
+<li>也就是说，对于客户端而言，具体构件类型无须关心，是透明的；但是具体装饰类型必须指定，这是不透明的。</li>
+<li><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907165811730.png" alt="" style="zoom:50%;" /></li>
+</ul>
+</li>
+</ul>
+<p><strong>装饰模式注意事项</strong></p>
+<ul>
+<li>尽量保持装饰类的接口与被装饰类的接口相同，即应该尽量使用透明装饰模式。</li>
+<li>尽量保持具体构件类是一个“轻”类，即不要把太多的行为放在具体构件类中，可以通过装饰类对其进行扩展。</li>
+<li>如果只有一个具体构件类，那么抽象装饰类可以作为该具体构件类的直接子类。</li>
+</ul>
+<blockquote>
+<p><strong>装饰模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>对于扩展一个对象的功能，装饰模式比继承更加灵活性，不会导致类的个数急剧增加。</li>
+<li>可以通过一种动态的方式来扩展一个对象的功能。通过配置文件可以在运行时选择不同的具体装饰类，从而实现不同的行为。</li>
+<li>可以对一个对象进行多次装饰。通过使用不同的具体装饰类以及这些装饰类的排列组合，可以创造出很多不同行为的组合，得到功能更为强大的对象。</li>
+<li>具体构件类与具体装饰类可以独立变化，用户可以根据需要增加新的具体构件类和具体装饰类，原有类库代码无须改变，符合开闭原则。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>使用装饰模式进行系统设计时将产生很多小对象。这些对象的区别在于它们之间相互连接的方式有所不同，而不是它们的类或者属性值有所不同。</li>
+<li>排错困难。对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为烦琐。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。</li>
+<li>当不能采用继承的方式对系统进行扩展或者采用继承不利于系统扩展和维护时可以使用装饰模式。不能采用继承的情况主要有两类：<ul>
+<li>第1类是系统中存在大量独立的扩展，为支持每一种扩展或者扩展之间的组合将产生大量的子类，使得子类数目呈爆炸性增长</li>
+<li>第2类是因为类已定义为不能被继承。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="3-5-外观模式——提供统一入口"><a href="#3-5-外观模式——提供统一入口" class="headerlink" title="3.5 外观模式——提供统一入口"></a>3.5 外观模式——提供统一入口</h2><p><strong>外观模式</strong>（Facade Pattern）：外部与一个子系统的通信通过一个统一的外观角色进行，为子系统中的一组接口提供一个一致的入口。外观模式定义了一个高层接口，这个接口使得子系统更加容易使用。外观模式又称为门面模式，它是一种对象结构型模式。</p>
+<ul>
+<li>引入外观模式之后，增加新的子系统或者移除子系统都非常方便，客户端类无须进行修改（或者极少的修改），只需要在外观类中增加或移除对子系统的引用即可。从这一点来说，外观模式在一定程度上并不符合开闭原则，</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907192826649.png"></p>
+<p><strong>外观模式结构图中包含以下两个角色</strong>：</p>
+<ul>
+<li>Facade（外观角色）：在客户端可以调用这个角色的方法，在外观角色中可以知道相关的（一个或者多个）子系统的功能和责任。在正常情况下，它将所有从客户端发来的请求委派到相应的子系统中去，传递给相应的子系统对象处理。</li>
+<li>SubSystem（子系统角色）：在软件系统中可以有一个或者多个子系统角色。每个子系统可以不是一个单独的类，而是一个类的集合，它实现子系统的功能。每个子系统都可以被客户端直接调用，或者被外观角色调用，它处理由外观类传过来的请求。子系统并不知道外观的存在，对于子系统而言，外观角色仅仅是另外一个客户端而已。</li>
+</ul>
+<p><strong>抽象外观类的引入</strong></p>
+<ul>
+<li>引入抽象外观类之后，客户端可以针对抽象外观类进行编程，对于新的业务需求，不需要修改原有外观类，而对应增加一个新的具体外观类。由新的具体外观类来关联新的子系统对象，同时通过修改配置文件来达到不修改任何源代码并更换外观类的目的。</li>
+</ul>
+<p><strong>外观角色设计补充说明</strong></p>
+<ul>
+<li>可以通过单例模式来设计外观类，从而确保系统中只有唯一一个访问子系统的入口，并降低对系统资源的消耗。</li>
+<li>在一个系统中可以设计多个外观类，每个外观类都负责和一些特定的子系统交互，向客户端提供相应的业务功能。</li>
+<li>试图通过外观类为子系统增加新行为的做法是错误的。外观模式的用意是为子系统提供一个集中化和简化的沟通渠道，而不是向子系统加入新行为。新行为的增加应该通过修改原有子系统类或增加新的子系统类来实现，不能通过外观类来实现。</li>
+</ul>
+<blockquote>
+<p><strong>外观模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>对客户端屏蔽了子系统组件，减少了客户端所需处理的对象数目并使得子系统使用起来更加容易。</li>
+<li>实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它的客户端，只需要调整外观类即可。</li>
+<li>一个子系统的修改对其他子系统没有任何影响，而且子系统内部变化也不会影响到外观对象。</li>
+<li>只是提供了一个访问子系统的统一入口，并不影响客户端直接使用子系统类。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>不能很好地限制客户端直接使用子系统类，如果对客户端访问子系统类做太多的限制则减少了可变性和灵活性。</li>
+<li>如果设计不当，增加新的子系统可能需要修改外观类的源代码，这违背了开闭原则。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>当要为访问一系列复杂的子系统提供一个简单入口时可以使用外观模式。</li>
+<li>客户端程序与多个子系统之间存在很大的依赖性。引入外观类可以将子系统与客户端解耦，从而提高子系统的独立性和可移植性。</li>
+<li>在层次化结构中，可以使用外观模式定义系统中每一层的入口，层与层之间不直接产生联系，而通过外观类建立联系，降低层之间的耦合度。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="3-6-享元模式——实现对象的复用"><a href="#3-6-享元模式——实现对象的复用" class="headerlink" title="3.6 享元模式——实现对象的复用"></a>3.6 享元模式——实现对象的复用</h2><p><strong>享元模式</strong>（Flyweight Pattern）：运用共享技术有效地支持大量细粒度对象的复用。系统只使用少量的对象，而这些对象都很相似，状态变化很小，可以实现对象的多次复用。</p>
+<ul>
+<li>由于享元模式要求能够共享的对象必须是细粒度对象，因此它又称为轻量级模式，是一种对象结构型模式。</li>
+<li>享元模式以共享的方式高效地支持大量细粒度对象的重用。享元对象能做到共享的关键是区分了内部状态和外部状态。<ul>
+<li>内部状态是存储在享元对象内部并且不会随环境改变而改变的状态，内部状态可以共享</li>
+<li>外部状态是随环境改变而改变的、不可以共享的状态。享元对象的外部状态通常由客户端保存，并在享元对象被创建之后，需要使用的时候，再传入享元对象内部。</li>
+</ul>
+</li>
+</ul>
+<p>享元模式结构较为复杂，一般结合工厂模式一起使用，结构图如图所示：</p>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907193658920.png" alt="" style="zoom:50%;" />
+
+<p><strong>享元模式结构图中包含以下4个角色</strong>：</p>
+<ul>
+<li>Flyweight（抽象享元类）：通常是一个接口或抽象类，在抽象享元类中声明了具体享元类公共的方法，这些方法可以向外界提供享元对象的内部数据（内部状态），同时也可以通过这些方法来设置外部数据（外部状态）。</li>
+<li>ConcreteFlyweight（具体享元类）：它实现了抽象享元类，其实例称为享元对象。在具体享元类中为内部状态提供了存储空间。通常，可以结合单例模式来设计具体享元类，为每个具体享元类提供唯一的享元对象。</li>
+<li>UnsharedConcreteFlyweight（非共享具体享元类）：并不是所有的抽象享元类的子类都需要被共享，不能被共享的子类可设计为非共享具体享元类。当需要一个非共享具体享元类的对象时可以直接通过实例化创建。</li>
+<li>FlyweightFactory（享元工厂类）：用于创建并管理享元对象，它针对抽象享元类编程，将各种类型的具体享元对象存储在一个享元池中。享元池一般设计为一个存储“键值对”的集合，结合工厂模式进行设计。当用户请求一个具体享元对象时，享元工厂提供一个存储在享元池中已创建的实例，或者创建一个新的实例并返回新创建的实例，同时将其存储在享元池中。</li>
+</ul>
+<p><strong>单纯享元模式和复合享元模式</strong></p>
+<ul>
+<li>在单纯享元模式中，所有的具体享元类都是可以共享的，不存在非共享具体享元类</li>
+<li>将一些单纯享元对象使用组合模式加以组合，还可以形成复合享元对象。这样的复合享元对象本身不能共享，但是它们可以包括单纯享元对象，而后者则可以共享。</li>
+</ul>
+<blockquote>
+<p><strong>享元模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>可以极大减少内存中对象的数量，使得相同或相似对象在内存中只保存一份，从而可以节约系统资源，提高系统性能。</li>
+<li>享元模式的外部状态相对独立，而且不会影响其内部状态，从而使得享元对象可以在不同的环境中被共享。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>享元模式需要分离出内部状态和外部状态，从而使得系统变得复杂，这使得程序的逻辑复杂化。</li>
+<li>为了使对象可以共享，享元模式需要将享元对象的部分状态外部化，而读取外部状态将使得运行时间变长。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>一个系统有大量相同或者相似的对象，造成内存的大量耗费。</li>
+<li>对象的大部分状态都可以外部化，可以将这些外部状态传入对象中。</li>
+<li>在使用享元模式时需要维护一个存储享元对象的享元池，而这需要耗费一定的系统资源。因此，在需要多次重复使用同一享元对象时才值得使用享元模式。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="3-7-代理模式——对象的间接访问"><a href="#3-7-代理模式——对象的间接访问" class="headerlink" title="3.7 代理模式——对象的间接访问"></a>3.7 代理模式——对象的间接访问</h2><p><strong>代理模式</strong>（Proxy Pattern）：给某一个对象提供一个代理，并由代理对象控制对原对象的引用。代理模式是一种对象结构型模式。</p>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907194314099.png" alt="" style="zoom:50%;" />
+
+<p><strong>代理模式结构图中包含以下3个角色</strong>：</p>
+<ul>
+<li>Subject（抽象主题角色）：它声明了真实主题和代理主题的共同接口，使得在任何使用真实主题的地方都可以使用代理主题，客户端通常需要针对抽象主题角色进行编程。</li>
+<li>Proxy（代理主题角色）：代理主题角色内部包含了对真实主题的引用，从而可以在任何时候操作真实主题对象。在代理主题角色中提供一个与真实主题角色相同的接口，以便在任何时候都可以替代真实主题。代理主题角色还可以控制对真实主题的使用，负责在需要的时候创建和删除真实主题对象，并对真实主题对象的使用加以约束。</li>
+<li>RealSubject（真实主题角色）：在真实主题角色中实现了真实的业务操作，客户端可以通过代理主题角色间接调用真实主题角色中定义的操作。</li>
+</ul>
+<blockquote>
+<p><strong>代理模式和装饰模式的区别</strong></p>
+<ul>
+<li>代理模式主要是给真实主题类增加一些全新的职责，例如权限控制、缓冲处理、智能引用、远程访问等，这些职责与原有职责不属于同一个问题域。</li>
+<li>装饰模式是通过装饰类为具体构件类增加一些相关的职责，是对原有职责的扩展，这些职责属于同一问题域。</li>
+<li>代理模式和装饰模式的目的也不相同，前者是控制对对象的访问，而后者是为对象动态地增加功能。</li>
+</ul>
+</blockquote>
+<p><strong>常用的几种代理模式</strong></p>
+<ul>
+<li>远程代理（Remote Proxy）：为一个位于不同的地址空间的对象提供一个本地的代理对象，这个不同的地址空间可以在同一台主机中，也可以在另一台主机中。</li>
+<li>虚拟代理（Virtual Proxy）：如果需要创建一个资源消耗较大的对象，先创建一个消耗相对较小的对象来表示，真实对象只在需要时才会被真正创建。在以下两种情况下可以考虑使用虚拟代理：<ul>
+<li>由于对象本身的复杂性或者网络等原因导致一个对象需要较长的加载时间，此时可以用一个加载时间相对较短的代理对象来代表真实对象。</li>
+<li>当一个对象的加载十分耗费系统资源的时候，也非常适合使用虚拟代理。虚拟代理可以让那些占用大量内存或处理起来非常复杂的对象推迟到使用它们的时候才创建，而在此之前用一个相对来说占用资源较少的代理对象来代表真实对象，再通过代理对象来引用真实对象。</li>
+</ul>
+</li>
+<li>保护代理（Protect Proxy）：控制对一个对象的访问，可以给不同的用户提供不同级别的使用权限。</li>
+<li>缓冲代理（Cache Proxy）：为某一个目标操作的结果提供临时的存储空间，以便多个客户端可以共享这些结果。</li>
+<li>智能引用代理（Smart Reference Proxy）：当一个对象被引用时，提供一些额外的操作，例如将对象被调用的次数记录下来等。</li>
+</ul>
+<blockquote>
+<p><strong>代理模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>代理模式能够协调调用者和被调用者，在一定程度上降低了系统的耦合度，满足迪米特法则。</li>
+<li>客户端可以针对抽象主题角色进行编程，增加和更换代理类无须修改源代码，符合开闭原则，系统具有较好的灵活性和可扩展性。</li>
+<li>远程代理为位于两个不同地址空间对象的访问提供了一种实现机制，可以将一些消耗资源较多的对象和操作移至性能更好的计算机上，提高系统的整体运行效率。</li>
+<li>虚拟代理通过一个消耗资源较少的对象来代表一个消耗资源较多的对象，可以在一定程度上节省系统的运行开销。</li>
+<li>保护代理可以控制对一个对象的访问权限，为不同用户提供不同级别的使用权限。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢，例如保护代理。</li>
+<li>实现代理模式需要额外的工作，有些代理模式的实现非常复杂，例如远程代理。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>当客户端对象需要访问远程主机中的对象时，可以使用远程代理。</li>
+<li>当需要用一个消耗资源较少的对象来代表一个消耗资源较多的对象，从而降低系统开销、缩短运行时间时，可以使用虚拟代理。</li>
+<li>当需要控制对一个对象的访问，为不同用户提供不同级别的访问权限时，可以使用保护代理。</li>
+<li>当需要为某一个被频繁访问的操作结果提供一个临时存储空间，以供多个客户端共享访问这些结果时，可以使用缓冲代理。</li>
+<li>当需要为一个对象的访问（引用）提供一些额外的操作时，可以使用智能引用代理。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="第4部分-交互的艺术——行为型模式"><a href="#第4部分-交互的艺术——行为型模式" class="headerlink" title="第4部分　交互的艺术——行为型模式"></a>第4部分　交互的艺术——行为型模式</h1><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907210409197.png" alt="" style="zoom:80%;" />
+
+<h2 id="4-1-职责链模式——请求的链式处理"><a href="#4-1-职责链模式——请求的链式处理" class="headerlink" title="4.1 职责链模式——请求的链式处理"></a>4.1 职责链模式——请求的链式处理</h2><p><strong>职责链模式</strong>（Chain of Responsibility Pattern）：避免将请求发送者与接收者耦合在一起，让多个对象都有机会接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p>
+<ul>
+<li>职责链模式结构的核心在于引入了一个抽象处理者</li>
+<li>在职责链模式里，很多对象由每个对象对其下家的引用而连接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求为止。发出这个请求的客户端并不知道链上的哪一个对象最终处理这个请求，这使得系统可以在不影响客户端的情况下动态地重新组织链和分配责任。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907210539162.png" alt="" style="zoom:50%;" />
+
+<p><strong>职责链模式结构图中包含以下两个角色</strong>：</p>
+<ul>
+<li>Handler（抽象处理者）：它定义了一个处理请求的接口，一般设计为抽象类。由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每个处理者的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象（结构图中的successor），作为其对下家的引用。通过该引用，处理者可以连成一条链。</li>
+<li>ConcreteHandler（具体处理者）：它是抽象处理者的子类，可以处理用户请求。在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者。在具体处理者中可以访问链中下一个对象，以便请求的转发。</li>
+</ul>
+<p><strong>纯与不纯的职责链模式</strong></p>
+<ul>
+<li>纯的职责链模式要求一个具体处理者对象只能在两个行为中选择一个：要么承担全部责任，要么将责任推给下家。不允许出现某一个具体处理者对象在承担了一部分或全部责任后又将责任向下传递的情况。且不能出现某个请求未被任何一个处理者对象处理的情况。</li>
+<li>不纯的职责链模式中，允许某个请求被一个具体处理者部分处理后再向下传递，或者一个具体处理者处理完某请求后其后继处理者可以继续处理该请求，而且一个请求可以最终不被任何处理者对象所接收。</li>
+</ul>
+<blockquote>
+<p><strong>职责链模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>职责链模式使得一个对象无须知道是其他哪一个对象处理其请求。对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构。由客户端负责链的创建，降低了系统的耦合度。</li>
+<li>请求处理对象仅需维持一个指向其后继者的引用，而不需要维持它对所有的候选处理者的引用，可简化对象的相互连接。</li>
+<li>在给对象分派职责时，职责链可以提供更多的灵活性，可以通过在运行时对链进行动态的增加或修改来增加或改变处理一个请求的职责。</li>
+<li>在系统中增加一个新的具体请求处理者时无须修改原有系统的代码，只需要在客户端重新建链即可，从这一点来看是符合开闭原则的。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理。一个请求也可能因职责链没有被正确配置而得不到处理。</li>
+<li>对于比较长的职责链，请求的处理可能涉及多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。</li>
+<li>如果建链不当，可能会造成循环调用，将导致系统陷入死循环。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>有多个对象可以处理同一个请求，具体哪个对象处理该请求待运行时刻再确定。客户端只需将请求提交到链上，而无须关心请求的处理对象是谁以及它是如何处理的。</li>
+<li>在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。</li>
+<li>可动态指定一组对象处理请求。客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="4-2-命令模式——请求发送者与接收者解耦"><a href="#4-2-命令模式——请求发送者与接收者解耦" class="headerlink" title="4.2 命令模式——请求发送者与接收者解耦"></a>4.2 命令模式——请求发送者与接收者解耦</h2><p><strong>命令模式</strong>（Command Pattern）：将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化；对请求排队或者记录请求日志，以及支持可撤销的操作。命令模式是一种对象行为型模式，其别名为动作（Action）模式或事务（Transaction）模式。</p>
+<ul>
+<li>命令模式的核心在于引入了命令类，请求发送者只需指定一个命令对象，再通过命令对象来调用请求接收者的处理方法</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230907211357760.png" alt="" style="zoom:50%;" />
+
+<p><strong>命令模式结构图中包含以下4个角色</strong></p>
+<ul>
+<li>Command（抽象命令类）：是一个抽象类或接口，在其中声明了用于执行请求的execute（）等方法，通过这些方法可以调用请求接收者的相关操作。</li>
+<li>ConcreteCommand（具体命令类）：是抽象命令类的子类，实现了在抽象命令类中声明的方法。它对应具体的接收者对象，将接收者对象的动作绑定其中。在实现execute（）方法时，将调用接收者对象的相关操作。</li>
+<li>Invoker（调用者）：调用者即请求发送者，它通过命令对象来执行请求。一个调用者并不需要在设计时确定其接收者，因此它只与抽象命令类之间存在关联关系。在程序运行时可以将一个具体命令对象注入其中，再调用具体命令对象的execute（）方法，从而实现间接调用请求接收者的相关操作。</li>
+<li>Receiver（接收者）：接收者执行与请求相关的操作，它具体实现对请求的业务处理。</li>
+</ul>
+<p><strong>命令队列的实现</strong></p>
+<ul>
+<li>当一个请求发送者发送一个请求时，不止一个请求接收者产生响应，这些请求接收者将逐个执行业务方法，完成对请求的处理。此时，可以通过命令队列来实现。</li>
+<li>实现：增加一个CommandQueue类。CommandQueue类负责存储多个命令对象，而不同的命令对象可以对应不同的请求接收者</li>
+</ul>
+<p><strong>宏命令</strong>（Macro Command）：又称为组合命令，它是组合模式和命令模式联用的产物。宏命令是一个具体命令类，它拥有一个集合属性，在该集合中包含了对其他命令对象的引用。</p>
+<ul>
+<li>通常宏命令不直接与请求接收者交互，而是通过它的成员来调用接收者的方法。当调用宏命令的execute（）方法时，将递归调用它所包含的每个成员命令的execute（）方法。</li>
+</ul>
+<blockquote>
+<p><strong>命令模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>降低系统的耦合度。由于请求者与接收者之间不存在直接引用，因此请求者与接收者之间实现完全解耦，相同的请求者可以对应不同的接收者。同样，相同的接收者也可以供不同的请求者使用，两者之间具有良好的独立性。</li>
+<li>新的命令可以很容易地加入系统中。由于增加新的具体命令类不会影响到其他类，因此增加新的具体命令类很容易，无须修改原有系统源代码甚至客户类代码，满足开闭原则的要求。</li>
+<li>可以比较容易地设计一个命令队列或宏命令（组合命令）。</li>
+<li>为请求的撤销（Undo）和恢复（Redo）操作提供了一种设计和实现方案。</li>
+</ul>
+</li>
+<li>缺点：使用命令模式可能会导致某些系统有过多的具体命令类。因为针对每一个对请求接收者的调用操作都需要设计一个具体命令类，因此在某些系统中可能需要提供大量的具体命令类，这将影响命令模式的使用。</li>
+<li>适用场景<ul>
+<li>系统需要将请求调用者和请求接收者解耦，使得调用者和接收者不直接交互。请求调用者无须知道接收者的存在，也无须知道接收者是谁，接收者也无须关心何时被调用。</li>
+<li>系统需要在不同的时间指定请求、将请求排队和执行请求。一个命令对象和请求的初始调用者可以有不同的生命期。换言之，最初的请求发出者可能已经不在了，而命令对象本身仍然是活动的，可以通过该命令对象去调用请求接收者，而无须关心请求调用者的存在性，可以通过请求日志文件等机制来具体实现。</li>
+<li>系统需要支持命令的撤销（Undo）操作和恢复（Redo）操作。</li>
+<li>系统需要将一组操作组合在一起形成宏命令。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="4-3-解释器模式——自定义语言的实现"><a href="#4-3-解释器模式——自定义语言的实现" class="headerlink" title="4.3 解释器模式——自定义语言的实现"></a>4.3 解释器模式——自定义语言的实现</h2><h2 id="4-4-迭代器模式——遍历聚合对象中的元素"><a href="#4-4-迭代器模式——遍历聚合对象中的元素" class="headerlink" title="4.4 迭代器模式——遍历聚合对象中的元素"></a>4.4 迭代器模式——遍历聚合对象中的元素</h2><p><strong>迭代器模式</strong>（Iterator Pattern）：提供一种方法来访问聚合对象，而不用暴露这个对象的内部表示，其别名为游标（Cursor）。迭代器模式是一种对象行为型模式。</p>
+<ul>
+<li>聚合对象拥有两个职责：一是存储数据；二是遍历数据。从依赖性来看，前者是聚合对象的基本职责；而后者既是可变化的，又是可分离的。因此，可以将遍历数据的行为从聚合对象中分离出来，封装在一个被称之为“迭代器”的对象中</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230908174040830.png" alt="" style="zoom:50%;" />
+
+<p><strong>迭代器模式结构图中包含以下4个角色</strong>：</p>
+<ul>
+<li>Iterator（抽象迭代器）：它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法。<ul>
+<li>例如，用于获取第一个元素的first（）方法，用于访问下一个元素的next（）方法，用于判断是否还有下一个元素的hasNext（）方法，用于获取当前元素的currentItem（）方法等。在具体迭代器中将实现这些方法。</li>
+</ul>
+</li>
+<li>ConcreteIterator（具体迭代器）：它实现了抽象迭代器接口，完成对聚合对象的遍历，同时在具体迭代器中通过游标来记录在聚合对象中所处的当前位置。在具体实现时，游标通常是一个表示位置的非负整数。</li>
+<li>Aggregate（抽象聚合类）：它用于存储和管理元素对象，声明一个createIterator（）方法用于创建一个迭代器对象，充当抽象迭代器工厂角色。</li>
+<li>ConcreteAggregate（具体聚合类）：它实现了在抽象聚合类中声明的createIterator（）方法，该方法返回一个与该具体聚合类对应的具体迭代器ConcreteIterator实例。</li>
+</ul>
+<p><strong>使用内部类实现迭代器</strong></p>
+<ul>
+<li>在具体迭代器中需要维持一个对具体聚合对象的引用，该关联关系的目的是访问存储在聚合对象中的数据，以便迭代器能够对这些数据进行遍历操作。</li>
+<li>除了使用关联关系外，为了能够让迭代器可以访问到聚合对象中的数据，还可以将迭代器类设计为聚合类的内部类。</li>
+</ul>
+<blockquote>
+<p><strong>迭代器模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>支持以不同的方式遍历一个聚合对象，在同一个聚合对象上可以定义多种遍历方式。</li>
+<li>迭代器简化了聚合类。由于引入了迭代器，在原有的聚合对象中不需要再自行提供数据遍历等方法，这样可以简化聚合类的设计。</li>
+<li>在迭代器模式中，由于引入了抽象层，增加新的聚合类和迭代器类都很方便，无须修改原有代码，满足开闭原则的要求。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>由于迭代器模式将存储数据和遍历数据的职责分离，增加新的聚合类需要对应增加新的迭代器类，类的个数成对增加，这在一定程度上增加了系统的复杂性。</li>
+<li>抽象迭代器的设计难度较大，需要充分考虑到系统将来的扩展。<ul>
+<li>例如JDK内置迭代器Iterator就无法实现逆向遍历，如果需要实现逆向遍历，只能通过其子类ListIterator等来实现，而ListIterator迭代器无法用于操作Set类型的聚合对象。在自定义迭代器时，创建一个考虑全面的抽象迭代器并不是件很容易的事情。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>访问一个聚合对象的内容而无须暴露它的内部表示。将聚合对象的访问与内部数据的存储分离，使得访问聚合对象时无须了解其内部实现细节。</li>
+<li>需要为一个聚合对象提供多种遍历方式。</li>
+<li>为遍历不同的聚合结构提供一个统一的接口，在该接口的实现类中为不同的聚合结构提供不同的遍历方式，而客户端可以一致性地操作该接口。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="4-5-中介者模式——协调多个对象之间的交互"><a href="#4-5-中介者模式——协调多个对象之间的交互" class="headerlink" title="4.5 中介者模式——协调多个对象之间的交互"></a>4.5 中介者模式——协调多个对象之间的交互</h2><p><strong>中介者模式</strong>（Mediator Pattern）：用一个中介对象（中介者）来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。中介者模式又称为调停者模式，它是一种对象行为型模式。</p>
+<ul>
+<li>中介模式可以将对象之间多对多的复杂关系就转化为相对简单的一对多关系</li>
+<li>通过引入中介者对象，可以将系统的网状结构变成以中介者为中心的星形结构</li>
+<li>该模式将各对象之间的交互模式隐藏在中介者中，会使得中介者交互逻辑变得复杂</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230908202521445.png" alt="" style="zoom:50%;" />
+
+<p><strong>中介者模式结构图中包含以下4个角色</strong>：</p>
+<ul>
+<li>Mediator（抽象中介者）：定义一个接口用于与各同事对象之间进行通信。<ul>
+<li>中介者中会存在一个集合用于存储所有同事对象，若要调用其他同事方法则先通过该集合获取对象再调用其方法</li>
+</ul>
+</li>
+<li>ConcreteMediator（具体中介者）：它是抽象中介者的子类，通过协调各个同事对象来实现协作行为，维持了对各个同事对象的引用。</li>
+<li>Colleague（抽象同事类）：它定义各个同事类公有的方法，并声明了一些抽象方法来供子类实现，同时维持了一个对抽象中介者类的引用，其子类可以通过该引用来与中介者通信。</li>
+<li>ConcreteColleague（具体同事类）：它是抽象同事类的子类。每一个同事对象在需要和其他同事对象通信时，先与中介者通信，通过中介者来间接完成与其他同事类的通信。在具体同事类中实现了在抽象同事类中声明的抽象方法。</li>
+</ul>
+<p><strong>中介者类职责</strong>：</p>
+<ul>
+<li>中转作用（结构性）。通过中介者提供的中转作用，各个同事对象就不再需要显式地引用其他同事。当需要和其他同事进行通信时，可通过中介者来实现间接调用。该中转作用属于中介者在结构上的支持。</li>
+<li>协调作用（行为性）。中介者可以更进一步地对同事之间的关系进行封装，同事可以一致地和中介者进行交互，而不需要指明中介者需要具体怎么做。中介者根据封装在自身内部的协调逻辑，对同事的请求进行进一步处理，将同事成员之间的关系行为进行分离和封装。该协调作用属于中介者在行为上的支持。</li>
+</ul>
+<blockquote>
+<p><strong>中介者模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>中介者模式简化了对象之间的交互，它用中介者和同事的一对多交互代替了原来同事之间的多对多交互。一对多关系更容易理解、维护和扩展，将原本难以理解的网状结构转换成相对简单的星形结构。</li>
+<li>中介者模式可将各同事对象解耦。中介者有利于各同事之间的松耦合，可以独立地改变和复用每一个同事和中介者，增加新的中介者和新的同事类都比较方便，更好地符合开闭原则。</li>
+<li>可以减少大量同事子类生成。中介者将原本分布于多个对象间的行为集中在一起，改变这些行为只需要生成新的中介者子类即可，这使得各个同事类可以被重用，无须对同事类进行扩展。</li>
+</ul>
+</li>
+<li>缺点：在具体中介者类中包含了大量同事之间的交互细节，可能会导致具体中介者类非常复杂，使得系统难以维护</li>
+<li>适用场景<ul>
+<li>系统中对象之间存在复杂的引用关系，系统结构混乱且难以理解。</li>
+<li>一个对象由于引用了其他很多对象并且直接和这些对象通信，导致难以复用该对象。</li>
+<li>想通过一个中间类来封装多个类中的行为，而又不想生成太多的子类。可以通过引入中介者类来实现，在中介者中定义对象交互的公共行为，如果需要改变行为则可以增加新的具体中介者类。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="4-6-备忘录模式——撤销功能的实现"><a href="#4-6-备忘录模式——撤销功能的实现" class="headerlink" title="4.6 备忘录模式——撤销功能的实现"></a>4.6 备忘录模式——撤销功能的实现</h2><p><strong>备忘录模式</strong>（Memento Pattern）：在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样可以在以后将对象恢复到原先保存的状态。</p>
+<ul>
+<li>用一个类保存状态，一个类用于状态的保存和获取，进行职责分离</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230908204822137.png" alt="" style="zoom:50%;" />
+
+<p><strong>备忘录模式结构图中包含以下3个角色</strong></p>
+<ul>
+<li>Originator（原发器）：它是一个普通类，可以创建一个备忘录，并存储其当前内部状态，也可以使用备忘录来恢复其内部状态。一般将需要保存内部状态的类设计为原发器。</li>
+<li>Memento（备忘录）：存储原发器的内部状态，根据原发器来决定保存哪些内部状态。备忘录的设计一般可以参考原发器的设计，根据实际需要确定备忘录类中的属性。需要注意的是，除了原发器本身与负责人类之外，备忘录对象不能直接供其他类使用，且不允许其他对象来修改备忘录。</li>
+<li>Caretaker（负责人）：负责人又称为管理者，他负责保存备忘录，但是不能对备忘录的内容进行操作或检查。在负责人类中可以存储一个或多个备忘录对象，他只负责存储对象，而不能修改对象，也无须知道对象的实现细节。</li>
+</ul>
+<p><strong>实现多次撤销</strong></p>
+<ul>
+<li>在负责人类中定义一个集合来存储多个备忘录。每个备忘录负责保存一个历史状态，在撤销时可以对备忘录集合进行逆向遍历，回到一个指定的历史状态，而且还可以对备忘录集合进行正向遍历，实现重做（Redo）或恢复操作，即取消撤销，让对象状态得到恢复。</li>
+</ul>
+<blockquote>
+<p><strong>备忘录模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>提供了一种状态恢复的实现机制，使得用户可以方便地回到一个特定的历史步骤。当新的状态无效或者存在问题时，可以使用暂时存储起来的备忘录将状态复原。</li>
+<li>备忘录实现了对信息的封装。一个备忘录对象是一种原发器对象状态的表示，不会被其他代码所改动。备忘录保存了原发器的状态，采用列表、堆栈等集合来存储备忘录对象可以实现多次撤销操作。</li>
+</ul>
+</li>
+<li>缺点：资源消耗过大。如果需要保存的原发器类的成员变量太多，就不可避免地需要占用大量的存储空间，每保存一次对象的状态都需要消耗一定的系统资源。</li>
+<li>适用场景<ul>
+<li>保存一个对象在某一个时刻的全部状态或部分状态，这样以后需要时就能够恢复到先前的状态，实现撤销操作。</li>
+<li>防止外界对象破坏一个对象历史状态的封装性，避免将对象历史状态的实现细节暴露给外界对象。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="4-7-观察者模式——对象间的联动"><a href="#4-7-观察者模式——对象间的联动" class="headerlink" title="4.7 观察者模式——对象间的联动"></a>4.7 观察者模式——对象间的联动</h2><p><strong>观察者模式</strong>（Observer Pattern）：定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。</p>
+<ul>
+<li>又称发布-订阅模式、模型-视图模式、源-监听器模式或从属者模式。观察者模式是一种对象行为型模式。</li>
+<li>在被观察目标中存储所有观察对象，当时间发生则通知所有对象</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230909150522440.png" alt="" style="zoom:67%;" />
+
+<p><strong>观察者模式结构图中包含以下4个角色</strong>：</p>
+<ul>
+<li>Subject（目标）：又称为主题，指被观察的对象。在目标中定义了一个观察者集合，一个观察目标可以接受任意数量的观察者来观察，它提供一系列方法来增加和删除观察者对象，同时定义了通知方法notify（）。目标类可以是接口，也可以是抽象类或具体类。</li>
+<li>ConcreteSubject（具体目标）：具体目标是目标类的子类，通常包含有经常发生改变的数据。当它的状态发生改变时，向其各个观察者发出通知。同时它还实现了在目标类中定义的抽象业务逻辑方法（如果有）。如果无须扩展目标类，则具体目标类可以省略。</li>
+<li>Observer（观察者）：观察者将对观察目标的改变做出反应。观察者一般定义为接口，该接口声明了更新数据的方法update（），因此又称为抽象观察者。</li>
+<li>ConcreteObserver（具体观察者）：在具体观察者中维护一个指向具体目标对象的引用，它存储具体观察者的有关状态，这些状态需要和具体目标的状态保持一致。<ul>
+<li>它实现了在抽象观察者Observer中声明的update（）方法。通常在实现时，可以调用具体目标类的attach（）方法将自己添加到目标类的集合中或通过detach（）方法将自己从目标类的集合中删除。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>MVC也应用了观察者模式。</p>
+<p>模型层提供的数据是视图层所观察的对象。如果模型层的数据发生改变，视图层发生相应改变。</p>
+</blockquote>
+<blockquote>
+<p><strong>观察者模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>观察者模式可以实现表示层和数据逻辑层的分离。它定义了稳定的消息更新传递机制，并抽象了更新接口，使得可以有各种各样不同的表示层充当具体观察者角色。</li>
+<li>观察者模式在观察目标和观察者之间建立一个抽象的耦合。观察目标只需要维持一个抽象观察者的集合，无须了解其具体观察者。由于观察目标和观察者没有紧密地耦合在一起，因此它们可以属于不同的抽象化层次。</li>
+<li>观察者模式支持广播通信。观察目标会向所有已注册的观察者对象发送通知，简化了一对多系统设计的难度。</li>
+<li>观察者模式满足开闭原则的要求，增加新的具体观察者无须修改原有系统代码。在具体观察者与观察目标之间不存在关联关系的情况下，增加新的观察目标也很方便。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>如果一个观察目标对象有很多直接和间接观察者，将所有的观察者都通知到会花费很多时间。</li>
+<li>如果在观察者和观察目标之间存在循环依赖，观察目标会触发它们之间进行循环调用，可能导致系统崩溃。</li>
+<li>观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>一个抽象模型有两个方面，其中一个方面依赖于另一个方面，将这两个方面封装在独立的对象中使它们可以各自独立地改变和复用。</li>
+<li>一个对象的改变将导致一个或多个其他对象也发生改变，而并不知道具体有多少对象将发生改变，也不知道这些对象是谁。</li>
+<li>需要在系统中创建一个触发链，A对象的行为将影响B对象，B对象的行为将影响C对象……可以使用观察者模式创建一种链式触发机制。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="4-8-状态模式——对象状态及其转换"><a href="#4-8-状态模式——对象状态及其转换" class="headerlink" title="4.8 状态模式——对象状态及其转换"></a>4.8 状态模式——对象状态及其转换</h2><p><strong>状态模式</strong>（State Pattern）：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。其别名为状态对象（Objects for States），状态模式是一种对象行为型模式。</p>
+<ul>
+<li>用于解决系统中复杂对象的状态转换以及不同状态下行为的封装问题。当系统中某个对象存在多个状态，这些状态之间可以进行转换，而且对象在不同状态下行为不相同时可以使用状态模式。</li>
+<li>状态模式将一个对象的状态从该对象中分离出来，封装到专门的状态类中，使得对象状态可以灵活变化。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230909151312839.png"></p>
+<p><strong>状态模式结构图中包含以下3个角色</strong></p>
+<ul>
+<li>Context（环境类）：环境类又称为上下文类，它是拥有多种状态的对象。由于环境类的状态存在多样性且在不同状态下对象的行为有所不同，因此将状态独立出去形成单独的状态类。在环境类中维护一个抽象状态类State的实例，这个实例定义当前状态，在具体实现时，它是一个State子类的对象。</li>
+<li>State（抽象状态类）：它用于定义一个接口以封装与环境类的一个特定状态相关的行为。在抽象状态类中声明各种不同状态对应的方法，而在其子类中实现这些方法。由于不同状态下对象的行为可能不同，因此在不同子类中方法的实现可能存在不同，相同的方法可以写在抽象状态类中。</li>
+<li>ConcreteState（具体状态类）：它是抽象状态类的子类，每个子类实现一个与环境类的一个状态相关的行为。每个具体状态类对应环境类的一个具体状态，不同的具体状态类其行为有所不同。</li>
+</ul>
+<p>在状态模式的使用过程中，一个对象的状态之间还可以进行相互转换。<strong>通常有以下两种实现状态转换的方式</strong>：</p>
+<ol>
+<li>统一由环境类来负责状态之间的转换。此时，环境类还充当了状态管理器（State Manager）角色。在环境类的业务方法中通过对某些属性值的判断实现状态转换，还可以提供一个专门的方法用于实现属性判断和状态转换。</li>
+<li>由具体状态类来负责状态之间的转换。可以在具体状态类的业务方法中判断环境类的某些属性值再根据情况为环境类设置新的状态对象，实现状态转换。同样，也可以提供一个专门的方法来负责属性值的判断和状态转换。此时，状态类与环境类之间将存在依赖或关联关系，因为状态类需要访问环境类中的属性值。</li>
+</ol>
+<p><strong>共享状态</strong>：如果希望在系统中实现多个环境对象共享一个或多个状态对象，那么需要将这些状态对象定义为环境类的静态成员对象。</p>
+<blockquote>
+<p><strong>状态模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>封装了状态的转换规则。在状态模式中可以将状态的转换代码封装在环境类或者具体状态类中，对状态转换代码进行集中管理，而不是分散在一个个业务方法中。</li>
+<li>将所有与某个状态有关的行为放到一个类中，只需要注入一个不同的状态对象即可使环境对象拥有不同的行为。</li>
+<li>允许状态转换逻辑与状态对象合成一体，而不是提供一个巨大的条件语句块。状态模式可以避免使用庞大的条件语句来将业务方法和状态转换代码交织在一起。</li>
+<li>可以让多个环境对象共享一个状态对象，从而减少系统中对象的个数。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>状态模式的使用必然会增加系统中类和对象的个数，导致系统运行开销增大。</li>
+<li>状态模式的程序结构与实现都较为复杂，如果使用不当将导致程序结构和代码的混乱，增加系统设计的难度。</li>
+<li>状态模式对开闭原则的支持并不太好。增加新的状态类需要修改那些负责状态转换的源代码，否则无法转换到新增状态；而且修改某个状态类的行为也需修改对应类的源代码。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>对象的行为依赖于它的状态（例如某些属性值），状态的改变将导致行为的变化。</li>
+<li>在代码中包含大量与对象状态有关的条件语句。这些条件语句的出现，会导致代码的可维护性和灵活性变差，不能方便地增加和删除状态，并且导致客户类与类库之间的耦合增强。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="4-9-策略模式——算法的封装与切换"><a href="#4-9-策略模式——算法的封装与切换" class="headerlink" title="4.9 策略模式——算法的封装与切换"></a>4.9 策略模式——算法的封装与切换</h2><p><strong>策略模式</strong>（Strategy Pattern）：定义一系列算法类，将每一个算法封装起来，并让它们可以相互替换。策略模式让算法独立于使用它的客户而变化，也称为政策模式。策略模式是一种对象行为型模式。</p>
+<ul>
+<li>将算法的定义与使用分开，也就是将算法的行为和环境分开。将算法的定义放在专门的策略类中，每个策略类封装了一种实现算法。</li>
+<li>使用算法的环境类针对抽象策略类进行编程，符合依赖倒转原则。在出现新的算法时，只需要增加一个新的实现了抽象策略类的具体策略类即可。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230909152203473.png" alt="" style="zoom:50%;" />
+
+<p><strong>策略模式结构图中包含以下3个角色</strong></p>
+<ul>
+<li>Context（环境类）：环境类是使用算法的角色，它在解决某个问题（即实现某个方法）时可以采用多种策略。在环境类中维持一个对抽象策略类的引用实例，用于定义所采用的策略。</li>
+<li>Strategy（抽象策略类）：它为所支持的算法声明了抽象方法，是所有策略类的父类。它可以是抽象类或具体类，也可以是接口。环境类通过抽象策略类中声明的方法在运行时调用具体策略类中实现的算法。</li>
+<li>ConcreteStrategy（具体策略类）：它实现了在抽象策略类中声明的算法。在运行时，具体策略类将覆盖在环境类中定义的抽象策略类对象，使用一种具体的算法实现某个业务处理。</li>
+</ul>
+<blockquote>
+<p><strong>策略模式总结</strong></p>
+<ul>
+<li>优点</li>
+<li><ul>
+<li>提供了对开闭原则的完美支持。用户可以在不修改原有系统的基础上选择算法或行为，也可以灵活地增加新的算法或行为。</li>
+<li>策略模式提供了管理相关的算法族的办法。策略类的等级结构定义了一个算法或行为族，恰当使用继承可以把公共的代码移到抽象策略类中，从而避免重复代码。</li>
+<li>策略模式提供了一种可以替换继承关系的办法。<ul>
+<li>如果不使用策略模式，那么使用算法的环境类就可能会有一些子类，每一个子类提供一种不同的算法。但是，这样一来算法的使用就和算法本身混在一起，不符合单一职责原则。决定使用哪一种算法的逻辑和该算法本身混合在一起，从而不可能再独立演化；而且使用继承无法实现算法或行为在程序运行时的动态切换。</li>
+</ul>
+</li>
+<li>使用策略模式可以避免多重条件选择语句。多重条件选择语句不易维护，它把采取哪一种算法或行为的逻辑与算法或行为本身的实现逻辑混合在一起</li>
+<li>策略模式提供了一种算法的复用机制。由于将算法单独提取出来封装在策略类中，因此不同的环境类可以方便地复用这些策略类。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>客户端必须知道所有的策略类，并自行决定使用哪一个策略类。这就意味着客户端必须理解这些算法的区别，以便适时选择恰当的算法。换言之，策略模式只适用于客户端知道所有的算法或行为的情况。</li>
+<li>策略模式将造成系统产生很多具体策略类。任何细小的变化都将导致系统要增加一个新的具体策略类。</li>
+<li>无法同时在客户端使用多个策略类。也就是说，在使用策略模式时，客户端每次只能使用一个策略类，不支持使用一个策略类完成部分功能后再使用另一个策略类来完成剩余功能的情况。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>一个系统需要动态地在几种算法中选择一种。可以将这些算法封装到一个个的具体算法类中，而这些具体算法类都是一个抽象算法类的子类。</li>
+<li>一个对象有很多的行为，如果不用恰当的模式，这些行为就只好使用多重条件选择语句来实现。此时，使用策略模式，把这些行为转移到相应的具体策略类里面，就可以避免使用难以维护的多重条件选择语句。</li>
+<li>不希望客户端知道复杂的、与算法相关的数据结构。在具体策略类中封装算法与相关的数据结构，可以提高算法的保密性与安全性。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="8-10-模板方法模式——定义算法的框架"><a href="#8-10-模板方法模式——定义算法的框架" class="headerlink" title="8.10 模板方法模式——定义算法的框架"></a>8.10 模板方法模式——定义算法的框架</h2><p><strong>模板方法模式</strong>（Template Method Pattern）：定义一个操作中算法的框架，而将一些步骤延迟到子类中。模板方法模式使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。模板方法模式是一种类行为型模式。</p>
+<ul>
+<li>在抽象类中定义执行步骤，形成方法模板，而继承该类时可以重写小步骤的方法，但不能重写整体步骤逻辑。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230909152955434.png" alt="" style="zoom:67%;" />
+
+<p><strong>模板方法模式结构图中包含以下两个角色</strong></p>
+<ul>
+<li>AbstractClass（抽象类）：定义了一系列基本操作，这些基本操作可以是具体的，也可以是抽象的。每个基本操作对应算法的一个步骤，在其子类中可以重定义或实现这些步骤。同时，实现了一个模板方法，用于定义一个算法的框架。模板方法不仅可以调用在抽象类中实现的基本方法，也可以调用在抽象类的子类中实现的基本方法，还可以调用其他对象中的方法。</li>
+<li>ConcreteClass（具体子类）：它是抽象类的子类，用于实现在父类中声明的抽象基本操作以完成子类特定算法的步骤，也可以覆盖在父类中已经实现的具体基本操作。</li>
+</ul>
+<p><strong>模板方法</strong>：模板方法是定义在抽象类中的、把基本操作方法组合在一起形成一个总算法或一个总行为的方法。不能修改。</p>
+<p><strong>基本方法</strong>：</p>
+<ul>
+<li>抽象方法：一个抽象方法由抽象类声明，由其具体子类实现。</li>
+<li>具体方法：一个具体方法由一个抽象类或具体类声明并实现，其子类可以进行覆盖也可以直接继承。</li>
+<li>钩子方法：一个钩子方法由一个抽象类或具体类声明并实现，而其子类可能会加以扩展。通常在父类中给出的实现是一个空实现，并以该空实现作为方法的默认实现。相当于预留了一个判断接口。</li>
+</ul>
+<blockquote>
+<p><strong>模板方法模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>模板方法模式在父类中形式化地定义一个算法，而由它的子类来实现细节的处理。在子类实现详细的处理算法时并不会改变算法中步骤的执行次序。</li>
+<li>模板方法模式是一种代码复用技术，它在类库设计中尤为重要。它提取了类库中的公共行为，将公共行为放在父类中，而通过其子类来实现不同的行为。它鼓励恰当使用继承来实现代码复用。</li>
+<li>模板方法模式可实现一种反向控制结构。通过子类覆盖父类的钩子方法来决定某一特定步骤是否需要执行。</li>
+<li>在模板方法模式中可以通过子类来覆盖父类的基本方法，不同的子类可以提供基本方法的不同实现，更换和增加新的子类很方便，符合单一职责原则和开闭原则。</li>
+</ul>
+</li>
+<li>缺点：需要为每一个基本方法的不同实现提供一个子类。如果父类中可变的基本方法太多，将会导致类的个数增加，系统更加庞大，设计也更加抽象。此时，可结合桥接模式来进行设计。</li>
+<li>适用场景<ul>
+<li>对一些复杂的算法进行分割，将其算法中固定不变的部分设计为模板方法和父类具体方法，而一些可以改变的细节由其子类来实现。即一次性地实现一个算法的不变部分，并将可变的行为留给子类来实现。</li>
+<li>各子类中公共的行为应被提取出来并集中到一个公共父类中以避免代码重复。</li>
+<li>需要通过子类来决定父类算法中某个步骤是否执行，实现子类对父类的反向控制。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="4-11-访问者模式——操作复杂对象结构"><a href="#4-11-访问者模式——操作复杂对象结构" class="headerlink" title="4.11 访问者模式——操作复杂对象结构"></a>4.11 访问者模式——操作复杂对象结构</h2><p><strong>访问者模式</strong>（Visitor Pattern）：提供一个作用于某对象结构中的各元素的操作表示，它使得可以在不改变各元素的类的前提下定义作用于这些元素的新操作。访问者模式是一种对象行为型模式。</p>
+<ul>
+<li>访问者模式包括两个层次结构：一个是访问者层次结构，提供了抽象访问者和具体访问者；另一个是元素层次结构，提供了抽象元素和具体元素。</li>
+<li>相同的访问者可以以不同的方式访问不同的元素，相同的元素可以接受不同访问者以不同访问方式访问。在访问者模式中，增加新的访问者无须修改原有系统，系统具有较好的可扩展性。</li>
+<li>抽象访问者为每一种类型的元素对象都提供一个访问方法，而具体访问者可以实现这些访问方法。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230909154540918.png" alt="" style="zoom:50%;" />
+
+<p><strong>访问者模式结构图中包含以下5个角色</strong></p>
+<ul>
+<li>Visitor（抽象访问者）：抽象访问者为对象结构中每个具体元素类ConcreteElement声明一个访问操作，从这个操作的名称或参数类型可以清楚知道需要访问的具体元素的类型。具体访问者需要实现这些操作方法，提供对这些元素的访问操作。</li>
+<li>ConcreteVisitor（具体访问者）：具体访问者实现了每个由抽象访问者声明的操作，每个操作用于访问对象结构中一种类型的元素。</li>
+<li>Element（抽象元素）：抽象元素一般是抽象类或者接口，它定义一个accept（）方法，该方法通常以一个抽象访问者作为参数。</li>
+<li>ConcreteElement（具体元素）：具体元素实现了accept（）方法，在accept（）方法中调用访问者的访问方法以便完成对一个元素的操作。</li>
+<li>ObjectStructure（对象结构）：对象结构是一个元素的集合，它用于存放元素对象，并且提供了遍历其内部元素的方法。它可以结合组合模式来实现，也可以是一个简单的集合对象，例如一个List对象或一个Set对象。</li>
+</ul>
+<blockquote>
+<p><strong>访问者模式总结</strong></p>
+<ul>
+<li>优点<ul>
+<li>增加新的访问操作很方便。使用访问者模式，增加新的访问操作就意味着增加一个新的具体访问者类，实现简单，无须修改源代码，符合开闭原则。</li>
+<li>将有关元素对象的访问行为集中到一个访问者对象中，而不是分散在一个个的元素类中。类的职责更加清晰，有利于对象结构中元素对象的复用，相同的对象结构可以供多个不同的访问者访问。</li>
+<li>让用户能够在不修改现有元素类层次结构的情况下，定义作用于该层次结构的操作。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>增加新的元素类很困难。在访问者模式中，每增加一个新的元素类都意味着要在抽象访问者角色中增加一个新的抽象操作，并在每一个具体访问者类中增加相应的具体操作，这违背了开闭原则的要求。</li>
+<li>破坏封装。访问者模式要求访问者对象访问并调用每一个元素对象的操作，这意味着元素对象有时候必须暴露一些自己的内部操作和内部状态，否则无法供访问者访问。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>一个对象结构包含多种类型的对象，希望对这些对象实施一些依赖其具体类型的操作。在访问者中针对每一种具体的类型都提供了一个访问操作，不同类型的对象可以有不同的访问操作。</li>
+<li>需要对一个对象结构中的对象进行很多不同的并且不相关的操作，而且需要避免让这些操作“污染”这些对象的类，也不希望在增加新操作时修改这些类。访问者模式将相关的访问操作集中起来定义在访问者类中，对象结构可以被多个不同的访问者类所使用，将对象本身与对象的访问操作分离。</li>
+<li>对象结构中元素对象对应的类很少改变，但经常需要在此对象结构上定义新的操作。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">mujiubai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://mujiubai.github.io/2023/09/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%89%BA%E6%9C%AF/">https://mujiubai.github.io/2023/09/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%89%BA%E6%9C%AF/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">mujiubai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                                    <span class="chip bg-color">设计模式</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/09/09/leetcode/%E7%AC%94%E8%AF%95%E7%9C%9F%E9%A2%98/%E6%8B%BC%E5%A4%9A%E5%A4%9A2021%E7%AC%94%E8%AF%95%E7%9C%9F%E9%A2%98%E9%9B%86/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="拼多多2021笔试真题集">
+                        
+                        <span class="card-title">拼多多2021笔试真题集</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-09-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%AC%94%E8%AF%95%E7%9C%9F%E9%A2%98/">
+                        <span class="chip bg-color">笔试真题</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%8B%BC%E5%A4%9A%E5%A4%9A/">
+                        <span class="chip bg-color">拼多多</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/08/22/leetcode/other/leetcode-440-%E5%AD%97%E5%85%B8%E5%BA%8F%E7%9A%84%E7%AC%ACK%E5%B0%8F%E6%95%B0%E5%AD%97-difficult/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="440. 字典序的第K小数字">
+                        
+                        <span class="card-title">440. 字典序的第K小数字</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Alg-%E5%AD%97%E5%85%B8%E5%BA%8F/">
+                        <span class="chip bg-color">Alg-字典序</span>
+                    </a>
+                    
+                    <a href="/tags/Alg-%E7%AC%ACk%E6%95%B0/">
+                        <span class="chip bg-color">Alg-第k数</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">mujiubai</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">378.1k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/mujiubai" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1057378931@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1057378931" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1057378931" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

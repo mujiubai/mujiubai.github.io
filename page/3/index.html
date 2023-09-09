@@ -458,28 +458,28 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/03/15/leetcode/%E6%95%B0%E7%BB%84/leetcode-1128-%E7%AD%89%E4%BB%B7%E5%A4%9A%E7%B1%B3%E8%AF%BA%E9%AA%A8%E7%89%8C%E5%AF%B9%E7%9A%84%E6%95%B0%E9%87%8F-simple/">
+                    <a href="/2023/07/09/leetcode/%E6%95%B0%E7%BB%84/leetcode-6919-%E4%BD%BF%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E9%83%BD%E7%AD%89%E4%BA%8E%E9%9B%B6-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="1128. 等价多米诺骨牌对的数量">
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="6919. 使数组中的所有元素都等于零">
                             
-                            <span class="card-title">1128. 等价多米诺骨牌对的数量</span>
+                            <span class="card-title">6919. 使数组中的所有元素都等于零</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                1128. 等价多米诺骨牌对的数量First：开始想用哈希表来做，但还要自己写哈希函数就改为使用排序来做，但效率有点低。看了答案才知对数字大小有限制，可以设计一种哈希方法来做。
+                                6919. 使数组中的所有元素都等于零FIrst：周赛题，用暴力法在最后两个测试用例无法通过，当时隐约想到应该记录该减去的数，但没想到差分。
 
-方法1：排序
-先将数组中的所有值都变成前小后大，然后对其进行
+方法1：差分数组
+使用一个数组a记录在每个位置应该加上或减去多少，当遍历到位置i时,nums[i
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-09
                             </span>
                             <span class="publish-author">
                                 
@@ -497,9 +497,118 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
-                            <span class="chip bg-color">Alg-哈希表</span>
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
                         </a>
+                        
+                        <a href="/tags/Alg-%E5%B7%AE%E5%88%86/">
+                            <span class="chip bg-color">Alg-差分</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/07/06/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91/leetcode-1372-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E9%95%BF%E4%BA%A4%E9%94%99%E8%B7%AF%E5%BE%84-middle/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="1372. 二叉树中的最长交错路径">
+                            
+                            <span class="card-title">1372. 二叉树中的最长交错路径</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                1372. 二叉树中的最长交错路径First：递归挺简单，只是需要记录下状态即可
+
+方法1：深度遍历
+对于每个节点，都使用两个变量分别记录其左边到此节点的路径长度和右边到此节点的路径长度，找出最大值即为结果。
+
+时间复杂度：O(n) 
+空间
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-06
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                            <span class="chip bg-color">Alg-二叉树</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/07/05/leetcode/%E6%95%B0%E7%BB%84/leetcode-2763-%E6%89%80%E6%9C%89%E5%AD%90%E6%95%B0%E7%BB%84%E4%B8%AD%E4%B8%8D%E5%B9%B3%E8%A1%A1%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C-middle/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="2763. 所有子数组中不平衡数字之和">
+                            
+                            <span class="card-title">2763. 所有子数组中不平衡数字之和</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                2763. 所有子数组中不平衡数字之和FIrst：周赛题，没做出来。贡献法还是有点疑惑，每个子数组产生的平衡数总和不知道为啥那样计算，推导出来？
+
+方法1：枚举
+依次枚举所有数组，先列举数组左端点i，再依次从i+1枚举右端点j：
+
+如果nu
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
                         
                         <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
                             <span class="chip bg-color">Alg-数组</span>
@@ -514,364 +623,28 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/03/15/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88/leetcode-85-%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2-diffcult/">
+                    <a href="/2023/07/03/leetcode/%E6%95%B0%E7%BB%84/leetcode-2762-%E4%B8%8D%E9%97%B4%E6%96%AD%E5%AD%90%E6%95%B0%E7%BB%84-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="85. 最大矩形">
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="2762. 不间断子数组">
                             
-                            <span class="card-title">85. 最大矩形</span>
+                            <span class="card-title">2762. 不间断子数组</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                85. 最大矩形First：没做出来，看了解析才知是柱状图最大矩形的拓展题
+                                2762. 不间断子数组FIrst：周赛题，没做出来，没想到怎么合适表示一个区间最大值和最小值。看了解析，才想起map的begin和rbegin就分别指向最小值和最大值
 
-方法1：单调栈
-对于矩阵中的每个为1数字，都可以求得其左边连续1的个数，如下图所示。
-
-当按上述方法求得所有值后，然后按每一列来进行看待，这么一列就可以看成一组柱
+方法1：滑动窗口
+将一个滑动窗口中的所有数值添加到map中，map的
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%8D%95%E8%B0%83%E6%A0%88/">
-                            <span class="chip bg-color">Alg-单调栈</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
-                            <span class="chip bg-color">Alg-双指针</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/03/01/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="5. 最长回文子串">
-                            
-                            <span class="card-title">5. 最长回文子串</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                5. 最长回文子串First：用动态规划和中心扩展都可以，解析里的那个O(n)解法还没看
-
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-
-方法1：
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-01
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/28/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-153-%E5%AF%BB%E6%89%BE%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="153. 寻找旋转排序数组中的最小值">
-                            
-                            <span class="card-title">153. 寻找旋转排序数组中的最小值</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                475. 供暖器First：较为复杂，考虑了四种情况来讨论，但看解析考虑两种情况即可
-
-方法1：二分查找
-还是使用常规二分查找，只是边界更新判定不同。假设旋转后数组可表示为[旋转部分，原来部分]可分为以下情况
-
-如果nums[mid]&gt
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                            <span class="chip bg-color">二分查找</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/28/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-215.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="215. 数组中的第K个最大元素">
-                            
-                            <span class="card-title">215. 数组中的第K个最大元素</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                215. 数组中的第K个最大元素First：先使用的最小堆来做，后面用基于快速排序的方法时边界条件弄了挺久
-
-方法1：基于快速排序的查找
-快速排序每次可以确定一个值的最终位置，利用此点，使用快速排序+二分查找的方法来找结果
-
-时间复杂度：O
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                            <span class="chip bg-color">二分查找</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/27/leetcode/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/leetcode-34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="34. 在排序数组中查找元素的第一个和最后一个位置">
-                            
-                            <span class="card-title">34. 在排序数组中查找元素的第一个和最后一个位置</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                34. 在排序数组中查找元素的第一个和最后一个位置First：主要是细节上的边界判定，查找上边界和下边界分别写了，而解析综合在一起了。关于二分查找边界设定可见代码随想录的二分查找
-
-方法1：二分查找
-分别查找上边界和下边界，注意上下边界的不
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                            <span class="chip bg-color">二分查找</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/23/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-856-%E6%8B%AC%E5%8F%B7%E7%9A%84%E5%88%86%E6%95%B0-middle/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="856. 括号的分数">
-                            
-                            <span class="card-title">856. 括号的分数</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                856. 括号的分数First：用两个栈实现了。
-
-方法1：双栈
-此题主要是需要判断括号中是否有括号，使用一个特殊字符来标记当前匹配括号中是否有括号
-使用两个栈：st1存储压入栈的左括号，为了判断当前匹配的括号情况，因此对于每匹配成功一个括
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-23
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-                            <span class="chip bg-color">Alg-栈与队列</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/22/leetcode/%E6%95%B0%E7%BB%84/leetcode-1498-%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97%E6%95%B0%E7%9B%AE/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="1498. 满足条件的子序列数目">
-                            
-                            <span class="card-title">1498. 满足条件的子序列数目</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                1498. 满足条件的子序列数目First：在细节上纠结了挺久，最后发现如果不预处理数的话对于大数据很难处理
-
-方法1：双指针 
-由于是计算子序列数目，因此元素顺序对子序列无影响。先对数组进行从小到大排序，对于每一个小于等于target的数
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-03
                             </span>
                             <span class="publish-author">
                                 
@@ -897,6 +670,10 @@ dp数组如何初始化
                             <span class="chip bg-color">Alg-数组</span>
                         </a>
                         
+                        <a href="/tags/Alg-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+                            <span class="chip bg-color">Alg-滑动窗口</span>
+                        </a>
+                        
                     </div>
                     
                 </div>
@@ -906,43 +683,91 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/20/c++/c++%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
+                    <a href="/2023/06/29/leetcode/%E6%95%B0%E7%BB%84/leetcode-2751-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%A2%B0%E6%92%9E-difficult/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="C++知识点总结">
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="2751. 机器人碰撞">
                             
-                            <span class="card-title">C++知识点总结</span>
+                            <span class="card-title">2751. 机器人碰撞</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                C++八股总结。参考1、2
+                                2751. 机器人碰撞FIrst：周赛题，当时不知道咋想的，用的是把每个往左边跑的机器人分配一个存储其左边所有往右边跑的机器人队列，十分繁琐，而且还没做出来
 
-
-C++与C的不同点：C++基本兼容C的语法，但相比C多了：
-
-支持面向对象的编程思想
-支持运算符重载
-支持泛型编程、模板
-支持异常处理
-类型检查严格
-
-名字空间使用名字空间是为了避免独立开发时造成的命名冲突。
+方法1：栈模拟
+先将机器人按位置进行排序，按位置就行遍历，如果当前机器人是R，则
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-29
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/C/" class="post-category">
-                                    C++
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/06/28/%E9%A1%B9%E7%9B%AE/CS144/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="CS144">
+                            
+                            <span class="card-title">CS144</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                cs144官网地址：https://cs144.github.io/
+整体难度不大，花了三四天，没看视频直接做的，有点面对测试用例编程的样子，但做了后对TCP细节有了更详细的了解
+各lab所做功能如下图所示
+
+
+
+
+Lab0 network
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-28
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                    项目
                                 </a>
                                 
                                 
@@ -957,6 +782,10 @@ C++与C的不同点：C++基本兼容C的语法，但相比C多了：
                             <span class="chip bg-color">C++</span>
                         </a>
                         
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                            <span class="chip bg-color">计算机网络</span>
+                        </a>
+                        
                     </div>
                     
                 </div>
@@ -966,28 +795,254 @@ C++与C的不同点：C++基本兼容C的语法，但相比C多了：
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%80%A7%E8%83%BDMySQL/">
+                    <a href="/2023/06/28/leetcode/%E6%95%B0%E7%BB%84/leetcode-2749-%E5%BE%97%E5%88%B0%E6%95%B4%E6%95%B0%E9%9B%B6%E9%9C%80%E8%A6%81%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%95%B0-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="高性能MySQL-第三版笔记">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="2749. 得到整数零需要执行的最少操作数">
                             
-                            <span class="card-title">高性能MySQL-第三版笔记</span>
+                            <span class="card-title">2749. 得到整数零需要执行的最少操作数</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                学习《高性能MySQL-第三版》笔记
+                                2749. 得到整数零需要执行的最少操作数FIrst：周赛题，但没做出来
 
-
-
+方法1：枚举
+num1减去k次（num2+2^i)等于0，那么num1-k*num2&#x3D;k *2^i（i可不一样），令x&#x3D;num1-k *num2
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-28
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%95%B0/">
+                            <span class="chip bg-color">Alg-最少操作数</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/06/20/c++/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="面试问题">
+                            
+                            <span class="card-title">面试问题</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                深度探索C++对象模型，阅读笔记
+迭代器失效情况参考1、2
+失效情况：
+
+erase()
+当序列容器调用erase()方法后，当前位置到容器末尾元素的所有迭代器全部失效。
+C++03: deque在头尾删除，只会使得被删除迭代器和引用无效。
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-20
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Other/" class="post-category">
+                                    Other
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                            <span class="chip bg-color">面试</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/06/20/leetcode/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/leetcode-407-%E6%8E%A5%E9%9B%A8%E6%B0%B4II-diffcult/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="407. 接雨水 II">
+                            
+                            <span class="card-title">407. 接雨水 II</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                407. 接雨水 IIFirst：没做出来，和2D接雨水的按列求思路有点类似，但和单调栈差异巨大，因为单调栈只能处理2d的
+
+方法1：最小堆
+在2d接雨水中，使用了左右两个最高墙，而此题就需要维护一个圈（不能只是简单上下左右四个方向）。
+首
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-20
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
+                            <span class="chip bg-color">Alg-优先队列</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/06/12/leetcode/%E6%95%B0%E7%BB%84/leetcode-4-%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0-diffcult/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="4. 寻找两个正序数组的中位数">
+                            
+                            <span class="card-title">4. 寻找两个正序数组的中位数</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                4. 寻找两个正序数组的中位数First：没做出来
+
+方法1：二分查找
+参考1
+
+
+
+时间复杂度：O(log(m+n))
+空间复杂度：O(1)
+
+class Solution &#123;
+public:
+    int getKthEle
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E6%95%B0%E7%BB%84/">
+                            <span class="chip bg-color">Alg-数组</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/06/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/TCPIP%E8%AF%A6%E8%A7%A3%E5%8D%B71-%E7%AC%94%E8%AE%B0/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="TCP/IP详解，卷1：协议阅读笔记">
+                            
+                            <span class="card-title">TCP/IP详解，卷1：协议阅读笔记</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                TCP&#x2F;IP详解，卷1：协议 阅读笔记
+第1章 概 述基础知识：
+
+传输层协议TCP和UDP采用16 bit的端口号来识别应用程序，而知名的程序端口已被固定分配。
+底层向上传送数据时，每层协议都要去检查报文首部中的协议标识，以确定
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-09
                             </span>
                             <span class="publish-author">
                                 
@@ -1005,70 +1060,12 @@ C++与C的不同点：C++基本兼容C的语法，但相比C多了：
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/C/">
-                            <span class="chip bg-color">C++</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
                         </a>
                         
-                        <a href="/tags/MySQL/">
-                            <span class="chip bg-color">MySQL</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/c++/C++11%E6%96%B0%E7%89%B9%E6%80%A7/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="C++11新特性">
-                            
-                            <span class="card-title">C++11新特性</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                C++11新特性，bilibili视频地址, 博客地址。
-
-
-1. 原始字面量编程过程中，使用的字符串中常带有一些特殊字符，如\t等符号，导致输入路径时输入\需要输入\
-C++11 中提供了定义原始字符串的字面量，定义方式如下
-R“xxx(
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/C/" class="post-category">
-                                    C++
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/C-11/">
-                            <span class="chip bg-color">C++11</span>
-                        </a>
-                        
-                        <a href="/tags/C/">
-                            <span class="chip bg-color">C++</span>
+                        <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                            <span class="chip bg-color">网络</span>
                         </a>
                         
                     </div>
@@ -1080,36 +1077,35 @@ R“xxx(
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/c++/Effective_Modern_C++/">
+                    <a href="/2023/06/01/leetcode/other/leetcode-470-%E7%94%A8Rand7()%20%E5%AE%9E%E7%8E%B0%20Rand10()-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Effective Modern C++">
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="470. 用 Rand7() 实现 Rand10()">
                             
-                            <span class="card-title">Effective Modern C++</span>
+                            <span class="card-title">470. 用 Rand7() 实现 Rand10()</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                记录《**Effective Modern C++**》阅读笔记
+                                470. 用 Rand7() 实现 Rand10()FIrst：没做出来，有个固定公式
 
-
-CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11修改了其中的⼀些规则并为auto和decltype添加了新的规则。
-1. 
+方法1：
+直接将两个rand7加或乘会导致得到的数字概率不一样，因此需要找到一种求得概率相同的方法：(rand_X() - 1) × Y + rand
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-01
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/C/" class="post-category">
-                                    C++
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
                                 </a>
                                 
                                 
@@ -1120,8 +1116,8 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/C/">
-                            <span class="chip bg-color">C++</span>
+                        <a href="/tags/Alg-%E9%9A%8F%E6%9C%BA%E6%95%B0/">
+                            <span class="chip bg-color">Alg-随机数</span>
                         </a>
                         
                     </div>
@@ -1147,7 +1143,7 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">3 / 16</div>
+            <div class="center-align b-text-gray">3 / 18</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -1234,7 +1230,7 @@ CHAPTER1 Deducing TypesC++98有⼀套⽤于模板类型推导的规则，C++11�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">321.2k</span>
+                        class="white-color">378.1k</span>
             
             
             
