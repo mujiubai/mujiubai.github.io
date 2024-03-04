@@ -110,6 +110,13 @@
       </li>
       
       <li>
+        <a href="/categories/JAVA/">
+          
+          <span>Java</span>
+        </a>
+      </li>
+      
+      <li>
         <a href="/categories/LeetCode/">
           
           <span>LeetCode</span>
@@ -245,6 +252,14 @@
                   <a href="/categories/C/ " style="margin-left:75px">
 				  
 		          <span>C++</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/JAVA/ " style="margin-left:75px">
+				  
+		          <span>Java</span>
                   </a>
                 </li>
               
@@ -458,27 +473,23 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-1049-%E6%9C%80%E5%90%8E%E4%B8%80%E5%9D%97%E7%9F%B3%E5%A4%B4%E7%9A%84%E9%87%8D%E9%87%8FII-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-15-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="1049. 最后一块石头的重量 II">
+                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="15. 三数之和">
                             
-                            <span class="card-title">1049. 最后一块石头的重量 II</span>
+                            <span class="card-title">15. 三数之和</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                1049. 最后一块石头的重量 IIFirst：没想出来咋做，看了答案发现可以转换为01背包来做，还是对问题理解得不够深刻
+                                15. 三数之和First：开始打算使用set来排除重复项，但太麻烦了。先进行排序，用一个哈希表记录下值和序号，然后用双重遍历找出结果。但这种打败比例很低，还是双指针快。
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
+方法1：排序+哈希表
+先将数据进行排序，然后使用一个map记录下数
                             
                         </div>
                         <div class="publish-info">
@@ -501,8 +512,12 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
                         </a>
                         
                     </div>
@@ -514,32 +529,20 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-1143-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-18-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="1143. 最长公共子序列">
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="18. 四数之和">
                             
-                            <span class="card-title">1143. 最长公共子序列</span>
+                            <span class="card-title">18. 四数之和</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                1143. 最长公共子序列First：和748题很像，只是在处理字符不相同情况时的处理方法不一样
-
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-
-
+                                18. 四数之和First：将其当成四组数据再两两分组来做的话，感觉排除重复值太麻烦了。还是用的三重循环来做，但我先用的target减前两个值时，遇见了overflow情况，解决方法是先将target转为long long，虽然可以用加法但
                             
                         </div>
                         <div class="publish-info">
@@ -562,8 +565,12 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
+                        </a>
+                        
+                        <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">双指针</span>
                         </a>
                         
                     </div>
@@ -575,31 +582,21 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-115-%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97-difficult/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-202-%E5%BF%AB%E4%B9%90%E6%95%B0-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="115. 不同的子序列">
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="202. 快乐数">
                             
-                            <span class="card-title">115. 不同的子序列</span>
+                            <span class="card-title">202. 快乐数</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                115. 不同的子序列First：没做出来，没推导出转移方程
-Second：还是没做出来，淦
-
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
+                                202. 快乐数First：看到这题觉得值会越来越大，就没法判别无限大的情况，但是这种情况不会出现
+Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但感觉也只能硬比，没想到再小区间中无限循环值是一定会重复的。
 
 方法
                             
@@ -624,8 +621,12 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
                         </a>
                         
                     </div>
@@ -637,28 +638,23 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-204-%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="121. 买卖股票的最佳时机">
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="204. 计数质数">
                             
-                            <span class="card-title">121. 买卖股票的最佳时机</span>
+                            <span class="card-title">204. 计数质数</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                121. 买卖股票的最佳时机First：卡住了，淦，dp时分成了三种状态：买、卖、持有，折腾了半天还是没把状态搞好
+                                204. 计数质数First：刚开始的时候还判断了下是否属于质数，但细节问题导致超时了，后来想到直接每个质数倍乘，最后找出质数即可
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推
+方法1：埃氏筛
+如果x是质数，那么2x、3x一定不是质数，那么从2开始，不断将倍乘置为非质数，统计所有质数
                             
                         </div>
                         <div class="publish-info">
@@ -681,8 +677,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -694,25 +690,23 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-242-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="322. 零钱兑换">
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="242. 有效的字母异位词">
                             
-                            <span class="card-title">322. 零钱兑换</span>
+                            <span class="card-title">242. 有效的字母异位词</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                322. 零钱兑换First：做的时候陷入到挑选数的套路中去了，觉得还要记录以下选了单词后的剩余状态。最后看了点解析就发现还是没理解透动态规划关于挑选物品的核心。
+                                242. 有效的字母异位词First：直接定义一个数组来存储字母出现频率
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递
+方法1：哈希表
+定义两个数组来分别存储两个字符串中各自字符出现频率（官方解答中还有点优化空间，只定义一个数组来存储s频率，在遍历t时依次将s中对应字母个数减一，如减
                             
                         </div>
                         <div class="publish-info">
@@ -735,8 +729,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -748,32 +742,25 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-213-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DII-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-349-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="213. 打家劫舍 II">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="349. 两个数组的交集">
                             
-                            <span class="card-title">213. 打家劫舍 II</span>
+                            <span class="card-title">349. 两个数组的交集</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                213. 打家劫舍 IIFirst：没做出来，一直想着直接用dp来做，而不是转化为两次dp
+                                349. 两个数组的交集First：使用一个1001大小的数组来存储是否出现过
 
-动态规划五部法：
+方法1：哈希表
+定义一个1001大小的数组来存储字符串s的频率，但这是已知值范围的情况下才可这么做。然后，直接遍历t中每个字符是否出现在频率数组中即可。
 
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-
-方法1
+时
                             
                         </div>
                         <div class="publish-info">
@@ -796,8 +783,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -809,24 +796,28 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-383-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="322. 零钱兑换">
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="383. 赎金信">
                             
-                            <span class="card-title">322. 零钱兑换</span>
+                            <span class="card-title">383. 赎金信</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                322. 零钱兑换First：看着像01背包，但无法解决不能连续选的问题，后来做的方法和答案有些差别，想的是只有两种选择，要么选往前退第二个数，要么第三个数，但最后需要在最后两个数中选择最大的数。
+                                383. 赎金信First：直接使用哈希表
 
-动态规划五部法：
+方法1：哈希表
+直接使用哈希表或自己使用一个数组记录第二个字符串的字母出现次数，再遍历第一个字符串即可
 
-确定dp数组（dp 
+时间复杂度：O(n) 
+空间复杂度：O(1)
+
+class Solution &#123
                             
                         </div>
                         <div class="publish-info">
@@ -849,8 +840,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -862,26 +853,23 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-2767-%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E4%B8%BA%E6%9C%80%E5%B0%91%E7%9A%84%E7%BE%8E%E4%B8%BD%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-454-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="2767. 将字符串分割为最少的美丽子字符串">
+                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="454. 四数相加 II">
                             
-                            <span class="card-title">2767. 将字符串分割为最少的美丽子字符串</span>
+                            <span class="card-title">454. 四数相加 II</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                2767. 将字符串分割为最少的美丽子字符串First：较常规，只是找二进制麻烦一点，直接计算出二进制，预置到数组中。使用dp求解即可。
+                                454. 四数相加 IIFirst：开始尝试了下三重循环做，但超时了。想过是否可以排除一些特殊分支，减少循环。想将两两分组来做，但感觉太麻烦了。
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
+方法1：哈希表+两两分组
+将四组数据两两分组，将ab两组先加起来存储到哈希表中，再遍历cd两
                             
                         </div>
                         <div class="publish-info">
@@ -904,12 +892,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
-                        </a>
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -921,28 +905,23 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-532-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%20k-diff%20%E6%95%B0%E5%AF%B9-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="279. 完全平方数">
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="532. 数组中的 k-diff 数对">
                             
-                            <span class="card-title">279. 完全平方数</span>
+                            <span class="card-title">532. 数组中的 k-diff 数对</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                279. 完全平方数First：也是一道完全背包中求目标和所需最小数量类型题，和322一样，只是稍有变化
+                                532. 数组中的 k-diff 数对FIrst：使用的方法1做出来，但效率不高，关键是去重的同时k&#x3D;0时也要能找到
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
+方法1：排序+set
+先对数组进行从小到大排序，使用map存储已经出现的数字，再依次遍历数组，如果nums[i
                             
                         </div>
                         <div class="publish-info">
@@ -965,8 +944,8 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -978,33 +957,23 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-151-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="300. 最长递增子序列">
+                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="151. 反转字符串中的单词">
                             
-                            <span class="card-title">300. 最长递增子序列</span>
+                            <span class="card-title">151. 反转字符串中的单词</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                300. 最长递增子序列First：以前做过，不难，就按动态规划思想来即可
+                                151. 反转字符串中的单词First：先找出每个单词再拼一起。写到后面发现可以从尾部遍历，那么就不需要额外空间了。
 
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-
-方法1：动态规划
-使用
+方法1：顺序遍历+双指针
+从首部开始，使用两个指针来找到单词的首尾从而找到每个单词，使用一个容器存储这些单词，再将每个单
                             
                         </div>
                         <div class="publish-info">
@@ -1027,12 +996,12 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E8%B4%AA%E5%BF%83/">
-                            <span class="chip bg-color">Alg-贪心</span>
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
                         </a>
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                            <span class="chip bg-color">Alg-字符串</span>
                         </a>
                         
                     </div>
@@ -1044,28 +1013,25 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-337-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DIII-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-28-middle/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="213. 打家劫舍 II">
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="28. 找出字符串中第一个匹配项的下标">
                             
-                            <span class="card-title">213. 打家劫舍 II</span>
+                            <span class="card-title">28. 找出字符串中第一个匹配项的下标</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                213. 打家劫舍 IIFirst：没想出咋记录选与不选状态，感觉用数组来记录又消耗太大，这是到树形动态规划的基本题
+                                28. 找出字符串中第一个匹配项的下标First：使用KMP算法查找
 
-动态规划五部法：
+方法1：KMP算法
+使用暴力算法做了许多不必要的对比，而KMP算法减少对比的方法就是使用前缀表来记录下一次应该从子串的哪个位置开始对比。
 
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例
+前缀表：记录下标i之前（包括
                             
                         </div>
                         <div class="publish-info">
@@ -1088,8 +1054,12 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                            <span class="chip bg-color">Alg-字符串</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-KMP/">
+                            <span class="chip bg-color">Alg-KMP</span>
                         </a>
                         
                     </div>
@@ -1101,25 +1071,30 @@ dp数组如何初始化
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-343-%E6%95%B4%E6%95%B0%E6%8B%86%E5%88%86-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/leetcode-344-simple/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="343. 整数拆分">
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="344. 反转字符串">
                             
-                            <span class="card-title">343. 整数拆分</span>
+                            <span class="card-title">344. 反转字符串</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                343. 整数拆分First：用数学方法做出来的，虽然逻辑想清楚了，但最底层的原理大于4的数拆分成两项后的乘积大于原数没理出来，只是理出了只能用2和3进行拆分。
+                                344. 反转字符串First：直接交换即可
 
-动态规划五部法：
+方法1：双指针
+双指针指向前部和尾部，再交换即可
 
-确定dp数组（dp table）以及下标的含义
-确定递推
+时间复杂度：O(n)
+空间复杂度：O(1)
+
+class Solution &#123;
+public:
+    void reverseS
                             
                         </div>
                         <div class="publish-info">
@@ -1142,8 +1117,12 @@ dp数组如何初始化
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                            <span class="chip bg-color">Alg-字符串</span>
                         </a>
                         
                     </div>
@@ -1247,7 +1226,7 @@ dp数组如何初始化
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <a href="/about" target="_blank">mujiubai</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1256,7 +1235,7 @@ dp数组如何初始化
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">443.8k</span>
+                        class="white-color">444.2k</span>
             
             
             

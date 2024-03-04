@@ -117,6 +117,13 @@
       </li>
       
       <li>
+        <a href="/categories/JAVA/">
+          
+          <span>Java</span>
+        </a>
+      </li>
+      
+      <li>
         <a href="/categories/LeetCode/">
           
           <span>LeetCode</span>
@@ -252,6 +259,14 @@
                   <a href="/categories/C/ " style="margin-left:75px">
 				  
 		          <span>C++</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories/JAVA/ " style="margin-left:75px">
+				  
+		          <span>Java</span>
                   </a>
                 </li>
               
@@ -467,21 +482,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-24
+                    2023-11-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    33.6k
+                    34k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    119 分
+                    120 分
                 </div>
                 
 
@@ -623,6 +638,18 @@
 <p><strong>HTTP 是一个在计算机世界里专门在「两点」之间「传输」文字、图片、音频、视频等「超文本」数据的「约定和规范」。</strong></p>
 <hr>
 <h3 id="HTTP-常见的状态码有哪些？"><a href="#HTTP-常见的状态码有哪些？" class="headerlink" title="HTTP 常见的状态码有哪些？"></a>HTTP 常见的状态码有哪些？</h3><p><img src="https://cdn.jsdelivr.net/gh/mujiubai/piclib@main/picgo/image-20230329155907563.png"></p>
+<ul>
+<li><p><strong>1xx 信息</strong><br>100 Continue ：表明到目前为止都很正常，客户端可以继续发送请求或者忽略这个响应。</p>
+</li>
+<li><p>2xx 成功<br><strong>200 OK</strong><br>204 No Content ：请求已经成功处理，但是返回的响应报文不包含实体的主体部分。一般在只需要从客户端往服务器发送信息，而不需要返回数据时使用。<br>206 Partial Content ：表示客户端进行了范围请求，响应报文包含由 Content-Range 指定范围的实体内容。</p>
+</li>
+<li><p><strong>3xx 重定向</strong><br>301 Moved Permanently ：永久性重定向<br>302 Found ：临时性重定向<br>303 See Other ：和 302 有着相同的功能，但是 303 明确要求客户端应该采用 GET 方法获取资源。<br>304 Not Modified ：如果请求报文首部包含一些条件，例如：If-Match，If-Modified-Since，If-None-Match，If-Range，If-Unmodified-Since，如果不满足条件，则服务器会返回 304 状态码。<br>307 Temporary Redirect ：临时重定向，与 302 的含义类似，但是 307 要求浏览器不会把重定向请求的 POST 方法改成 GET 方法。</p>
+</li>
+<li><p><strong>4xx 客户端错误</strong><br>400 Bad Request ：请求报文中存在语法错误。<br>401 Unauthorized ：该状态码表示发送的请求需要有认证信息（BASIC 认证、DIGEST 认证）。如果之前已进行过一次请求，则表示用户认证失败。<br>403 Forbidden ：请求被拒绝。<br>404 Not Found</p>
+</li>
+<li><p><strong>5xx 服务器错误</strong><br>500 Internal Server Error ：服务器正在执行请求时发生错误。<br>503 Service Unavailable ：服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。</p>
+</li>
+</ul>
 <hr>
 <h3 id="HTTP-常见字段有哪些？"><a href="#HTTP-常见字段有哪些？" class="headerlink" title="HTTP 常见字段有哪些？"></a>HTTP 常见字段有哪些？</h3><ul>
 <li><strong><em>Host</em> 字段</strong>：使用此字段可以在相同ip+端口部署不同服务</li>
@@ -2402,13 +2429,13 @@ Sec-WebSocket-Key: T2a6wZlAwhgQNqruZ2YUyg&#x3D;&#x3D;\r\n<span aria-hidden="true
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/other/leetcode-1619-simple/">
+                <a href="/2023/02/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%B0%8F%E6%9E%97coding-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%AC%94%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="1619. 删除某些元素后的数组均值">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="小林coding-操作系统-笔记">
                         
-                        <span class="card-title">1619. 删除某些元素后的数组均值</span>
+                        <span class="card-title">小林coding-操作系统-笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -2425,8 +2452,8 @@ Sec-WebSocket-Key: T2a6wZlAwhgQNqruZ2YUyg&#x3D;&#x3D;\r\n<span aria-hidden="true
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-category">
+                                    计算机基础知识
                                 </a>
                             
                             
@@ -2436,8 +2463,8 @@ Sec-WebSocket-Key: T2a6wZlAwhgQNqruZ2YUyg&#x3D;&#x3D;\r\n<span aria-hidden="true
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E6%8E%92%E5%BA%8F/">
-                        <span class="chip bg-color">Alg-排序</span>
+                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
                     </a>
                     
                 </div>
@@ -2451,13 +2478,13 @@ Sec-WebSocket-Key: T2a6wZlAwhgQNqruZ2YUyg&#x3D;&#x3D;\r\n<span aria-hidden="true
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/15/leetcode/other/leetcode-179-%E6%9C%80%E5%A4%A7%E6%95%B0-middle/">
+                <a href="/2023/02/15/%E9%A1%B9%E7%9B%AE/mprpc/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="179. 最大数">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="mprpc">
                         
-                        <span class="card-title">179. 最大数</span>
+                        <span class="card-title">mprpc</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -2474,8 +2501,8 @@ Sec-WebSocket-Key: T2a6wZlAwhgQNqruZ2YUyg&#x3D;&#x3D;\r\n<span aria-hidden="true
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                    项目
                                 </a>
                             
                             
@@ -2485,8 +2512,12 @@ Sec-WebSocket-Key: T2a6wZlAwhgQNqruZ2YUyg&#x3D;&#x3D;\r\n<span aria-hidden="true
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Alg-%E6%8E%92%E5%BA%8F/">
-                        <span class="chip bg-color">Alg-排序</span>
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/RPC/">
+                        <span class="chip bg-color">RPC</span>
                     </a>
                     
                 </div>
@@ -2675,7 +2706,7 @@ Sec-WebSocket-Key: T2a6wZlAwhgQNqruZ2YUyg&#x3D;&#x3D;\r\n<span aria-hidden="true
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <a href="/about" target="_blank">mujiubai</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -2684,7 +2715,7 @@ Sec-WebSocket-Key: T2a6wZlAwhgQNqruZ2YUyg&#x3D;&#x3D;\r\n<span aria-hidden="true
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">443.8k</span>
+                        class="white-color">444.2k</span>
             
             
             
