@@ -474,37 +474,10 @@
                 
                 
                 
-                <a href="/categories/JAVA/" title="JAVA: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9EBEA;">JAVA
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="计算机基础知识: 8">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F5EEF8;">计算机基础知识
-                        <span class="tag-length">8</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E9%A1%B9%E7%9B%AE/" title="项目: 5">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D5F5E3;">项目
-                        <span class="tag-length">5</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/categories/C/" title="C++: 9">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #E8F8F5;">C++
+                            style="background-color: #F9EBEA;">C++
                         <span class="tag-length">9</span>
                     </span>
                 </a>
@@ -513,8 +486,35 @@
                 <a href="/categories/Other/" title="Other: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #FEF9E7;">Other
+                            style="background-color: #F5EEF8;">Other
                         <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="计算机基础知识: 9">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #D5F5E3;">计算机基础知识
+                        <span class="tag-length">9</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/JAVA/" title="JAVA: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #E8F8F5;">JAVA
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/%E9%A1%B9%E7%9B%AE/" title="项目: 5">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #FEF9E7;">项目
+                        <span class="tag-length">5</span>
                     </span>
                 </a>
                 
@@ -541,24 +541,22 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-40-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CII-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-454-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="40. 组合总和 II">
+                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="454. 四数相加 II">
                             
-                            <span class="card-title">40. 组合总和 II</span>
+                            <span class="card-title">454. 四数相加 II</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                40. 组合总和 IIFirst：和39差不多，只是需要点技巧来避免重复
+                                454. 四数相加 IIFirst：开始尝试了下三重循环做，但超时了。想过是否可以排除一些特殊分支，减少循环。想将两两分组来做，但感觉太麻烦了。
 
-方法1：回溯
-本题关键是避免重复值，先对数组进行排序，使得更容易剪枝优化。
-中止条件：当需要找的target为0时，将其添加进结果中
-遍历过程：从小到大遍历，假设遍
+方法1：哈希表+两两分组
+将四组数据两两分组，将ab两组先加起来存储到哈希表中，再遍历cd两
                             
                         </div>
                         <div class="publish-info">
@@ -581,8 +579,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
-                            <span class="chip bg-color">Alg-回溯</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -592,24 +590,27 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-383-simple/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="39. 组合总和">
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="383. 赎金信">
                             
-                            <span class="card-title">39. 组合总和</span>
+                            <span class="card-title">383. 赎金信</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                39. 组合总和First：基础的回溯算法再加上一点剪枝
+                                383. 赎金信First：直接使用哈希表
 
-方法1：回溯
-先对数组进行排序，使得可以进行剪枝优化。再使用常规的回溯方法不断递归重复找即可。
-中止条件：当需要找的target为0时，将其添加进结果中
-遍历过程：从小到大遍历，将
+方法1：哈希表
+直接使用哈希表或自己使用一个数组记录第二个字符串的字母出现次数，再遍历第一个字符串即可
+
+时间复杂度：O(n) 
+空间复杂度：O(1)
+
+class Solution &#123
                             
                         </div>
                         <div class="publish-info">
@@ -632,8 +633,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
-                            <span class="chip bg-color">Alg-回溯</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -643,22 +644,22 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-37-%E8%A7%A3%E6%95%B0%E7%8B%AC-difficult/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-242-simple/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="37. 解数独">
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="242. 有效的字母异位词">
                             
-                            <span class="card-title">37. 解数独</span>
+                            <span class="card-title">242. 有效的字母异位词</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                37. 解数独First：思想不难，但细节较多
+                                242. 有效的字母异位词First：直接定义一个数组来存储字母出现频率
 
-方法1：回溯
-使用used1矩阵来记录每一个3*3宫格内数字使用情况，使用used2来记录每行数字使用情况，使用used3矩阵来记录每列数字使用情况。计算出所有需要填充的空格数dianNum
+方法1：哈希表
+定义两个数组来分别存储两个字符串中各自字符出现频率（官方解答中还有点优化空间，只定义一个数组来存储s频率，在遍历t时依次将s中对应字母个数减一，如减
                             
                         </div>
                         <div class="publish-info">
@@ -681,8 +682,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
-                            <span class="chip bg-color">Alg-回溯</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -692,22 +693,22 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-332-%E9%87%8D%E6%96%B0%E5%AE%89%E6%8E%92%E8%A1%8C%E7%A8%8B-difficult/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-204-%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="332. 重新安排行程">
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="204. 计数质数">
                             
-                            <span class="card-title">332. 重新安排行程</span>
+                            <span class="card-title">204. 计数质数</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                332. 重新安排行程First：思想挺简单，但比较麻烦
+                                204. 计数质数First：刚开始的时候还判断了下是否属于质数，但细节问题导致超时了，后来想到直接每个质数倍乘，最后找出质数即可
 
-方法1：回溯
-先使用一个set记录所有的机场名字，为了保证字典排序小的行程优先，因此需要对机场名字进行排序，得到sortNames。然后以sortName为序，使用一个矩阵来距离每
+方法1：埃氏筛
+如果x是质数，那么2x、3x一定不是质数，那么从2开始，不断将倍乘置为非质数，统计所有质数
                             
                         </div>
                         <div class="publish-info">
@@ -730,8 +731,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
-                            <span class="chip bg-color">Alg-回溯</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -741,23 +742,22 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-216-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CIII-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-202-%E5%BF%AB%E4%B9%90%E6%95%B0-simple/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="216. 组合总和 III">
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="202. 快乐数">
                             
-                            <span class="card-title">216. 组合总和 III</span>
+                            <span class="card-title">202. 快乐数</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                216. 组合总和 IIIFirst：和77差不多
+                                202. 快乐数First：看到这题觉得值会越来越大，就没法判别无限大的情况，但是这种情况不会出现
+Second: 22-11-19，干，虽然知道数到一定值后就不能再变大，但感觉也只能硬比，没想到再小区间中无限循环值是一定会重复的。
 
-方法1：回溯
-使用k记录还需多少个数，使用n记录还需寻找之和，不断递归重复找，按顺序遍历（只添加当前值后面的数）使得不存在重复值
-中止条件：当n等于0且k&#x3D;&#x3D;0时，将
+方法
                             
                         </div>
                         <div class="publish-info">
@@ -780,8 +780,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
-                            <span class="chip bg-color">Alg-回溯</span>
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -791,24 +795,19 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-18-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="17. 电话号码的字母组合">
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="18. 四数之和">
                             
-                            <span class="card-title">17. 电话号码的字母组合</span>
+                            <span class="card-title">18. 四数之和</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                17. 电话号码的字母组合First：回溯遍历即可
-
-方法1：回溯
-使用一个map记录下每个数字对应哪些字母，然后回溯遍历每个数字对应的字母即可
-中止条件：遍历下标值和digits大小相等时
-遍历过程：从小到大遍历digits每个数字对应的
+                                18. 四数之和First：将其当成四组数据再两两分组来做的话，感觉排除重复值太麻烦了。还是用的三重循环来做，但我先用的target减前两个值时，遇见了overflow情况，解决方法是先将target转为long long，虽然可以用加法但
                             
                         </div>
                         <div class="publish-info">
@@ -831,8 +830,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
-                            <span class="chip bg-color">Alg-回溯</span>
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
+                        </a>
+                        
+                        <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">双指针</span>
                         </a>
                         
                     </div>
@@ -842,26 +845,22 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/leetcode-131-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2-middle/">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-15-middle/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="131. 分割回文串">
+                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="15. 三数之和">
                             
-                            <span class="card-title">131. 分割回文串</span>
+                            <span class="card-title">15. 三数之和</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                131. 分割回文串First：每理解到分割和组合取其实是差不多得，看了解析的这个分割理解才做出来。
+                                15. 三数之和First：开始打算使用set来排除重复项，但太麻烦了。先进行排序，用一个哈希表记录下值和序号，然后用双重遍历找出结果。但这种打败比例很低，还是双指针快。
 
-方法1：回溯
-
-切割问题类似组合问题。
-例如对于字符串abcdef：
-
-组合问题：选取一个a之后，在bcdef中再去选取第二个，选取b之
+方法1：排序+哈希表
+先将数据进行排序，然后使用一个map记录下数
                             
                         </div>
                         <div class="publish-info">
@@ -884,8 +883,68 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Alg-%E5%9B%9E%E6%BA%AF/">
-                            <span class="chip bg-color">Alg-回溯</span>
+                        <a href="/tags/Alg-%E5%8F%8C%E6%8C%87%E9%92%88/">
+                            <span class="chip bg-color">Alg-双指针</span>
+                        </a>
+                        
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/02/15/leetcode/%E5%93%88%E5%B8%8C%E8%A1%A8/leetcode-1-simple/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="1. 两数之和">
+                            
+                            <span class="card-title">1. 两数之和</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                1. 两数之和First：使用哈希表
+
+方法1：哈希表
+直接使用哈希表判断是否存在数即可
+
+时间复杂度：O(n)
+空间复杂度：O(n)
+
+class Solution &#123;
+public:
+    vector&lt;int&gt;
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/LeetCode/" class="post-category">
+                                    LeetCode
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Alg-%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                            <span class="chip bg-color">Alg-哈希表</span>
                         </a>
                         
                     </div>
@@ -998,62 +1057,6 @@
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/02/15/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/leetcode-746-%E4%BD%BF%E7%94%A8%E6%9C%80%E5%B0%8F%E8%8A%B1%E8%B4%B9%E7%88%AC%E6%A5%BC%E6%A2%AF-simple/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="746. 使用最小花费爬楼梯">
-                            
-                            <span class="card-title">746. 使用最小花费爬楼梯</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                746. 使用最小花费爬楼梯First：爬到当前楼梯方法等于前面两级楼梯当前费用+继续爬代价中最小的
-
-动态规划五部法：
-
-确定dp数组（dp table）以及下标的含义
-确定递推公式
-dp数组如何初始化
-确定遍历顺序
-举例推导dp数组
-
-
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Alg-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-                            <span class="chip bg-color">Alg-动态规划</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 </main>
@@ -1088,60 +1091,6 @@ dp数组如何初始化
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
-
-    
 
     <div class="container row center-align"
          style="margin-bottom: 0px !important;">
@@ -1157,7 +1106,7 @@ dp数组如何初始化
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">444.2k</span>
+                        class="white-color">445.7k</span>
             
             
             
